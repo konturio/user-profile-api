@@ -9,13 +9,18 @@ import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.User;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,8 +29,8 @@ public class FeatureService {
     private final UserDao userDao;
     private final FeatureDao featureDao;
 
-    public String getUserDefaultEventFeed(List<String> tokenClaims) {
-        return getUserFeatures(tokenClaims)
+    public String getUserDefaultEventFeed() {
+        return getUserFeatures()
             .filter(it -> FeatureType.EVENT_FEED == it.getType())
             .max(Comparator.comparing(it -> !it.isBeta()))
             .map(Feature::getName)
@@ -37,7 +42,8 @@ public class FeatureService {
             .filter(Feature::isEnabled);
     }
 
-    public Stream<Feature> getUserFeatures(List<String> tokenClaims) {
+    public Stream<Feature> getUserFeatures() {
+        List<String> tokenClaims = getTokenClaims();
         Optional<User> currentUser = getCurrentUser(tokenClaims);
         if (currentUser.isEmpty()) {
             return getPublicFeatures();
@@ -98,5 +104,20 @@ public class FeatureService {
 
     private String removePrefixFromUsernameClaim(String claim) {
         return claim.substring(USERNAME_PREFIX.length());
+    }
+
+    private List<String> getTokenClaims() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return List.of();
+        }
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        if (authorities == null) {
+            return List.of();
+        }
+
+        return authorities.stream().map(GrantedAuthority::getAuthority)
+            .collect(Collectors.toList());
     }
 }

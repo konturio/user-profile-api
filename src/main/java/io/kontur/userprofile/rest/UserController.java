@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class UserController {
+public class UserController { //todo this api is not used by anyone
     private final UserDao userDao;
 
     @Operation(summary = "Get List of Users")
