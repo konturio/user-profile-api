@@ -1,0 +1,8 @@
+### Database Changelog
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: sql/create-schema.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/create-default-features.sql

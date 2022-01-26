@@ -1,0 +1,102 @@
+package io.kontur.userprofile.config;
+
+import static io.kontur.userprofile.config.OpenApiConfiguration.JWT_AUTH_DISABLED;
+
+import com.nimbusds.jose.shaded.json.JSONArray;
+import com.nimbusds.jose.shaded.json.JSONObject;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+
+@EnableWebSecurity
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Profile("!" + JWT_AUTH_DISABLED)
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    public Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
+            jwtGrantedAuthoritiesConverter());
+        return jwtAuthenticationConverter;
+    }
+
+    @Bean
+    public Converter<Jwt, Collection<GrantedAuthority>> jwtGrantedAuthoritiesConverter() {
+        JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
+        return new Converter<Jwt, Collection<GrantedAuthority>>() {
+            @Override
+            public Collection<GrantedAuthority> convert(Jwt jwt) {
+                Collection<GrantedAuthority> grantedAuthorities = converter.convert(jwt);
+                if (jwt.hasClaim(ClaimParams.REALM_ACCESS)) {
+                    //client roles (for user profile service itself) are not used yet
+                    JSONObject realmAccess = jwt.getClaim(ClaimParams.REALM_ACCESS);
+                    if (realmAccess.containsKey(ClaimParams.ROLES)) {
+                        JSONArray realmRoles = (JSONArray) realmAccess.get(ClaimParams.ROLES);
+                        List<SimpleGrantedAuthority> keycloakAuthorities = realmRoles.stream()
+                            .map(role -> new SimpleGrantedAuthority(
+                                ClaimParams.ROLE_PREFIX + role))
+                            .collect(Collectors.toList());
+                        grantedAuthorities.addAll(keycloakAuthorities);
+                    }
+                }
+                if (jwt.hasClaim(ClaimParams.USERNAME)) {
+                    grantedAuthorities.add(new SimpleGrantedAuthority(
+                        ClaimParams.USERNAME_PREFIX + jwt.getClaim(ClaimParams.USERNAME)));
+                }
+                return grantedAuthorities;
+            }
+        };
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http
+            .headers().cacheControl().disable()
+            .and()
+            .authorizeRequests()
+
+            .antMatchers("/doc", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+            .permitAll()
+
+            .antMatchers("/actuator", "/actuator/**")
+            .permitAll() //TODO security temporarily disabled
+
+            .antMatchers("/features") //public endpoint
+            .permitAll()
+            .antMatchers("/features/user_feed") //public endpoint
+            .permitAll()
+
+            .anyRequest().authenticated()
+            .and()
+            .oauth2ResourceServer(resourceServerConfigurer -> resourceServerConfigurer
+                .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(
+                    jwtAuthenticationConverter()))
+            );
+    }
+
+    public static class ClaimParams {
+        public static final String ROLE_PREFIX = "ROLE_";
+        public static final String USERNAME_PREFIX = "USERNAME_";
+
+
+        public static final String REALM_ACCESS = "realm_access";
+        public static final String ROLES = "roles";
+        public static final String USERNAME = "username";
+    }
+}

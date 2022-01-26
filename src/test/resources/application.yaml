@@ -1,0 +1,28 @@
+server:
+  port: 8631
+  servlet:
+    context-path: /userprofile
+
+spring:
+  liquibase:
+    changelog: classpath:changelog/changelog.yaml
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/userprofile
+    password: user-profile-api
+    username: user-profile-api
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 3
+      auto-commit: false
+      driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none #none so that Hibernate doesn't update schema (this is already done by liquibase)
+      use-new-id-generator-mappings: false #false means use postgres sequences
+    open-in-view: false
+  profiles:
+    active: jwtAuthDisabled
+
+springdoc:
+  writer-with-default-pretty-printer: true

@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+}
+
+group 'io.kontur.userprofile'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    //model
+    implementation project(":model")
+
+    //postgresql
+    implementation 'org.postgresql:postgresql:42.3.1'
+
+    //hibernate
+    implementation 'org.hibernate:hibernate-core:5.5.3.Final'
+    implementation 'org.hibernate:hibernate-ehcache:5.5.3.Final'
+
+    //ejb (required for keycloak integration)
+    implementation 'javax.ejb:javax.ejb-api:3.2.2'
+
+    //keycloak
+    implementation 'org.keycloak:keycloak-core:15.0.0'
+    implementation 'org.keycloak:keycloak-server-spi:15.0.0'
+
+    //lombok
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'
+}
+
+jar {
+    archiveName("${archivesBaseName}.jar")
+    //include model classes into jar
+    from fileTree('../model/build/classes/java/main/') {
+        include '**/*.class'
+    } into ""
+}
+
+checkstyle {
+    configFile file("../codestyle.xml")
+}
+
+test {
+    useJUnitPlatform()
+}
