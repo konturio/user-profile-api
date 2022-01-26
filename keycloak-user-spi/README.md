@@ -65,6 +65,7 @@ JNDI name should match one specified in [persistence.xml](src/main/resources/MET
 1. Build the entire project
 2. Copy jar from <code>keycloak-user-spi/build/libs/</code> into keycloak's <code>/standalone/deployments</code> folder
 3. Normally hot deploy is enabled so just check server.log (<code>/standalone/logs</code>)
+
 ###How to enable in keycloak
 1. Go to Management Console -> User Federation
 2. If everything is deployed correctly, there will be <code>UserSettingsAPI</code> available to add in User Federation -> do it, set order = 0
