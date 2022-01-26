@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'io.kontur.userprofile'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //annotations
+    implementation 'jakarta.validation:jakarta.validation-api:2.0.2'
+
+    //lombok
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+
+    //hibernate
+    implementation 'org.hibernate:hibernate-core:5.5.3.Final'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}

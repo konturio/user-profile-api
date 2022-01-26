@@ -1,0 +1,3 @@
+rootProject.name = 'user-profile-api'
+include 'model'
+include 'keycloak-user-spi'
