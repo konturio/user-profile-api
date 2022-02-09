@@ -83,6 +83,14 @@ public class FeaturesControllerTest {
     }
 
     @Test
+    public void getUserFeatures_UserIsAuthorizedNoBetaRole_NoAnyFeaturesConfiguredTest() {
+        givenUserWithoutAnyConfiguredFeaturesIsLoggedIn();
+        //no features are configured by user
+        //so result contains the list of public features
+        thenOnlyEnabledPublicFeaturesAreReturned();
+    }
+
+    @Test
     public void getUserFeatures_UserIsAuthorizedIncludeBetaTest() {
         givenUserWithBetaRoleIsLoggedIn();
 
@@ -152,6 +160,11 @@ public class FeaturesControllerTest {
             disabledPrivateEventFeed, enabledPrivateEventFeed,
             disabledBetaEventFeed, enabledBetaEventFeed
         ));
+    }
+
+    private void givenUserWithoutAnyConfiguredFeaturesIsLoggedIn() {
+        mockAuthWithClaims(List.of("nothing"), userWithoutBetaRole.getUsername());
+        userWithoutBetaRole.setFeaturesEnabledByUser(List.of());
     }
 
     private void givenUserIsUnauthorized() {

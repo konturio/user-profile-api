@@ -9,6 +9,3 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/create-initial-prod-users.sql
-  - include:
-      relativeToChangelogFile: true
-      file: sql/configure-initial-prod-users.sql

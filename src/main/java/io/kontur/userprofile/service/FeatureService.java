@@ -64,7 +64,7 @@ public class FeatureService {
     }
 
     private Stream<Feature> getNonBetaFeatures(@NotNull User user) {
-        if (user.getFeaturesEnabledByUser() == null) {
+        if (user.getFeaturesEnabledByUser() == null || user.getFeaturesEnabledByUser().isEmpty()) {
             return getPublicFeatures();
         }
 
