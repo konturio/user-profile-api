@@ -44,7 +44,8 @@ alter table users owner to "user-profile-api";
 create table user_feature
 (
     user_id bigint not null constraint fk_user_feature_users references users on delete cascade,
-    feature_id bigint not null constraint fk_user_feature_feature references feature on delete cascade
+    feature_id bigint not null constraint fk_user_feature_feature references feature on delete cascade,
+    unique (user_id, feature_id)
 );
 
 alter table user_feature owner to "user-profile-api";
