@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'checkstyle'
+    id 'jacoco'
 }
 
 group = 'io.kontur.userprofile'
@@ -55,8 +56,16 @@ checkstyle {
 
 test {
     useJUnitPlatform()
+    finalizedBy("jacocoTestReport")
 }
 
 jar {
     enabled = false
+}
+
+jacocoTestReport {
+    reports {
+        csv.enabled true
+        csv.destination file("${buildDir}/jacoco.csv")
+    }
 }
