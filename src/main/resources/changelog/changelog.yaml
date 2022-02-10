@@ -9,3 +9,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/create-initial-prod-users.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/create-advanced-analytics-panel-feature.sql
