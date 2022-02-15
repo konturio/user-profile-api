@@ -15,3 +15,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/create-create_layer-edit_layer_features-features.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/rename-disaster-ninja-02-to-kontur-public-feed.sql

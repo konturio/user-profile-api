@@ -22,12 +22,12 @@ public class Role {
     @Column(name = "client_clientid")
     private String clientClientId; //name is client.clientId in keycloak model
 
+    public boolean isClientRole() {
+        return clientId != null && !clientId.isBlank();
+    }
+
     public static class Names {
         public static final String BETA_FEATURES = "betaFeatures";
         public static final String KONTUR_ADMIN = "konturAdmin";
-    }
-
-    public boolean isClientRole() {
-        return clientId != null && !clientId.isBlank();
     }
 }

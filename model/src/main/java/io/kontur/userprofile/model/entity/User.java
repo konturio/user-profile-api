@@ -56,7 +56,7 @@ public class User {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     protected Set<Role> roles;
-    
+
     @ManyToMany
     @JoinTable(name = "USER_FEATURE",
         joinColumns = @JoinColumn(name = "USER_ID"),
