@@ -43,7 +43,7 @@ public class ModelSavingIT {
         betaRole.setName(Role.Names.BETA_FEATURES);
 
         Subscription subscription =
-            new Subscription(true, "disaster-ninja-02", "bbox something",
+            new Subscription(true, "kontur-public", "bbox something",
                 "some type", "high severity", 123L);
         User isemichastnov = User.builder()
             .username("isemichastnov")

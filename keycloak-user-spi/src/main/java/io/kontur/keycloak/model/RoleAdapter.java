@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 import lombok.ToString;
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.component.ComponentModel;
-import org.keycloak.models.ClientModel;
 import org.keycloak.models.RoleContainerModel;
 import org.keycloak.models.RoleModel;
 import org.keycloak.storage.ReadOnlyException;
