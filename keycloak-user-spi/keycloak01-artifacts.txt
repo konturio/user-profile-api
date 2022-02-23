@@ -1,0 +1,1 @@
+keycloak-user-spi.jar	standalone/deployments/keycloak-user-spi.jar	sha256	0644	datetime
