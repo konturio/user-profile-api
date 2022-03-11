@@ -48,15 +48,17 @@ deploy-spi-plugin-dev-and-test:
     METADATA_FILE_NAME: "keycloak01-artifacts.txt"
     SOURCE_JAR_PATH: "keycloak-user-spi/build/libs/keycloak-user-spi.jar"
   script:
-    - SHA=`shasum -a 256 $SOURCE_JAR_PATH | awk '{print $1}'`
+    - echo 'source file:'
+    - ls -l $SOURCE_JAR_PATH
+    - SHA=`shasum -a 256 $SOURCE_JAR_PATH`
     - echo 'SHA='$SHA
     - DATE=`date -ur $SOURCE_JAR_PATH "+%Y%m%d%H%M.%S"`
     - sed -i 's!sha256!'$SHA'!g' keycloak-user-spi/$METADATA_FILE_NAME
     - sed -i 's!datetime!'$DATE'!g' keycloak-user-spi/$METADATA_FILE_NAME
     - aws s3 cp keycloak-user-spi/$METADATA_FILE_NAME s3://user-profile-service-locker01/DEV/$METADATA_FILE_NAME --sse
     - aws s3 cp keycloak-user-spi/$METADATA_FILE_NAME s3://user-profile-service-locker01/TEST/$METADATA_FILE_NAME --sse
-    - aws s3 cp keycloak-user-spi/build/libs/keycloak-user-spi.jar s3://user-profile-service-locker01/DEV/keycloak-user-spi.jar --sse
-    - aws s3 cp keycloak-user-spi/build/libs/keycloak-user-spi.jar s3://user-profile-service-locker01/TEST/keycloak-user-spi.jar --sse
+    - aws s3 cp $SOURCE_JAR_PATH s3://user-profile-service-locker01/DEV/keycloak-user-spi.jar --sse
+    - aws s3 cp $SOURCE_JAR_PATH s3://user-profile-service-locker01/TEST/keycloak-user-spi.jar --sse
   dependencies:
     - build
 
@@ -105,13 +107,15 @@ deploy-spi-plugin-prod:
     METADATA_FILE_NAME: "keycloak01-artifacts.txt"
     SOURCE_JAR_PATH: "keycloak-user-spi/build/libs/keycloak-user-spi.jar"
   script:
-    - SHA=`shasum -a 256 $SOURCE_JAR_PATH | awk '{print $1}'`
+    - echo 'source file:'
+    - ls -l $SOURCE_JAR_PATH
+    - SHA=`shasum -a 256 $SOURCE_JAR_PATH`
     - echo 'SHA='$SHA
     - DATE=`date -ur $SOURCE_JAR_PATH "+%Y%m%d%H%M.%S"`
     - sed -i 's!sha256!'$SHA'!g' keycloak-user-spi/$METADATA_FILE_NAME
     - sed -i 's!datetime!'$DATE'!g' keycloak-user-spi/$METADATA_FILE_NAME
     - aws s3 cp keycloak-user-spi/$METADATA_FILE_NAME s3://user-profile-service-locker01/PROD/$METADATA_FILE_NAME --sse
-    - aws s3 cp keycloak-user-spi/build/libs/keycloak-user-spi.jar s3://user-profile-service-locker01/PROD/keycloak-user-spi.jar --sse
+    - aws s3 cp $SOURCE_JAR_PATH s3://user-profile-service-locker01/PROD/keycloak-user-spi.jar --sse
   dependencies:
     - build
 
