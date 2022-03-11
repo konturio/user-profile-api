@@ -50,7 +50,7 @@ deploy-spi-plugin-dev-and-test:
   script:
     - echo 'source file:'
     - ls -l $SOURCE_JAR_PATH
-    - SHA=`shasum -a 256 $SOURCE_JAR_PATH`
+    - SHA=`shasum -a 256 $SOURCE_JAR_PATH | awk '{print $1}'`
     - echo 'SHA='$SHA
     - DATE=`date -ur $SOURCE_JAR_PATH "+%Y%m%d%H%M.%S"`
     - sed -i 's!sha256!'$SHA'!g' keycloak-user-spi/$METADATA_FILE_NAME
@@ -109,7 +109,7 @@ deploy-spi-plugin-prod:
   script:
     - echo 'source file:'
     - ls -l $SOURCE_JAR_PATH
-    - SHA=`shasum -a 256 $SOURCE_JAR_PATH`
+    - SHA=`shasum -a 256 $SOURCE_JAR_PATH | awk '{print $1}'`
     - echo 'SHA='$SHA
     - DATE=`date -ur $SOURCE_JAR_PATH "+%Y%m%d%H%M.%S"`
     - sed -i 's!sha256!'$SHA'!g' keycloak-user-spi/$METADATA_FILE_NAME
