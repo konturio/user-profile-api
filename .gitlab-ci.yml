@@ -46,9 +46,11 @@ deploy-spi-plugin-dev-and-test:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   variables:
     METADATA_FILE_NAME: "keycloak01-artifacts.txt"
+    SOURCE_JAR_PATH: "keycloak-user-spi/build/libs/keycloak-user-spi.jar"
   script:
-    - SHA=`sha256sum $SOURCE_JAR_PATH | awk '{print $1}'`
-    - DATE=`date -ur keycloak-user-spi/build/libs/keycloak-user-spi.jar "+%Y%m%d%H%M.%S"`
+    - SHA=`shasum -a 256 $SOURCE_JAR_PATH | awk '{print $1}'`
+    - echo 'SHA='$SHA
+    - DATE=`date -ur $SOURCE_JAR_PATH "+%Y%m%d%H%M.%S"`
     - sed -i 's!sha256!'$SHA'!g' keycloak-user-spi/$METADATA_FILE_NAME
     - sed -i 's!datetime!'$DATE'!g' keycloak-user-spi/$METADATA_FILE_NAME
     - aws s3 cp keycloak-user-spi/$METADATA_FILE_NAME s3://user-profile-service-locker01/DEV/$METADATA_FILE_NAME --sse
@@ -101,9 +103,11 @@ deploy-spi-plugin-prod:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   variables:
     METADATA_FILE_NAME: "keycloak01-artifacts.txt"
+    SOURCE_JAR_PATH: "keycloak-user-spi/build/libs/keycloak-user-spi.jar"
   script:
-    - SHA=`sha256sum $SOURCE_JAR_PATH | awk '{print $1}'`
-    - DATE=`date -ur keycloak-user-spi/build/libs/keycloak-user-spi.jar "+%Y%m%d%H%M.%S"`
+    - SHA=`shasum -a 256 $SOURCE_JAR_PATH | awk '{print $1}'`
+    - echo 'SHA='$SHA
+    - DATE=`date -ur $SOURCE_JAR_PATH "+%Y%m%d%H%M.%S"`
     - sed -i 's!sha256!'$SHA'!g' keycloak-user-spi/$METADATA_FILE_NAME
     - sed -i 's!datetime!'$DATE'!g' keycloak-user-spi/$METADATA_FILE_NAME
     - aws s3 cp keycloak-user-spi/$METADATA_FILE_NAME s3://user-profile-service-locker01/PROD/$METADATA_FILE_NAME --sse
