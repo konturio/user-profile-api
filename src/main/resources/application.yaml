@@ -23,6 +23,9 @@ spring:
           issuer-uri: https://keycloak01.konturlabs.com/auth/realms/dev
           jwk-set-uri: https://keycloak01.konturlabs.com/auth/realms/dev/protocol/openid-connect/certs
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
     hibernate:
       ddl-auto: none #none so that Hibernate doesn't update schema (this is already done by liquibase)
       use-new-id-generator-mappings: false #false means use postgres sequences
