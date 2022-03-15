@@ -32,10 +32,9 @@ public class UserController { //todo this api is not used by anyone
     private final UserDao userDao;
 
     @Operation(summary = "Get List of Users")
-    @ApiResponse(responseCode = "200", description = "Successful operation",
-        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            array = @ArraySchema(
-                schema = @Schema(implementation = UserSummaryDto.class))))
+    @ApiResponse(content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+        array = @ArraySchema(
+            schema = @Schema(implementation = UserSummaryDto.class))))
     @PreAuthorize("hasRole('" + KONTUR_ADMIN + "')")
     @GetMapping("/users")
     public List<UserSummaryDto> getAllUsers() {
@@ -44,9 +43,8 @@ public class UserController { //todo this api is not used by anyone
     }
 
     @Operation(summary = "Get User info by username")
-    @ApiResponse(responseCode = "200", description = "Successful operation",
-        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = UserDto.class)))
+    @ApiResponse(content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+        schema = @Schema(implementation = UserDto.class)))
     @ApiResponse(responseCode = "404", description = "User not found",
         content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
     @PreAuthorize("hasRole('" + KONTUR_ADMIN + "') || hasAuthority('" + USERNAME_PREFIX + "' "

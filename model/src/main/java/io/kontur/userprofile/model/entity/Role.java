@@ -28,6 +28,7 @@ public class Role {
 
     public static class Names {
         public static final String BETA_FEATURES = "betaFeatures";
+        public static final String CREATE_APPS = "createApps";
         public static final String KONTUR_ADMIN = "konturAdmin";
     }
 }
