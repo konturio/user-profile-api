@@ -82,9 +82,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/features/**")
             .permitAll()
 
-            .antMatchers("/app")
+            .antMatchers("/apps")
             .permitAll()
-            .antMatchers("/app/**")
+            .antMatchers("/apps/**")
             .permitAll()
 
             .anyRequest().authenticated()

@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/app")
+@RequestMapping(path = "/apps")
 @RequiredArgsConstructor
 public class AppController {
     private final AppService appService;
@@ -66,9 +66,7 @@ public class AppController {
     @ApiResponse(responseCode = "204")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('" + CREATE_APPS + "')")
-    public ResponseEntity<?> delete(@PathVariable @Parameter(name = "id",
-        example = "58851b50-9574-4aec-a3a6-425fa18dcb54") //DN2_ID, but must be constant here
-                                        UUID id) {
+    public ResponseEntity<?> delete(@PathVariable @Parameter(name = "id") UUID id) {
         appService.deleteApp(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -79,9 +77,7 @@ public class AppController {
             schema = @Schema(implementation = AppDto.class)))
     @PutMapping(path = "/{id}")
     @PreAuthorize("hasRole('" + CREATE_APPS + "')")
-    public AppDto update(@PathVariable @Parameter(name = "id",
-        example = "58851b50-9574-4aec-a3a6-425fa18dcb54") //DN2_ID, but must be constant here
-                             UUID id,
+    public AppDto update(@PathVariable @Parameter(name = "id") UUID id,
                          @RequestBody @Parameter(name = "app") AppDto appDto) {
         App app = App.fromDto(appDto);
         App updated = appService.updateApp(id, app, appDto.getFeatures());
@@ -90,7 +86,8 @@ public class AppController {
         return AppDto.fromEntities(updated, appFeatures, true);
     }
 
-    @Operation(summary = "Get application information by name. Limited by user permissions")
+    @Transactional(readOnly = true)
+    @Operation(summary = "Get application information by id")
     @ApiResponse(responseCode = "200",
         content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
             schema = @Schema(implementation = AppDto.class)))

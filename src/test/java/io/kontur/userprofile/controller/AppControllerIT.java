@@ -28,6 +28,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+import org.wololo.geojson.LineString;
 import org.wololo.geojson.Point;
 
 @SpringBootTest
@@ -377,11 +378,48 @@ public class AppControllerIT extends AbstractIT {
 
     @Test
     public void notExistingAppCannotBeUpdated() {
+        givenUserIsAuthenticated(user1);
+
         try {
             controller.update(UUID.randomUUID(), createPublicAppDto());
             throw new RuntimeException("expected exception was not thrown");
         } catch (WebApplicationException e) {
             assertEquals(HttpStatus.NOT_FOUND, e.getStatus());
+        }
+    }
+
+    @Test
+    public void centerGeometryMustBeAPointWhenCreatingAnApp() {
+        givenUserIsAuthenticated(user1);
+
+        AppDto dto = createPublicAppDto();
+        dto.setCenterGeometry(
+            new LineString(new double[][] {new double[] {1d, 2d}, new double[] {3d, 4d}}));
+
+        try {
+            controller.create(dto);
+            throw new RuntimeException("expected exception was not thrown");
+        } catch (WebApplicationException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+            assertEquals("CenterGeometry must be a Point", e.getMessage());
+        }
+    }
+
+    @Test
+    public void centerGeometryMustBeAPointWhenUpdatingAnApp() {
+        givenUserIsAuthenticated(user1);
+        AppDto created = controller.create(createPrivateAppDto());
+
+        AppDto dto = createPublicAppDto();
+        dto.setCenterGeometry(
+            new LineString(new double[][] {new double[] {1d, 2d}, new double[] {3d, 4d}}));
+
+        try {
+            controller.update(created.getId(), dto);
+            throw new RuntimeException("expected exception was not thrown");
+        } catch (WebApplicationException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+            assertEquals("CenterGeometry must be a Point", e.getMessage());
         }
     }
 

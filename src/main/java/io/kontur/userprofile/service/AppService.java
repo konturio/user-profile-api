@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.geom.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +65,7 @@ public class AppService {
     }
 
     public App createApp(App app, List<String> featureNames) {
+        checkCenterGeometryIsAPointIfSpecified(app);
         app.setId(UUID.randomUUID());
 
         List<AppFeature> appFeatures = createAppFeatures(app, featureNames);
@@ -74,8 +76,17 @@ public class AppService {
         return app;
     }
 
+    private void checkCenterGeometryIsAPointIfSpecified(App app) {
+        if (app.getCenterGeometry() != null && !(app.getCenterGeometry() instanceof Point)) {
+            throw new WebApplicationException("CenterGeometry must be a Point",
+                HttpStatus.BAD_REQUEST);
+        }
+    }
+
     public App updateApp(UUID id, App update,
                          List<String> featureNames) {
+        checkCenterGeometryIsAPointIfSpecified(update);
+
         App app = getAppForChange(id);
         app.setName(update.getName());
         app.setDescription(update.getDescription());
