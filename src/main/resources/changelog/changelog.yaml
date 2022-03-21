@@ -30,3 +30,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/delete-edit_layer_features-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9493-enable-app_login-feed_selector-features.sql
