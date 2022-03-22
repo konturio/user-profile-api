@@ -17,10 +17,13 @@ import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.enums.FeatureType;
 import io.kontur.userprofile.rest.AppController;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,8 @@ import org.wololo.geojson.Point;
 @SpringBootTest
 @Transactional
 public class AppControllerIT extends AbstractIT {
+    @PersistenceContext
+    EntityManager entityManager;
     @Autowired
     AppController controller;
     @Autowired
@@ -359,6 +364,54 @@ public class AppControllerIT extends AbstractIT {
         } catch (WebApplicationException e) {
             assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
         }
+    }
+
+    @Test
+    public void betaFeaturesCannotBeAddedToAppIfUserDoesNotHaveTheBetaRole() {
+        givenUserWithoutBetaRoleIsAuthenticated(user1);
+
+        AppDto request = createPublicAppDto();
+        AppDto response1 = controller.create(request);
+
+        AppDto update = createPublicAppDto();
+        update.setFeatures(List.of(createBetaFeature().getName()));
+
+        try {
+            controller.update(response1.getId(), update);
+            throw new RuntimeException("expected exception was not thrown");
+        } catch (WebApplicationException e) {
+            assertEquals(HttpStatus.FORBIDDEN, e.getStatus());
+        }
+    }
+
+    @Test
+    public void betaFeaturesCannotBeAddedToAppEvenIfTheUserHasTheBetaRole() {
+        givenUserWithBetaRoleIsAuthenticated(user1);
+
+        AppDto request = createPublicAppDto();
+        AppDto response1 = controller.create(request);
+
+        AppDto update = createPublicAppDto();
+        update.setFeatures(List.of(createBetaFeature().getName()));
+
+        try {
+            controller.update(response1.getId(), update);
+            throw new RuntimeException("expected exception was not thrown");
+        } catch (WebApplicationException e) {
+            assertEquals(HttpStatus.FORBIDDEN, e.getStatus());
+        }
+    }
+
+    private Feature createBetaFeature() {
+        String betaFeature = "betaFeature";
+        Feature someBetaFeature = new Feature();
+        someBetaFeature.setBeta(true);
+        someBetaFeature.setName(betaFeature);
+        someBetaFeature.setType(FeatureType.UI_PANEL);
+        someBetaFeature.setAvailableForUserApps(true);
+        someBetaFeature.setEnabled(true);
+        entityManager.persist(someBetaFeature);
+        return someBetaFeature;
     }
 
     @Test

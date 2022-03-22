@@ -38,13 +38,15 @@ public class AppFeatureDao {
         appFeatures.forEach(af -> entityManager.remove(af));
     }
 
-    public Stream<Feature> getAppFeaturesFor(App app) {
+    public Stream<Feature> getEnabledNonBetaAppFeaturesFor(App app) {
         List<AppFeature> appFeatures = selectAppFeaturesFor(app); //todo remove event feeds?
 
-        return appFeatures.stream().map(AppFeature::getFeature).filter(Feature::isEnabled);
+        return appFeatures.stream().map(AppFeature::getFeature)
+            .filter(Feature::isEnabled)
+            .filter(it -> !it.isBeta());
     }
 
-    public Stream<Feature> getAppFeaturesIncludingDisabledFor(App app) {
+    public Stream<Feature> getAppFeaturesIncludingDisabledAndBetaFor(App app) {
         List<AppFeature> appFeatures = selectAppFeaturesFor(app); //todo remove event feeds?
 
         return appFeatures.stream().map(AppFeature::getFeature);

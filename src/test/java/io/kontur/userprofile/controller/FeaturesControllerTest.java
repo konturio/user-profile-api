@@ -68,7 +68,7 @@ public class FeaturesControllerTest { //todo test for enable/disable for DAO
     @BeforeEach
     public void beforeEach() {
         when(appService.getApp(DN2_ID)).thenReturn(dn2);
-        when(appFeatureDao.getAppFeaturesFor(dn2)).thenReturn(
+        when(appFeatureDao.getEnabledNonBetaAppFeaturesFor(dn2)).thenReturn(
             Stream.of(defaultDn2Feature, defaultDn2Feed));
 
         when(userDao.getUser(userWithBetaRole.getUsername())).thenReturn(userWithBetaRole);

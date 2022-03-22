@@ -56,7 +56,7 @@ public class FeatureService {
     }
 
     public Stream<Feature> getAppFeatures(App app) {
-        return appFeatureDao.getAppFeaturesFor(app);
+        return appFeatureDao.getEnabledNonBetaAppFeaturesFor(app);
     }
 
     private Stream<Feature> getUserAppFeatures(@NotNull String username,

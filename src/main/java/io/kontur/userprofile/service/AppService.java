@@ -57,6 +57,10 @@ public class AppService {
             throw new WebApplicationException("Feature with name " + featureName
                 + " was not found", HttpStatus.BAD_REQUEST);
         }
+        if (feature.isBeta()) {
+            throw new WebApplicationException("Not allowed to use beta features!",
+                HttpStatus.FORBIDDEN);
+        }
         if (!feature.isAvailableForUserApps()) {
             throw new WebApplicationException("Feature " + featureName
                 + " is not allowed for user apps", HttpStatus.BAD_REQUEST);
@@ -93,7 +97,7 @@ public class AppService {
         app.setPublic(update.isPublic());
         app.setCenterGeometry(update.getCenterGeometry());
 
-        List<Feature> currentFeatures = appFeatureDao.getAppFeaturesIncludingDisabledFor(app)
+        List<Feature> currentFeatures = appFeatureDao.getAppFeaturesIncludingDisabledAndBetaFor(app)
             .toList();
         List<Feature> toRemove = currentFeatures.stream()
             .filter(it -> !featureNames.contains(it.getName()))
