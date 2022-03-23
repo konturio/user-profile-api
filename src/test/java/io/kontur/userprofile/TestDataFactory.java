@@ -1,10 +1,12 @@
 package io.kontur.userprofile;
 
+import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.Role;
 import io.kontur.userprofile.model.entity.User;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
 import java.util.Set;
+import java.util.UUID;
 
 public class TestDataFactory {
 
@@ -28,51 +30,25 @@ public class TestDataFactory {
             .build();
     }
 
-    public static Feature createEnabledPublicEventFeed() {
+    public static Feature createEnabledEventFeed() {
         Feature feature = new Feature();
         feature.setId(nextId());
-        feature.setName("enabledPublicEventFeed");
+        feature.setName("enabledEventFeed");
         feature.setBeta(false);
         feature.setEnabled(true);
-        feature.setDescription("Public event feed");
+        feature.setDescription("Enmabled event feed");
         feature.setType(FeatureType.EVENT_FEED);
-        feature.setPublic(true);
         return feature;
     }
 
-    public static Feature createDisabledPublicEventFeed() {
+    public static Feature createDisabledEventFeed() {
         Feature feature = new Feature();
         feature.setId(nextId());
-        feature.setName("disabledPublicEventFeed");
+        feature.setName("disabledEventFeed");
         feature.setBeta(false);
         feature.setEnabled(false);
-        feature.setDescription("Public event feed - disabled");
+        feature.setDescription("Disabled event feed - disabled");
         feature.setType(FeatureType.EVENT_FEED);
-        feature.setPublic(true);
-        return feature;
-    }
-
-    public static Feature createEnabledPrivateEventFeed() {
-        Feature feature = new Feature();
-        feature.setId(nextId());
-        feature.setName("enabledPrivateEventFeed");
-        feature.setBeta(false);
-        feature.setEnabled(true);
-        feature.setDescription("Private event feed");
-        feature.setType(FeatureType.EVENT_FEED);
-        feature.setPublic(false);
-        return feature;
-    }
-
-    public static Feature createDisabledPrivateEventFeed() {
-        Feature feature = new Feature();
-        feature.setId(nextId());
-        feature.setName("disabledPrivateEventFeed");
-        feature.setBeta(false);
-        feature.setEnabled(false);
-        feature.setDescription("Private event feed - disabled");
-        feature.setType(FeatureType.EVENT_FEED);
-        feature.setPublic(false);
         return feature;
     }
 
@@ -84,7 +60,6 @@ public class TestDataFactory {
         feature.setEnabled(true);
         feature.setDescription("Beta event feed");
         feature.setType(FeatureType.EVENT_FEED);
-        feature.setPublic(false);
         return feature;
     }
 
@@ -96,19 +71,6 @@ public class TestDataFactory {
         feature.setEnabled(false);
         feature.setDescription("Beta event feed - disabled");
         feature.setType(FeatureType.EVENT_FEED);
-        feature.setPublic(false);
-        return feature;
-    }
-
-    public static Feature createDisabledPublicFeature() {
-        Feature feature = new Feature();
-        feature.setId(nextId());
-        feature.setName("disabledPublicFeature");
-        feature.setBeta(false);
-        feature.setEnabled(false);
-        feature.setDescription("Feature three - disabled public one");
-        feature.setType(FeatureType.BIVARIATE_LAYER);
-        feature.setPublic(true);
         return feature;
     }
 
@@ -120,7 +82,6 @@ public class TestDataFactory {
         feature.setEnabled(true);
         feature.setDescription("Feature four - enabled beta one");
         feature.setType(FeatureType.LAYER);
-        feature.setPublic(false);
         return feature;
     }
 
@@ -132,47 +93,61 @@ public class TestDataFactory {
         feature.setEnabled(false);
         feature.setDescription("Feature five - disabled beta one");
         feature.setType(FeatureType.BIVARIATE_LAYER);
-        feature.setPublic(false);
         return feature;
     }
 
     public static Feature createEnabledFeature() {
         Feature feature = new Feature();
         feature.setId(nextId());
-        feature.setName("enabledPrivateFeature");
+        feature.setName("enabledFeature");
         feature.setBeta(false);
         feature.setEnabled(true);
         feature.setDescription("Feature six - enabled normal one");
         feature.setType(FeatureType.BIVARIATE_LAYER);
-        feature.setPublic(false);
-        return feature;
-    }
-
-    public static Feature createEnabledPublicFeature() {
-        Feature feature = new Feature();
-        feature.setId(nextId());
-        feature.setName("enabledPublicFeature");
-        feature.setBeta(false);
-        feature.setEnabled(true);
-        feature.setDescription("Feature six - enabled normal one");
-        feature.setType(FeatureType.BIVARIATE_LAYER);
-        feature.setPublic(true);
         return feature;
     }
 
     public static Feature createDisabledFeature() {
         Feature feature = new Feature();
         feature.setId(nextId());
-        feature.setName("disabledPrivateFeature");
+        feature.setName("disabledFeature");
         feature.setBeta(false);
         feature.setEnabled(false);
         feature.setDescription("Feature seven - disabled normal one");
         feature.setType(FeatureType.BIVARIATE_LAYER);
-        feature.setPublic(false);
         return feature;
     }
 
-    private static long nextId() {
+
+    public static App privateAppOwnedBy(String ownerUsername) {
+        UUID id = UUID.randomUUID();
+        App app = new App();
+        app.setId(id);
+        app.setName("app " + id);
+        app.setDescription("app desc " + id);
+        app.setPublic(false);
+        if (ownerUsername != null) {
+            User owner = User.builder().username(ownerUsername).build();
+            app.setOwner(owner);
+        }
+        return app;
+    }
+
+    public static App publicAppOwnedBy(String ownerUsername) {
+        UUID id = UUID.randomUUID();
+        App app = new App();
+        app.setId(id);
+        app.setName("app " + id);
+        app.setDescription("app desc " + id);
+        app.setPublic(true);
+        if (ownerUsername != null) {
+            User owner = User.builder().username(ownerUsername).build();
+            app.setOwner(owner);
+        }
+        return app;
+    }
+
+    public static long nextId() {
         return id++;
     }
 }

@@ -7,16 +7,21 @@ spring:
   liquibase:
     changelog: classpath:changelog/changelog.yaml
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/userprofile
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: 'jdbc:tc:postgis:13-3.1-alpine:///user-profile-api?TC_INITSCRIPT=db/init_test_db.sql'
+#    type: com.zaxxer.hikari.HikariDataSource
+#    url: jdbc:postgresql://localhost:5432/userprofile
     password: user-profile-api
     username: user-profile-api
     hikari:
       maximum-pool-size: 10
       minimum-idle: 3
       auto-commit: false
-      driver-class-name: org.postgresql.Driver
+      driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
     hibernate:
       ddl-auto: none #none so that Hibernate doesn't update schema (this is already done by liquibase)
       use-new-id-generator-mappings: false #false means use postgres sequences

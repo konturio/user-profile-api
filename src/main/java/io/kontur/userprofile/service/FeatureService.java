@@ -1,123 +1,74 @@
 package io.kontur.userprofile.service;
 
-import static io.kontur.userprofile.config.WebSecurityConfiguration.ClaimParams.ROLE_PREFIX;
-import static io.kontur.userprofile.config.WebSecurityConfiguration.ClaimParams.USERNAME_PREFIX;
-import static io.kontur.userprofile.model.entity.Role.Names.BETA_FEATURES;
-
+import io.kontur.userprofile.auth.AuthService;
+import io.kontur.userprofile.dao.AppFeatureDao;
+import io.kontur.userprofile.dao.AppUserFeatureDao;
 import io.kontur.userprofile.dao.FeatureDao;
-import io.kontur.userprofile.dao.UserDao;
+import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.User;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.UUID;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class FeatureService {
-    private final UserDao userDao;
+    private final AuthService authService;
+    private final AppFeatureDao appFeatureDao;
     private final FeatureDao featureDao;
+    private final AppUserFeatureDao appUserFeatureDao;
+    public static final UUID DN2_ID = UUID.fromString("58851b50-9574-4aec-a3a6-425fa18dcb54");
+    public static final String DN2_NAME = "DN2";
 
-    public String getUserDefaultEventFeed() {
-        return getUserFeatures()
+    public String getDefaultDn2EventFeedForCurrentUser(App app) {
+        return getCurrentUserAppFeatures(app)
+            .filter(Objects::nonNull)
             .filter(it -> FeatureType.EVENT_FEED == it.getType())
             .max(Comparator.comparing(it -> !it.isBeta()))
             .map(Feature::getName)
             .orElse(null);
     }
 
-    private Stream<Feature> getPublicFeatures() {
-        return featureDao.getPublicNonBetaFeatures().stream()
-            .filter(Feature::isEnabled);
+    public List<Feature> getFeaturesAddedByDefaultToUserApps() {
+        return featureDao.getFeaturesAddedByDefaultToUserApps();
     }
 
-    public Stream<Feature> getUserFeatures() {
-        List<String> tokenClaims = getTokenClaims();
-        Optional<User> currentUser = getCurrentUser(tokenClaims);
-        if (currentUser.isEmpty()) {
-            return getPublicFeatures();
+    public Feature getFeatureByName(String name) {
+        return featureDao.getFeatureByName(name);
+    }
+
+    public Stream<Feature> getCurrentUserAppFeatures(App app) {
+        Optional<String> currentUsername = authService.getCurrentUsername();
+
+        if (currentUsername.isEmpty()
+            || !appUserFeatureDao.userHasAnyConfiguredFeatures(app, currentUsername.get())) {
+            return getAppFeatures(app);
         }
 
-        boolean includeBetaFeatures = hasBetaFeatureRole(tokenClaims);
-
-        return getUserFeatures(currentUser.get(), includeBetaFeatures);
+        return getUserAppFeatures(currentUsername.get(), app);
     }
 
-    private Stream<Feature> getUserFeatures(@NotNull User user, boolean includeBetaFeatures) {
-        Stream<Feature> nonBetaFeatures = getNonBetaFeatures(user);
+    public Stream<Feature> getAppFeatures(App app) {
+        return appFeatureDao.getEnabledNonBetaAppFeaturesFor(app);
+    }
+
+    private Stream<Feature> getUserAppFeatures(@NotNull String username,
+                                               @NotNull App app) {
+        Stream<Feature> allUserFeatures = appUserFeatureDao.getAppUserFeatures(app, username);
+
+        boolean includeBetaFeatures = authService.currentUserHasBetaFeaturesRole();
         if (includeBetaFeatures) {
-            Stream<Feature> userBetaFeatures = getBetaFeatures(user);
-            return Stream.concat(nonBetaFeatures, userBetaFeatures);
+            return allUserFeatures;
+        } else {
+            return allUserFeatures.filter(it -> !it.isBeta());
         }
-        return nonBetaFeatures;
     }
 
-    private Stream<Feature> getNonBetaFeatures(@NotNull User user) {
-        if (user.getFeaturesEnabledByUser() == null || user.getFeaturesEnabledByUser().isEmpty()) {
-            return getPublicFeatures();
-        }
-
-        return user.getFeaturesEnabledByUser().stream()
-            .filter(Feature::isEnabled)
-            .filter(it -> !it.isBeta());
-    }
-
-    private Stream<Feature> getBetaFeatures(@NotNull User user) {
-        if (user.getFeaturesEnabledByUser() == null) {
-            return Stream.of();
-        }
-
-        return user.getFeaturesEnabledByUser().stream()
-            .filter(Feature::isEnabled)
-            .filter(Feature::isBeta);
-    }
-
-
-    private Optional<String> getCurrentUserName(List<String> tokenClaims) {
-        return tokenClaims.stream()
-            .filter(Objects::nonNull)
-            .filter(it -> it.startsWith(USERNAME_PREFIX))
-            .findAny()
-            .map(this::removePrefixFromUsernameClaim);
-    }
-
-    private Optional<User> getCurrentUser(List<String> tokenClaims) {
-        return getCurrentUserName(tokenClaims)
-            .map(userDao::getUser);
-    }
-
-    private boolean hasBetaFeatureRole(List<String> tokenClaims) {
-        return tokenClaims.stream()
-            .anyMatch((ROLE_PREFIX + BETA_FEATURES)::equals);
-    }
-
-    private String removePrefixFromUsernameClaim(String claim) {
-        return claim.substring(USERNAME_PREFIX.length());
-    }
-
-    private List<String> getTokenClaims() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            return List.of();
-        }
-
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        if (authorities == null) {
-            return List.of();
-        }
-
-        return authorities.stream().map(GrantedAuthority::getAuthority)
-            .collect(Collectors.toList());
-    }
 }

@@ -22,7 +22,7 @@ import org.keycloak.models.UserModel;
 import org.mockito.ArgumentMatcher;
 
 public class DatabaseUserStorageProviderTest {
-    private final static String email = "email@me.com";
+    private static final String email = "email@me.com";
     DatabaseUserStorageProvider provider;
     private UserService userService = mock(UserService.class);
     private KeycloakSession session = mock(KeycloakSession.class);

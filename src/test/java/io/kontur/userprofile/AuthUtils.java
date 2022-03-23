@@ -16,6 +16,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AuthUtils {
 
+    public static void mockNullAuth() {
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(null);
+
+        SecurityContextHolder.setContext(securityContext);
+    }
+
+    public static void mockAuthWithNoGrantedAuthorities() {
+        AbstractAuthenticationToken authentication = mock(AbstractAuthenticationToken.class);
+        when(authentication.getAuthorities()).thenReturn(null);
+
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        SecurityContextHolder.setContext(securityContext);
+    }
+
     public static void mockAuthWithClaims(List<String> roles, String username) {
         Collection<GrantedAuthority> authorities = roles.stream()
             .map(it -> ROLE_PREFIX + it)
