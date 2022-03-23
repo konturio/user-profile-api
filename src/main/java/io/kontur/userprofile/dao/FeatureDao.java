@@ -3,20 +3,34 @@ package io.kontur.userprofile.dao;
 import io.kontur.userprofile.model.entity.Feature;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class FeatureDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    public Feature getFeature(long id) {
-        return entityManager.find(Feature.class, id);
+    public Feature getFeatureByName(String name) {
+        try {
+            return entityManager.createQuery("from Feature f"
+                    + " where f.name = ?1", Feature.class)
+                .setParameter(1, name)
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
-    public List<Feature> getPublicNonBetaFeatures() {
-        return entityManager.createQuery("from Feature f where f.isPublic = true "
-            + "and f.beta = false", Feature.class).getResultList();
+    public List<Feature> getFeaturesAddedByDefaultToUserApps() {
+        return entityManager.createQuery("from Feature f"
+                + " where f.defaultForUserApps = ?1 and f.enabled = true", Feature.class)
+            .setParameter(1, true)
+            .getResultList();
     }
 }

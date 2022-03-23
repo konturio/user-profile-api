@@ -18,3 +18,27 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/rename-disaster-ninja-02-to-kontur-public-feed.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/support-embedded-applications.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/create-features-9182.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/update-features-9182.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/delete-edit_layer_features-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9493-enable-app_login-feed_selector-features.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9419-create-focused_geometry_editor-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9419-add-forgotten-features-to-dn2.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9541-disable-some-features.sql

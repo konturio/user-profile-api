@@ -1,6 +1,5 @@
 package io.kontur.userprofile.model.entity;
 
-import java.util.List;
 import java.util.Set;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -13,16 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -31,8 +27,7 @@ import org.hibernate.annotations.Parameter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "USERS")
 @SecondaryTable(name = "SUBSCRIPTION")
@@ -56,12 +51,6 @@ public class User {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     protected Set<Role> roles;
-
-    @ManyToMany
-    @JoinTable(name = "USER_FEATURE",
-        joinColumns = @JoinColumn(name = "USER_ID"),
-        inverseJoinColumns = @JoinColumn(name = "FEATURE_ID"))
-    protected List<Feature> featuresEnabledByUser;
 
     @Column(name = "subscribed_to_kontur_updates")
     protected boolean subscribedToKonturUpdates;

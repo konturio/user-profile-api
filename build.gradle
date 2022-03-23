@@ -18,6 +18,7 @@ repositories {
 dependencies {
     //model
     implementation project(":model")
+    implementation 'org.wololo:jts2geojson:0.16.1'
 
     //lombok
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
@@ -45,6 +46,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.data:spring-data-jdbc'
+    testImplementation 'org.testcontainers:postgresql:1.16.2'
 
     //postgresql
     implementation 'org.postgresql:postgresql:42.3.1'

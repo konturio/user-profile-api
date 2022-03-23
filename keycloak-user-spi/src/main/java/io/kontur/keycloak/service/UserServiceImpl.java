@@ -68,7 +68,7 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
 
     @Override
     public void createUser(User user) {
-        entityManager.persist(user);
+        entityManager.persist(user); //duplicates check is done by keycloak
     }
 
     public boolean removeUser(String username) {
