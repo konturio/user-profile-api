@@ -12,7 +12,7 @@ import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.AppFeature;
 import io.kontur.userprofile.model.entity.AppUserFeature;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
 import java.util.List;
 import java.util.UUID;

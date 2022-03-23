@@ -1,6 +1,6 @@
 package io.kontur.keycloak.service;
 
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import java.util.Optional;
 import java.util.stream.Stream;
 import javax.ejb.Singleton;

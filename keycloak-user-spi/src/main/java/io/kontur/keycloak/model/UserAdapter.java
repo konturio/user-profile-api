@@ -1,8 +1,8 @@
 package io.kontur.keycloak.model;
 
-import io.kontur.userprofile.model.entity.Group;
-import io.kontur.userprofile.model.entity.Role;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.Group;
+import io.kontur.userprofile.model.entity.user.Role;
+import io.kontur.userprofile.model.entity.user.User;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;

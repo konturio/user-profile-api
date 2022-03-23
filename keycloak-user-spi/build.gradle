@@ -47,7 +47,7 @@ jar {
     archiveName("${archivesBaseName}.jar")
     //include model classes into jar
     from fileTree('../model/build/classes/java/main/') {
-        include '**/*.class'
+        include '**/user/*.class'
     } into ""
 }
 

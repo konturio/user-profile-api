@@ -16,7 +16,7 @@ import io.kontur.userprofile.model.converters.GeoJsonUtils;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
 import io.kontur.userprofile.rest.AppController;
 import io.kontur.userprofile.rest.exception.WebApplicationException;

@@ -35,7 +35,7 @@ set <code>max_prepared_transactions</code> = value set in <code>max_connections<
    </module>
    - ```
 
-### Add xa-datasource into <datasources> in keycloak configuration (standalone.xml):
+### Add xa-datasource into <datasources> in keycloak configuration (standalone.xml or standalone-ha.xml in case keycloak is running in a cluster):
 JNDI name should match one specified in [persistence.xml](src/main/resources/META-INF/persistence.xml)
 
 ```xml

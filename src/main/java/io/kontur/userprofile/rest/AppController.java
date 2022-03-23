@@ -1,13 +1,13 @@
 package io.kontur.userprofile.rest;
 
-import static io.kontur.userprofile.model.entity.Role.Names.CREATE_APPS;
+import static io.kontur.userprofile.model.entity.user.Role.Names.CREATE_APPS;
 
 import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import io.kontur.userprofile.service.AppService;
 import io.kontur.userprofile.service.FeatureService;

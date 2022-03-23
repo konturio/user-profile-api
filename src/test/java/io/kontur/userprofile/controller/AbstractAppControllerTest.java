@@ -11,7 +11,7 @@ import io.kontur.userprofile.dao.AppFeatureDao;
 import io.kontur.userprofile.dao.AppUserFeatureDao;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.entity.App;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
 import io.kontur.userprofile.service.AppService;
 import io.kontur.userprofile.service.FeatureService;

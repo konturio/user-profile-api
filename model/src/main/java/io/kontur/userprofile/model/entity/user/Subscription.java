@@ -1,4 +1,4 @@
-package io.kontur.userprofile.model.entity;
+package io.kontur.userprofile.model.entity.user;
 
 import java.util.Objects;
 import javax.persistence.Embeddable;
