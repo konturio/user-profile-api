@@ -39,3 +39,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/9419-add-forgotten-features-to-dn2.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9541-disable-some-features.sql
