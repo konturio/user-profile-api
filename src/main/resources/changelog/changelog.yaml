@@ -30,9 +30,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/delete-edit_layer_features-feature.sql
-#  - include:
-#      relativeToChangelogFile: true
-#      file: sql/9493-enable-app_login-feed_selector-features.sql
   - include:
       relativeToChangelogFile: true
       file: sql/9419-create-focused_geometry_editor-feature.sql
@@ -42,3 +39,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/9541-disable-some-features.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9493-enable-app_login-feed_selector-features.sql
