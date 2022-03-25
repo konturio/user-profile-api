@@ -1,6 +1,7 @@
-update feature
-set enabled = true
-where name in (
-   'feed_selector',
-   'app_login'
-    );
+-- update feature
+-- set enabled = true
+-- where name in (
+--    'feed_selector',
+--    'app_login'
+--     );
+--todo add to DN, make app_login non-beta
