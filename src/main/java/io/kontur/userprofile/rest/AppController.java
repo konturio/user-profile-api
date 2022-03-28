@@ -102,6 +102,14 @@ public class AppController {
         return AppDto.fromEntities(app, features, isOwnedByCurrentUser);
     }
 
+    @Operation(summary = "Get default application id")
+    @ApiResponse(responseCode = "200",
+        content = @Content(mediaType = MediaType.TEXT_PLAIN_VALUE))
+    @GetMapping(path = "/default_id")
+    public String getDefaultId() {
+        return appService.getDefaultId().toString();
+    }
+
     @Transactional(readOnly = true)
     @Operation(summary = "Get application list available to user (includes public apps"
         + " and user-owned apps)")

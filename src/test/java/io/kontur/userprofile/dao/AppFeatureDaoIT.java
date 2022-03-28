@@ -1,6 +1,6 @@
 package io.kontur.userprofile.dao;
 
-import static io.kontur.userprofile.service.FeatureService.DN2_ID;
+import static io.kontur.userprofile.service.AppService.DN2_ID;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.kontur.userprofile.controller.AbstractIT;

@@ -11,7 +11,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +23,6 @@ public class FeatureService {
     private final AppFeatureDao appFeatureDao;
     private final FeatureDao featureDao;
     private final AppUserFeatureDao appUserFeatureDao;
-    public static final UUID DN2_ID = UUID.fromString("58851b50-9574-4aec-a3a6-425fa18dcb54");
-    public static final String DN2_NAME = "DN2";
 
     public String getDefaultDn2EventFeedForCurrentUser(App app) {
         return getCurrentUserAppFeatures(app)

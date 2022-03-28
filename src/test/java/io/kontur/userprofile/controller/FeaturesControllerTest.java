@@ -9,8 +9,8 @@ import static io.kontur.userprofile.TestDataFactory.createEnabledEventFeed;
 import static io.kontur.userprofile.TestDataFactory.createEnabledFeature;
 import static io.kontur.userprofile.TestDataFactory.userWithBetaRole;
 import static io.kontur.userprofile.TestDataFactory.userWithoutBetaRole;
-import static io.kontur.userprofile.service.FeatureService.DN2_ID;
-import static io.kontur.userprofile.service.FeatureService.DN2_NAME;
+import static io.kontur.userprofile.controller.AppControllerIT.DN2_NAME;
+import static io.kontur.userprofile.service.AppService.DN2_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -67,6 +67,7 @@ public class FeaturesControllerTest { //todo test for enable/disable for DAO
 
     @BeforeEach
     public void beforeEach() {
+        when(appService.getDefaultId()).thenReturn(DN2_ID);
         when(appService.getApp(DN2_ID)).thenReturn(dn2);
         when(appFeatureDao.getEnabledNonBetaAppFeaturesFor(dn2)).thenReturn(
             Stream.of(defaultDn2Feature, defaultDn2Feed));
