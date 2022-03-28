@@ -42,3 +42,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/9493-enable-app_login-feed_selector-features.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9535-enable-feature-create_layer.sql
