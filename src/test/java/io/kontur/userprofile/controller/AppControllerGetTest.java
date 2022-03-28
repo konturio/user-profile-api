@@ -1,14 +1,24 @@
 package io.kontur.userprofile.controller;
 
+import static io.kontur.userprofile.service.AppService.DN2_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
 public class AppControllerGetTest extends AbstractAppControllerTest {
+
+    @Test
+    public void defaultAppId() {
+        givenUserIsNotAuthenticated();
+        String result = controller.getDefaultId();
+
+        assertEquals(DN2_ID.toString(), result);
+    }
 
     @Test
     public void publicAppIsAvailableToNonAuthenticatedUser() {

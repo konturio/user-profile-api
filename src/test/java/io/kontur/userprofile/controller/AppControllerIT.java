@@ -1,7 +1,6 @@
 package io.kontur.userprofile.controller;
 
-import static io.kontur.userprofile.service.FeatureService.DN2_ID;
-import static io.kontur.userprofile.service.FeatureService.DN2_NAME;
+import static io.kontur.userprofile.service.AppService.DN2_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -37,6 +36,7 @@ import org.wololo.geojson.Point;
 @SpringBootTest
 @Transactional
 public class AppControllerIT extends AbstractIT {
+    public static final String DN2_NAME = "DN2";
     @PersistenceContext
     EntityManager entityManager;
     @Autowired
