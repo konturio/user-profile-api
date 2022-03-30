@@ -4,7 +4,7 @@ import io.kontur.userprofile.dao.AppUserFeatureDao;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.AppFeature;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.junit.jupiter.api.Disabled;

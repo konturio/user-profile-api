@@ -1,5 +1,6 @@
-package io.kontur.userprofile.model.entity;
+package io.kontur.userprofile.model.entity.user;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -46,11 +47,11 @@ public class User {
     )
     protected Long id;
 
-    @Embedded
+    @Builder.Default
     @ElementCollection
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    protected Set<Role> roles;
+    protected Set<Role> roles = new HashSet<>();
 
     @Column(name = "subscribed_to_kontur_updates")
     protected boolean subscribedToKonturUpdates;
@@ -64,11 +65,11 @@ public class User {
         @AttributeOverride(name = "people", column = @Column(name = "people", table = "SUBSCRIPTION")),
     })
     protected Subscription subscription;
-    @Embedded
+    @Builder.Default
     @ElementCollection
     @CollectionTable(name = "user_groups", joinColumns = @JoinColumn(name = "user_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    protected Set<Group> groups;
+    protected Set<Group> groups = new HashSet<>();
     @Column(unique = true)
     @NotNull
     private String username;

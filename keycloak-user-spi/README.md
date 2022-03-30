@@ -35,29 +35,34 @@ set <code>max_prepared_transactions</code> = value set in <code>max_connections<
    </module>
    - ```
 
-### Add xa-datasource into <datasources> in keycloak configuration (standalone.xml):
+### Add xa-datasource into <datasources> in keycloak configuration (standalone.xml or standalone-ha.xml in case keycloak is running in a cluster):
 JNDI name should match one specified in [persistence.xml](src/main/resources/META-INF/persistence.xml)
 
 ```xml
 
 <datasources>
-    <xa-datasource jndi-name="java:/kontur/datasources/KonturDS" pool-name="KonturDS" enabled="true"
-                   use-java-context="true"
-                   statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}">
-        <xa-datasource-property name="ServerName">localhost</xa-datasource-property>
-        <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
-        <xa-datasource-property name="DatabaseName">userprofile</xa-datasource-property>
-        <driver>postgresql</driver>
-        <security>
-            <user-name>userprofile</user-name>
-            <password>userprofile</password>
-        </security>
-    </xa-datasource>
-    <drivers>
-        <driver name="postgresql" module="org.postgresql">
-            <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
-        </driver>
-    </drivers>
+   <xa-datasource jndi-name="java:/kontur/datasources/KonturDS" pool-name="KonturDS" enabled="true"
+                  use-java-context="true"
+                  statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}">
+      <xa-datasource-property name="ServerName">localhost</xa-datasource-property>
+      <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
+      <xa-datasource-property name="DatabaseName">userprofile</xa-datasource-property>
+      <driver>postgresql</driver>
+      <security>
+         <user-name>userprofile</user-name>
+         <password>userprofile</password>
+      </security>
+      <validation>
+         <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
+         <background-validation>true</background-validation>
+         <background-validation-millis>60000</background-validation-millis>
+      </validation>
+   </xa-datasource>
+   <drivers>
+      <driver name="postgresql" module="org.postgresql">
+         <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+      </driver>
+   </drivers>
 </datasources>
 ```
 

@@ -1,13 +1,13 @@
 package io.kontur.userprofile.rest;
 
 import static io.kontur.userprofile.config.WebSecurityConfiguration.ClaimParams.USERNAME_PREFIX;
-import static io.kontur.userprofile.model.entity.Role.Names.KONTUR_ADMIN;
+import static io.kontur.userprofile.model.entity.user.Role.Names.KONTUR_ADMIN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.dto.UserDto;
 import io.kontur.userprofile.model.dto.UserSummaryDto;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

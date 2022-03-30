@@ -2,6 +2,7 @@ package io.kontur.userprofile.model.entity;
 
 import io.kontur.userprofile.model.converters.GeoJsonUtils;
 import io.kontur.userprofile.model.dto.AppDto;
+import io.kontur.userprofile.model.entity.user.User;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;

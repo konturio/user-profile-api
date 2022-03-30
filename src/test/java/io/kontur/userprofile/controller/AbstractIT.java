@@ -4,7 +4,7 @@ import static org.mockito.Mockito.when;
 
 import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.dao.UserDao;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;

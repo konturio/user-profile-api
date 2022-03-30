@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import io.kontur.userprofile.model.entity.Group;
-import io.kontur.userprofile.model.entity.Role;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.Group;
+import io.kontur.userprofile.model.entity.user.Role;
+import io.kontur.userprofile.model.entity.user.User;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;

@@ -1,5 +1,7 @@
 package io.kontur.userprofile.model.entity;
 
+import io.kontur.userprofile.model.entity.user.Role;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
 import javax.persistence.Column;
 import javax.persistence.Entity;

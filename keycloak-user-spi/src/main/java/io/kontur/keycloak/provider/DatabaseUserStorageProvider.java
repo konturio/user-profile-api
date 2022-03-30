@@ -2,9 +2,9 @@ package io.kontur.keycloak.provider;
 
 import io.kontur.keycloak.model.UserAdapter;
 import io.kontur.keycloak.service.UserService;
-import io.kontur.userprofile.model.entity.Group;
-import io.kontur.userprofile.model.entity.Role;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.Group;
+import io.kontur.userprofile.model.entity.user.Role;
+import io.kontur.userprofile.model.entity.user.User;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,7 +29,7 @@ import org.keycloak.storage.user.UserLookupProvider;
 import org.keycloak.storage.user.UserQueryProvider;
 import org.keycloak.storage.user.UserRegistrationProvider;
 
-@Stateful
+@Stateful(passivationCapable=false)
 @Local(DatabaseUserStorageProvider.class)
 @JBossLog
 @Getter

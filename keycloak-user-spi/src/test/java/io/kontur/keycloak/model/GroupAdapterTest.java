@@ -2,7 +2,7 @@ package io.kontur.keycloak.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import io.kontur.userprofile.model.entity.Group;
+import io.kontur.userprofile.model.entity.user.Group;
 import org.junit.jupiter.api.Test;
 
 public class GroupAdapterTest {

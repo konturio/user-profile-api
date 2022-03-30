@@ -2,10 +2,10 @@ package io.kontur.userprofile.auth;
 
 import static io.kontur.userprofile.config.WebSecurityConfiguration.ClaimParams.ROLE_PREFIX;
 import static io.kontur.userprofile.config.WebSecurityConfiguration.ClaimParams.USERNAME_PREFIX;
-import static io.kontur.userprofile.model.entity.Role.Names.BETA_FEATURES;
+import static io.kontur.userprofile.model.entity.user.Role.Names.BETA_FEATURES;
 
 import io.kontur.userprofile.dao.UserDao;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;

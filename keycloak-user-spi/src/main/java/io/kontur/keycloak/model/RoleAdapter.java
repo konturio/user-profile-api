@@ -1,6 +1,6 @@
 package io.kontur.keycloak.model;
 
-import io.kontur.userprofile.model.entity.Role;
+import io.kontur.userprofile.model.entity.user.Role;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
