@@ -1,6 +1,6 @@
 package io.kontur.userprofile.controller;
 
-import static io.kontur.userprofile.service.FeatureService.DN2_ID;
+import static io.kontur.userprofile.service.AppService.DN2_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.kontur.userprofile.model.dto.FeatureDto;
@@ -30,6 +30,6 @@ public class FeatureControllerIT extends AbstractIT {
         givenUserIsNotAuthenticated();
 
         List<FeatureDto> features = featuresController.getUserFeatures(DN2_ID);
-        assertEquals(32, features.size()); //just some features
+        assertEquals(34, features.size()); //just some features
     }
 }

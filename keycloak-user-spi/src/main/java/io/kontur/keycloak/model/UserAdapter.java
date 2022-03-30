@@ -172,7 +172,6 @@ public class UserAdapter implements UserModel {
 
     @Override
     public void setAttribute(String name, List<String> values) {
-        log.info("name = " + name);
         if (values.size() == 1) {
             setSingleAttribute(name, values.get(0));
         } else {

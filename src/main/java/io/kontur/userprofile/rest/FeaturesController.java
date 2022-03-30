@@ -1,7 +1,5 @@
 package io.kontur.userprofile.rest;
 
-import static io.kontur.userprofile.service.FeatureService.DN2_ID;
-
 import io.kontur.userprofile.model.dto.FeatureDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.service.AppService;
@@ -37,7 +35,7 @@ public class FeaturesController {
             schema = @Schema(implementation = String.class)))
     @Transactional(readOnly = true)
     public String getDefaultUserEventFeed() {
-        App app = appService.getApp(DN2_ID);
+        App app = appService.getApp(appService.getDefaultId());
         return featureService.getDefaultDn2EventFeedForCurrentUser(app);
     }
 

@@ -24,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class AppService {
+    public static final UUID DN2_ID = UUID.fromString("58851b50-9574-4aec-a3a6-425fa18dcb54");
+
     private final AppDao appDao;
     private final AppFeatureDao appFeatureDao;
     private final AppUserFeatureDao appUserFeatureDao;
@@ -119,6 +121,10 @@ public class AppService {
         appUserFeatureDao.deleteAllAppUserFeaturesFrom(app);
         appFeatureDao.deleteAllAppFeaturesFrom(app);
         appDao.deleteApp(app);
+    }
+
+    public UUID getDefaultId() {
+        return DN2_ID;
     }
 
     public App getApp(UUID id) {
