@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.kontur.userprofile.model.converters.GeoJsonUtils;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -26,6 +27,7 @@ public class AppDto {
     private Boolean ownedByUser;
     private List<String> features;
     private Geometry centerGeometry;
+    private BigDecimal zoom;
 
     public static AppDto fromEntities(App app, List<Feature> appFeatures, boolean ownedByUser) {
         Geometry geometryDto = app.getCenterGeometry() == null ? null :
@@ -33,7 +35,7 @@ public class AppDto {
         return new AppDto(app.getId(), app.getName(), app.getDescription(), app.isPublic(),
             ownedByUser,
             appFeatures.stream().map(Feature::getName).toList(),
-            geometryDto);
+            geometryDto, app.getZoom());
     }
 
     @JsonIgnore
@@ -55,11 +57,13 @@ public class AppDto {
             Objects.equals(description, appDto.description) &&
             Objects.equals(ownedByUser, appDto.ownedByUser) &&
             Objects.equals(features, appDto.features) &&
+            Objects.equals(zoom, appDto.zoom) &&
             GeoJsonUtils.geometriesAreEqual(centerGeometry, appDto.centerGeometry);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, isPublic, ownedByUser, features, centerGeometry);
+        return Objects.hash(id, name, description, isPublic, ownedByUser, features, centerGeometry,
+            zoom);
     }
 }

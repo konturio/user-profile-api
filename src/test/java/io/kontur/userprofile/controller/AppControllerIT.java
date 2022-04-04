@@ -15,10 +15,11 @@ import io.kontur.userprofile.model.converters.GeoJsonUtils;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -61,14 +62,16 @@ public class AppControllerIT extends AbstractIT {
     }
 
     @Test
-    public void appWithEmptyCenterGeometryCanBeCreated() {
+    public void appWithEmptyCenterGeometryAndZoomCanBeCreated() {
         givenUserIsAuthenticated(user1);
 
         AppDto toCreate = createPrivateAppDto();
         toCreate.setCenterGeometry(null);
+        toCreate.setZoom(null);
 
         AppDto result = controller.create(toCreate);
         assertNull(result.getCenterGeometry());
+        assertNull(result.getZoom());
     }
 
     @Test
@@ -459,6 +462,43 @@ public class AppControllerIT extends AbstractIT {
     }
 
     @Test
+    public void zoomMustBeSpecifiedWhenCreatingAnAppWithCenterGeometry() {
+        givenUserIsAuthenticated(user1);
+
+        AppDto dto = createPublicAppDto();
+        dto.setCenterGeometry(
+            new Point(new double[] {1d, 2d}));
+        dto.setZoom(null);
+
+        try {
+            controller.create(dto);
+            throw new RuntimeException("expected exception was not thrown");
+        } catch (WebApplicationException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+            assertEquals("Either both Zoom and CenterGeometry or none of them should "
+                + "be specified", e.getMessage());
+        }
+    }
+
+    @Test
+    public void centerGeometryMustBeSpecifiedWhenCreatingAnAppWithZoom() {
+        givenUserIsAuthenticated(user1);
+
+        AppDto dto = createPublicAppDto();
+        dto.setCenterGeometry(null);
+        dto.setZoom(BigDecimal.valueOf(0.1));
+
+        try {
+            controller.create(dto);
+            throw new RuntimeException("expected exception was not thrown");
+        } catch (WebApplicationException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+            assertEquals("Either both Zoom and CenterGeometry or none of them should "
+                + "be specified", e.getMessage());
+        }
+    }
+
+    @Test
     public void centerGeometryMustBeAPointWhenUpdatingAnApp() {
         givenUserIsAuthenticated(user1);
         AppDto created = controller.create(createPrivateAppDto());
@@ -476,6 +516,45 @@ public class AppControllerIT extends AbstractIT {
         }
     }
 
+    @Test
+    public void zoomMustBeSpecifiedWhenUpdatingAnAppWithCenterGeometry() {
+        givenUserIsAuthenticated(user1);
+        AppDto created = controller.create(createPrivateAppDto());
+
+        AppDto dto = createPublicAppDto();
+        dto.setCenterGeometry(
+            new Point(new double[] {1d, 2d}));
+        dto.setZoom(null);
+
+        try {
+            controller.update(created.getId(), dto);
+            throw new RuntimeException("expected exception was not thrown");
+        } catch (WebApplicationException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+            assertEquals("Either both Zoom and CenterGeometry or none of them should "
+                + "be specified", e.getMessage());
+        }
+    }
+
+    @Test
+    public void centerGeometryMustBeSpecifiedWhenUpdatingAnAppWithZoom() {
+        givenUserIsAuthenticated(user1);
+        AppDto created = controller.create(createPrivateAppDto());
+
+        AppDto dto = createPublicAppDto();
+        dto.setZoom(BigDecimal.valueOf(0.1));
+        dto.setCenterGeometry(null);
+
+        try {
+            controller.update(created.getId(), dto);
+            throw new RuntimeException("expected exception was not thrown");
+        } catch (WebApplicationException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+            assertEquals("Either both Zoom and CenterGeometry or none of them should "
+                + "be specified", e.getMessage());
+        }
+    }
+
     private AppDto createPublicAppDto() {
         AppDto request = new AppDto();
         request.setName(UUID.randomUUID().toString());
@@ -483,6 +562,7 @@ public class AppControllerIT extends AbstractIT {
         request.setPublic(true);
         request.setFeatures(List.of(featureAvailableForUserApps));
         request.setCenterGeometry(new Point(new double[] {2d, 3d}));
+        request.setZoom(BigDecimal.valueOf(0.1));
         return request;
     }
 
@@ -493,6 +573,7 @@ public class AppControllerIT extends AbstractIT {
         request.setPublic(false);
         request.setFeatures(List.of(featureAvailableForUserApps2));
         request.setCenterGeometry(new Point(new double[] {20d, 30d}));
+        request.setZoom(BigDecimal.valueOf(3.5));
         return request;
     }
 
@@ -534,6 +615,7 @@ public class AppControllerIT extends AbstractIT {
         assertEquals(expected.getDescription(), actual.getDescription());
         assertEquals(expected.isPublic(), actual.isPublic());
         assertNotNull(actual.getId());
+        assertEquals(expected.getZoom(), actual.getZoom());
         GeoJsonUtils.geometriesAreEqual(expected.getCenterGeometry(),
             actual.getCenterGeometry());
     }

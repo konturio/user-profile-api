@@ -71,7 +71,7 @@ public class AppService {
     }
 
     public App createApp(App app, List<String> featureNames) {
-        checkCenterGeometryIsAPointIfSpecified(app);
+        checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(app);
         app.setId(UUID.randomUUID());
 
         List<AppFeature> appFeatures = createAppFeatures(app, featureNames);
@@ -82,7 +82,11 @@ public class AppService {
         return app;
     }
 
-    private void checkCenterGeometryIsAPointIfSpecified(App app) {
+    private void checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(App app) {
+        if (app.getCenterGeometry() == null ^ app.getZoom() == null) {
+            throw new WebApplicationException("Either both Zoom and CenterGeometry or none of them "
+                + "should be specified", HttpStatus.BAD_REQUEST);
+        }
         if (app.getCenterGeometry() != null && !(app.getCenterGeometry() instanceof Point)) {
             throw new WebApplicationException("CenterGeometry must be a Point",
                 HttpStatus.BAD_REQUEST);
@@ -91,13 +95,14 @@ public class AppService {
 
     public App updateApp(UUID id, App update,
                          List<String> featureNames) {
-        checkCenterGeometryIsAPointIfSpecified(update);
+        checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(update);
 
         App app = getAppForChange(id);
         app.setName(update.getName());
         app.setDescription(update.getDescription());
         app.setPublic(update.isPublic());
         app.setCenterGeometry(update.getCenterGeometry());
+        app.setZoom(update.getZoom());
 
         List<Feature> currentFeatures = appFeatureDao.getAppFeaturesIncludingDisabledAndBetaFor(app)
             .toList();

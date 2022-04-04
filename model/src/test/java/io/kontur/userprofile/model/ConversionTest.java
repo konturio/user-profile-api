@@ -23,9 +23,11 @@ public class ConversionTest {
 
         AppDto dto = AppDto.fromEntities(app, List.of(), false);
         assertNull(dto.getCenterGeometry());
+        assertNull(dto.getZoom());
 
         App app2 = App.fromDto(dto);
         assertNull(app2.getCenterGeometry());
+        assertNull(app2.getZoom());
     }
 
     @Test
