@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.dto.UserDto;
 import io.kontur.userprofile.model.dto.UserSummaryDto;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.UserController;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import java.util.List;

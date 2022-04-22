@@ -1,6 +1,6 @@
 package io.kontur.keycloak.model;
 
-import io.kontur.userprofile.model.entity.Group;
+import io.kontur.userprofile.model.entity.user.Group;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

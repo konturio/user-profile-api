@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 
 import io.kontur.keycloak.model.UserAdapter;
 import io.kontur.keycloak.service.UserService;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;

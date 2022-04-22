@@ -1,6 +1,6 @@
 package io.kontur.userprofile.dao;
 
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import java.util.List;
 import javax.persistence.EntityManager;

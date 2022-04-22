@@ -23,8 +23,8 @@ import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.dto.FeatureDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.Role;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.Role;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.FeaturesController;
 import io.kontur.userprofile.service.AppService;
 import io.kontur.userprofile.service.FeatureService;
@@ -45,7 +45,7 @@ public class FeaturesControllerTest { //todo test for enable/disable for DAO
     private final Feature privateEventFeed = createEnabledEventFeed();
     private final Feature betaEventFeed = createEnabledBetaEventFeed();
 
-    private final App dn2 = new App(DN2_ID, DN2_NAME, null, null, true, null);
+    private final App dn2 = new App(DN2_ID, DN2_NAME, null, null, true, null, null);
 
     @Mock
     UserDao userDao = mock(UserDao.class);

@@ -47,4 +47,10 @@ databaseChangeLog:
       file: sql/9535-enable-feature-create_layer.sql
   - include:
       relativeToChangelogFile: true
+      file: sql/9727-add-zoom-column-to-apps-table.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9761-set-url_store-default-for-embedded-apps.sql
+  - include:
+      relativeToChangelogFile: true
       file: sql/9734-change-beta-flag-to-false-for-feature-create_layer.sql

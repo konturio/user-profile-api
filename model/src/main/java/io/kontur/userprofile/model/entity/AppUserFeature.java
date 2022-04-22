@@ -1,5 +1,6 @@
 package io.kontur.userprofile.model.entity;
 
+import io.kontur.userprofile.model.entity.user.User;
 import java.io.Serializable;
 import java.util.UUID;
 import javax.persistence.Column;

@@ -33,8 +33,34 @@ build:
     name: user-profile-api-$CI_COMMIT_REF_SLUG
     paths:
       - '*.tar.xz'
+      - 'keycloak-user-spi/build/libs/keycloak-user-spi.jar'
     reports:
       junit: build/test-results/test/TEST-*.xml
+
+deploy-spi-plugin-dev-and-test:
+  tags:
+    - kontur
+    - ansible
+  stage: deploy
+  when: manual
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  variables:
+    METADATA_FILE_NAME: "keycloak01-artifacts.txt"
+    SOURCE_JAR_PATH: "keycloak-user-spi/build/libs/keycloak-user-spi.jar"
+  script:
+    - echo 'source file:'
+    - ls -l $SOURCE_JAR_PATH
+    - SHA=`shasum -a 256 $SOURCE_JAR_PATH | awk '{print $1}'`
+    - echo 'SHA='$SHA
+    - DATE=`date -ur $SOURCE_JAR_PATH "+%Y%m%d%H%M.%S"`
+    - sed -i 's!sha256!'$SHA'!g' keycloak-user-spi/$METADATA_FILE_NAME
+    - sed -i 's!datetime!'$DATE'!g' keycloak-user-spi/$METADATA_FILE_NAME
+    - aws s3 cp keycloak-user-spi/$METADATA_FILE_NAME s3://user-profile-service-locker01/DEV/$METADATA_FILE_NAME --sse
+    - aws s3 cp keycloak-user-spi/$METADATA_FILE_NAME s3://user-profile-service-locker01/TEST/$METADATA_FILE_NAME --sse
+    - aws s3 cp --content-type='text/plain' $SOURCE_JAR_PATH s3://user-profile-service-locker01/DEV/keycloak-user-spi.jar --sse
+    - aws s3 cp --content-type='text/plain' $SOURCE_JAR_PATH s3://user-profile-service-locker01/TEST/keycloak-user-spi.jar --sse
+  dependencies:
+    - build
 
 deploy-dev:
   tags:
@@ -65,6 +91,31 @@ deploy-test:
     name: 'TEST'
     url: 'https://test-apps.konturlabs.com/userprofile/'
   when: manual
+  dependencies:
+    - build
+
+deploy-spi-plugin-prod:
+  tags:
+    - kontur
+    - ansible
+  stage: deploy
+  only:
+    - /^release-.*$/
+  when: manual
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  variables:
+    METADATA_FILE_NAME: "keycloak01-artifacts.txt"
+    SOURCE_JAR_PATH: "keycloak-user-spi/build/libs/keycloak-user-spi.jar"
+  script:
+    - echo 'source file:'
+    - ls -l $SOURCE_JAR_PATH
+    - SHA=`shasum -a 256 $SOURCE_JAR_PATH | awk '{print $1}'`
+    - echo 'SHA='$SHA
+    - DATE=`date -ur $SOURCE_JAR_PATH "+%Y%m%d%H%M.%S"`
+    - sed -i 's!sha256!'$SHA'!g' keycloak-user-spi/$METADATA_FILE_NAME
+    - sed -i 's!datetime!'$DATE'!g' keycloak-user-spi/$METADATA_FILE_NAME
+    - aws s3 cp keycloak-user-spi/$METADATA_FILE_NAME s3://user-profile-service-locker01/PROD/$METADATA_FILE_NAME --sse
+    - aws s3 cp --content-type='text/plain' $SOURCE_JAR_PATH s3://user-profile-service-locker01/PROD/keycloak-user-spi.jar --sse
   dependencies:
     - build
 

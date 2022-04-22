@@ -2,6 +2,8 @@ package io.kontur.userprofile.model.entity;
 
 import io.kontur.userprofile.model.converters.GeoJsonUtils;
 import io.kontur.userprofile.model.dto.AppDto;
+import io.kontur.userprofile.model.entity.user.User;
+import java.math.BigDecimal;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +34,7 @@ public class App {
     private boolean isPublic;
     @Column(name = "center_geometry")
     private Geometry centerGeometry;
+    private BigDecimal zoom;
 
     public static App fromDto(AppDto appDto) {
         App app = new App();
@@ -41,6 +44,7 @@ public class App {
         app.setPublic(appDto.isPublic());
         Geometry entityGeometry = GeoJsonUtils.toEntity(appDto.getCenterGeometry());
         app.setCenterGeometry(entityGeometry);
+        app.setZoom(appDto.getZoom());
         return app;
     }
 

@@ -8,8 +8,8 @@ import io.kontur.userprofile.model.dto.FeatureDto;
 import io.kontur.userprofile.model.dto.UserDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.Group;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.Group;
+import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
 import java.util.List;
 import java.util.Set;
@@ -23,9 +23,11 @@ public class ConversionTest {
 
         AppDto dto = AppDto.fromEntities(app, List.of(), false);
         assertNull(dto.getCenterGeometry());
+        assertNull(dto.getZoom());
 
         App app2 = App.fromDto(dto);
         assertNull(app2.getCenterGeometry());
+        assertNull(app2.getZoom());
     }
 
     @Test

@@ -4,7 +4,7 @@ import io.kontur.userprofile.dao.AppUserFeatureDao;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.AppFeature;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.User;
+import io.kontur.userprofile.model.entity.user.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.junit.jupiter.api.Disabled;
@@ -51,7 +51,7 @@ public class ModelSavingIT {
             .setParameter(1, "isemichastnov@kontur.io")
             .getSingleResult();
 
-        App userApp = new App(null, "myApp", "my app", user, false, null);
+        App userApp = new App(null, "myApp", "my app", user, false, null, null);
         entityManager.persist(userApp);
 
         Feature layersPanel =

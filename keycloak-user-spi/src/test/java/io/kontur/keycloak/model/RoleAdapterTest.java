@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import io.kontur.userprofile.model.entity.Role;
+import io.kontur.userprofile.model.entity.user.Role;
 import org.junit.jupiter.api.Test;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.ClientModel;
