@@ -51,3 +51,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/9761-set-url_store-default-for-embedded-apps.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/9734-change-beta-flag-to-false-for-feature-create_layer.sql
