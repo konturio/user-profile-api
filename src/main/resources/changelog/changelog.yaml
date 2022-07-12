@@ -51,3 +51,9 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/9761-set-url_store-default-for-embedded-apps.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/10857-create-bivariate_color_manager-beta-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/10858-add-bivariate_color_manager-role-to-users.sql
