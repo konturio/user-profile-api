@@ -57,3 +57,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/10858-add-bivariate_color_manager-role-to-users.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/10857-update-bivariate_color_manager-beta-feature.sql
