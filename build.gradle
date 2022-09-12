@@ -18,15 +18,15 @@ repositories {
     maven {
         url 'https://nexus.kontur.io:8084'
         credentials {
-            username = System.env.NEXUS_DEPLOYER
-            password = System.env.NEXUS_DEPLOYER_PASS
+            username = System.getenv()['NEXUS_READER'].trim()
+            password = System.getenv()['NEXUS_READER_PASS'].trim()
         }
     }
     maven {
         url 'https://nexus.kontur.io:8085'
         credentials {
-            username = System.env.NEXUS_DEPLOYER
-            password = System.env.NEXUS_DEPLOYER_PASS
+            username = System.getenv()['NEXUS_DEPLOYER'].trim()
+            password = System.getenv()['NEXUS_DEPLOYER_PASS'].trim()
         }
     }
 }
@@ -92,15 +92,15 @@ jib {
     from {
         image = 'nexus.kontur.io:8084/library/openjdk:17-alpine'
         auth {
-            username = System.env.NEXUS_DEPLOYER
-            password = System.env.NEXUS_DEPLOYER_PASS
+            username = System.getenv()['NEXUS_READER'].trim()
+            password = System.getenv()['NEXUS_READER_PASS'].trim()
         }
     }
     to {
         image = "nexus.kontur.io:8085/konturdev/${project.name}:${project.version}"
         auth {
-            username = System.env.NEXUS_DEPLOYER
-            password = System.env.NEXUS_DEPLOYER_PASS
+            username = System.getenv()['NEXUS_DEPLOYER'].trim()
+            password = System.getenv()['NEXUS_DEPLOYER_PASS'].trim()
         }
     } //todo check
     container {
