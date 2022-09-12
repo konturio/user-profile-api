@@ -36,6 +36,10 @@ dependencies {
     implementation project(":model")
     implementation 'org.wololo:jts2geojson:0.16.1'
 
+    //json logging
+    implementation 'ch.qos.logback.contrib:logback-jackson:0.1.5'
+    implementation 'ch.qos.logback.contrib:logback-json-classic:0.1.5'
+
     //lombok
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     compileOnly 'org.projectlombok:lombok:1.18.22'
