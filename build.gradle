@@ -110,9 +110,9 @@ jib {
     container {
         mainClass 'io.kontur.userprofile.UserProfileServiceApplication'
 
-        jvmFlags = ['-server', '-Xms500m', '-Xmx1000m', '-XX:+HeapDumpOnOutOfMemoryError', //todo check real usage and adjust together with pod resources accordingly
+        jvmFlags = ['-server', '-Xms256m', '-Xmx512m', '-XX:+HeapDumpOnOutOfMemoryError',
                     '-javaagent:/opentelemetry/opentelemetry-javaagent.jar',
-                    '-XX:HeapDumpPath=/tmp/ups_oom.hprof']
+                    '-XX:HeapDumpPath=/tmp/ups_oom.hprof', '-XX:MaxMetaspaceSize=384m']
         //if GC log is required: '-Xlog:gc*:file=/tmp/user-profile-api.GC.log'
     }
 //    dockerClient { //todo use for local minikube
