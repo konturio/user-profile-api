@@ -4,6 +4,8 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'jacoco'
+    id 'com.google.cloud.tools.jib' version '3.3.0'
+    id "de.undercouch.download" version "5.1.2"
 }
 
 group = 'io.kontur.userprofile'
@@ -13,12 +15,30 @@ targetCompatibility = '17'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://nexus.kontur.io:8084'
+        credentials {
+            username = System.getenv()['NEXUS_READER'].trim()
+            password = System.getenv()['NEXUS_READER_PASS'].trim()
+        }
+    }
+    maven {
+        url 'https://nexus.kontur.io:8085'
+        credentials {
+            username = System.getenv()['NEXUS_DEPLOYER'].trim()
+            password = System.getenv()['NEXUS_DEPLOYER_PASS'].trim()
+        }
+    }
 }
 
 dependencies {
     //model
     implementation project(":model")
     implementation 'org.wololo:jts2geojson:0.16.1'
+
+    //json logging
+    implementation 'ch.qos.logback.contrib:logback-jackson:0.1.5'
+    implementation 'ch.qos.logback.contrib:logback-json-classic:0.1.5'
 
     //lombok
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
@@ -71,3 +91,57 @@ jacocoTestReport {
         csv.destination file("${buildDir}/jacoco.csv")
     }
 }
+
+jib {
+    from {
+        image = 'nexus.kontur.io:8084/library/openjdk:17-alpine'
+        auth {
+            username = System.getenv()['NEXUS_READER'].trim()
+            password = System.getenv()['NEXUS_READER_PASS'].trim()
+        }
+    }
+    to {
+        image = "nexus.kontur.io:8085/konturdev/${project.name}:${project.version}"
+        auth {
+            username = System.getenv()['NEXUS_DEPLOYER'].trim()
+            password = System.getenv()['NEXUS_DEPLOYER_PASS'].trim()
+        }
+    } //todo check
+    container {
+        mainClass 'io.kontur.userprofile.UserProfileServiceApplication'
+
+        jvmFlags = ['-server', '-Xms256m', '-Xmx512m', '-XX:+HeapDumpOnOutOfMemoryError',
+                    '-javaagent:/opentelemetry/opentelemetry-javaagent.jar',
+                    '-XX:HeapDumpPath=/tmp/ups_oom.hprof', '-XX:MaxMetaspaceSize=384m']
+        //if GC log is required: '-Xlog:gc*:file=/tmp/user-profile-api.GC.log'
+    }
+//    dockerClient { //todo use for local minikube
+//        environment = ["DOCKER_TLS_VERIFY":System.env.DOCKER_TLS_VERIFY, "DOCKER_HOST":System.env.DOCKER_HOST,
+//                       "DOCKER_CERT_PATH":System.env.DOCKER_CERT_PATH,
+//                       "MINIKUBE_ACTIVE_DOCKERD":System.env.MINIKUBE_ACTIVE_DOCKERD]
+//    }
+    extraDirectories {
+        paths {
+            path {
+                from = "${buildDir}/../jib/"
+                into = '/opentelemetry/'
+            }
+        }
+    }
+}
+
+task downloadFile(type: Download) {
+    src 'https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.16.0/opentelemetry-javaagent.jar'
+    dest "${buildDir}/../jib/opentelemetry-javaagent.jar"
+    onlyIfModified true
+}
+
+task verifyFile(type: Verify, dependsOn: downloadFile) {
+    dependsOn downloadFile
+    src new File("${buildDir}/../jib/", 'opentelemetry-javaagent.jar')
+    algorithm 'MD5'
+    checksum '4f97ebd74d075e60c76ecdf47b61006a'
+}
+
+tasks.jib.dependsOn(verifyFile)
+tasks.jibDockerBuild.dependsOn(verifyFile) //TODO can this be moved into the plugins block?

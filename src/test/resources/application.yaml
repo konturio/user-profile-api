@@ -29,5 +29,11 @@ spring:
   profiles:
     active: jwtAuthDisabled
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+
 springdoc:
   writer-with-default-pretty-printer: true

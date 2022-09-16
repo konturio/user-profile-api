@@ -2,8 +2,11 @@ server:
   port: 8631
   servlet:
     context-path: /userprofile
+  shutdown: graceful
 
 spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   liquibase:
     changelog: classpath:changelog/changelog.yaml
   datasource:
@@ -30,6 +33,15 @@ spring:
       ddl-auto: none #none so that Hibernate doesn't update schema (this is already done by liquibase)
       use-new-id-generator-mappings: false #false means use postgres sequences
     open-in-view: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+      base-path: /
+      path-mapping:
+        prometheus: metrics
 
 springdoc:
   writer-with-default-pretty-printer: true
