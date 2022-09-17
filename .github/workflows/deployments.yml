@@ -1,3 +1,5 @@
+--- # Time-stamp: <2022-09-15 21:25:57>
+
 name: 10 Manual Deployment
 
 'on':
@@ -106,29 +108,23 @@ jobs:
           || 'deploy-test' == github.event.inputs.deployment_target
           || 'deploy-prod' == github.event.inputs.deployment_target
         run: |-
-          set -x
-          # Download ansible inventory from S3 if older than 5 minutes. Should be done once per build generally.
-          sudo mkdir -p -m 0755 /etc/ansible
-          if [[ ! -f /etc/ansible/hosts || "1" -eq "$(( $(date +%s) - $(stat -L --format %Y /etc/ansible/hosts) >= 300))" ]]; then
-            sudo wget -q --no-use-server-timestamps -O /etc/ansible/hosts "https://gitlab-runners-eu-central-1.s3.eu-central-1.amazonaws.com/public_resources/gitlab-builder-a/etc/ansible/hosts"
-          fi
+          set -e
+
+          wget -q https://kontur-github-runners.s3.eu-central-1.amazonaws.com/public_resources/projects/common/2022091500.tar.xz && tar -C "$HOME" -xf 2022091500.tar.xz && rm 2022091500.tar.xz
+
+          sudo mkdir -p -m 0755 /etc/ansible && sudo wget -q --no-use-server-timestamps -O /etc/ansible/hosts "https://kontur-github-runners.s3.eu-central-1.amazonaws.com/public_resources/ROOT--etc--ansible/hosts"
+
+          mkdir -p -m 0700 ~/.ssh
+          cat > ~/.ssh/id_ed25519 <<"EOF"
+          ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+          EOF
+          chmod 0600 ~/.ssh/id_ed25519
 
           sudo tee /etc/ansible/ansible.cfg <<EOF
           [defaults]
           # (boolean) Set this to "False" if you want to avoid host key checking by the underlying tools Ansible uses to connect to the host
           host_key_checking=False
           EOF
-
-          mkdir -p -m 0700 ~/.ssh
-          cat > ~/.ssh/id_ed25519 <<EOF
-          ${{ secrets.DEPLOYER_PRIVATE_KEY }}
-          EOF
-          cat > ~/.ssh/config <<EOF
-          Host *
-            ConnectTimeout 10
-            ConnectionAttempts 10
-          EOF
-          chmod 0600 ~/.ssh/{config,id_ed25519}
 
       - name: deploy-dev
         if: "'deploy-dev' == github.event.inputs.deployment_target"
