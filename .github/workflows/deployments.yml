@@ -11,11 +11,8 @@ name: 10 Manual Deployment
         default: deploy-dev
         type: choice
         options:
-          - deploy-dev
-          - deploy-test
           - deploy-spi-plugin-dev-and-test
           - deploy-spi-plugin-prod
-          - deploy-prod
       git_ref:
         description: Git ref (optional) # The branch, tag or SHA to checkout
         required: false
@@ -101,48 +98,3 @@ jobs:
           sed -i 's!datetime!'$DATE'!g' keycloak-user-spi/$METADATA_FILE_NAME
           aws s3 cp keycloak-user-spi/$METADATA_FILE_NAME s3://user-profile-service-locker01/PROD/$METADATA_FILE_NAME --sse
           aws s3 cp --content-type='text/plain' $SOURCE_JAR_PATH s3://user-profile-service-locker01/PROD/keycloak-user-spi.jar --sse
-
-      - name: Preparing Ansible's environment
-        if: >-
-          'deploy-dev' == github.event.inputs.deployment_target
-          || 'deploy-test' == github.event.inputs.deployment_target
-          || 'deploy-prod' == github.event.inputs.deployment_target
-        run: |-
-          set -e
-
-          wget -q https://kontur-github-runners.s3.eu-central-1.amazonaws.com/public_resources/projects/common/2022091500.tar.xz && tar -C "$HOME" -xf 2022091500.tar.xz && rm 2022091500.tar.xz
-
-          sudo mkdir -p -m 0755 /etc/ansible && sudo wget -q --no-use-server-timestamps -O /etc/ansible/hosts "https://kontur-github-runners.s3.eu-central-1.amazonaws.com/public_resources/ROOT--etc--ansible/hosts"
-
-          mkdir -p -m 0700 ~/.ssh
-          cat > ~/.ssh/id_ed25519 <<"EOF"
-          ${{ secrets.DEPLOYER_PRIVATE_KEY }}
-          EOF
-          chmod 0600 ~/.ssh/id_ed25519
-
-          sudo tee /etc/ansible/ansible.cfg <<EOF
-          [defaults]
-          # (boolean) Set this to "False" if you want to avoid host key checking by the underlying tools Ansible uses to connect to the host
-          host_key_checking=False
-          EOF
-
-      - name: deploy-dev
-        if: "'deploy-dev' == github.event.inputs.deployment_target"
-        run: >
-          ansible-playbook -vD -e "version=${{needs.helper.outputs.CI_COMMIT_REF_SLUG}}-${{github.run_id}}
-          path_to_dist=$(find $GITHUB_WORKSPACE -maxdepth 1 -name user-profile-api\*.tar.xz -print -quit)"
-          --limit=zigzag_user_profile_api ansible/deploy.yml
-
-      - name: deploy-test
-        if: "'deploy-test' == github.event.inputs.deployment_target"
-        run: >
-          ansible-playbook -vD -e "version=${{needs.helper.outputs.CI_COMMIT_REF_SLUG}}-${{github.run_id}}
-          path_to_dist=$(find $GITHUB_WORKSPACE -maxdepth 1 -name user-profile-api\*.tar.xz -print -quit)"
-          --limit=sonic_user_profile_api ansible/deploy.yml
-
-      - name: deploy-prod
-        if: "'deploy-prod' == github.event.inputs.deployment_target"
-        run: >
-          ansible-playbook -vD -e "version=${{needs.helper.outputs.CI_COMMIT_REF_SLUG}}-${{github.run_id}}
-          path_to_dist=$(find $GITHUB_WORKSPACE -maxdepth 1 -name user-profile-api\*.tar.xz -print -quit)"
-          --limit=lima_user_profile_api ansible/deploy.yml
