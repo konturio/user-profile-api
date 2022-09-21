@@ -15,9 +15,7 @@ import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 @Data
 @AllArgsConstructor
@@ -26,19 +24,7 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 @Table(name = "FEATURE")
 public class Feature { //use subclasses by type, when required
     @Id
-    @GeneratedValue(generator = "feature-sequence-generator", strategy = GenerationType.AUTO)
-    @GenericGenerator(
-        name = "feature-sequence-generator",
-        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-        parameters = {
-            @org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM,
-                value = "feature_sequence"),
-            @org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.INITIAL_PARAM,
-                value = "1"),
-            @org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM,
-                value = "1")
-        }
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     @NotNull
