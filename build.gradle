@@ -104,7 +104,7 @@ jib {
     }
     to {
         image = "nexus.kontur.io:8085/konturdev/${project.name}:${project.version}"
-        tags = ["latest", details.branchName + '.' + details.gitHash, details.lastTag + '.' + details.commitDistance + '.' + details.gitHash ]
+        tags = ['latest', details.branchName, details.branchName + '.' + details.gitHash, details.branchName.startsWith("release") ? details.lastTag + '.' + details.commitDistance + '.' + details.gitHash : 'latest' ]
         auth {
             username = System.getenv()['NEXUS_DEPLOYER'] ?: "".trim()
             password = System.getenv()['NEXUS_DEPLOYER_PASS'] ?: "".trim()
