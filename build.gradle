@@ -146,6 +146,5 @@ task verifyFile(type: Verify, dependsOn: downloadFile) {
     checksum '4f97ebd74d075e60c76ecdf47b61006a'
 }
 
-tasks.jib.dependsOn(build)
 tasks.jib.dependsOn(verifyFile)
 tasks.jibDockerBuild.dependsOn(verifyFile) //TODO can this be moved into the plugins block?
