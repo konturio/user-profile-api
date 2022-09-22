@@ -60,3 +60,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/10857-update-bivariate_color_manager-beta-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/alter-tables-add-generated-as-identity.sql
