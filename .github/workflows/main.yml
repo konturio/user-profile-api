@@ -1,4 +1,4 @@
---- # Time-stamp: <2022-09-15 21:21:37>
+--- # Time-stamp: <2022-09-21 21:38:38>
 
 name: 01 Building with Gradle
 
@@ -23,6 +23,7 @@ jobs:
         with:
           java-version: 17
           distribution: corretto
+          cache: gradle
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
