@@ -293,6 +293,13 @@ public class UserAdapter implements UserModel {
         if (attributes == null) {
             attributes = new MultivaluedHashMap<>();
         }
+        List<String> firstName = attributes.remove(FIRST_NAME_ATTRIBUTE);
+        attributes.add(UserModel.FIRST_NAME, firstName != null && firstName.size() >= 1 ? firstName.get(0) : null);
+        List<String> lastName = attributes.remove(LAST_NAME_ATTRIBUTE);
+        attributes.add(UserModel.LAST_NAME, lastName != null && lastName.size() >= 1 ? lastName.get(0) : null);
+        List<String> email = attributes.remove(EMAIL_ATTRIBUTE);
+        attributes.add(UserModel.EMAIL, email != null && email.size() >= 1 ? email.get(0) : null);
+        attributes.add(UserModel.USERNAME, getUsername());
         return attributes;
     }
 
