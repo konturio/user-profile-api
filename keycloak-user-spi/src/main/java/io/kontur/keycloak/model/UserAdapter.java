@@ -3,13 +3,13 @@ package io.kontur.keycloak.model;
 import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.Role;
 import io.kontur.userprofile.model.entity.user.User;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import lombok.extern.jbosslog.JBossLog;
+import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;
@@ -19,8 +19,9 @@ import org.keycloak.models.RoleContainerModel;
 import org.keycloak.models.RoleModel;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.utils.RoleUtils;
-import org.keycloak.storage.ReadOnlyException;
 import org.keycloak.storage.StorageId;
+
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.*;
 
 @JBossLog
 public class UserAdapter implements UserModel {
@@ -129,7 +130,7 @@ public class UserAdapter implements UserModel {
 
     @Override
     public String getId() {
-        return storageId.getId(); //keyclock's id
+        return storageId.getId(); //keycloak's id
     }
 
     @Override
@@ -143,45 +144,66 @@ public class UserAdapter implements UserModel {
 
     @Override
     public Long getCreatedTimestamp() {
-        return null;
+        String val = getFirstAttribute(CREATED_TIMESTAMP_ATTRIBUTE);
+        if (val == null) return null;
+        else return Long.valueOf(val);
     }
 
     @Override
     public void setCreatedTimestamp(Long timestamp) {
+        if (timestamp == null) {
+            setSingleAttribute(CREATED_TIMESTAMP_ATTRIBUTE, null);
+        } else {
+            setSingleAttribute(CREATED_TIMESTAMP_ATTRIBUTE, Long.toString(timestamp));
+        }
+
     }
 
     @Override
     public boolean isEnabled() {
-        return true; //hardcode
+        String val = getFirstAttribute(ENABLED_ATTRIBUTE);
+        if (val == null) return true;
+        else return Boolean.parseBoolean(val);
     }
 
     @Override
     public void setEnabled(boolean enabled) {
+        setSingleAttribute(ENABLED_ATTRIBUTE, Boolean.toString(enabled));
     }
 
     @Override
     public void setSingleAttribute(String name, String value) {
-        if (FIRST_NAME.equals(name)) {
+        if (USERNAME.equals(name)) {
+            setUsername(value);
+        } else if (FIRST_NAME.equals(name)) {
             setFirstName(value);
         } else if (LAST_NAME.equals(name)) {
             setLastName(value);
         } else if (EMAIL.equals(name)) {
             setEmail(value);
+        } else {
+            session.userFederatedStorage().setSingleAttribute(realm, this.getId(), mapAttribute(name), value);
         }
     }
 
     @Override
     public void setAttribute(String name, List<String> values) {
-        if (values.size() == 1) {
-            setSingleAttribute(name, values.get(0));
+        if (USERNAME.equals(name)) {
+            setUsername((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (EMAIL.equals(name)) {
+            setEmail((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (LAST_NAME.equals(name)) {
+            setLastName((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (FIRST_NAME.equals(name)) {
+            setFirstName((values != null && values.size() > 0) ? values.get(0) : null);
         } else {
-            throw new RuntimeException("No multivalues attributes are supported!");
+            session.userFederatedStorage().setAttribute(realm, this.getId(), mapAttribute(name), values);
         }
     }
 
     @Override
     public void removeAttribute(String name) {
-        throw new ReadOnlyException("User is read only for this update");
+        session.userFederatedStorage().removeAttribute(realm, this.getId(), name);
     }
 
     @Override
@@ -216,11 +238,14 @@ public class UserAdapter implements UserModel {
 
     @Override
     public boolean isEmailVerified() {
-        return true; //hardcode
+        String val = getFirstAttribute(EMAIL_VERIFIED_ATTRIBUTE);
+        if (val == null) return false;
+        else return Boolean.valueOf(val);
     }
 
     @Override
     public void setEmailVerified(boolean verified) {
+        setSingleAttribute(EMAIL_VERIFIED_ATTRIBUTE, Boolean.toString(verified));
     }
 
     @Override
@@ -274,43 +299,72 @@ public class UserAdapter implements UserModel {
 
     @Override
     public Map<String, List<String>> getAttributes() {
-        //can't return empty map here - this causes errors within Keycloak itself
-        return Map.of("DON'T USE ATTRIBUTES", List.of());
+        MultivaluedHashMap<String, String> attributes = session.userFederatedStorage().getAttributes(realm, this.getId());
+        if (attributes == null) {
+            attributes = new MultivaluedHashMap<>();
+        }
+        List<String> firstName = attributes.remove(FIRST_NAME_ATTRIBUTE);
+        attributes.add(UserModel.FIRST_NAME, firstName != null && firstName.size() >= 1 ? firstName.get(0) : null);
+        List<String> lastName = attributes.remove(LAST_NAME_ATTRIBUTE);
+        attributes.add(UserModel.LAST_NAME, lastName != null && lastName.size() >= 1 ? lastName.get(0) : null);
+        List<String> email = attributes.remove(EMAIL_ATTRIBUTE);
+        attributes.add(UserModel.EMAIL, email != null && email.size() >= 1 ? email.get(0) : null);
+        attributes.add(UserModel.USERNAME, getUsername());
+
+        attributes.remove(EMAIL_VERIFIED_ATTRIBUTE);
+        attributes.remove(ENABLED_ATTRIBUTE);
+
+        return attributes;
     }
 
     @Override
     public Set<String> getRequiredActions() {
-        return Set.of(); //actions like 'change temporary password' / etc (may be used by keycloak)
+        return session.userFederatedStorage().getRequiredActions(realm, this.getId());
+    }
+
+    @Override
+    public Stream<String> getRequiredActionsStream() {
+        return session.userFederatedStorage().getRequiredActionsStream(realm, this.getId());
     }
 
     @Override
     public String getFirstAttribute(String name) {
-        return null;
+        return session.userFederatedStorage().getAttributes(realm, this.getId()).getFirst(mapAttribute(name));
     }
 
     @Override
     public List<String> getAttribute(String name) {
-        return List.of();
+        if (UserModel.USERNAME.equals(name)) {
+            return Collections.singletonList(getUsername());
+        }
+        List<String> result = session.userFederatedStorage().getAttributes(realm, this.getId()).get(mapAttribute(name));
+        return (result == null) ? Collections.emptyList() : result;
     }
 
     @Override
     public void addRequiredAction(String action) {
-        //might be called on user login to keycloak. action example: change password on first login
-    }
-
-    @Override
-    public void addRequiredAction(RequiredAction action) {
-        //might be called on user login to keycloak. action example: change password on first login
+        session.userFederatedStorage().addRequiredAction(realm, this.getId(), action);
     }
 
     @Override
     public void removeRequiredAction(String action) {
-        //might be called on user login to keycloak. action example: change password on first login
+        session.userFederatedStorage().removeRequiredAction(realm, this.getId(), action);
     }
 
     private Optional<Group> findGroupById(String groupId) {
         log.debugf("Looking for group with ID: %s", groupId);
         return entity.getGroups().stream().filter(it -> groupId.equals(it.getId()))
             .findAny();
+    }
+
+    protected String mapAttribute(String attributeName) {
+        if (UserModel.FIRST_NAME.equals(attributeName)) {
+            return FIRST_NAME_ATTRIBUTE;
+        } else if (UserModel.LAST_NAME.equals(attributeName)) {
+            return LAST_NAME_ATTRIBUTE;
+        } else if (UserModel.EMAIL.equals(attributeName)) {
+            return EMAIL_ATTRIBUTE;
+        }
+        return attributeName;
     }
 }

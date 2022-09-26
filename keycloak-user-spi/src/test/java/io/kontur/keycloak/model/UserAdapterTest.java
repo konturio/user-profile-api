@@ -3,6 +3,10 @@ package io.kontur.keycloak.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.EMAIL_VERIFIED_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.ENABLED_ATTRIBUTE;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -14,12 +18,14 @@ import java.util.Optional;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleModel;
+import org.keycloak.storage.federated.UserFederatedStorageProvider;
 
 public class UserAdapterTest {
     private final ComponentModel component = mock(ComponentModel.class);
@@ -28,6 +34,7 @@ public class UserAdapterTest {
     private final ClientModel client2 = mock(ClientModel.class);
     private final String realmId = "realm_id";
     private final KeycloakSession session = mock(KeycloakSession.class);
+    private final UserFederatedStorageProvider storage = mock(UserFederatedStorageProvider.class);
 
     private final String client1Id = "id-like-uuid-1";
     private final String client1ClientId = "clientId1SetByUser";
@@ -55,6 +62,13 @@ public class UserAdapterTest {
 
         when(realm.getId()).thenReturn(realmId);
         when(realm.getDefaultRole()).thenReturn(null);
+
+        when(session.userFederatedStorage()).thenReturn(storage);
+
+        MultivaluedHashMap<String, String> attributes = new MultivaluedHashMap<>();
+        attributes.add(ENABLED_ATTRIBUTE, "true");
+        attributes.add(EMAIL_VERIFIED_ATTRIBUTE, "true");
+        when(storage.getAttributes(eq(realm), any())).thenReturn(attributes);
     }
 
 
