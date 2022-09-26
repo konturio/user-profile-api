@@ -310,6 +310,10 @@ public class UserAdapter implements UserModel {
         List<String> email = attributes.remove(EMAIL_ATTRIBUTE);
         attributes.add(UserModel.EMAIL, email != null && email.size() >= 1 ? email.get(0) : null);
         attributes.add(UserModel.USERNAME, getUsername());
+
+        attributes.remove(EMAIL_VERIFIED_ATTRIBUTE);
+        attributes.remove(ENABLED_ATTRIBUTE);
+
         return attributes;
     }
 
