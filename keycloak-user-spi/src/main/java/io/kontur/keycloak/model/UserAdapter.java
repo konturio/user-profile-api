@@ -163,7 +163,7 @@ public class UserAdapter implements UserModel {
     public boolean isEnabled() {
         String val = getFirstAttribute(ENABLED_ATTRIBUTE);
         if (val == null) return true;
-        else return Boolean.valueOf(val);
+        else return Boolean.parseBoolean(val);
     }
 
     @Override
@@ -173,19 +173,29 @@ public class UserAdapter implements UserModel {
 
     @Override
     public void setSingleAttribute(String name, String value) {
-        if (FIRST_NAME.equals(name)) {
+        if (USERNAME.equals(name)) {
+            setUsername(value);
+        } else if (FIRST_NAME.equals(name)) {
             setFirstName(value);
         } else if (LAST_NAME.equals(name)) {
             setLastName(value);
         } else if (EMAIL.equals(name)) {
             setEmail(value);
+        } else {
+            session.userFederatedStorage().setSingleAttribute(realm, this.getId(), mapAttribute(name), value);
         }
     }
 
     @Override
     public void setAttribute(String name, List<String> values) {
-        if (UserModel.USERNAME.equals(name)) {
+        if (USERNAME.equals(name)) {
             setUsername((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (EMAIL.equals(name)) {
+            setEmail((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (LAST_NAME.equals(name)) {
+            setLastName((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (FIRST_NAME.equals(name)) {
+            setFirstName((values != null && values.size() > 0) ? values.get(0) : null);
         } else {
             session.userFederatedStorage().setAttribute(realm, this.getId(), mapAttribute(name), values);
         }
