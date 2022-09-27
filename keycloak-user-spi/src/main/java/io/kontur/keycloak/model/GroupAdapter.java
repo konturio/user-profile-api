@@ -4,6 +4,8 @@ import io.kontur.userprofile.model.entity.user.Group;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
+
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;
@@ -52,7 +54,14 @@ public class GroupAdapter implements GroupModel {
 
     @Override
     public Set<RoleModel> getRoleMappings() {
-        return Set.of(); //not supported for groups
+        GroupModel group = realm.getGroupById(entity.getId());
+        return group.getRoleMappings();
+    }
+
+    @Override
+    public Stream<RoleModel> getRoleMappingsStream() {
+        GroupModel group = realm.getGroupById(entity.getId());
+        return group.getRoleMappingsStream();
     }
 
     @Override

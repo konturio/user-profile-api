@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 import lombok.ToString;
 import lombok.extern.jbosslog.JBossLog;
-import org.keycloak.component.ComponentModel;
+import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleContainerModel;
 import org.keycloak.models.RoleModel;
 import org.keycloak.storage.ReadOnlyException;
@@ -17,24 +17,23 @@ public class RoleAdapter implements RoleModel {
 
     private final Role entity;
     private final RoleContainerModel roleContainerModel;
-    private final ComponentModel component;
+    private final RealmModel realm;
 
-    private RoleAdapter(Role entity, RoleContainerModel roleContainerModel,
-                        ComponentModel component) {
+    private RoleAdapter(Role entity, RoleContainerModel roleContainerModel, RealmModel realm) {
         this.entity = entity;
         this.roleContainerModel = roleContainerModel;
-        this.component = component;
+        this.realm = realm;
     }
 
     public static RoleAdapter fromEntity(Role entity, RoleContainerModel roleContainerModel,
-                                         ComponentModel component) {
+                                         RealmModel realm) {
         if (entity == null) {
             throw new IllegalArgumentException("Role must not be null!");
         }
         if (roleContainerModel == null) {
             throw new IllegalArgumentException("Role Container must not be null!");
         }
-        return new RoleAdapter(entity, roleContainerModel, component);
+        return new RoleAdapter(entity, roleContainerModel, realm);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class RoleAdapter implements RoleModel {
 
     @Override
     public boolean isComposite() {
-        return false; //composite roles not supported yet
+        return realm.getRoleById(getId()).isComposite();
     }
 
     @Override
@@ -79,7 +78,7 @@ public class RoleAdapter implements RoleModel {
 
     @Override
     public Stream<RoleModel> getCompositesStream() {
-        return Stream.of(); //composite roles not supported yet
+        return realm.getRoleById(getId()).getCompositesStream();
     }
 
     @Override
@@ -99,7 +98,8 @@ public class RoleAdapter implements RoleModel {
 
     @Override
     public boolean hasRole(RoleModel role) {
-        return getId().equals(role.getId()); //composite roles not supported yet
+        return getId().equals(role.getId()) ||
+                (isComposite() && realm.getRoleById(getId()).hasRole(role));
     }
 
     @Override

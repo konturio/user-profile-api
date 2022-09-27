@@ -7,8 +7,7 @@ import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.E
 import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.ENABLED_ATTRIBUTE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.Role;
@@ -62,6 +61,7 @@ public class UserAdapterTest {
 
         when(realm.getId()).thenReturn(realmId);
         when(realm.getDefaultRole()).thenReturn(null);
+        when(realm.getRoleById(any())).thenReturn(mock(RoleModel.class));
 
         when(session.userFederatedStorage()).thenReturn(storage);
 
@@ -141,7 +141,7 @@ public class UserAdapterTest {
         assertFalse(adapter.hasRole(createAdapterForRole(someRealmRole)));
 
         String someClientId = "someClientId";
-        Role someClientRole = clientRoleEntity("some-id-2", "other2", someClientId, "somthing");
+        Role someClientRole = clientRoleEntity("some-id-2", "other2", someClientId, "something");
         ClientModel someClient = mock(ClientModel.class);
         when(realm.getClientById(someClientId)).thenReturn(someClient);
         assertFalse(adapter.hasRole(createAdapterForRole(someClientRole)));
@@ -366,9 +366,9 @@ public class UserAdapterTest {
 
     private RoleAdapter createAdapterForRole(Role role) {
         if (role.isClientRole()) {
-            return RoleAdapter.fromEntity(role, realm.getClientById(role.getClientId()), component);
+            return RoleAdapter.fromEntity(role, realm.getClientById(role.getClientId()), null);
         }
-        return RoleAdapter.fromEntity(role, realm, component);
+        return RoleAdapter.fromEntity(role, realm, null);
     }
 
     private GroupAdapter createAdapterForGroup(Group group) {

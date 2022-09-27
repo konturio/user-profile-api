@@ -23,7 +23,7 @@ public class RoleAdapterTest {
         entity.setId("some-keycloak-id");
         entity.setName("some-name");
 
-        RoleAdapter adapter = RoleAdapter.fromEntity(entity, realmModel("realm_id"), component);
+        RoleAdapter adapter = RoleAdapter.fromEntity(entity, realmModel("realm_id"), null);
 
         assertEquals(entity.getId(), adapter.getId());
         assertEquals(entity.getName(), adapter.getName());
@@ -36,7 +36,7 @@ public class RoleAdapterTest {
         entity.setId("some-keycloak-id");
         entity.setName("some-name");
 
-        RoleAdapter adapter = RoleAdapter.fromEntity(entity, realmModel("realm_id"), component);
+        RoleAdapter adapter = RoleAdapter.fromEntity(entity, realmModel("realm_id"), null);
 
         assertFalse(adapter.isClientRole());
     }
@@ -49,7 +49,7 @@ public class RoleAdapterTest {
         entity.setClientId("some-client-id");
 
         RoleAdapter adapter =
-            RoleAdapter.fromEntity(entity, clientModel("some-id", "some-clientid"), component);
+            RoleAdapter.fromEntity(entity, clientModel("some-id", "some-clientid"), null);
 
         assertTrue(adapter.isClientRole());
     }
@@ -65,7 +65,7 @@ public class RoleAdapterTest {
         entity.setClientClientId(clientClientId);
 
         RoleAdapter adapter =
-            RoleAdapter.fromEntity(entity, clientModel(clientId, clientClientId), component);
+            RoleAdapter.fromEntity(entity, clientModel(clientId, clientClientId), null);
 
         assertEquals(clientId, adapter.getContainerId());
         assertEquals(clientId, adapter.getContainer().getId());
@@ -79,7 +79,7 @@ public class RoleAdapterTest {
         entity.setName("some-name");
 
         RoleAdapter adapter =
-            RoleAdapter.fromEntity(entity, realmModel(realmId), component);
+            RoleAdapter.fromEntity(entity, realmModel(realmId), null);
 
         assertEquals(realmId, adapter.getContainerId());
         assertEquals(realmId, adapter.getContainer().getId());
@@ -97,9 +97,9 @@ public class RoleAdapterTest {
         entity2.setId(id);
         entity2.setName("name 2");
 
-        RoleAdapter adapter1 = RoleAdapter.fromEntity(entity1, realmModel("realm_id"), component);
+        RoleAdapter adapter1 = RoleAdapter.fromEntity(entity1, realmModel("realm_id"), null);
         RoleAdapter adapter2 =
-            RoleAdapter.fromEntity(entity2, clientModel("some", "thing"), component);
+            RoleAdapter.fromEntity(entity2, clientModel("some", "thing"), null);
         assertEquals(adapter1, adapter2);
     }
 
@@ -109,8 +109,8 @@ public class RoleAdapterTest {
         entity.setId("some-keycloak-id");
         entity.setName("some-name");
 
-        RoleAdapter adapter = RoleAdapter.fromEntity(entity, realmModel("realm_id"), component);
-        RoleAdapter adapter2 = RoleAdapter.fromEntity(entity, realmModel("realm_id"), component);
+        RoleAdapter adapter = RoleAdapter.fromEntity(entity, realmModel("realm_id"), null);
+        RoleAdapter adapter2 = RoleAdapter.fromEntity(entity, realmModel("realm_id"), null);
 
         assertTrue(adapter.hasRole(adapter2));
     }

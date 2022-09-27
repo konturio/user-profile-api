@@ -62,7 +62,7 @@ public class UserAdapter implements UserModel {
         return entity.getRoles().stream()
             .filter(Role::isClientRole)
             .filter(it -> client.getId().equals(it.getClientId()))
-            .map(it -> RoleAdapter.fromEntity(it, client, component))
+            .map(it -> RoleAdapter.fromEntity(it, client, realm))
             .collect(Collectors.toSet());
     }
 
@@ -100,15 +100,17 @@ public class UserAdapter implements UserModel {
                 .collect(Collectors.toSet()));
         }
 
+        roleMappings.addAll(getGroupsStream().flatMap(GroupModel::getRoleMappingsStream).collect(Collectors.toSet()));
+
         Set<RoleModel> entityRoles = entity.getRoles().stream()
             .map(r -> {
                 if (r.getClientId() != null) {
                     ClientModel roleClient = realm.getClientById(r.getClientId());
                     if (roleClient != null) {
-                        return RoleAdapter.fromEntity(r, roleClient, component);
+                        return RoleAdapter.fromEntity(r, roleClient, realm);
                     }
                 }
-                return RoleAdapter.fromEntity(r, realm, component);
+                return RoleAdapter.fromEntity(r, realm, realm);
             })
             .collect(Collectors.toSet());
         roleMappings.addAll(entityRoles);
@@ -253,9 +255,14 @@ public class UserAdapter implements UserModel {
 
     @Override
     public Set<GroupModel> getGroups() {
-        return entity.getGroups().stream()
-            .map((Group group) -> GroupAdapter.fromEntity(group, realm))
+        return getGroupsStream()
             .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Stream<GroupModel> getGroupsStream() {
+        return entity.getGroups().stream()
+                .map((Group group) -> GroupAdapter.fromEntity(group, realm));
     }
 
     @Override
