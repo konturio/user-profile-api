@@ -254,7 +254,7 @@ public class UserAdapter implements UserModel {
     @Override
     public Set<GroupModel> getGroups() {
         return entity.getGroups().stream()
-            .map(GroupAdapter::fromEntity)
+            .map((Group group) -> GroupAdapter.fromEntity(group, realm))
             .collect(Collectors.toSet());
     }
 

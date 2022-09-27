@@ -372,7 +372,7 @@ public class UserAdapterTest {
     }
 
     private GroupAdapter createAdapterForGroup(Group group) {
-        return GroupAdapter.fromEntity(group);
+        return GroupAdapter.fromEntity(group, null);
     }
 
 

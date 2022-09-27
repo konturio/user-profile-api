@@ -7,6 +7,7 @@ import java.util.Set;
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;
+import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleModel;
 import org.keycloak.storage.ReadOnlyException;
 
@@ -14,16 +15,18 @@ import org.keycloak.storage.ReadOnlyException;
 public class GroupAdapter implements GroupModel {
 
     private final Group entity;
+    private final RealmModel realm;
 
-    private GroupAdapter(Group entity) {
+    private GroupAdapter(Group entity, RealmModel realm) {
+        this.realm = realm;
         if (entity == null) {
             throw new IllegalArgumentException("Group must not be null!");
         }
         this.entity = entity;
     }
 
-    public static GroupAdapter fromEntity(Group entity) {
-        return new GroupAdapter(entity);
+    public static GroupAdapter fromEntity(Group entity, RealmModel realm) {
+        return new GroupAdapter(entity, realm);
     }
 
     @Override
@@ -38,7 +41,8 @@ public class GroupAdapter implements GroupModel {
 
     @Override
     public boolean hasRole(RoleModel role) {
-        throw new RuntimeException("Not Implemented");
+        GroupModel group = realm.getGroupById(entity.getId());
+        return group.hasRole(role);
     }
 
     @Override

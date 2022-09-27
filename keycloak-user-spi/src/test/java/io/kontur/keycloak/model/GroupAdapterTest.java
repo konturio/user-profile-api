@@ -12,7 +12,7 @@ public class GroupAdapterTest {
         Group entity = new Group();
         entity.setId("some-keycloak-id");
         entity.setName("some-name");
-        GroupAdapter adapter = GroupAdapter.fromEntity(entity);
+        GroupAdapter adapter = GroupAdapter.fromEntity(entity, null);
 
         assertEquals(entity.getId(), adapter.getId());
         assertEquals(entity.getName(), adapter.getName());
@@ -30,8 +30,8 @@ public class GroupAdapterTest {
         entity2.setId(id);
         entity2.setName("name 2");
 
-        GroupAdapter adapter1 = GroupAdapter.fromEntity(entity1);
-        GroupAdapter adapter2 = GroupAdapter.fromEntity(entity2);
+        GroupAdapter adapter1 = GroupAdapter.fromEntity(entity1, null);
+        GroupAdapter adapter2 = GroupAdapter.fromEntity(entity2, null);
 
         assertEquals(adapter1, adapter2);
     }
