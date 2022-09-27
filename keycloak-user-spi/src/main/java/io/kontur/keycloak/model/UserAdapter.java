@@ -103,7 +103,9 @@ public class UserAdapter implements UserModel {
             .map(r -> {
                 if (r.getClientId() != null) {
                     ClientModel roleClient = realm.getClientById(r.getClientId());
-                    return RoleAdapter.fromEntity(r, roleClient, component);
+                    if (roleClient != null) {
+                        return RoleAdapter.fromEntity(r, roleClient, component);
+                    }
                 }
                 return RoleAdapter.fromEntity(r, realm, component);
             })
