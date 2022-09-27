@@ -68,7 +68,8 @@ public class UserAdapter implements UserModel {
 
     @Override
     public boolean hasRole(RoleModel role) {
-        return RoleUtils.hasRole(getRoleMappings(), role);
+        return RoleUtils.hasRole(getRoleMappings().stream(), role)
+                || RoleUtils.hasRoleFromGroup(getGroups().stream(), role, true);
     }
 
     @Override
