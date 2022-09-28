@@ -4,9 +4,12 @@ import io.kontur.userprofile.model.entity.user.Group;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
+
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;
+import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleModel;
 import org.keycloak.storage.ReadOnlyException;
 
@@ -14,16 +17,18 @@ import org.keycloak.storage.ReadOnlyException;
 public class GroupAdapter implements GroupModel {
 
     private final Group entity;
+    private final RealmModel realm;
 
-    private GroupAdapter(Group entity) {
+    private GroupAdapter(Group entity, RealmModel realm) {
+        this.realm = realm;
         if (entity == null) {
             throw new IllegalArgumentException("Group must not be null!");
         }
         this.entity = entity;
     }
 
-    public static GroupAdapter fromEntity(Group entity) {
-        return new GroupAdapter(entity);
+    public static GroupAdapter fromEntity(Group entity, RealmModel realm) {
+        return new GroupAdapter(entity, realm);
     }
 
     @Override
@@ -38,7 +43,8 @@ public class GroupAdapter implements GroupModel {
 
     @Override
     public boolean hasRole(RoleModel role) {
-        throw new RuntimeException("Not Implemented");
+        GroupModel group = realm.getGroupById(entity.getId());
+        return group.hasRole(role);
     }
 
     @Override
@@ -48,7 +54,14 @@ public class GroupAdapter implements GroupModel {
 
     @Override
     public Set<RoleModel> getRoleMappings() {
-        return Set.of(); //not supported for groups
+        GroupModel group = realm.getGroupById(entity.getId());
+        return group.getRoleMappings();
+    }
+
+    @Override
+    public Stream<RoleModel> getRoleMappingsStream() {
+        GroupModel group = realm.getGroupById(entity.getId());
+        return group.getRoleMappingsStream();
     }
 
     @Override
