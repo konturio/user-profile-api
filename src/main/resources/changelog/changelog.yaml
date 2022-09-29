@@ -63,3 +63,13 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/alter-tables-add-generated-as-identity.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/alter-users-table-add-settings.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/drop_sequences.sql
+#      TODO drop columns after User SPI plugin is updated https://kontur.fibery.io/Tasks/Task/Update-keycloak-SPI-plugin-to-use-full-name-instead-of-first-and-last-name-12627
+#  - include:
+#      relativeToChangelogFile: true
+#      file: sql/alter-users-table-drop-first-last-name.sql
