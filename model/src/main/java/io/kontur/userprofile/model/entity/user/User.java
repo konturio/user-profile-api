@@ -77,5 +77,7 @@ public class User {
     private String bio;
     @Column(name = "osm_editor")
     private String osmEditor;
+    @Column(name = "default_feed")
+    private String defaultFeed;
     private String theme;
 }
