@@ -1,17 +1,13 @@
 package io.kontur.userprofile.model.dto;
 
 import io.kontur.userprofile.model.entity.user.User;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserDto {
     private String username;

@@ -14,6 +14,7 @@ import io.kontur.userprofile.rest.exception.WebApplicationException;
 import java.util.List;
 import java.util.Optional;
 
+import io.kontur.userprofile.service.UserService;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,9 @@ public class UserControllerTest {
     UserDao userDao = mock(UserDao.class);
     @Mock
     AuthService authService = mock(AuthService.class);
-    UserController userController = new UserController(userDao, authService);
+    @Mock
+    UserService userService = mock(UserService.class);
+    UserController userController = new UserController(userDao, authService, userService);
 
     @BeforeEach
     public void before() {
