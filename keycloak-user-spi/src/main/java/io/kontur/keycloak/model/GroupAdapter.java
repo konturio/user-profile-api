@@ -1,6 +1,8 @@
 package io.kontur.keycloak.model;
 
 import io.kontur.userprofile.model.entity.user.Group;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +46,7 @@ public class GroupAdapter implements GroupModel {
     @Override
     public boolean hasRole(RoleModel role) {
         GroupModel group = realm.getGroupById(entity.getId());
-        return group.hasRole(role);
+        return group != null && group.hasRole(role);
     }
 
     @Override
@@ -55,12 +57,18 @@ public class GroupAdapter implements GroupModel {
     @Override
     public Set<RoleModel> getRoleMappings() {
         GroupModel group = realm.getGroupById(entity.getId());
+        if (group == null) {
+            return Collections.emptySet();
+        }
         return group.getRoleMappings();
     }
 
     @Override
     public Stream<RoleModel> getRoleMappingsStream() {
         GroupModel group = realm.getGroupById(entity.getId());
+        if (group == null) {
+            return Stream.empty();
+        }
         return group.getRoleMappingsStream();
     }
 
