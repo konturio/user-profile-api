@@ -4,6 +4,7 @@ import static io.kontur.userprofile.config.WebSecurityConfiguration.ClaimParams.
 import static io.kontur.userprofile.model.entity.user.Role.Names.KONTUR_ADMIN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.dto.UserDto;
 import io.kontur.userprofile.model.dto.UserSummaryDto;
@@ -31,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController { //todo this api is not used by anyone
     private final UserDao userDao;
 
+    private final AuthService authService;
+
     @Operation(summary = "Get List of Users")
     @ApiResponse(content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
         array = @ArraySchema(
@@ -57,5 +60,17 @@ public class UserController { //todo this api is not used by anyone
                 NOT_FOUND);
         }
         return UserDto.fromEntity(user);
+    }
+
+    @Operation(summary = "Get Current User")
+    @ApiResponse(content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = UserDto.class)))
+    @ApiResponse(responseCode = "404", description = "User not found",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+    @GetMapping("/current_user")
+    public UserDto getCurrentUser() {
+        User currentUser = authService.getCurrentUser().orElseThrow(() ->
+                new WebApplicationException("No profile found for current user", NOT_FOUND));
+        return UserDto.fromEntity(currentUser);
     }
 }

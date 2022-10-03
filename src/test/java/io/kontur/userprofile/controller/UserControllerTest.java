@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.dto.UserDto;
 import io.kontur.userprofile.model.dto.UserSummaryDto;
@@ -11,6 +12,8 @@ import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.UserController;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import java.util.List;
+import java.util.Optional;
+
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,14 +24,14 @@ public class UserControllerTest {
     private final List<User> users = someUsers();
     @Mock
     UserDao userDao = mock(UserDao.class);
-    UserController userController = new UserController(userDao);
+    @Mock
+    AuthService authService = mock(AuthService.class);
+    UserController userController = new UserController(userDao, authService);
 
     @BeforeEach
     public void before() {
         when(userDao.getAllUsers()).thenReturn(users);
-        users.forEach(user -> {
-            when(userDao.getUser(user.getUsername())).thenReturn(user);
-        });
+        users.forEach(user -> when(userDao.getUser(user.getUsername())).thenReturn(user));
     }
 
     @Test
@@ -58,6 +61,29 @@ public class UserControllerTest {
         }
     }
 
+    @Test
+    public void getCurrentUserTest() {
+        when(authService.getCurrentUser()).thenReturn(Optional.of(users.get(0)));
+        UserDto result = userController.getCurrentUser();
+        thenDtoIsCorrect(users.get(0), result);
+    }
+
+    @Test
+    public void getCurrentUserNotFoundTest() {
+        when(authService.getCurrentUser()).thenReturn(Optional.empty());
+        boolean thrown = false;
+        try {
+            userController.getCurrentUser();
+        } catch (Exception e) {
+            assertEquals(WebApplicationException.class, e.getClass());
+            assertEquals(HttpStatus.NOT_FOUND, ((WebApplicationException) e).getStatus());
+            thrown = true;
+        }
+        if (!thrown) {
+            throw new RuntimeException("Exception was not thrown!");
+        }
+    }
+
     private void thenDtoIsCorrect(User source, UserDto dto) {
         assertFullDto(source, dto);
     }
@@ -71,7 +97,7 @@ public class UserControllerTest {
     }
 
     private UserSummaryDto findDtoInResult(List<UserSummaryDto> result, String username) {
-        return result.stream().filter(it -> username.equals(it.getUsername())).findAny().get();
+        return result.stream().filter(it -> username.equals(it.getUsername())).findAny().orElse(null);
     }
 
     private void assertSummaryDto(User user, UserSummaryDto dto) {
