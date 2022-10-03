@@ -262,6 +262,7 @@ public class UserAdapter implements UserModel {
     @Override
     public Stream<GroupModel> getGroupsStream() {
         return entity.getGroups().stream()
+                .filter(g -> realm.getGroupById(g.getId()) != null)
                 .map((Group group) -> GroupAdapter.fromEntity(group, realm));
     }
 

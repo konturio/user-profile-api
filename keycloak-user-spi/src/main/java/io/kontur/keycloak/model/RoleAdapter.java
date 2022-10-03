@@ -63,7 +63,7 @@ public class RoleAdapter implements RoleModel {
 
     @Override
     public boolean isComposite() {
-        return realm.getRoleById(getId()).isComposite();
+        return realm.getRoleById(getId()) != null && realm.getRoleById(getId()).isComposite();
     }
 
     @Override
@@ -78,6 +78,9 @@ public class RoleAdapter implements RoleModel {
 
     @Override
     public Stream<RoleModel> getCompositesStream() {
+        if (realm.getRoleById(getId()) == null) {
+            return Stream.empty();
+        }
         return realm.getRoleById(getId()).getCompositesStream();
     }
 
@@ -99,7 +102,7 @@ public class RoleAdapter implements RoleModel {
     @Override
     public boolean hasRole(RoleModel role) {
         return getId().equals(role.getId()) ||
-                (isComposite() && realm.getRoleById(getId()).hasRole(role));
+                (isComposite() && realm.getRoleById(getId()) != null && realm.getRoleById(getId()).hasRole(role));
     }
 
     @Override

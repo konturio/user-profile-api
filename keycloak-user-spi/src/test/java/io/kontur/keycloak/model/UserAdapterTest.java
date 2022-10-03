@@ -62,6 +62,9 @@ public class UserAdapterTest {
         when(realm.getId()).thenReturn(realmId);
         when(realm.getDefaultRole()).thenReturn(null);
         when(realm.getRoleById(any())).thenReturn(mock(RoleModel.class));
+        when(realm.getGroupById(group1.getId())).thenReturn(mock(GroupModel.class));
+        when(realm.getGroupById(group2.getId())).thenReturn(mock(GroupModel.class));
+
 
         when(session.userFederatedStorage()).thenReturn(storage);
 
