@@ -69,7 +69,15 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "full_name")
+    private String fullName;
     private String language;
     @Column(name = "use_metric_units")
     private boolean useMetricUnits;
+    private String bio;
+    @Column(name = "osm_editor")
+    private String osmEditor;
+    @Column(name = "default_feed")
+    private String defaultFeed;
+    private String theme;
 }
