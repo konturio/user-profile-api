@@ -5,7 +5,6 @@ import static io.kontur.userprofile.model.entity.user.Role.Names.KONTUR_ADMIN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import io.kontur.userprofile.auth.AuthService;
-import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.dto.UserDto;
 import io.kontur.userprofile.model.dto.UserSummaryDto;
 import io.kontur.userprofile.model.entity.user.User;
@@ -28,8 +27,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController { //todo this api is not used by anyone
-    private final UserDao userDao;
-
     private final AuthService authService;
 
     private final UserService userService;
@@ -41,7 +38,7 @@ public class UserController { //todo this api is not used by anyone
     @PreAuthorize("hasRole('" + KONTUR_ADMIN + "')")
     @GetMapping("/users")
     public List<UserSummaryDto> getAllUsers() {
-        return userDao.getAllUsers().stream().map(UserSummaryDto::fromEntity)
+        return userService.getAllUsers().stream().map(UserSummaryDto::fromEntity)
             .collect(Collectors.toList());
     }
 
@@ -54,7 +51,7 @@ public class UserController { //todo this api is not used by anyone
         + "+ #username)")
     @GetMapping("/users/{username}")
     public UserDto getUser(@PathVariable @Parameter(name = "username") String username) {
-        User user = userDao.getUser(username);
+        User user = userService.getUser(username);
         if (user == null) {
             throw new WebApplicationException("User not found by username '" + username + "'",
                 NOT_FOUND);
