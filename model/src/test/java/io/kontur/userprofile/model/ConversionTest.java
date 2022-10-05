@@ -63,8 +63,6 @@ public class ConversionTest {
         UserDto userDto = UserDto.fromEntity(user);
         assertEquals(user.getUsername(), userDto.getUsername());
         assertEquals(user.getEmail(), userDto.getEmail());
-        assertEquals(user.getFirstName(), userDto.getFirstName());
-        assertEquals(user.getLastName(), userDto.getLastName());
 
         assertEquals(user.getLanguage(), userDto.getLanguage());
         assertEquals(user.isUseMetricUnits(), userDto.isUseMetricUnits());

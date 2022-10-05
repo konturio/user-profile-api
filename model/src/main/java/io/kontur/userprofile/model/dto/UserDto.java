@@ -12,8 +12,6 @@ import lombok.*;
 public class UserDto {
     private String username;
     private String email;
-    private String firstName;
-    private String lastName;
     private String fullName;
     private String language;
     private boolean useMetricUnits;
@@ -25,9 +23,8 @@ public class UserDto {
 
     public static UserDto fromEntity(User user) {
         return user == null ? null :
-                new UserDto(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(),
-                        user.getFullName(), user.getLanguage(), user.isUseMetricUnits(),
-                        user.isSubscribedToKonturUpdates(), user.getBio(), user.getOsmEditor(), user.getDefaultFeed(),
-                        user.getTheme());
+                new UserDto(user.getUsername(), user.getEmail(), user.getFullName(), user.getLanguage(),
+                        user.isUseMetricUnits(), user.isSubscribedToKonturUpdates(), user.getBio(),
+                        user.getOsmEditor(), user.getDefaultFeed(), user.getTheme());
     }
 }

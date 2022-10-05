@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +39,6 @@ public class UserService {
     }
 
     public User updateUser(User user, UserDto userDto) {
-        user.setUsername(userDto.getUsername());
         user.setFullName(userDto.getFullName());
         user.setLanguage(userDto.getLanguage());
         user.setUseMetricUnits(userDto.isUseMetricUnits());
@@ -50,14 +48,6 @@ public class UserService {
         user.setDefaultFeed(userDto.getDefaultFeed());
         user.setTheme(userDto.getTheme());
 
-        User existedUser = userDao.getUser(user.getUsername());
-        if (existedUser != null && !Objects.equals(existedUser.getId(), user.getId())) {
-            throw new WebApplicationException("Use other username!", HttpStatus.BAD_REQUEST);
-        }
-        existedUser = userDao.getUserByEmail(user.getEmail());
-        if (existedUser != null && !Objects.equals(existedUser.getId(), user.getId())) {
-            throw new WebApplicationException("Use other email!", HttpStatus.BAD_REQUEST);
-        }
         userDao.updateUser(user);
 
         return user;

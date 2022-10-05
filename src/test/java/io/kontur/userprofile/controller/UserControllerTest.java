@@ -109,8 +109,6 @@ public class UserControllerTest {
     private void assertFullDto(User user, UserDto dto) {
         assertEquals(user.getUsername(), dto.getUsername());
         assertEquals(user.getEmail(), dto.getEmail());
-        assertEquals(user.getFirstName(), dto.getFirstName());
-        assertEquals(user.getLastName(), dto.getLastName());
         assertEquals(user.getLanguage(), dto.getLanguage());
         assertEquals(user.isUseMetricUnits(), dto.isUseMetricUnits());
         assertEquals(user.isSubscribedToKonturUpdates(), dto.isSubscribedToKonturUpdates());

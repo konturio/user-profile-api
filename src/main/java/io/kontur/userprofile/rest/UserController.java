@@ -64,6 +64,7 @@ public class UserController {
             schema = @Schema(implementation = UserDto.class)))
     @ApiResponse(responseCode = "404", description = "User not found",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/current_user")
     public UserDto getCurrentUser() {
         User currentUser = authService.getCurrentUser().orElseThrow(() ->
@@ -76,6 +77,7 @@ public class UserController {
             schema = @Schema(implementation = UserDto.class)))
     @ApiResponse(responseCode = "404", description = "User not found",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/current_user")
     public UserDto updateCurrentUser(@RequestBody @Parameter(name = "user") UserDto userDto) {
         User currentUser = authService.getCurrentUser().orElseThrow(() ->
