@@ -3,7 +3,7 @@ package io.kontur.userprofile.dao;
 import static io.kontur.userprofile.service.AppService.DN2_ID;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import io.kontur.userprofile.controller.AbstractIT;
+import io.kontur.userprofile.AbstractIT;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
 import java.util.stream.Stream;

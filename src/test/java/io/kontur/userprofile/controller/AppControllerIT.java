@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.kontur.userprofile.AbstractIT;
 import io.kontur.userprofile.dao.AppDao;
 import io.kontur.userprofile.dao.FeatureDao;
 import io.kontur.userprofile.dao.UserDao;
