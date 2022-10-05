@@ -3,6 +3,7 @@ package io.kontur.userprofile.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.kontur.userprofile.AbstractIT;
 import io.kontur.userprofile.dao.AppDao;
 import io.kontur.userprofile.dao.AppFeatureDao;
 import io.kontur.userprofile.dao.AppUserFeatureDao;

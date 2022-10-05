@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class UserController { //todo this api is not used by anyone
+public class UserController {
     private final AuthService authService;
 
     private final UserService userService;

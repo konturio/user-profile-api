@@ -1,13 +1,10 @@
 package io.kontur.userprofile.dao;
 
 import io.kontur.userprofile.model.entity.user.User;
-import io.kontur.userprofile.rest.exception.WebApplicationException;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,32 +34,17 @@ public class UserDao {
 
     public List<User> getAllUsers() {
         try {
-            return entityManager.createQuery("from User", User.class)
-                .getResultList();
+            return entityManager.createQuery("from User", User.class).getResultList();
         } catch (NoResultException e) {
             return List.of();
         }
     }
 
     public void createUser(User user) {
-        if (getUser(user.getUsername()) != null) {
-            throw new WebApplicationException("Use other username!", HttpStatus.BAD_REQUEST);
-        }
-        if (getUserByEmail(user.getEmail()) != null) {
-            throw new WebApplicationException("Use other email!", HttpStatus.BAD_REQUEST);
-        }
         entityManager.persist(user);
     }
 
     public void updateUser(User user) {
-        User existedUser = getUser(user.getUsername());
-        if (existedUser != null && !Objects.equals(existedUser.getId(), user.getId())) {
-            throw new WebApplicationException("Use other username!", HttpStatus.BAD_REQUEST);
-        }
-        existedUser = getUserByEmail(user.getEmail());
-        if (existedUser != null && !Objects.equals(existedUser.getId(), user.getId())) {
-            throw new WebApplicationException("Use other email!", HttpStatus.BAD_REQUEST);
-        }
         entityManager.merge(user);
     }
 }
