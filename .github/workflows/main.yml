@@ -25,6 +25,11 @@ jobs:
           distribution: corretto
           cache: gradle
 
+      - name: Extracting metadata from a cloned repository
+        id: get-cloned
+        run: |-
+          echo "::set-output name=SHA::$(git log -1 --format='%h')"
+
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         with:
@@ -36,6 +41,7 @@ jobs:
           NEXUS_DEPLOYER_PASS: ${{ secrets.NEXUS_DEPLOYER_PASS }}
           NEXUS_READER: ${{ secrets.NEXUS_READER }}
           NEXUS_READER_PASS: ${{ secrets.NEXUS_READER_PASS }}
+          IMAGE_TAG: ${{ github.ref_name }}.${{ steps.get-cloned.outputs.SHA }}.${{ github.run_attempt }}
         run: |-
           set -x
           for t in check build jib; do
@@ -49,7 +55,7 @@ jobs:
           set +x
           tar --show-transformed-names --transform="s@^build/libs/@@;s@^build/resources/main/external/@@;" -cvf - build/libs/*.jar build/resources/main/external/* | xz -1 > user-profile-api-${{needs.helper.outputs.CI_COMMIT_REF_SLUG}}.tar.xz
           awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, " instructions covered"; print 100*covered/instructions, "% covered" }' build/jacoco.csv
-          cat build/imageTags.md >> $GITHUB_STEP_SUMMARY
+          echo "<h3>Docker image tag</h3> $IMAGE_TAG <br><br>" >> $GITHUB_STEP_SUMMARY
 
       - name: Uploading build and test artifacts
         uses: actions/upload-artifact@v3.1.0
