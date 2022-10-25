@@ -114,7 +114,7 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
             return Stream.empty();
         }
         return entityManager.createQuery("from User u where u.username like ?1 or "
-                + "u.email like ?1 or u.firstName like ?1 or u.lastName like ?1",
+                + "u.email like ?1 or u.fullName like ?1",
             User.class).setParameter(1, "%" + search + "%").getResultStream();
     }
 }
