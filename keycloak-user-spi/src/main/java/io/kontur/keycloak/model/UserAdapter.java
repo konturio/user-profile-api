@@ -213,22 +213,22 @@ public class UserAdapter implements UserModel {
 
     @Override
     public String getFirstName() {
-        return entity.getFirstName();
+        return entity.getFullName();
     }
 
     @Override
     public void setFirstName(String firstName) {
-        entity.setFirstName(firstName);
+        entity.setFullName(firstName);
     }
 
     @Override
     public String getLastName() {
-        return entity.getLastName();
+        return "";
     }
 
     @Override
     public void setLastName(String lastName) {
-        entity.setLastName(lastName);
+        //do nothing
     }
 
     @Override
