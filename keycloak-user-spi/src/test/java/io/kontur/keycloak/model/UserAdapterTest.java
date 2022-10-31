@@ -230,8 +230,7 @@ public class UserAdapterTest {
         User user = User.builder()
             .id(123L)
             .username("some_username")
-            .firstName("first name")
-            .lastName("last name")
+            .fullName("full name")
             .email("email@test.com")
             .build();
 
@@ -242,25 +241,25 @@ public class UserAdapterTest {
     @Test
     public void setFirstNameTest() {
         User user = givenUserHasNoRolesOrGroups();
-        user.setFirstName("name1");
+        user.setFullName("name1");
         UserAdapter userAdapter = createAdapterForUser(user);
 
         String newName = "new name";
         userAdapter.setFirstName(newName);
 
-        assertEquals(newName, user.getFirstName());
+        assertEquals(newName, user.getFullName());
     }
 
     @Test
     public void setLastNameTest() {
         User user = givenUserHasNoRolesOrGroups();
-        user.setLastName("name1");
+        user.setFullName("name1");
         UserAdapter userAdapter = createAdapterForUser(user);
 
         String newName = "new name";
         userAdapter.setLastName(newName);
 
-        assertEquals(newName, user.getLastName());
+        assertEquals("name1", user.getFullName());
     }
 
     @Test
@@ -381,8 +380,8 @@ public class UserAdapterTest {
 
     private void assertAdapter(User user, UserAdapter adapter) {
         assertEquals(user.getUsername(), adapter.getUsername());
-        assertEquals(user.getFirstName(), adapter.getFirstName());
-        assertEquals(user.getLastName(), adapter.getLastName());
+        assertEquals(user.getFullName(), adapter.getFirstName());
+        assertEquals("", adapter.getLastName());
         assertEquals(user.getEmail(), adapter.getEmail());
         assertTrue(adapter.isEnabled());
         assertTrue(adapter.isEmailVerified());
