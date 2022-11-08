@@ -75,3 +75,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/alter-users-table-drop-first-last-name.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-locate-me-feature.sql
