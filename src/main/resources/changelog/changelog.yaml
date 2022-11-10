@@ -78,3 +78,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/add-locate-me-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/alter-app-table-add-icon-urls.sql

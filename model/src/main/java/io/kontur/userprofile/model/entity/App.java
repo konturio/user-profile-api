@@ -35,6 +35,10 @@ public class App {
     @Column(name = "center_geometry")
     private Geometry centerGeometry;
     private BigDecimal zoom;
+    @Column(name = "sidebar_icon_url")
+    private String sidebarIconUrl;
+    @Column(name = "favicon_url")
+    private String faviconUrl;
 
     public static App fromDto(AppDto appDto) {
         App app = new App();
@@ -45,6 +49,8 @@ public class App {
         Geometry entityGeometry = GeoJsonUtils.toEntity(appDto.getCenterGeometry());
         app.setCenterGeometry(entityGeometry);
         app.setZoom(appDto.getZoom());
+        app.setSidebarIconUrl(appDto.getSidebarIconUrl());
+        app.setFaviconUrl(appDto.getFaviconUrl());
         return app;
     }
 

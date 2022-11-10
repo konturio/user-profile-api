@@ -103,6 +103,8 @@ public class AppService {
         app.setPublic(update.isPublic());
         app.setCenterGeometry(update.getCenterGeometry());
         app.setZoom(update.getZoom());
+        app.setSidebarIconUrl(update.getSidebarIconUrl());
+        app.setFaviconUrl(update.getFaviconUrl());
 
         List<Feature> currentFeatures = appFeatureDao.getAppFeaturesIncludingDisabledAndBetaFor(app)
             .toList();
