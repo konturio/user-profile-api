@@ -38,7 +38,7 @@ import org.wololo.geojson.Point;
 @SpringBootTest
 @Transactional
 public class AppControllerIT extends AbstractIT {
-    public static final String DN2_NAME = "DN2";
+    public static final String DN2_NAME = "Disaster Ninja";
     @PersistenceContext
     EntityManager entityManager;
     @Autowired

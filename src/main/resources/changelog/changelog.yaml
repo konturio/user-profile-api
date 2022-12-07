@@ -81,3 +81,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/alter-app-table-add-icon-urls.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/13451-update-dn-app-name-and-icons.sql
