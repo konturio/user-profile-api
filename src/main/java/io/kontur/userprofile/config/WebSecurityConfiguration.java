@@ -77,7 +77,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/actuator", "/actuator/**")
             .permitAll() //TODO security temporarily disabled
 
-            .antMatchers("/metrics", "/info", "/health")
+            .antMatchers("/metrics", "/info", "/health", "/health/**")
             .permitAll() //TODO security temporarily disabled
 
             .antMatchers("/features")
