@@ -84,3 +84,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/13451-update-dn-app-name-and-icons.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/13712-update-set-of-features.sql
