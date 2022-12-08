@@ -87,3 +87,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/13712-update-set-of-features.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/13712-update-3rd-party-analytics-feature.sql
