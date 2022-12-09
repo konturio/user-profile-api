@@ -5,6 +5,8 @@ import io.kontur.keycloak.service.UserService;
 import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.Role;
 import io.kontur.userprofile.model.entity.user.User;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,6 +47,11 @@ public class DatabaseUserStorageProvider
     private UserService userService;
     private KeycloakSession session;
     private ComponentModel component;
+
+    @Override
+    public int getUsersCount(RealmModel realm) {
+        return BigDecimal.valueOf(userService.getCount()).intValueExact();
+    }
 
     @Override
     public UserModel addUser(RealmModel realm, String email) {
