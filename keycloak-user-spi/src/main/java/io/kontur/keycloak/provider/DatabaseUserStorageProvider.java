@@ -194,13 +194,6 @@ public class DatabaseUserStorageProvider
     }
 
     @Override
-    public void preRemove(RealmModel realm) {
-        //remove all roles belonging to this realm from users and groups
-        //it's called once a realm is being deleted
-        log.info("#preRemove called - doing nothing");
-    }
-
-    @Override
     @Remove
     public void close() {
     }
