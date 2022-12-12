@@ -84,7 +84,7 @@ jobs:
         uses: docker/metadata-action@v4.0.1
         id: meta
         with:
-          images: nexus.kontur.io:8085/konturdev/keycloak-with-ups-spi #TODO check - tag is not specified
+          images: nexus.kontur.io:8085/konturdev/keycloak-with-ups-spi
           tags: |
             type=raw,value=${{ github.ref_name }}.{{sha}}.${{ github.run_attempt }}
 

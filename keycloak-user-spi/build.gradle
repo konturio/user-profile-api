@@ -13,17 +13,12 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    // configuration that holds dependency jars to include in the final jar
-    extraLibs
-}
-
 dependencies {
     //model
     implementation project(":model")
 
     //postgresql
-    implementation 'org.postgresql:postgresql:42.3.1'
+    implementation 'org.postgresql:postgresql:42.2.5' //version used in keycloak-core 15.0.0
 
     //hibernate
     implementation 'org.hibernate:hibernate-core:5.5.3.Final'
@@ -46,9 +41,6 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
 
     testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'
-
-    //include in final jar
-    extraLibs group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
 }
 
 jar {
@@ -57,9 +49,6 @@ jar {
     from fileTree('../model/build/classes/java/main/') {
         include '**/user/*.class'
     } into ""
-    into('lib') {
-        from configurations.extraLibs
-    }
 }
 
 checkstyle {
