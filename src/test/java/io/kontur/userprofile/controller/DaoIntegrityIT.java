@@ -17,6 +17,7 @@ import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,6 +45,14 @@ public class DaoIntegrityIT extends AbstractIT {
 
     @Autowired
     AppController appController;
+
+    private static final String configurationOne = "{\"statistics\": [{\n" +
+            "              \"formula\": \"sumX\",\n" +
+            "              \"x\": \"population\"\n" +
+            "            }, {\n" +
+            "              \"formula\": \"sumX\",\n" +
+            "              \"x\": \"populated_area_km2\"\n" +
+            "            }]}";
 
     @Test
     @Transactional
@@ -106,7 +115,7 @@ public class DaoIntegrityIT extends AbstractIT {
 
     void createAppFeature(App app) {
         Feature feature = featureDao.getFeatureByName("communities");
-        AppFeature auf = new AppFeature(app, feature);
+        AppFeature auf = new AppFeature(app, feature, null);
         entityManager.persist(auf);
     }
 
@@ -115,7 +124,7 @@ public class DaoIntegrityIT extends AbstractIT {
         request.setName(UUID.randomUUID().toString());
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(true);
-        request.setFeatures(List.of("map_layers_panel"));
+        request.setConfigurationByFeatureNames(Map.of("map_layers_panel", configurationOne));
         request.setCenterGeometry(new Point(new double[] {1d, 2d}));
         request.setZoom(BigDecimal.ONE);
 

@@ -12,6 +12,7 @@ import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ public class ConversionTest {
     public void appWithNullGeometryTest1() {
         App app = new App();
 
-        AppDto dto = AppDto.fromEntities(app, List.of(), false);
+        AppDto dto = AppDto.fromEntities(app, Map.of(), false);
         assertNull(dto.getCenterGeometry());
         assertNull(dto.getZoom());
 

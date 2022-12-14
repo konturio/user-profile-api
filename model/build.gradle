@@ -23,6 +23,9 @@ dependencies {
     //hibernate
     implementation 'org.hibernate:hibernate-core:5.5.3.Final'
     implementation 'org.hibernate:hibernate-spatial:5.5.3.Final'
+    implementation group: 'com.vladmihalcea', name: 'hibernate-types-52', version: '2.20.0'
+    implementation group: 'com.fasterxml.jackson.module', name: 'jackson-module-jaxb-annotations', version: '2.14.1'
+
 
     implementation 'org.wololo:jts2geojson:0.16.1'
 

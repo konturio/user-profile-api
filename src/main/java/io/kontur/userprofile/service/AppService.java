@@ -9,11 +9,10 @@ import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.AppFeature;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+
+import java.util.*;
 import javax.validation.constraints.NotNull;
+
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
 import org.springframework.http.HttpStatus;
@@ -32,20 +31,20 @@ public class AppService {
     private final FeatureService featureService;
     private final AuthService authService;
 
-    private List<AppFeature> createAppFeatures(App app, List<String> featureNames) {
+    private List<AppFeature> createAppFeatures(App app, Map<String, String> configurationByFeatureNames) {
         List<AppFeature> appFeatures = new ArrayList<>();
 
         List<Feature> featuresAddedByDefaultToUserApps = featureService
-            .getFeaturesAddedByDefaultToUserApps();
+                .getFeaturesAddedByDefaultToUserApps();
         featuresAddedByDefaultToUserApps.forEach(f -> {
-            appFeatures.add(new AppFeature(app, f));
+            appFeatures.add(new AppFeature(app, f, configurationByFeatureNames.get(f.getName())));
         });
 
-        if (featureNames != null) {
-            for (String featureName : featureNames) {
-                Feature feature = getFeatureForUserApp(featureName);
+        if (configurationByFeatureNames != null) {
+            for (Map.Entry<String, String> configurationByFeatureName : configurationByFeatureNames.entrySet()) {
+                Feature feature = getFeatureForUserApp(configurationByFeatureName.getKey());
                 if (!feature.isDefaultForUserApps()) {
-                    AppFeature appFeature = new AppFeature(app, feature);
+                    AppFeature appFeature = new AppFeature(app, feature, configurationByFeatureName.getValue());
                     appFeatures.add(appFeature);
                 }
             }
@@ -57,24 +56,24 @@ public class AppService {
         Feature feature = featureService.getFeatureByName(featureName);
         if (feature == null || !feature.isEnabled()) {
             throw new WebApplicationException("Feature with name " + featureName
-                + " was not found", HttpStatus.BAD_REQUEST);
+                    + " was not found", HttpStatus.BAD_REQUEST);
         }
         if (feature.isBeta()) {
             throw new WebApplicationException("Not allowed to use beta features!",
-                HttpStatus.FORBIDDEN);
+                    HttpStatus.FORBIDDEN);
         }
         if (!feature.isAvailableForUserApps()) {
             throw new WebApplicationException("Feature " + featureName
-                + " is not allowed for user apps", HttpStatus.BAD_REQUEST);
+                    + " is not allowed for user apps", HttpStatus.BAD_REQUEST);
         }
         return feature;
     }
 
-    public App createApp(App app, List<String> featureNames) {
+    public App createApp(App app, Map<String, String> configurationByFeatureNames) {
         checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(app);
         app.setId(UUID.randomUUID());
 
-        List<AppFeature> appFeatures = createAppFeatures(app, featureNames);
+        List<AppFeature> appFeatures = createAppFeatures(app, configurationByFeatureNames);
 
         appDao.createApp(app);
         appFeatureDao.saveAppFeatures(appFeatures);
@@ -85,16 +84,15 @@ public class AppService {
     private void checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(App app) {
         if (app.getCenterGeometry() == null ^ app.getZoom() == null) {
             throw new WebApplicationException("Either both Zoom and CenterGeometry or none of them "
-                + "should be specified", HttpStatus.BAD_REQUEST);
+                    + "should be specified", HttpStatus.BAD_REQUEST);
         }
         if (app.getCenterGeometry() != null && !(app.getCenterGeometry() instanceof Point)) {
             throw new WebApplicationException("CenterGeometry must be a Point",
-                HttpStatus.BAD_REQUEST);
+                    HttpStatus.BAD_REQUEST);
         }
     }
 
-    public App updateApp(UUID id, App update,
-                         List<String> featureNames) {
+    public App updateApp(UUID id, App update, Map<String, String> configurationByFeatureNames) {
         checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(update);
 
         App app = getAppForChange(id);
@@ -107,14 +105,14 @@ public class AppService {
         app.setFaviconUrl(update.getFaviconUrl());
 
         List<Feature> currentFeatures = appFeatureDao.getAppFeaturesIncludingDisabledAndBetaFor(app)
-            .toList();
+                .toList();
         List<Feature> toRemove = currentFeatures.stream()
-            .filter(it -> !featureNames.contains(it.getName()))
-            .toList();
-        List<AppFeature> toAdd = featureNames.stream()
-            .filter(name -> currentFeatures.stream().noneMatch(it -> it.getName().equals(name)))
-            .map(it -> new AppFeature(app, getFeatureForUserApp(it)))
-            .toList();
+                .filter(it -> !configurationByFeatureNames.containsKey(it.getName()))
+                .toList();
+        List<AppFeature> toAdd = configurationByFeatureNames.entrySet().stream()
+                .filter(entry -> currentFeatures.stream().noneMatch(it -> it.getName().equals(entry.getKey())))
+                .map(entry -> new AppFeature(app, getFeatureForUserApp(entry.getKey()), entry.getValue()))
+                .toList();
 
         appFeatureDao.removeAppFeaturesFrom(app, toRemove);
         appFeatureDao.saveAppFeatures(toAdd);
@@ -152,7 +150,7 @@ public class AppService {
         }
 
         return currentUsername.isPresent()
-            && app.isOwnedByUsername(currentUsername.get());
+                && app.isOwnedByUsername(currentUsername.get());
     }
 
     public List<AppSummaryDto> getAppListForCurrentUser() {
@@ -177,7 +175,7 @@ public class AppService {
         App app = appDao.getApp(id);
         if (app == null) {
             throw new WebApplicationException("App not found by id " + id,
-                HttpStatus.NOT_FOUND);
+                    HttpStatus.NOT_FOUND);
         }
         return app;
     }
@@ -186,7 +184,7 @@ public class AppService {
         App app = getAppOrThrow(id);
         if (!isAppOwnedByCurrentUser(app)) {
             throw new WebApplicationException("Forbidden to change app " + id,
-                HttpStatus.FORBIDDEN);
+                    HttpStatus.FORBIDDEN);
         }
         return app;
     }

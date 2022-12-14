@@ -1,13 +1,5 @@
 package io.kontur.userprofile.controller;
 
-import static io.kontur.userprofile.service.AppService.DN2_ID;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import io.kontur.userprofile.AbstractIT;
 import io.kontur.userprofile.dao.AppDao;
 import io.kontur.userprofile.dao.FeatureDao;
@@ -20,11 +12,6 @@ import io.kontur.userprofile.model.entity.enums.FeatureType;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +21,16 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import org.wololo.geojson.LineString;
 import org.wololo.geojson.Point;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import static io.kontur.userprofile.service.AppService.DN2_ID;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -52,9 +49,26 @@ public class AppControllerIT extends AbstractIT {
     private User user1;
     private User user2;
     private static final String featureAvailableForUserApps = "map_layers_panel";
+
     private static final String featureAvailableForUserApps2 = "translation";
     private static final String featureNotAvailableForUserApps = "current_episode";
     private static final String notExistingFeature = "not-existing-feature";
+    private static final String configurationOne = "{\"statistics\": [{\n" +
+            "              \"formula\": \"sumX\",\n" +
+            "              \"x\": \"population\"\n" +
+            "            }, {\n" +
+            "              \"formula\": \"sumX\",\n" +
+            "              \"x\": \"populated_area_km2\"\n" +
+            "            }]}";
+    private static final String configurationTwo = "{\"statistics\": [{\n" +
+            "              \"formula\": \"sumXWhereNoY\",\n" +
+            "              \"x\": \"populated_area_km2\",\n" +
+            "              \"y\": \"count\"\n" +
+            "            }, {\n" +
+            "              \"formula\": \"sumXWhereNoY\",\n" +
+            "              \"x\": \"populated_area_km2\",\n" +
+            "              \"y\": \"building_count\"\n" +
+            "            }]}";
 
     @BeforeEach
     public void before() {
@@ -276,7 +290,7 @@ public class AppControllerIT extends AbstractIT {
         givenUserIsAuthenticated(user2);
         AppDto responseToNonOwnerUser = controller.get(response.getId());
         thenAppFieldsShownToNonOwnersAreCorrectAndDefaultFeaturesAreAdded(request,
-            responseToNonOwnerUser);
+                responseToNonOwnerUser);
         thenAppIsPresentInGetListResponse(response.getSummary());
     }
 
@@ -291,7 +305,7 @@ public class AppControllerIT extends AbstractIT {
         givenUserIsNotAuthenticated();
         AppDto responseToNonOwnerUser = controller.get(response.getId());
         thenAppFieldsShownToNonOwnersAreCorrectAndDefaultFeaturesAreAdded(request,
-            responseToNonOwnerUser);
+                responseToNonOwnerUser);
         thenAppIsPresentInGetListResponse(response.getSummary());
     }
 
@@ -342,7 +356,8 @@ public class AppControllerIT extends AbstractIT {
         AppDto response1 = controller.create(request);
 
         AppDto update = createPublicAppDto();
-        update.setFeatures(List.of(featureAvailableForUserApps, featureNotAvailableForUserApps));
+        update.setConfigurationByFeatureNames(Map.of(featureAvailableForUserApps, configurationOne,
+                featureNotAvailableForUserApps, configurationTwo));
 
         try {
             controller.update(response1.getId(), update);
@@ -360,7 +375,8 @@ public class AppControllerIT extends AbstractIT {
         AppDto response1 = controller.create(request);
 
         AppDto update = createPublicAppDto();
-        update.setFeatures(List.of(featureAvailableForUserApps, notExistingFeature));
+        update.setConfigurationByFeatureNames(Map.of(featureAvailableForUserApps, configurationOne,
+                notExistingFeature, configurationTwo));
 
         try {
             controller.update(response1.getId(), update);
@@ -378,7 +394,7 @@ public class AppControllerIT extends AbstractIT {
         AppDto response1 = controller.create(request);
 
         AppDto update = createPublicAppDto();
-        update.setFeatures(List.of(createBetaFeature().getName()));
+        update.setConfigurationByFeatureNames(Map.of(createBetaFeature().getName(), configurationOne));
 
         try {
             controller.update(response1.getId(), update);
@@ -396,7 +412,7 @@ public class AppControllerIT extends AbstractIT {
         AppDto response1 = controller.create(request);
 
         AppDto update = createPublicAppDto();
-        update.setFeatures(List.of(createBetaFeature().getName()));
+        update.setConfigurationByFeatureNames(Map.of(createBetaFeature().getName(), configurationOne));
 
         try {
             controller.update(response1.getId(), update);
@@ -423,7 +439,7 @@ public class AppControllerIT extends AbstractIT {
         givenUserIsAuthenticated(user1);
 
         AppDto request = createPublicAppDto();
-        request.setFeatures(List.of(notExistingFeature));
+        request.setConfigurationByFeatureNames(Map.of(notExistingFeature, configurationOne));
 
         try {
             controller.create(request);
@@ -451,7 +467,7 @@ public class AppControllerIT extends AbstractIT {
 
         AppDto dto = createPublicAppDto();
         dto.setCenterGeometry(
-            new LineString(new double[][] {new double[] {1d, 2d}, new double[] {3d, 4d}}));
+                new LineString(new double[][]{new double[]{1d, 2d}, new double[]{3d, 4d}}));
 
         try {
             controller.create(dto);
@@ -468,7 +484,7 @@ public class AppControllerIT extends AbstractIT {
 
         AppDto dto = createPublicAppDto();
         dto.setCenterGeometry(
-            new Point(new double[] {1d, 2d}));
+                new Point(new double[]{1d, 2d}));
         dto.setZoom(null);
 
         try {
@@ -477,7 +493,7 @@ public class AppControllerIT extends AbstractIT {
         } catch (WebApplicationException e) {
             assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
             assertEquals("Either both Zoom and CenterGeometry or none of them should "
-                + "be specified", e.getMessage());
+                    + "be specified", e.getMessage());
         }
     }
 
@@ -495,7 +511,7 @@ public class AppControllerIT extends AbstractIT {
         } catch (WebApplicationException e) {
             assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
             assertEquals("Either both Zoom and CenterGeometry or none of them should "
-                + "be specified", e.getMessage());
+                    + "be specified", e.getMessage());
         }
     }
 
@@ -506,7 +522,7 @@ public class AppControllerIT extends AbstractIT {
 
         AppDto dto = createPublicAppDto();
         dto.setCenterGeometry(
-            new LineString(new double[][] {new double[] {1d, 2d}, new double[] {3d, 4d}}));
+                new LineString(new double[][]{new double[]{1d, 2d}, new double[]{3d, 4d}}));
 
         try {
             controller.update(created.getId(), dto);
@@ -524,7 +540,7 @@ public class AppControllerIT extends AbstractIT {
 
         AppDto dto = createPublicAppDto();
         dto.setCenterGeometry(
-            new Point(new double[] {1d, 2d}));
+                new Point(new double[]{1d, 2d}));
         dto.setZoom(null);
 
         try {
@@ -533,7 +549,7 @@ public class AppControllerIT extends AbstractIT {
         } catch (WebApplicationException e) {
             assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
             assertEquals("Either both Zoom and CenterGeometry or none of them should "
-                + "be specified", e.getMessage());
+                    + "be specified", e.getMessage());
         }
     }
 
@@ -552,7 +568,7 @@ public class AppControllerIT extends AbstractIT {
         } catch (WebApplicationException e) {
             assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
             assertEquals("Either both Zoom and CenterGeometry or none of them should "
-                + "be specified", e.getMessage());
+                    + "be specified", e.getMessage());
         }
     }
 
@@ -561,8 +577,8 @@ public class AppControllerIT extends AbstractIT {
         request.setName(UUID.randomUUID().toString());
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(true);
-        request.setFeatures(List.of(featureAvailableForUserApps));
-        request.setCenterGeometry(new Point(new double[] {2d, 3d}));
+        request.setConfigurationByFeatureNames(Map.of(featureAvailableForUserApps, configurationOne));
+        request.setCenterGeometry(new Point(new double[]{2d, 3d}));
         request.setZoom(BigDecimal.valueOf(0.1));
         return request;
     }
@@ -572,8 +588,8 @@ public class AppControllerIT extends AbstractIT {
         request.setName(UUID.randomUUID().toString());
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(false);
-        request.setFeatures(List.of(featureAvailableForUserApps2));
-        request.setCenterGeometry(new Point(new double[] {20d, 30d}));
+        request.setConfigurationByFeatureNames(Map.of(featureAvailableForUserApps2, configurationOne));
+        request.setCenterGeometry(new Point(new double[]{20d, 30d}));
         request.setZoom(BigDecimal.valueOf(3.5));
         return request;
     }
@@ -601,14 +617,14 @@ public class AppControllerIT extends AbstractIT {
     }
 
     private void thenListOfFeaturesIsCorrect(AppDto request, AppDto response) {
-        assertEquals(request.getFeatures(), response.getFeatures());
+        assertEquals(request.getConfigurationByFeatureNames(), response.getConfigurationByFeatureNames());
     }
 
     private void thenDefaultFeaturesArePresent(AppDto dto) {
         List<String> defaultFeatures = featureDao.getFeaturesAddedByDefaultToUserApps()
-            .stream().map(Feature::getName).toList();
+                .stream().map(Feature::getName).toList();
 
-        defaultFeatures.forEach(feature -> assertTrue(dto.getFeatures().contains(feature)));
+        defaultFeatures.forEach(feature -> assertTrue(dto.getConfigurationByFeatureNames().containsKey(feature)));
     }
 
     private void assertBasicAppFields(AppDto expected, AppDto actual) {
@@ -618,7 +634,7 @@ public class AppControllerIT extends AbstractIT {
         assertNotNull(actual.getId());
         assertEquals(expected.getZoom(), actual.getZoom());
         GeoJsonUtils.geometriesAreEqual(expected.getCenterGeometry(),
-            actual.getCenterGeometry());
+                actual.getCenterGeometry());
     }
 
     private void thenAppIsPresentInGetListResponse(AppSummaryDto appSummaryDto) {

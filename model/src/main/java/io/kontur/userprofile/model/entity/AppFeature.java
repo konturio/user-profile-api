@@ -10,15 +10,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 @Entity
 @Table(name = "app_feature")
 @Getter
 @NoArgsConstructor
+@TypeDefs({
+        @TypeDef(name = "json", typeClass = JsonStringType.class),
+        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
 public class AppFeature {
 
     @EmbeddedId
@@ -32,9 +42,14 @@ public class AppFeature {
     @JoinColumn(name = "feature_id", insertable = false, updatable = false)
     private Feature feature;
 
-    public AppFeature(@NotNull App app, @NotNull Feature feature) {
+    @Type(type = "jsonb")
+    @Column(name = "configuration", columnDefinition = "json")
+    private String configuration;
+
+    public AppFeature(@NotNull App app, @NotNull Feature feature, String configuration) {
         this.app = app;
         this.feature = feature;
+        this.configuration = configuration;
 
         setKeyComponents(app, feature); //required to set manually
     }
