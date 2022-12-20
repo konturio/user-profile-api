@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,26 +33,21 @@ public class AppService {
     private final FeatureService featureService;
     private final AuthService authService;
 
-    private List<AppFeature> createAppFeatures(App app, Map<String, JsonNode> featuresConfig) {
+    private List<AppFeature> createAppFeatures(App app, @NonNull Map<String, JsonNode> featuresConfig) {
         List<AppFeature> appFeatures = new ArrayList<>();
 
         List<Feature> featuresAddedByDefaultToUserApps = featureService
                 .getFeaturesAddedByDefaultToUserApps();
-        featuresAddedByDefaultToUserApps.forEach(f -> {
-            var b = featuresConfig == null
-                    ? appFeatures.add(new AppFeature(app, f, null))
-                    : appFeatures.add(new AppFeature(app, f, featuresConfig.get(f.getName())));
-        });
+        featuresAddedByDefaultToUserApps.forEach(f -> appFeatures.add(new AppFeature(app, f, featuresConfig.get(f.getName()))));
 
-        if (featuresConfig != null) {
-            for (Map.Entry<String, JsonNode> featureConfig : featuresConfig.entrySet()) {
-                Feature feature = getFeatureForUserApp(featureConfig.getKey());
-                if (!feature.isDefaultForUserApps()) {
-                    AppFeature appFeature = new AppFeature(app, feature, featureConfig.getValue());
-                    appFeatures.add(appFeature);
-                }
+        for (Map.Entry<String, JsonNode> featureConfig : featuresConfig.entrySet()) {
+            Feature feature = getFeatureForUserApp(featureConfig.getKey());
+            if (!feature.isDefaultForUserApps()) {
+                AppFeature appFeature = new AppFeature(app, feature, featureConfig.getValue());
+                appFeatures.add(appFeature);
             }
         }
+
         return appFeatures;
     }
 

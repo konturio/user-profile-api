@@ -26,7 +26,7 @@ public class AppDto {
     private boolean isPublic;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Boolean ownedByUser;
-    private Map<String, JsonNode> featuresConfig;
+    private Map<String, JsonNode> featuresConfig = new HashMap<>();
     private Geometry centerGeometry;
     private BigDecimal zoom;
     private String sidebarIconUrl;

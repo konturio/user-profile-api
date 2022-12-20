@@ -60,29 +60,32 @@ public class AppControllerIT extends AbstractIT {
     private static final String featureAvailableForUserApps2 = "translation";
     private static final String featureNotAvailableForUserApps = "current_episode";
     private static final String notExistingFeature = "not-existing-feature";
-    private static final String configurationOneString = "{\"statistics\": [{\n" +
-            "              \"formula\": \"sumX\",\n" +
-            "              \"x\": \"population\"\n" +
-            "            }, {\n" +
-            "              \"formula\": \"sumX\",\n" +
-            "              \"x\": \"populated_area_km2\"\n" +
-            "            }]}";
-    private static final String configurationTwoString = "{\"statistics\": [{\n" +
-            "              \"formula\": \"sumXWhereNoY\",\n" +
-            "              \"x\": \"populated_area_km2\",\n" +
-            "              \"y\": \"count\"\n" +
-            "            }, {\n" +
-            "              \"formula\": \"sumXWhereNoY\",\n" +
-            "              \"x\": \"populated_area_km2\",\n" +
-            "              \"y\": \"building_count\"\n" +
-            "            }]}";
-    private static final String configurationIncorrectJsonString = "{\"statistics\": [{\n" +
-            "              \"formula\": \"sumX,\n" +
-            "              \"x\": \"population\"\n" +
-            "            }, {\n" +
-            "              \"formula\": \"sumX\",\n" +
-            "              \"x\": \"populated_area_km2\"\n" +
-            "            }]}";
+    private static final String configurationOneString = """
+            {"statistics": [{
+                          "formula": "sumX",
+                          "x": "population"
+                        }, {
+                          "formula": "sumX",
+                          "x": "populated_area_km2"
+                        }]}""";
+    private static final String configurationTwoString = """
+            {"statistics": [{
+                          "formula": "sumXWhereNoY",
+                          "x": "populated_area_km2",
+                          "y": "count"
+                        }, {
+                          "formula": "sumXWhereNoY",
+                          "x": "populated_area_km2",
+                          "y": "building_count"
+                        }]}""";
+    private static final String configurationIncorrectJsonString = """
+            {"statistics": [{
+                          "formula": "sumX,
+                          "x": "population"
+                        }, {
+                          "formula": "sumX",
+                          "x": "populated_area_km2"
+                        }]}""";
 
     @BeforeEach
     public void before() throws IOException {

@@ -49,13 +49,14 @@ public class DaoIntegrityIT extends AbstractIT {
     @Autowired
     AppController appController;
 
-    private static final String configurationOneString = "{\"statistics\": [{\n" +
-            "              \"formula\": \"sumX\",\n" +
-            "              \"x\": \"population\"\n" +
-            "            }, {\n" +
-            "              \"formula\": \"sumX\",\n" +
-            "              \"x\": \"populated_area_km2\"\n" +
-            "            }]}";
+    private static final String configurationOneString = """
+            {"statistics": [{
+                          "formula": "sumX",
+                          "x": "population"
+                        }, {
+                          "formula": "sumX",
+                          "x": "populated_area_km2"
+                        }]}""";
 
     @Test
     @Transactional

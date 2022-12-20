@@ -24,8 +24,4 @@ public class GeoJsonUtils {
                                              org.wololo.geojson.Geometry geometry2) {
         return objectMapper.valueToTree(geometry1).equals(objectMapper.valueToTree(geometry2));
     }
-
-    public static String jsonNodeAsSting(JsonNode node) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(node);
-    }
 }
