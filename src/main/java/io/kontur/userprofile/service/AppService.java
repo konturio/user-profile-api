@@ -1,5 +1,6 @@
 package io.kontur.userprofile.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.dao.AppDao;
 import io.kontur.userprofile.dao.AppFeatureDao;
@@ -31,20 +32,22 @@ public class AppService {
     private final FeatureService featureService;
     private final AuthService authService;
 
-    private List<AppFeature> createAppFeatures(App app, Map<String, String> configurationByFeatureNames) {
+    private List<AppFeature> createAppFeatures(App app, Map<String, JsonNode> featuresConfig) {
         List<AppFeature> appFeatures = new ArrayList<>();
 
         List<Feature> featuresAddedByDefaultToUserApps = featureService
                 .getFeaturesAddedByDefaultToUserApps();
         featuresAddedByDefaultToUserApps.forEach(f -> {
-            appFeatures.add(new AppFeature(app, f, configurationByFeatureNames.get(f.getName())));
+            var b = featuresConfig == null
+                    ? appFeatures.add(new AppFeature(app, f, null))
+                    : appFeatures.add(new AppFeature(app, f, featuresConfig.get(f.getName())));
         });
 
-        if (configurationByFeatureNames != null) {
-            for (Map.Entry<String, String> configurationByFeatureName : configurationByFeatureNames.entrySet()) {
-                Feature feature = getFeatureForUserApp(configurationByFeatureName.getKey());
+        if (featuresConfig != null) {
+            for (Map.Entry<String, JsonNode> featureConfig : featuresConfig.entrySet()) {
+                Feature feature = getFeatureForUserApp(featureConfig.getKey());
                 if (!feature.isDefaultForUserApps()) {
-                    AppFeature appFeature = new AppFeature(app, feature, configurationByFeatureName.getValue());
+                    AppFeature appFeature = new AppFeature(app, feature, featureConfig.getValue());
                     appFeatures.add(appFeature);
                 }
             }
@@ -69,11 +72,11 @@ public class AppService {
         return feature;
     }
 
-    public App createApp(App app, Map<String, String> configurationByFeatureNames) {
+    public App createApp(App app, Map<String, JsonNode> featuresConfig) {
         checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(app);
         app.setId(UUID.randomUUID());
 
-        List<AppFeature> appFeatures = createAppFeatures(app, configurationByFeatureNames);
+        List<AppFeature> appFeatures = createAppFeatures(app, featuresConfig);
 
         appDao.createApp(app);
         appFeatureDao.saveAppFeatures(appFeatures);
@@ -92,7 +95,7 @@ public class AppService {
         }
     }
 
-    public App updateApp(UUID id, App update, Map<String, String> configurationByFeatureNames) {
+    public App updateApp(UUID id, App update, Map<String, JsonNode> featuresConfig) {
         checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(update);
 
         App app = getAppForChange(id);
@@ -104,18 +107,14 @@ public class AppService {
         app.setSidebarIconUrl(update.getSidebarIconUrl());
         app.setFaviconUrl(update.getFaviconUrl());
 
-        List<Feature> currentFeatures = appFeatureDao.getAppFeaturesIncludingDisabledAndBetaFor(app)
-                .toList();
-        List<Feature> toRemove = currentFeatures.stream()
-                .filter(it -> !configurationByFeatureNames.containsKey(it.getName()))
-                .toList();
-        List<AppFeature> toAdd = configurationByFeatureNames.entrySet().stream()
-                .filter(entry -> currentFeatures.stream().noneMatch(it -> it.getName().equals(entry.getKey())))
-                .map(entry -> new AppFeature(app, getFeatureForUserApp(entry.getKey()), entry.getValue()))
-                .toList();
+        appFeatureDao.deleteAllAppFeaturesFrom(app);
 
-        appFeatureDao.removeAppFeaturesFrom(app, toRemove);
-        appFeatureDao.saveAppFeatures(toAdd);
+        if (featuresConfig != null) {
+            appFeatureDao.saveAppFeatures(featuresConfig
+                    .entrySet()
+                    .stream()
+                    .map(entry -> new AppFeature(app, getFeatureForUserApp(entry.getKey()), entry.getValue())).toList());
+        }
 
         return appDao.updateApp(app);
     }

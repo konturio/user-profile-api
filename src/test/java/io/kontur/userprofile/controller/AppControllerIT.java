@@ -1,5 +1,8 @@
 package io.kontur.userprofile.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kontur.userprofile.AbstractIT;
 import io.kontur.userprofile.dao.AppDao;
 import io.kontur.userprofile.dao.FeatureDao;
@@ -24,6 +27,7 @@ import org.wololo.geojson.Point;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -48,19 +52,22 @@ public class AppControllerIT extends AbstractIT {
     FeatureDao featureDao;
     private User user1;
     private User user2;
+    private JsonNode configurationOne;
+    private JsonNode configurationTwo;
+    private final ObjectMapper mapper = new ObjectMapper();
     private static final String featureAvailableForUserApps = "map_layers_panel";
 
     private static final String featureAvailableForUserApps2 = "translation";
     private static final String featureNotAvailableForUserApps = "current_episode";
     private static final String notExistingFeature = "not-existing-feature";
-    private static final String configurationOne = "{\"statistics\": [{\n" +
+    private static final String configurationOneString = "{\"statistics\": [{\n" +
             "              \"formula\": \"sumX\",\n" +
             "              \"x\": \"population\"\n" +
             "            }, {\n" +
             "              \"formula\": \"sumX\",\n" +
             "              \"x\": \"populated_area_km2\"\n" +
             "            }]}";
-    private static final String configurationTwo = "{\"statistics\": [{\n" +
+    private static final String configurationTwoString = "{\"statistics\": [{\n" +
             "              \"formula\": \"sumXWhereNoY\",\n" +
             "              \"x\": \"populated_area_km2\",\n" +
             "              \"y\": \"count\"\n" +
@@ -69,11 +76,20 @@ public class AppControllerIT extends AbstractIT {
             "              \"x\": \"populated_area_km2\",\n" +
             "              \"y\": \"building_count\"\n" +
             "            }]}";
+    private static final String configurationIncorrectJsonString = "{\"statistics\": [{\n" +
+            "              \"formula\": \"sumX,\n" +
+            "              \"x\": \"population\"\n" +
+            "            }, {\n" +
+            "              \"formula\": \"sumX\",\n" +
+            "              \"x\": \"populated_area_km2\"\n" +
+            "            }]}";
 
     @BeforeEach
-    public void before() {
+    public void before() throws IOException {
         user1 = createUser();
         user2 = createUser();
+        configurationOne = mapper.readTree(configurationOneString);
+        configurationTwo = mapper.readTree(configurationTwoString);
     }
 
     @Test
@@ -356,7 +372,7 @@ public class AppControllerIT extends AbstractIT {
         AppDto response1 = controller.create(request);
 
         AppDto update = createPublicAppDto();
-        update.setConfigurationByFeatureNames(Map.of(featureAvailableForUserApps, configurationOne,
+        update.setFeaturesConfig(Map.of(featureAvailableForUserApps, configurationOne,
                 featureNotAvailableForUserApps, configurationTwo));
 
         try {
@@ -375,7 +391,7 @@ public class AppControllerIT extends AbstractIT {
         AppDto response1 = controller.create(request);
 
         AppDto update = createPublicAppDto();
-        update.setConfigurationByFeatureNames(Map.of(featureAvailableForUserApps, configurationOne,
+        update.setFeaturesConfig(Map.of(featureAvailableForUserApps, configurationOne,
                 notExistingFeature, configurationTwo));
 
         try {
@@ -394,7 +410,7 @@ public class AppControllerIT extends AbstractIT {
         AppDto response1 = controller.create(request);
 
         AppDto update = createPublicAppDto();
-        update.setConfigurationByFeatureNames(Map.of(createBetaFeature().getName(), configurationOne));
+        update.setFeaturesConfig(Map.of(createBetaFeature().getName(), configurationOne));
 
         try {
             controller.update(response1.getId(), update);
@@ -412,7 +428,7 @@ public class AppControllerIT extends AbstractIT {
         AppDto response1 = controller.create(request);
 
         AppDto update = createPublicAppDto();
-        update.setConfigurationByFeatureNames(Map.of(createBetaFeature().getName(), configurationOne));
+        update.setFeaturesConfig(Map.of(createBetaFeature().getName(), configurationOne));
 
         try {
             controller.update(response1.getId(), update);
@@ -439,7 +455,7 @@ public class AppControllerIT extends AbstractIT {
         givenUserIsAuthenticated(user1);
 
         AppDto request = createPublicAppDto();
-        request.setConfigurationByFeatureNames(Map.of(notExistingFeature, configurationOne));
+        request.setFeaturesConfig(Map.of(notExistingFeature, configurationOne));
 
         try {
             controller.create(request);
@@ -572,12 +588,36 @@ public class AppControllerIT extends AbstractIT {
         }
     }
 
+    @Test
+    public void configurationAsIncorrectJsonThrowsBadRequestExceptionWhileCreateNewApp() {
+        givenUserIsAuthenticated(user1);
+        var appDto = createPrivateAppDto();
+
+        assertThrows(JsonProcessingException.class, () -> {
+            appDto.setFeaturesConfig(Map.of(featureAvailableForUserApps, mapper.readTree(configurationIncorrectJsonString)));
+            controller.create(appDto);
+        });
+    }
+
+    @Test
+    public void configurationAsIncorrectJsonThrowsBadRequestExceptionWhileUpdateNewApp() {
+        givenUserIsAuthenticated(user1);
+        AppDto created = controller.create(createPrivateAppDto());
+
+        AppDto appDto = createPublicAppDto();
+
+        assertThrows(JsonProcessingException.class, () -> {
+            appDto.setFeaturesConfig(Map.of(featureAvailableForUserApps, mapper.readTree(configurationIncorrectJsonString)));
+            controller.update(created.getId(), appDto);
+        });
+    }
+
     private AppDto createPublicAppDto() {
         AppDto request = new AppDto();
         request.setName(UUID.randomUUID().toString());
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(true);
-        request.setConfigurationByFeatureNames(Map.of(featureAvailableForUserApps, configurationOne));
+        request.setFeaturesConfig(Map.of(featureAvailableForUserApps, configurationOne));
         request.setCenterGeometry(new Point(new double[]{2d, 3d}));
         request.setZoom(BigDecimal.valueOf(0.1));
         return request;
@@ -588,7 +628,7 @@ public class AppControllerIT extends AbstractIT {
         request.setName(UUID.randomUUID().toString());
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(false);
-        request.setConfigurationByFeatureNames(Map.of(featureAvailableForUserApps2, configurationOne));
+        request.setFeaturesConfig(Map.of(featureAvailableForUserApps2, configurationOne));
         request.setCenterGeometry(new Point(new double[]{20d, 30d}));
         request.setZoom(BigDecimal.valueOf(3.5));
         return request;
@@ -617,14 +657,14 @@ public class AppControllerIT extends AbstractIT {
     }
 
     private void thenListOfFeaturesIsCorrect(AppDto request, AppDto response) {
-        assertEquals(request.getConfigurationByFeatureNames(), response.getConfigurationByFeatureNames());
+        assertEquals(request.getFeaturesConfig(), response.getFeaturesConfig());
     }
 
     private void thenDefaultFeaturesArePresent(AppDto dto) {
         List<String> defaultFeatures = featureDao.getFeaturesAddedByDefaultToUserApps()
                 .stream().map(Feature::getName).toList();
 
-        defaultFeatures.forEach(feature -> assertTrue(dto.getConfigurationByFeatureNames().containsKey(feature)));
+        defaultFeatures.forEach(feature -> assertTrue(dto.getFeaturesConfig().containsKey(feature)));
     }
 
     private void assertBasicAppFields(AppDto expected, AppDto actual) {

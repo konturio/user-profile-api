@@ -1,5 +1,7 @@
 package io.kontur.userprofile.model.converters;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.locationtech.jts.geom.Geometry;
 import org.wololo.jts2geojson.GeoJSONReader;
@@ -21,5 +23,9 @@ public class GeoJsonUtils {
     public static boolean geometriesAreEqual(org.wololo.geojson.Geometry geometry1,
                                              org.wololo.geojson.Geometry geometry2) {
         return objectMapper.valueToTree(geometry1).equals(objectMapper.valueToTree(geometry2));
+    }
+
+    public static String jsonNodeAsSting(JsonNode node) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(node);
     }
 }

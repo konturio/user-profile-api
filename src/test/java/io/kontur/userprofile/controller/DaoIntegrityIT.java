@@ -3,6 +3,7 @@ package io.kontur.userprofile.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kontur.userprofile.AbstractIT;
 import io.kontur.userprofile.dao.AppDao;
 import io.kontur.userprofile.dao.AppFeatureDao;
@@ -15,8 +16,9 @@ import io.kontur.userprofile.model.entity.AppUserFeature;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
+
+import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -27,6 +29,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.wololo.geojson.Point;
 
 @SpringBootTest
@@ -46,7 +49,7 @@ public class DaoIntegrityIT extends AbstractIT {
     @Autowired
     AppController appController;
 
-    private static final String configurationOne = "{\"statistics\": [{\n" +
+    private static final String configurationOneString = "{\"statistics\": [{\n" +
             "              \"formula\": \"sumX\",\n" +
             "              \"x\": \"population\"\n" +
             "            }, {\n" +
@@ -56,7 +59,7 @@ public class DaoIntegrityIT extends AbstractIT {
 
     @Test
     @Transactional
-    public void appCannotBeDeletedIfAppFeaturesExist() {
+    public void appCannotBeDeletedIfAppFeaturesExist() throws IOException {
         User user = createUser();
         givenUserIsAuthenticated(user);
 
@@ -82,7 +85,7 @@ public class DaoIntegrityIT extends AbstractIT {
 
     @Test
     @Transactional
-    public void appCannotBeDeletedIfAppUserFeaturesExist() {
+    public void appCannotBeDeletedIfAppUserFeaturesExist() throws IOException {
         User user = createUser();
         givenUserIsAuthenticated(user);
 
@@ -119,12 +122,16 @@ public class DaoIntegrityIT extends AbstractIT {
         entityManager.persist(auf);
     }
 
-    UUID createApp() {
+    UUID createApp() throws IOException {
         AppDto request = new AppDto();
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode configurationOne = mapper.readTree(configurationOneString);
+
         request.setName(UUID.randomUUID().toString());
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(true);
-        request.setConfigurationByFeatureNames(Map.of("map_layers_panel", configurationOne));
+        request.setFeaturesConfig(Map.of("map_layers_panel", configurationOne));
         request.setCenterGeometry(new Point(new double[] {1d, 2d}));
         request.setZoom(BigDecimal.ONE);
 

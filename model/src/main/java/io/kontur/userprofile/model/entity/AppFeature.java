@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.AllArgsConstructor;
@@ -44,14 +45,18 @@ public class AppFeature {
 
     @Type(type = "jsonb")
     @Column(name = "configuration", columnDefinition = "json")
-    private String configuration;
+    private JsonNode configuration;
 
-    public AppFeature(@NotNull App app, @NotNull Feature feature, String configuration) {
+    public AppFeature(@NotNull App app, @NotNull Feature feature, JsonNode configuration) {
         this.app = app;
         this.feature = feature;
         this.configuration = configuration;
 
         setKeyComponents(app, feature); //required to set manually
+    }
+
+    public void setConfiguration(JsonNode configuration) {
+        this.configuration = configuration;
     }
 
     private void setKeyComponents(@NotNull App app, @NotNull Feature feature) {

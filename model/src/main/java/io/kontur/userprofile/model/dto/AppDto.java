@@ -2,14 +2,13 @@ package io.kontur.userprofile.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.model.converters.GeoJsonUtils;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,19 +26,19 @@ public class AppDto {
     private boolean isPublic;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Boolean ownedByUser;
-    private Map<String, String> configurationByFeatureNames;
+    private Map<String, JsonNode> featuresConfig;
     private Geometry centerGeometry;
     private BigDecimal zoom;
     private String sidebarIconUrl;
     private String faviconUrl;
 
-    public static AppDto fromEntities(App app, Map<Feature, String> appFeatureConfigurations, boolean ownedByUser) {
+    public static AppDto fromEntities(App app, Map<Feature, JsonNode> appFeatureConfigurations, boolean ownedByUser) {
         Geometry geometryDto = app.getCenterGeometry() == null ? null :
                 GeoJsonUtils.fromEntity(app.getCenterGeometry());
-        Map<String, String> configurationByFeatureNames = new HashMap<>();
-        appFeatureConfigurations.forEach((key, value) -> configurationByFeatureNames.put(key.getName(), value));
+        Map<String, JsonNode> featuresConfig = new HashMap<>();
+        appFeatureConfigurations.forEach((key, value) -> featuresConfig.put(key.getName(), value));
         return new AppDto(app.getId(), app.getName(), app.getDescription(), app.isPublic(), ownedByUser,
-                configurationByFeatureNames, geometryDto, app.getZoom(), app.getSidebarIconUrl(), app.getFaviconUrl());
+                featuresConfig, geometryDto, app.getZoom(), app.getSidebarIconUrl(), app.getFaviconUrl());
     }
 
     @JsonIgnore
@@ -60,7 +59,7 @@ public class AppDto {
                 Objects.equals(name, appDto.name) &&
                 Objects.equals(description, appDto.description) &&
                 Objects.equals(ownedByUser, appDto.ownedByUser) &&
-                Objects.equals(configurationByFeatureNames, appDto.configurationByFeatureNames) &&
+                Objects.equals(featuresConfig, appDto.featuresConfig) &&
                 Objects.equals(zoom, appDto.zoom) &&
                 Objects.equals(sidebarIconUrl, appDto.sidebarIconUrl) &&
                 Objects.equals(faviconUrl, appDto.faviconUrl) &&
@@ -69,7 +68,7 @@ public class AppDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, isPublic, ownedByUser, configurationByFeatureNames, centerGeometry,
+        return Objects.hash(id, name, description, isPublic, ownedByUser, featuresConfig, centerGeometry,
                 zoom, sidebarIconUrl, faviconUrl);
     }
 }

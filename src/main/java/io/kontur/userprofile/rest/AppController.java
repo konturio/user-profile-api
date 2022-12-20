@@ -2,11 +2,11 @@ package io.kontur.userprofile.rest;
 
 import static io.kontur.userprofile.model.entity.user.Role.Names.CREATE_APPS;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.entity.App;
-import io.kontur.userprofile.model.entity.AppFeature;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -62,9 +61,9 @@ public class AppController {
 
         App app = App.fromDto(appDto);
         app.setOwner(currentUser);
-        appService.createApp(app, appDto.getConfigurationByFeatureNames());
+        appService.createApp(app, appDto.getFeaturesConfig());
 
-        Map<Feature, String> appFeatureConfigurations = new HashMap<>();
+        Map<Feature, JsonNode> appFeatureConfigurations = new HashMap<>();
         featureService.getAppFeaturesFor(app).forEach(appFeature ->
                 appFeatureConfigurations.put(appFeature.getFeature(), appFeature.getConfiguration()));
 
@@ -89,13 +88,13 @@ public class AppController {
     public AppDto update(@PathVariable @Parameter(name = "id") UUID id,
                          @RequestBody @Parameter(name = "app") AppDto appDto) {
         App app = App.fromDto(appDto);
-        App updated = appService.updateApp(id, app, appDto.getConfigurationByFeatureNames());
+        App updated = appService.updateApp(id, app, appDto.getFeaturesConfig());
 
-        Map<Feature, String> appFeatureConfigurations = new HashMap<>();
+        Map<Feature, JsonNode> featuresConfig = new HashMap<>();
         featureService.getAppFeaturesFor(updated).forEach(appFeature ->
-                appFeatureConfigurations.put(appFeature.getFeature(), appFeature.getConfiguration()));
+                featuresConfig.put(appFeature.getFeature(), appFeature.getConfiguration()));
 
-        return AppDto.fromEntities(updated, appFeatureConfigurations, true);
+        return AppDto.fromEntities(updated, featuresConfig, true);
     }
 
     @Transactional(readOnly = true)
@@ -109,7 +108,7 @@ public class AppController {
                       UUID id) {
         App app = appService.getApp(id);
 
-        Map<Feature, String> appFeatureConfigurations = new HashMap<>();
+        Map<Feature, JsonNode> appFeatureConfigurations = new HashMap<>();
         featureService.getAppFeaturesForCurrentUserAndFor(app).forEach(appFeature ->
                 appFeatureConfigurations.put(appFeature.getFeature(), appFeature.getConfiguration()));
 

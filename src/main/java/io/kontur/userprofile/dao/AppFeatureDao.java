@@ -20,18 +20,12 @@ public class AppFeatureDao {
     EntityManager entityManager;
 
     public void saveAppFeatures(List<AppFeature> appFeatures) {
-        appFeatures.forEach(appFeature -> entityManager.persist(appFeature));
-    }
-
-    public void removeAppFeaturesFrom(App app, List<Feature> features) {
-        List<AppFeature> toRemove = selectAppFeaturesFor(app)
-            .stream()
-            .filter(it -> features.contains(it.getFeature()))
-            .toList();
-
-        for (AppFeature appFeature : toRemove) {
-            entityManager.remove(appFeature);
-        }
+        appFeatures.forEach(appFeature -> {
+            if (appFeature.getConfiguration() == null || appFeature.getConfiguration().isNull()) {
+                appFeature.setConfiguration(null);
+            }
+            entityManager.persist(appFeature);
+        });
     }
 
     public void deleteAllAppFeaturesFrom(App app) {
@@ -51,12 +45,6 @@ public class AppFeatureDao {
         return appFeatures.stream().map(AppFeature::getFeature)
             .filter(Feature::isEnabled)
             .filter(it -> !it.isBeta());
-    }
-
-    public Stream<Feature> getAppFeaturesIncludingDisabledAndBetaFor(App app) {
-        List<AppFeature> appFeatures = selectAppFeaturesFor(app); //todo remove event feeds?
-
-        return appFeatures.stream().map(AppFeature::getFeature);
     }
 
     private List<AppFeature> selectAppFeaturesFor(App app) {
