@@ -2,7 +2,7 @@
 <jboss-deployment-structure>
     <deployment>
         <dependencies>
-            <module name="org.postgresql"/>
+            <module name="org.postgresql.jdbc"/>
             <module name="javax.persistence.api"/>
         </dependencies>
     </deployment>

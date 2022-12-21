@@ -72,3 +72,26 @@ jobs:
         if: always()
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
+
+      - name: Login to Nexus Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: nexus.kontur.io:8085
+          username: ${{ secrets.NEXUS_DEPLOYER }}
+          password: ${{ secrets.NEXUS_DEPLOYER_PASS }}
+
+      - name: Extract Docker metadata - Keycloak User SPI Plugin
+        uses: docker/metadata-action@v4.0.1
+        id: meta
+        with:
+          images: nexus.kontur.io:8085/konturdev/keycloak-with-ups-spi
+          tags: |
+            type=raw,value=${{ github.ref_name }}.{{sha}}.${{ github.run_attempt }}
+
+      - name: Build and push Docker image - Keycloak User SPI Plugin
+        uses: docker/build-push-action@v3.0.0
+        with:
+          context: keycloak-user-spi
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

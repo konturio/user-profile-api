@@ -1,0 +1,17 @@
+                <xa-datasource jndi-name="java:/kontur/datasources/KonturDS" pool-name="KonturDS" enabled="true"
+                               use-java-context="true"
+                               statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}">
+                    <xa-datasource-property name="ServerName">${env.USP_DB_ADDR}</xa-datasource-property>
+                    <xa-datasource-property name="PortNumber">${env.USP_DB_PORT}</xa-datasource-property>
+                    <xa-datasource-property name="DatabaseName">${env.USP_DB_NAME}</xa-datasource-property>
+                    <driver>postgresql</driver>
+                    <security>
+                        <user-name>${env.USP_DB_USER}</user-name>
+                        <password>${env.USP_DB_PASSWORD}</password>
+                    </security>
+                    <validation>
+                       <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
+                       <background-validation>true</background-validation>
+                       <background-validation-millis>60000</background-validation-millis>
+                    </validation>
+                </xa-datasource>
