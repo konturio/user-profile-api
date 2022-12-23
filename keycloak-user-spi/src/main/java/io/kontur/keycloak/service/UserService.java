@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface UserService {
-    long getCount();
-
     Stream<User> getAllUsers();
 
     Optional<User> getUserByEmail(String email);

@@ -12,10 +12,6 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
     private static final String EMAIL_FIELD = "email";
     private static final String USERNAME_FIELD = "username";
 
-    public long getCount() {
-        return count(User.class);
-    }
-
     public Stream<User> getAllUsers() {
         return getAll(User.class);
     }
