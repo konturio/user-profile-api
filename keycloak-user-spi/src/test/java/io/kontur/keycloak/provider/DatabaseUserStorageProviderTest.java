@@ -66,15 +66,6 @@ public class DatabaseUserStorageProviderTest {
     }
 
     @Test
-    public void countTest() {
-        when(userService.getCount()).thenReturn(2L);
-
-        int result = provider.getUsersCount(realm);
-
-        assertEquals(2, result);
-    }
-
-    @Test
     public void getUsersLimitedTest() {
         when(userService.getAllUsers()).thenReturn(tenUsers());
 

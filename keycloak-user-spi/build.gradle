@@ -18,7 +18,7 @@ dependencies {
     implementation project(":model")
 
     //postgresql
-    implementation 'org.postgresql:postgresql:42.2.5' //version used in keycloak-core 15.0.0
+    implementation 'org.postgresql:postgresql:42.3.1'
 
     //hibernate
     implementation 'org.hibernate:hibernate-core:5.5.3.Final'
