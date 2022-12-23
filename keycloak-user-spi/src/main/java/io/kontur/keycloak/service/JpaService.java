@@ -12,6 +12,11 @@ public abstract class JpaService<T> {
     @PersistenceContext(unitName = "io.kontur.userprofile")
     protected EntityManager entityManager;
 
+    public long count(Class<T> entityClazz) {
+        return (long) entityManager.createQuery("select count(*) from " + entityClazz.getSimpleName() + " u")
+            .getSingleResult();
+    }
+
     public Stream<T> getAll(Class<T> entityClazz) {
         return entityManager.createQuery("from " + entityClazz.getSimpleName() + " u",
             entityClazz).getResultStream();
