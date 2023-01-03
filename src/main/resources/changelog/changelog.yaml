@@ -93,3 +93,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/13246-add-configuration-to-app-feature-table.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/13984-create-oam-application.sql
