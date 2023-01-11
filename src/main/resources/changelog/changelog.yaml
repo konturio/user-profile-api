@@ -96,3 +96,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/13984-create-oam-application.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/13984-update-oam-application.sql
