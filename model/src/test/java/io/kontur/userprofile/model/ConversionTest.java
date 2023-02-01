@@ -1,35 +1,18 @@
 package io.kontur.userprofile.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.dto.FeatureDto;
 import io.kontur.userprofile.model.dto.UserDto;
-import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
+import io.kontur.userprofile.model.entity.enums.FeatureType;
 import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.User;
-import io.kontur.userprofile.model.entity.enums.FeatureType;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ConversionTest {
-
-    @Test
-    public void appWithNullGeometryTest1() {
-        App app = new App();
-
-        AppDto dto = AppDto.fromEntities(app, Map.of(), false);
-        assertNull(dto.getCenterGeometry());
-        assertNull(dto.getZoom());
-
-        App app2 = App.fromDto(dto);
-        assertNull(app2.getCenterGeometry());
-        assertNull(app2.getZoom());
-    }
 
     @Test
     public void featureTest() {

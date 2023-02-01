@@ -3,22 +3,21 @@ package io.kontur.userprofile.model.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import io.kontur.userprofile.model.converters.GeoJsonUtils;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
-
-import java.math.BigDecimal;
-import java.util.*;
-
+import io.kontur.userprofile.model.validation.ValidExtent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.wololo.geojson.Geometry;
+
+import java.math.BigDecimal;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppDto {
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID id;
     private String name;
@@ -27,18 +26,16 @@ public class AppDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Boolean ownedByUser;
     private Map<String, JsonNode> featuresConfig = new HashMap<>();
-    private Geometry centerGeometry;
-    private BigDecimal zoom;
+    @ValidExtent
+    private List<BigDecimal> extent;
     private String sidebarIconUrl;
     private String faviconUrl;
 
     public static AppDto fromEntities(App app, Map<Feature, JsonNode> appFeatureConfigurations, boolean ownedByUser) {
-        Geometry geometryDto = app.getCenterGeometry() == null ? null :
-                GeoJsonUtils.fromEntity(app.getCenterGeometry());
         Map<String, JsonNode> featuresConfig = new HashMap<>();
         appFeatureConfigurations.forEach((key, value) -> featuresConfig.put(key.getName(), value));
         return new AppDto(app.getId(), app.getName(), app.getDescription(), app.isPublic(), ownedByUser,
-                featuresConfig, geometryDto, app.getZoom(), app.getSidebarIconUrl(), app.getFaviconUrl());
+                featuresConfig, app.getExtent(), app.getSidebarIconUrl(), app.getFaviconUrl());
     }
 
     @JsonIgnore
@@ -60,15 +57,14 @@ public class AppDto {
                 Objects.equals(description, appDto.description) &&
                 Objects.equals(ownedByUser, appDto.ownedByUser) &&
                 Objects.equals(featuresConfig, appDto.featuresConfig) &&
-                Objects.equals(zoom, appDto.zoom) &&
+                Objects.equals(extent, appDto.extent) &&
                 Objects.equals(sidebarIconUrl, appDto.sidebarIconUrl) &&
-                Objects.equals(faviconUrl, appDto.faviconUrl) &&
-                GeoJsonUtils.geometriesAreEqual(centerGeometry, appDto.centerGeometry);
+                Objects.equals(faviconUrl, appDto.faviconUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, isPublic, ownedByUser, featuresConfig, centerGeometry,
-                zoom, sidebarIconUrl, faviconUrl);
+        return Objects.hash(id, name, description, isPublic, ownedByUser, featuresConfig, extent, sidebarIconUrl,
+                faviconUrl);
     }
 }

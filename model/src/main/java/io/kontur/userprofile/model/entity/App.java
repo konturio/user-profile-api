@@ -1,9 +1,10 @@
 package io.kontur.userprofile.model.entity;
 
-import io.kontur.userprofile.model.converters.GeoJsonUtils;
+import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.entity.user.User;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,13 +15,15 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.locationtech.jts.geom.Geometry;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "APP")
+@TypeDef(name = "list-array", typeClass = ListArrayType.class)
 public class App {
     @Id
     private UUID id;
@@ -32,9 +35,8 @@ public class App {
 
     @Column(name = "is_public")
     private boolean isPublic;
-    @Column(name = "center_geometry")
-    private Geometry centerGeometry;
-    private BigDecimal zoom;
+    @Type(type = "list-array")
+    private List<BigDecimal> extent;
     @Column(name = "sidebar_icon_url")
     private String sidebarIconUrl;
     @Column(name = "favicon_url")
@@ -46,9 +48,7 @@ public class App {
         app.setName(appDto.getName());
         app.setDescription(appDto.getDescription());
         app.setPublic(appDto.isPublic());
-        Geometry entityGeometry = GeoJsonUtils.toEntity(appDto.getCenterGeometry());
-        app.setCenterGeometry(entityGeometry);
-        app.setZoom(appDto.getZoom());
+        app.setExtent(appDto.getExtent());
         app.setSidebarIconUrl(appDto.getSidebarIconUrl());
         app.setFaviconUrl(appDto.getFaviconUrl());
         return app;

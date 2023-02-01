@@ -99,3 +99,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/13984-update-oam-application.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/alter-app-table-add-extent.sql

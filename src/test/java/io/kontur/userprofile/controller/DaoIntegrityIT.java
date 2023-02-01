@@ -19,6 +19,7 @@ import io.kontur.userprofile.rest.AppController;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -30,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.wololo.geojson.Point;
 
 @SpringBootTest
 public class DaoIntegrityIT extends AbstractIT {
@@ -133,8 +133,7 @@ public class DaoIntegrityIT extends AbstractIT {
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(true);
         request.setFeaturesConfig(Map.of("map_layers_panel", configurationOne));
-        request.setCenterGeometry(new Point(new double[] {1d, 2d}));
-        request.setZoom(BigDecimal.ONE);
+        request.setExtent(Arrays.asList(new BigDecimal(-1), new BigDecimal(-8), new BigDecimal(1), new BigDecimal(8)));
 
         AppDto result = appController.create(request);
         return result.getId();

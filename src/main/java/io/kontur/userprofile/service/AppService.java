@@ -69,7 +69,6 @@ public class AppService {
     }
 
     public App createApp(App app, Map<String, JsonNode> featuresConfig) {
-        checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(app);
         app.setId(UUID.randomUUID());
 
         List<AppFeature> appFeatures = createAppFeatures(app, featuresConfig);
@@ -80,26 +79,13 @@ public class AppService {
         return app;
     }
 
-    private void checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(App app) {
-        if (app.getCenterGeometry() == null ^ app.getZoom() == null) {
-            throw new WebApplicationException("Either both Zoom and CenterGeometry or none of them "
-                    + "should be specified", HttpStatus.BAD_REQUEST);
-        }
-        if (app.getCenterGeometry() != null && !(app.getCenterGeometry() instanceof Point)) {
-            throw new WebApplicationException("CenterGeometry must be a Point",
-                    HttpStatus.BAD_REQUEST);
-        }
-    }
-
     public App updateApp(UUID id, App update, Map<String, JsonNode> featuresConfig) {
-        checkCenterGeometryAndZoomAreBothSpecifiedOrBothNull(update);
 
         App app = getAppForChange(id);
         app.setName(update.getName());
         app.setDescription(update.getDescription());
         app.setPublic(update.isPublic());
-        app.setCenterGeometry(update.getCenterGeometry());
-        app.setZoom(update.getZoom());
+        app.setExtent(update.getExtent());
         app.setSidebarIconUrl(update.getSidebarIconUrl());
         app.setFaviconUrl(update.getFaviconUrl());
 

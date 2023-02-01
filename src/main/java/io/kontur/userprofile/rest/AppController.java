@@ -39,6 +39,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/apps")
 @RequiredArgsConstructor
@@ -54,7 +56,7 @@ public class AppController {
     @PostMapping
     @PreAuthorize("hasRole('" + CREATE_APPS + "')")
     //todo test - see AbstractIntegrationTest in layers-api - this can cover roles
-    public AppDto create(@Parameter(name = "app") @RequestBody AppDto appDto) {
+    public AppDto create(@Parameter(name = "app") @RequestBody @Valid AppDto appDto) {
         User currentUser = authService.getCurrentUser().orElseThrow(() ->
                 new WebApplicationException(HttpStatus.UNAUTHORIZED.getReasonPhrase(),
                         HttpStatus.UNAUTHORIZED));
@@ -86,7 +88,7 @@ public class AppController {
     @PutMapping(path = "/{id}")
     @PreAuthorize("hasRole('" + CREATE_APPS + "')")
     public AppDto update(@PathVariable @Parameter(name = "id") UUID id,
-                         @RequestBody @Parameter(name = "app") AppDto appDto) {
+                         @RequestBody @Parameter(name = "app") @Valid AppDto appDto) {
         App app = App.fromDto(appDto);
         App updated = appService.updateApp(id, app, appDto.getFeaturesConfig());
 
