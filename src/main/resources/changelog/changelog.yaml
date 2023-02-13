@@ -102,3 +102,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/alter-app-table-add-extent.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/create-image-preview-application.sql
