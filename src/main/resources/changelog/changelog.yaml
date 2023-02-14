@@ -105,3 +105,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/create-image-preview-application.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-live-sensor-feature.sql
