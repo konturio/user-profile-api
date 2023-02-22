@@ -1,5 +1,22 @@
-#Test Coverage
-[![coverage report](https://gitlab.com/kontur-private/platform/user-profile-api/badges/main/coverage.svg)](https://gitlab.com/kontur-private/platform/user-profile-api)
+# Description:
+The project is split into three modules:
+ - `model` - contains DTOs, DB entities, and converters. Both `keycloak-user-spi` and `user-profile-api` depend on it to connect to DB
+ - `keycloak-user-spi` - keycloak [User Storage SPI plugin](https://www.keycloak.org/docs/latest/server_development/#_user-storage-spi) implementation. It provides UPS DB as external user storage for keycloak.
+ - `user-profile-api` - UPS REST API
+
+Notes to keep in mind while working with `keycloak-user-spi`:
+- To enable User Storage SPI plugin configure User Federation in keycloak admin console.
+- After SPI is enabled all new users will be created in UPS DB. But keycloak will still use internal DB for old users.
+- Email is required to store users in UPS DB.
+- By the time this note is written (February 2023) all users were migrated into UPS DB except `disaster.ninja` and `geocint`. These users lack of email to migrate them to UPS DB.
+- User ID can be used to identify users that are stored in external storage. Keycloak uses `f:{storage_ID}:{user_ID}` pattern for users IDs provided by SPIs. 
+- Group and Roles are stored in local keycloak DB, **but they are synced with UPS DB**. Groups and Roles are stored in `user_groups` and `user_roles` accordingly. Current Adapters implementation restricts roles and groups updates.
+- Group and Role names are stored both in keycloak and UPS DB. Changing some parameters (like name) in one of storage isn't synchronized with another one.   
+
+
+# Deployment
+- To deploy both UPS REST API and keycloak with User SPI plugin standard Kontur workflow is used. Artifacts are built automatically for every commit. Deployment version is specified in CD repo 
+
 
 # Required configuration in keycloak:
 
