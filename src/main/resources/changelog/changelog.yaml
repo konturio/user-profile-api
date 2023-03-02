@@ -108,3 +108,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/add-live-sensor-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/15086-add-mcda-feature.sql
