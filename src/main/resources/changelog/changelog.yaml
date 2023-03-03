@@ -111,3 +111,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/15086-add-mcda-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/14862-create-marketing-app-on-user-profile-and-layers-db.sql
