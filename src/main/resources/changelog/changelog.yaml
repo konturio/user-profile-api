@@ -114,3 +114,12 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/14862-create-marketing-app-on-user-profile-and-layers-db.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/14862-update-marketing-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/14862-update-features-for-epig-and-marketing-apps.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/14862-update-marketing-app-remove-focused-geometry-layer.sql
