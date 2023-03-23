@@ -123,3 +123,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/14862-update-marketing-app-remove-focused-geometry-layer.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/15269-disable-non-functional-features-on-marketing-app.sql
