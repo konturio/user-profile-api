@@ -6,12 +6,8 @@ import io.kontur.userprofile.model.entity.user.User;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,6 +37,9 @@ public class App {
     private String sidebarIconUrl;
     @Column(name = "favicon_url")
     private String faviconUrl;
+    @Type(type = "list-array")
+    @Column(name = "domains", columnDefinition = "text[]")
+    private List<String> domains;
 
     public static App fromDto(AppDto appDto) {
         App app = new App();
@@ -51,6 +50,7 @@ public class App {
         app.setExtent(appDto.getExtent());
         app.setSidebarIconUrl(appDto.getSidebarIconUrl());
         app.setFaviconUrl(appDto.getFaviconUrl());
+        app.setDomains(appDto.getDomains());
         return app;
     }
 

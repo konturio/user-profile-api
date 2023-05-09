@@ -25,19 +25,14 @@ import java.util.Map;
 import java.util.UUID;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -45,6 +40,9 @@ import javax.validation.Valid;
 @RequestMapping(path = "/apps")
 @RequiredArgsConstructor
 public class AppController {
+
+    private static final Logger log = LoggerFactory.getLogger(AppController.class);
+
     private final AppService appService;
     private final FeatureService featureService;
     private final AuthService authService;
@@ -108,14 +106,24 @@ public class AppController {
     public AppDto get(@PathVariable @Parameter(name = "id",
             example = "58851b50-9574-4aec-a3a6-425fa18dcb54") //DN2_ID, but must be constant here
                       UUID id) {
-        App app = appService.getApp(id);
+        return getAppConfig(appService.getApp(id));
+    }
 
-        Map<Feature, JsonNode> appFeatureConfigurations = new HashMap<>();
-        featureService.getAppFeaturesForCurrentUserAndFor(app).forEach(appFeature ->
-                appFeatureConfigurations.put(appFeature.getFeature(), appFeature.getConfiguration()));
+    @Transactional(readOnly = true)
+    @Operation(summary = "Get application information by domain")
+    @ApiResponse(responseCode = "200",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = AppDto.class)))
+    @GetMapping(path = "/configuration")
+    public AppDto get(@RequestParam String domain) {
+        log.info("Returning app configuration for domain: {}", domain);
 
-        boolean isOwnedByCurrentUser = appService.isAppOwnedByCurrentUser(app);
-        return AppDto.fromEntities(app, appFeatureConfigurations, isOwnedByCurrentUser);
+        App app = appService.getApp(domain);
+        if (app == null) {
+            return null;
+        }
+
+        return getAppConfig(app);
     }
 
     @Operation(summary = "Get default application id")
@@ -135,5 +143,14 @@ public class AppController {
     @GetMapping
     public List<AppSummaryDto> getList() {
         return appService.getAppListForCurrentUser();
+    }
+
+    private AppDto getAppConfig(App app) {
+        Map<Feature, JsonNode> appFeatureConfigurations = new HashMap<>();
+        featureService.getAppFeaturesForCurrentUserAndFor(app).forEach(appFeature ->
+                appFeatureConfigurations.put(appFeature.getFeature(), appFeature.getConfiguration()));
+
+        boolean isOwnedByCurrentUser = appService.isAppOwnedByCurrentUser(app);
+        return AppDto.fromEntities(app, appFeatureConfigurations, isOwnedByCurrentUser);
     }
 }

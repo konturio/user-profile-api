@@ -15,7 +15,6 @@ import java.util.*;
 import javax.validation.constraints.NotNull;
 
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -124,6 +123,19 @@ public class AppService {
         throw new WebApplicationException("App not found by id " + id, HttpStatus.NOT_FOUND);
     }
 
+    public App getApp(String domain) {
+        App app = appDao.getApp(domain);
+        if (app == null) {
+            return null;
+        }
+        if (app.isPublic() || isAppOwnedByCurrentUser(app)) {
+            return app;
+        }
+        else {
+            return null;
+        }
+    }
+
     public boolean isAppOwnedByCurrentUser(@NotNull App app) {
         Optional<String> currentUsername = authService.getCurrentUsername();
         if (app == null) {
@@ -169,6 +181,4 @@ public class AppService {
         }
         return app;
     }
-
-
 }
