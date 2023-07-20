@@ -126,3 +126,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/15269-disable-non-functional-features-on-marketing-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/16213-create-disasters-application.sql
