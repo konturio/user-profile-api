@@ -129,3 +129,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/16213-create-disasters-application.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/11669-update-analytical-panel-config-for-disaster-ninja-app.sql
