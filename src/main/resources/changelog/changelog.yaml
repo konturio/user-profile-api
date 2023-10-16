@@ -132,3 +132,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/11669-update-analytical-panel-config-for-disaster-ninja-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/15371-alter-app-table-add-domains.sql
