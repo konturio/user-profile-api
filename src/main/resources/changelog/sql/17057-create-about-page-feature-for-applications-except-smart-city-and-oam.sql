@@ -37,4 +37,5 @@ insert into app_user_feature (select a.app_id,
 	                          from (select distinct app_id, 
 	                          	                    user_id 
 	                          	    from app_user_feature 
-	                          	    where app_id not in ('634f23f5-f898-4098-a8bd-09eb7c1e1ae5'::uuid, '1dc6fe68-8802-4672-868d-7f17943bf1c8'::uuid)) a);
+	                          	    where app_id not in ('634f23f5-f898-4098-a8bd-09eb7c1e1ae5'::uuid, '1dc6fe68-8802-4672-868d-7f17943bf1c8'::uuid)) a)
+ON CONFLICT (app_id, user_id, feature_id) DO NOTHING;
