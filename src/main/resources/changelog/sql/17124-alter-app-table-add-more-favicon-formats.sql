@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset user-profile-api:alter-app-table-add-icon-urls.sql runOnChange:true
+--changeset user-profile-api:17124-alter-app-table-add-more-favicon-formats.sql runOnChange:true
 
 ALTER TABLE app
     ADD COLUMN IF NOT EXISTS ico_favicon_url   TEXT,
