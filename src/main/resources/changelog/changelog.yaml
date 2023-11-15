@@ -135,3 +135,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/15371-alter-app-table-add-domains.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/17057-create-about-page-feature-for-applications-except-smart-city-and-oam.sql
