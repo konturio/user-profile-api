@@ -45,7 +45,7 @@ public class FeaturesControllerTest { //todo test for enable/disable for DAO
     private final Feature privateEventFeed = createEnabledEventFeed();
     private final Feature betaEventFeed = createEnabledBetaEventFeed();
 
-    private final App dn2 = new App(DN2_ID, DN2_NAME, null, null, true, null, null, null, null, null, null, null, null);
+    private final App dn2 = new App(DN2_ID, DN2_NAME, null, null, true, null, null, null, null, null);
 
     @Mock
     UserDao userDao = mock(UserDao.class);

@@ -30,18 +30,14 @@ public class AppDto {
     private List<BigDecimal> extent;
     private String sidebarIconUrl;
     private String faviconUrl;
-    private String icoFaviconUrl;
-    private String appleFaviconUrl;
-    private String png192FaviconUrl;
-    private String png512FaviconUrl;
+    private JsonNode faviconPack;
     private List<String> domains;
 
     public static AppDto fromEntities(App app, Map<Feature, JsonNode> appFeatureConfigurations, boolean ownedByUser) {
         Map<String, JsonNode> featuresConfig = new HashMap<>();
         appFeatureConfigurations.forEach((key, value) -> featuresConfig.put(key.getName(), value));
-        return new AppDto(app.getId(), app.getName(), app.getDescription(), app.isPublic(), ownedByUser,
-                featuresConfig, app.getExtent(), app.getSidebarIconUrl(), app.getFaviconUrl(), app.getIcoFaviconUrl(),
-                app.getAppleFaviconUrl(), app.getPng192FaviconUrl(), app.getPng512FaviconUrl(), app.getDomains());
+        return new AppDto(app.getId(), app.getName(), app.getDescription(), app.isPublic(), ownedByUser, featuresConfig,
+                app.getExtent(), app.getSidebarIconUrl(), app.getFaviconUrl(), app.getFaviconPack(), app.getDomains());
     }
 
     @JsonIgnore
@@ -66,16 +62,13 @@ public class AppDto {
                 Objects.equals(extent, appDto.extent) &&
                 Objects.equals(sidebarIconUrl, appDto.sidebarIconUrl) &&
                 Objects.equals(faviconUrl, appDto.faviconUrl) &&
-                Objects.equals(icoFaviconUrl, appDto.icoFaviconUrl) &&
-                Objects.equals(appleFaviconUrl, appDto.appleFaviconUrl) &&
-                Objects.equals(png192FaviconUrl, appDto.png192FaviconUrl) &&
-                Objects.equals(png512FaviconUrl, appDto.png512FaviconUrl) &&
+                Objects.equals(faviconPack, appDto.faviconPack) &&
                 Objects.equals(domains, appDto.domains);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, isPublic, ownedByUser, featuresConfig, extent, sidebarIconUrl,
-                faviconUrl, domains);
+                faviconUrl, faviconPack, domains);
     }
 }
