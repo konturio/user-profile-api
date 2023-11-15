@@ -62,13 +62,12 @@ public class AppDto {
                 Objects.equals(extent, appDto.extent) &&
                 Objects.equals(sidebarIconUrl, appDto.sidebarIconUrl) &&
                 Objects.equals(faviconUrl, appDto.faviconUrl) &&
-                Objects.equals(faviconPack, appDto.faviconPack) &&
                 Objects.equals(domains, appDto.domains);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, isPublic, ownedByUser, featuresConfig, extent, sidebarIconUrl,
-                faviconUrl, faviconPack, domains);
+                faviconUrl, domains);
     }
 }
