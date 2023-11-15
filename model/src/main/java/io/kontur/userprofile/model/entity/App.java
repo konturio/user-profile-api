@@ -37,6 +37,14 @@ public class App {
     private String sidebarIconUrl;
     @Column(name = "favicon_url")
     private String faviconUrl;
+    @Column(name = "ico_favicon_url")
+    private String icoFaviconUrl;
+    @Column(name = "apple_favicon_url")
+    private String appleFaviconUrl;
+    @Column(name = "png_192_favicon_url")
+    private String png192FaviconUrl;
+    @Column(name = "png_512_favicon_url")
+    private String png512FaviconUrl;
     @Type(type = "list-array")
     @Column(name = "domains", columnDefinition = "text[]")
     private List<String> domains;
