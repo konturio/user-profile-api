@@ -17,7 +17,7 @@ values (false::boolean,
 	    'Application about page', 
 	    true::boolean, 
 	    false::boolean) 
-on conflict (id) do nothing;
+on conflict (name) do nothing;
 
 -- add about_page feature to all applications except smart city and OAM
 with cte AS
