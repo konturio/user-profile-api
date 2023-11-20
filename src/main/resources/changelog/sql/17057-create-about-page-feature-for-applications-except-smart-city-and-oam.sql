@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset user-profile-service:17057-create-about-page-feature-for-applications-except-smart-city-and-oam.sql runOnChange:false
+--changeset user-profile-service:17057-create-about-page-feature-for-applications-except-smart-city-and-oam.sql runOnChange:true
 
 -- create about_page feature
 insert into feature (beta,
