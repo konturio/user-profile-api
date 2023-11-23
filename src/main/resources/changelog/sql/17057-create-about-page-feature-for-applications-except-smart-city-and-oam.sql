@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset user-profile-service:17057-create-about-page-feature-for-applications-except-smart-city-and-oam.sql runOnChange:false
+--changeset user-profile-service:17057-create-about-page-feature-for-applications-except-smart-city-and-oam.sql runOnChange:true
 
 -- create about_page feature
 insert into feature (beta,
@@ -17,7 +17,7 @@ values (false::boolean,
 	    'Application about page', 
 	    true::boolean, 
 	    false::boolean) 
-on conflict (id) do nothing;
+on conflict (name) do nothing;
 
 -- add about_page feature to all applications except smart city and OAM
 with cte AS
