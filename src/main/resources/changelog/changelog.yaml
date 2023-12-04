@@ -138,3 +138,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/17057-create-about-page-feature-for-applications-except-smart-city-and-oam.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/17124-alter-app-table-add-more-favicon-formats.sql

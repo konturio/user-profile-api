@@ -51,7 +51,7 @@ public class ModelSavingIT {
             .setParameter(1, "isemichastnov@kontur.io")
             .getSingleResult();
 
-        App userApp = new App(null, "myApp", "my app", user, false, null, null, null, null);
+        App userApp = new App(null, "myApp", "my app", user, false, null, null, null, null, null);
         entityManager.persist(userApp);
 
         Feature layersPanel =

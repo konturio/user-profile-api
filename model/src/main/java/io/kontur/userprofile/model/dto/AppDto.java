@@ -30,13 +30,14 @@ public class AppDto {
     private List<BigDecimal> extent;
     private String sidebarIconUrl;
     private String faviconUrl;
+    private JsonNode faviconPack;
     private List<String> domains;
 
     public static AppDto fromEntities(App app, Map<Feature, JsonNode> appFeatureConfigurations, boolean ownedByUser) {
         Map<String, JsonNode> featuresConfig = new HashMap<>();
         appFeatureConfigurations.forEach((key, value) -> featuresConfig.put(key.getName(), value));
-        return new AppDto(app.getId(), app.getName(), app.getDescription(), app.isPublic(), ownedByUser,
-                featuresConfig, app.getExtent(), app.getSidebarIconUrl(), app.getFaviconUrl(), app.getDomains());
+        return new AppDto(app.getId(), app.getName(), app.getDescription(), app.isPublic(), ownedByUser, featuresConfig,
+                app.getExtent(), app.getSidebarIconUrl(), app.getFaviconUrl(), app.getFaviconPack(), app.getDomains());
     }
 
     @JsonIgnore

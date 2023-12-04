@@ -1,5 +1,8 @@
 package io.kontur.userprofile.model.entity;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.entity.user.User;
@@ -13,13 +16,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "APP")
-@TypeDef(name = "list-array", typeClass = ListArrayType.class)
+@TypeDefs({
+        @TypeDef(name = "json", typeClass = JsonStringType.class),
+        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class),
+        @TypeDef(name = "list-array", typeClass = ListArrayType.class)
+})
 public class App {
     @Id
     private UUID id;
@@ -37,6 +45,9 @@ public class App {
     private String sidebarIconUrl;
     @Column(name = "favicon_url")
     private String faviconUrl;
+    @Type(type = "jsonb")
+    @Column(name = "favicon_pack", columnDefinition = "json")
+    private JsonNode faviconPack;
     @Type(type = "list-array")
     @Column(name = "domains", columnDefinition = "text[]")
     private List<String> domains;
@@ -50,6 +61,7 @@ public class App {
         app.setExtent(appDto.getExtent());
         app.setSidebarIconUrl(appDto.getSidebarIconUrl());
         app.setFaviconUrl(appDto.getFaviconUrl());
+        app.setFaviconPack(appDto.getFaviconPack());
         app.setDomains(appDto.getDomains());
         return app;
     }
