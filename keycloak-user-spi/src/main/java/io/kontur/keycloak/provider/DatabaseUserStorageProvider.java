@@ -9,6 +9,7 @@ import io.kontur.userprofile.model.entity.user.User;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
@@ -55,9 +56,19 @@ public class DatabaseUserStorageProvider
 
     @Override
     public UserModel addUser(RealmModel realm, String email) {
+        String groupName = "event-api-public";
+        Optional<GroupModel> group = realm.getGroupsStream()
+            .filter(it -> it.getName().equals(groupName)).findAny();
+
+        HashSet<Group> groups = new HashSet<Group>();
+        if (group.isPresent()) {
+            groups.add(new Group(group.get().getId(), group.get().getName()));
+        }
+
         User user = User.builder()
             .username(email)
             .email(email)
+            .groups(groups)
             .build();
         userService.createUser(user);
         log.infof("Created user: %s", user);
