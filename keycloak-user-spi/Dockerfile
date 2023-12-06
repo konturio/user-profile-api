@@ -1,4 +1,4 @@
-FROM jboss/keycloak:15.0.0
+FROM jboss/keycloak:16.1.1
 
 #required for microdnf
 USER root
