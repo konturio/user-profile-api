@@ -340,7 +340,15 @@ public class UserAdapter implements UserModel {
 
     @Override
     public String getFirstAttribute(String name) {
-        return session.userFederatedStorage().getAttributes(realm, this.getId()).getFirst(mapAttribute(name));
+        String str = session.userFederatedStorage().getAttributes(realm, this.getId()).getFirst(mapAttribute(name));
+        if (str != null) {
+            return str;
+        } else {
+            if (USERNAME.equals(name)) {
+                return entity.getEmail();
+            }
+        }
+        return "";
     }
 
     @Override
@@ -368,12 +376,15 @@ public class UserAdapter implements UserModel {
             .findAny();
     }
 
-    protected String mapAttribute(String attributeName) {
+    
+    public String mapAttribute(String attributeName) {
         if (UserModel.FIRST_NAME.equals(attributeName)) {
             return FIRST_NAME_ATTRIBUTE;
         } else if (UserModel.LAST_NAME.equals(attributeName)) {
             return LAST_NAME_ATTRIBUTE;
         } else if (UserModel.EMAIL.equals(attributeName)) {
+            return EMAIL_ATTRIBUTE;
+        } else if (attributeName.equals("username")) {
             return EMAIL_ATTRIBUTE;
         }
         return attributeName;
