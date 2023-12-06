@@ -340,6 +340,10 @@ public class UserAdapter implements UserModel {
 
     @Override
     public String getFirstAttribute(String name) {
+        if (CREATED_TIMESTAMP_ATTRIBUTE.equals(name)) {
+            // todo: import attr from users table
+            return "0";
+        }
         String str = session.userFederatedStorage().getAttributes(realm, this.getId()).getFirst(mapAttribute(name));
         if (str != null) {
             return str;
