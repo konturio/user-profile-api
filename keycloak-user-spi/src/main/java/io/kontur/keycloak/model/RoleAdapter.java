@@ -85,6 +85,11 @@ public class RoleAdapter implements RoleModel {
     }
 
     @Override
+    public Stream<RoleModel> getCompositesStream(String search, Integer first, Integer max) {
+        return realm.getRoleById(getId()).getCompositesStream();
+    }
+
+    @Override
     public boolean isClientRole() {
         return entity.isClientRole();
     }
