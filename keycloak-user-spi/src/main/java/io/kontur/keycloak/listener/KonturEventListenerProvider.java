@@ -53,7 +53,7 @@ public class KonturEventListenerProvider implements EventListenerProvider {
                 emailTemplateProvider
                     .setRealm(realm)
                     .setUser(user)
-                    .send("welcomeEmailSubject",
+                    .send("Welcome to Kontur!",
                           subjectAttr,
                           "event-verify_email.ftl",
                           bodyAttr);
