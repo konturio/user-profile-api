@@ -141,3 +141,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/17124-alter-app-table-add-more-favicon-formats.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/17517-create-layer-features-panel-feature.sql
