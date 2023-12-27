@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset user-profile-api:17517-create-layer-features-panel-feature.sql runOnChange:false
+--changeset user-profile-api:17517-create-layer-features-panel-feature.sql runOnChange:true
 
 insert into feature ("name", featuretype, enabled, beta, available_for_user_apps, default_for_user_apps, description) values
     ('layer_features_panel', 'UI_PANEL', true, true, false, false, 'Layer Feature panel')
