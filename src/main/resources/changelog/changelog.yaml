@@ -144,3 +144,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/17517-create-layer-features-panel-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/17616-create-marketing-app-with-solar-farms-layer.sql
