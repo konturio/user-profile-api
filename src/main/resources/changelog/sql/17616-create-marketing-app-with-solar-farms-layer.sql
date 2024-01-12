@@ -8,4 +8,4 @@ values ('e27c72f1-ed08-4cdc-b86a-f0278a256be7', 'Solar Farm Marketing App', 'App
 insert into app_feature (app_id, feature_id)
 select 'e27c72f1-ed08-4cdc-b86a-f0278a256be7', f.id
 from feature f
-where f.name in ('interactive_map', 'layers_in_area', 'url_store');
+where f.name in ('interactive_map', 'layers_in_area', 'url_store','popup');
