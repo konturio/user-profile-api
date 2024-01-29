@@ -5,6 +5,6 @@
 -- This feature was temporary enabled only for particular users, so make it available for everyone
 
 delete from app_user_feature 
-  where feature_id = (select f.id 
-                      from feature f
-                      where f.name = 'layer_features_panel');
+where feature_id = (select f.id 
+                    from feature f
+                    where f.name = 'layer_features_panel');
