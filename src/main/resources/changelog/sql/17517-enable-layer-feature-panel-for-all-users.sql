@@ -6,5 +6,5 @@
 
 delete from app_user_feature 
   where feature_id = (select f.id 
-  from feature f
-where f.name = 'layer_features_panel');
+                      from feature f
+                      where f.name = 'layer_features_panel');
