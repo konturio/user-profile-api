@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset user-profile-api:17339-switch-layer_features_panel-on-for-all-dn2-users.sql runOnChange:false
+--changeset user-profile-api:17339-switch-layer_features_panel-on-for-all-dn2-users.sql runOnChange:true
 
 -- add layer_features_panel feature for users that have a special config for Disaster Ninja application
 insert into app_user_feature (select a.app_id, 
