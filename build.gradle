@@ -6,6 +6,7 @@ plugins {
     id 'jacoco'
     id 'com.google.cloud.tools.jib' version '3.3.0'
     id 'de.undercouch.download' version '5.1.2'
+    id 'io.sentry.jvm.gradle' version '4.3.0'
 }
 
 group = 'io.kontur.userprofile'
@@ -30,6 +31,18 @@ repositories {
             password = System.getenv()['NEXUS_DEPLOYER_PASS'] ?: "".trim()
         }
     }
+}
+
+sentry {
+  // Generates a JVM (Java, Kotlin, etc.) source bundle and uploads your source code to Sentry.
+  // This enables source context, allowing you to see your source
+  // code as part of your stack traces in Sentry.
+  includeSourceContext = true
+
+  org = System.getenv("SENTRY_ORG")
+  projectName = "user-profile-api"
+  authToken = System.getenv("SENTRY_AUTH_TOKEN")
+  includeSourceContext = System.getenv("SENTRY_AUTH_TOKEN") ? true : false
 }
 
 dependencies {

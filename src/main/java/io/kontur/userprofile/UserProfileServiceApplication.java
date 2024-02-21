@@ -1,5 +1,6 @@
 package io.kontur.userprofile;
 
+import io.sentry.Sentry;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
