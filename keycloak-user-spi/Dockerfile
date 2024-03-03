@@ -1,21 +1,10 @@
-FROM jboss/keycloak:16.1.1
+FROM keycloak/keycloak:23.0.6
 
-#required for microdnf
 USER root
-
-RUN microdnf remove -y java-11-openjdk-headless \
-    && microdnf install -y java-17-openjdk-headless \
-    && microdnf clean all
-
 #Copy jar from keycloak-user-spi/build/libs/ into keycloak's /standalone/deployments folder
-COPY /build/libs/keycloak-user-spi.jar /opt/jboss/keycloak/standalone/deployments/keycloak-user-spi.jar
-
-COPY themes/ /opt/jboss/keycloak/themes/
-#Update configs - UPS database details for the SPI plugin
-COPY datasource.txt /tmp
-RUN sed -i -e '/<datasources>/r /tmp/datasource.txt' /opt/jboss/keycloak/standalone/configuration/standalone.xml \
-    && sed -i -e '/<datasources>/r /tmp/datasource.txt' /opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
-
-USER 1000
-
-#entrypoint from the base image is used
+COPY /build/libs/keycloak-user-spi*.jar /opt/keycloak/providers/
+COPY /src/main/resources/quarkus.properties /opt/keycloak/conf/
+RUN /opt/keycloak/bin/kc.sh build --db=postgres
+COPY themes/ /opt/keycloak/themes/
+RUN /opt/keycloak/bin/kc.sh show-config
+CMD ["start", "--health-enabled=true", "--spi-login-protocol-openid-connect-suppress-logout-confirmation-screen=true", "--spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true"]

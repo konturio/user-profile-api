@@ -1,7 +1,10 @@
 package io.kontur.keycloak.listener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.jboss.logging.Logger;
-import org.keycloak.email.DefaultEmailSenderProvider;
 import org.keycloak.email.EmailException;
 import org.keycloak.email.EmailTemplateProvider;
 import org.keycloak.events.Event;
@@ -12,11 +15,6 @@ import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.RealmProvider;
 import org.keycloak.models.UserModel;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 
 public class KonturEventListenerProvider implements EventListenerProvider {
 
@@ -37,7 +35,8 @@ public class KonturEventListenerProvider implements EventListenerProvider {
             RealmModel realm = this.model.getRealm(event.getRealmId());
             UserModel user = this.session.users().getUserById(realm, event.getUserId());
 
-            EmailTemplateProvider emailTemplateProvider = session.getProvider(EmailTemplateProvider.class);
+            EmailTemplateProvider emailTemplateProvider = session
+                .getProvider(EmailTemplateProvider.class);
 
             List<Object> subjectAttr = new ArrayList<>();
             subjectAttr.add(0, realm.getName());
@@ -45,9 +44,7 @@ public class KonturEventListenerProvider implements EventListenerProvider {
 
             Map<String, Object> bodyAttr = new HashMap<>();
             bodyAttr.put("realmName", realm.getName());
-            bodyAttr.put("user", user.getFirstName());
-
-            user.addRequiredAction(UserModel.RequiredAction.VERIFY_EMAIL);
+            bodyAttr.put("fullName", user.getFirstName());
 
             try {
                 emailTemplateProvider
@@ -61,6 +58,8 @@ public class KonturEventListenerProvider implements EventListenerProvider {
             } catch (EmailException e) {
                 log.error("Failed to send email", e);
             }
+        } else {
+            log.infof("event type: %s", event.getType());
         }
 
     }

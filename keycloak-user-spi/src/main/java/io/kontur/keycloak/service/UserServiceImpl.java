@@ -2,15 +2,25 @@ package io.kontur.keycloak.service;
 
 import io.kontur.userprofile.model.entity.user.User;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 import javax.ejb.Singleton;
 import lombok.extern.jbosslog.JBossLog;
+import org.keycloak.connections.jpa.JpaConnectionProvider;
+import org.keycloak.models.KeycloakSession;
 
 @JBossLog
 @Singleton
 public class UserServiceImpl extends JpaService<User> implements UserService {
     private static final String EMAIL_FIELD = "email";
     private static final String USERNAME_FIELD = "username";
+
+    public UserServiceImpl(KeycloakSession session) {
+        Set<JpaConnectionProvider> ss = session.getAllProviders(JpaConnectionProvider.class);
+        entityManager = session
+            .getProvider(JpaConnectionProvider.class, "user-store")
+            .getEntityManager();
+    }
 
     public long getCount() {
         return count(User.class);
@@ -115,6 +125,8 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
 
     private Stream<User> queryUserByBasicParams(String search) {
         if (search == null || search.isBlank()) {
+            log.infof("empty search request %s %b - returning an empty stream",
+                      search, search.isBlank());
             return Stream.empty();
         }
         return entityManager.createQuery("from User u where u.username like ?1 or "

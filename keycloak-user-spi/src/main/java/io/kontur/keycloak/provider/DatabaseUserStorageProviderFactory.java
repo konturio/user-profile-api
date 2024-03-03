@@ -1,6 +1,6 @@
 package io.kontur.keycloak.provider;
 
-import javax.naming.InitialContext;
+import io.sentry.Sentry;
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.KeycloakSession;
@@ -19,15 +19,10 @@ public class DatabaseUserStorageProviderFactory
         // you may have specified for it when you enabled through the admin console.
 
         try {
-            InitialContext ctx = new InitialContext();
-            DatabaseUserStorageProvider provider = (DatabaseUserStorageProvider) ctx.lookup(
-                "java:global/keycloak-user-spi/DatabaseUserStorageProvider"
-            );
-
-            provider.setComponent(component);
-            provider.setSession(session);
-            return provider;
+            return new DatabaseUserStorageProvider(session, component);
         } catch (Exception e) {
+            log.warnf("Caught exception on %s %s",
+                e.getMessage(), e);
             throw new RuntimeException(e);
         }
     }

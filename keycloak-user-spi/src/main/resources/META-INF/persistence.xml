@@ -1,14 +1,21 @@
-<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns="http://java.sun.com/xml/ns/persistence"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-             version="2.0">
-    <persistence-unit name="io.kontur.userprofile">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:/kontur/datasources/KonturDS</jta-data-source>
-        <shared-cache-mode>ALL</shared-cache-mode>
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+    <persistence-unit name="user-store" transaction-type="JTA">
+        <class>io.kontur.userprofile.model.entity.user.User</class>
+        <class>io.kontur.userprofile.model.entity.user.Group</class>
+        <class>io.kontur.userprofile.model.entity.user.Role</class>
+        <class>io.kontur.userprofile.model.entity.user.Subscription</class>
         <properties>
-            <property name="hibernate.cache.use_second_level_cache" value="true"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+            <!-- Sets the name of the datasource to be the same as the datasource name in quarkus.properties-->
+            <property name="hibernate.connection.datasource" value="user-store" />
+            <property name="hibernate.validator.apply_to_ddl" value="false" />
+            <property name="jakarta.persistence.transactionType" value="JTA" />
+            <property name="hibernate.hbm2ddl.auto" value="none" />
+            <property name="hibernate.show_sql" value="false" />
         </properties>
     </persistence-unit>
 </persistence>
