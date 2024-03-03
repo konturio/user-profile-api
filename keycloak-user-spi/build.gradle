@@ -63,7 +63,7 @@ dependencies {
 }
 
 jar {
-    archiveName("${archivesBaseName}.jar")
+    archiveFileName = "${archivesBaseName}.jar"
     //include model classes into jar
     from fileTree('../model/build/classes/java/main/') {
         include '**/user/*.class'

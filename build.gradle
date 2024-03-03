@@ -117,7 +117,7 @@ jar {
 
 jacocoTestReport {
     reports {
-        csv.enabled true
+        csv.required = true
         csv.destination file("${buildDir}/jacoco.csv")
     }
 }
