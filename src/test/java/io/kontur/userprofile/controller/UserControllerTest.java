@@ -9,12 +9,10 @@ import io.kontur.userprofile.model.dto.UserSummaryDto;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.UserController;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
-
+import io.kontur.userprofile.service.UserService;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-
-import io.kontur.userprofile.service.UserService;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -98,7 +96,11 @@ public class UserControllerTest {
     }
 
     private UserSummaryDto findDtoInResult(List<UserSummaryDto> result, String username) {
-        return result.stream().filter(it -> username.equals(it.getUsername())).findAny().orElse(null);
+        return result
+            .stream()
+            .filter(it -> username.equals(it.getUsername()))
+            .findAny()
+            .orElse(null);
     }
 
     private void assertSummaryDto(User user, UserSummaryDto dto) {

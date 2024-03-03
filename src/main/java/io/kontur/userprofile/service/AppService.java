@@ -10,10 +10,12 @@ import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.AppFeature;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
-
-import java.util.*;
-import javax.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
@@ -32,12 +34,15 @@ public class AppService {
     private final FeatureService featureService;
     private final AuthService authService;
 
-    private List<AppFeature> createAppFeatures(App app, @NonNull Map<String, JsonNode> featuresConfig) {
+    private List<AppFeature> createAppFeatures(App app,
+                                               @NonNull Map<String,
+                                               JsonNode> featuresConfig) {
         List<AppFeature> appFeatures = new ArrayList<>();
 
         List<Feature> featuresAddedByDefaultToUserApps = featureService
                 .getFeaturesAddedByDefaultToUserApps();
-        featuresAddedByDefaultToUserApps.forEach(f -> appFeatures.add(new AppFeature(app, f, featuresConfig.get(f.getName()))));
+        featuresAddedByDefaultToUserApps
+            .forEach(f -> appFeatures.add(new AppFeature(app, f, featuresConfig.get(f.getName()))));
 
         for (Map.Entry<String, JsonNode> featureConfig : featuresConfig.entrySet()) {
             Feature feature = getFeatureForUserApp(featureConfig.getKey());
@@ -94,7 +99,10 @@ public class AppService {
             appFeatureDao.saveAppFeatures(featuresConfig
                     .entrySet()
                     .stream()
-                    .map(entry -> new AppFeature(app, getFeatureForUserApp(entry.getKey()), entry.getValue())).toList());
+                    .map(entry -> new AppFeature(app,
+                                                 getFeatureForUserApp(entry.getKey()),
+                                                 entry.getValue()))
+                                          .toList());
         }
 
         return appDao.updateApp(app);
@@ -131,9 +139,7 @@ public class AppService {
         if (app.isPublic() || isAppOwnedByCurrentUser(app)) {
             return app;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     public boolean isAppOwnedByCurrentUser(@NotNull App app) {

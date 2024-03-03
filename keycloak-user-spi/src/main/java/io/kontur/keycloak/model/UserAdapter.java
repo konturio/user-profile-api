@@ -1,6 +1,11 @@
 package io.kontur.keycloak.model;
 
-import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.*;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.CREATED_TIMESTAMP_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.EMAIL_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.EMAIL_VERIFIED_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.ENABLED_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.FIRST_NAME_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.LAST_NAME_ATTRIBUTE;
 
 import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.Role;
@@ -196,7 +201,9 @@ public class UserAdapter implements UserModel {
         } else if (EMAIL.equals(name)) {
             setEmail(value);
         } else {
-            UserStorageUtil.userFederatedStorage(session).setSingleAttribute(realm, this.getId(), mapAttribute(name), value);
+            UserStorageUtil
+                .userFederatedStorage(session)
+                .setSingleAttribute(realm, this.getId(), mapAttribute(name), value);
         }
     }
 
@@ -211,7 +218,9 @@ public class UserAdapter implements UserModel {
         } else if (FIRST_NAME.equals(name)) {
             setFirstName((values != null && values.size() > 0) ? values.get(0) : null);
         } else {
-            UserStorageUtil.userFederatedStorage(session).setAttribute(realm, this.getId(), mapAttribute(name), values);
+            UserStorageUtil
+                .userFederatedStorage(session)
+                .setAttribute(realm, this.getId(), mapAttribute(name), values);
         }
     }
 
@@ -253,8 +262,10 @@ public class UserAdapter implements UserModel {
     @Override
     public boolean isEmailVerified() {
         String val = getFirstAttribute(EMAIL_VERIFIED_ATTRIBUTE);
-        if (val == null) return false;
-        else return Boolean.valueOf(val);
+        if (val == null) {
+            return false;
+        }
+        return Boolean.valueOf(val);
     }
 
     @Override

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 

@@ -2,9 +2,9 @@ package io.kontur.userprofile;
 
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
+import io.kontur.userprofile.model.entity.enums.FeatureType;
 import io.kontur.userprofile.model.entity.user.Role;
 import io.kontur.userprofile.model.entity.user.User;
-import io.kontur.userprofile.model.entity.enums.FeatureType;
 import java.util.Set;
 import java.util.UUID;
 

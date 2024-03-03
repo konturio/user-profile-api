@@ -1,13 +1,9 @@
 package io.kontur.keycloak.model;
 
 import io.kontur.userprofile.model.entity.user.Group;
-
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Stream;
-
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;

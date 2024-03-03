@@ -1,5 +1,8 @@
 package io.kontur.userprofile.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+
 import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.dto.UserDto;
 import io.kontur.userprofile.model.entity.user.User;
@@ -8,9 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(SpringExtension.class)
 public class UserServiceTest {
