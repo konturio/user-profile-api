@@ -15,18 +15,18 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Profile("!" + JWT_AUTH_DISABLED)
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration {
 
     @Bean
     public Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {
@@ -64,38 +64,38 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         };
     }
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
             .headers().cacheControl().disable()
             .and()
             .authorizeRequests()
 
-            .antMatchers("/doc", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+            .requestMatchers("/doc", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
             .permitAll()
 
-            .antMatchers("/actuator", "/actuator/**")
+            .requestMatchers("/actuator", "/actuator/**")
             .permitAll() //TODO security temporarily disabled
 
-            .antMatchers("/metrics", "/info", "/health", "/health/**")
+            .requestMatchers("/metrics", "/info", "/health", "/health/**")
             .permitAll() //TODO security temporarily disabled
 
-            .antMatchers("/features")
+            .requestMatchers("/features")
             .permitAll()
-            .antMatchers("/features/**")
+            .requestMatchers("/features/**")
             .permitAll()
 
-            .antMatchers("/apps")
+            .requestMatchers("/apps")
             .permitAll()
-            .antMatchers("/apps/**")
+            .requestMatchers("/apps/**")
             .permitAll()
 
             .anyRequest().authenticated()
             .and()
             .oauth2ResourceServer(resourceServerConfigurer -> resourceServerConfigurer
                 .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(
-                    jwtAuthenticationConverter()))
-            );
+                    jwtAuthenticationConverter())));
+        return http.build();
     }
 
     public static class ClaimParams {

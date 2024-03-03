@@ -24,12 +24,10 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import com.fasterxml.jackson.databind.JsonNode;
 
 @SpringBootTest
 public class DaoIntegrityIT extends AbstractIT {
@@ -72,10 +70,7 @@ public class DaoIntegrityIT extends AbstractIT {
             entityManager.flush();
             throw new RuntimeException("expected exception was not thrown!");
         } catch (PersistenceException e) {
-            assertEquals(ConstraintViolationException.class, e.getCause().getClass());
-
-            ConstraintViolationException cve = (ConstraintViolationException) e.getCause();
-            String sqlMessage = cve.getSQLException().getMessage();
+            String sqlMessage = e.getMessage();
 
             assertTrue(sqlMessage.contains("ERROR: update or"
                 + " delete on table \"app\" violates foreign key constraint"
@@ -100,10 +95,7 @@ public class DaoIntegrityIT extends AbstractIT {
             entityManager.flush();
             throw new RuntimeException("expected exception was not thrown!");
         } catch (PersistenceException e) {
-            assertEquals(ConstraintViolationException.class, e.getCause().getClass());
-
-            ConstraintViolationException cve = (ConstraintViolationException) e.getCause();
-            String sqlMessage = cve.getSQLException().getMessage();
+            String sqlMessage = e.getMessage();
             assertTrue(sqlMessage.contains("ERROR: update or delete on table \"app\" violates "
                 + "foreign key constraint \"app_user_features_app_app_id\" on table "
                 + "\"app_user_feature\""));

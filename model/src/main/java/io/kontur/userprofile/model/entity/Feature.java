@@ -12,10 +12,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Convert;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 @Data
 @AllArgsConstructor
@@ -34,7 +36,7 @@ public class Feature { //use subclasses by type, when required
     @NotNull
     private boolean enabled;
     private String description;
-    @Type(type = "io.kontur.userprofile.model.converters.PostgreSqlEnumType")
+    @JdbcType(PostgreSQLEnumJdbcType.class)
     @Enumerated(EnumType.STRING)
     @Column(name = "featuretype")
     @NotNull
