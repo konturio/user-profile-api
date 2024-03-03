@@ -1,27 +1,37 @@
 package io.kontur.keycloak.model;
 
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.CREATED_TIMESTAMP_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.EMAIL_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.EMAIL_VERIFIED_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.ENABLED_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.FIRST_NAME_ATTRIBUTE;
+import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.LAST_NAME_ATTRIBUTE;
+
 import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.Role;
 import io.kontur.userprofile.model.entity.user.User;
-
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
+import org.keycloak.credential.LegacyUserCredentialManager;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleContainerModel;
 import org.keycloak.models.RoleModel;
+import org.keycloak.models.SubjectCredentialManager;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.utils.RoleUtils;
 import org.keycloak.storage.StorageId;
-
-import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.*;
+import org.keycloak.storage.UserStorageUtil;
 
 @JBossLog
 public class UserAdapter implements UserModel {
@@ -49,27 +59,25 @@ public class UserAdapter implements UserModel {
     }
 
     @Override
-    public Set<RoleModel> getRealmRoleMappings() {
-        return getRoleMappings().stream()
-            .filter(it -> !it.isClientRole())
-            .collect(Collectors.toSet());
+    public Stream<RoleModel> getRealmRoleMappingsStream() {
+        return getRoleMappingsStream()
+            .filter(it -> !it.isClientRole());
     }
 
     @Override
-    public Set<RoleModel> getClientRoleMappings(ClientModel client) {
+    public Stream<RoleModel> getClientRoleMappingsStream(ClientModel client) {
         log.debugf("Client roles were requested for client with clientId:"
             + " %s (client.clientId: %s)", client.getId(), client.getClientId());
         return entity.getRoles().stream()
             .filter(Role::isClientRole)
             .filter(it -> client.getId().equals(it.getClientId()))
-            .map(it -> RoleAdapter.fromEntity(it, client, realm))
-            .collect(Collectors.toSet());
+            .map(it -> RoleAdapter.fromEntity(it, client, realm));
     }
 
     @Override
     public boolean hasRole(RoleModel role) {
-        return RoleUtils.hasRole(getRoleMappings().stream(), role)
-                || RoleUtils.hasRoleFromGroup(getGroups().stream(), role, true);
+        return RoleUtils.hasRole(getRoleMappingsStream(), role)
+                || RoleUtils.hasRoleFromGroup(getGroupsStream(), role, true);
     }
 
     @Override
@@ -92,7 +100,7 @@ public class UserAdapter implements UserModel {
     }
 
     @Override
-    public Set<RoleModel> getRoleMappings() {
+    public Stream<RoleModel> getRoleMappingsStream() {
         HashSet<RoleModel> roleMappings = new HashSet<>();
 
         if (realm.getDefaultRole() != null) {
@@ -100,7 +108,9 @@ public class UserAdapter implements UserModel {
                 .collect(Collectors.toSet()));
         }
 
-        roleMappings.addAll(getGroupsStream().flatMap(GroupModel::getRoleMappingsStream).collect(Collectors.toSet()));
+        roleMappings.addAll(getGroupsStream()
+                            .flatMap(GroupModel::getRoleMappingsStream)
+                            .collect(Collectors.toSet()));
 
         Set<RoleModel> entityRoles = entity.getRoles().stream()
             .map(r -> {
@@ -115,7 +125,7 @@ public class UserAdapter implements UserModel {
             .collect(Collectors.toSet());
         roleMappings.addAll(entityRoles);
 
-        return roleMappings;
+        return roleMappings.stream();
     }
 
     @Override
@@ -150,8 +160,10 @@ public class UserAdapter implements UserModel {
     @Override
     public Long getCreatedTimestamp() {
         String val = getFirstAttribute(CREATED_TIMESTAMP_ATTRIBUTE);
-        if (val == null) return null;
-        else return Long.valueOf(val);
+        if (val == null) {
+            return null;
+        }
+        return Long.valueOf(val);
     }
 
     @Override
@@ -167,8 +179,10 @@ public class UserAdapter implements UserModel {
     @Override
     public boolean isEnabled() {
         String val = getFirstAttribute(ENABLED_ATTRIBUTE);
-        if (val == null) return true;
-        else return Boolean.parseBoolean(val);
+        if (val == null) {
+            return true;
+        }
+        return Boolean.parseBoolean(val);
     }
 
     @Override
@@ -187,7 +201,9 @@ public class UserAdapter implements UserModel {
         } else if (EMAIL.equals(name)) {
             setEmail(value);
         } else {
-            session.userFederatedStorage().setSingleAttribute(realm, this.getId(), mapAttribute(name), value);
+            UserStorageUtil
+                .userFederatedStorage(session)
+                .setSingleAttribute(realm, this.getId(), mapAttribute(name), value);
         }
     }
 
@@ -202,13 +218,15 @@ public class UserAdapter implements UserModel {
         } else if (FIRST_NAME.equals(name)) {
             setFirstName((values != null && values.size() > 0) ? values.get(0) : null);
         } else {
-            session.userFederatedStorage().setAttribute(realm, this.getId(), mapAttribute(name), values);
+            UserStorageUtil
+                .userFederatedStorage(session)
+                .setAttribute(realm, this.getId(), mapAttribute(name), values);
         }
     }
 
     @Override
     public void removeAttribute(String name) {
-        session.userFederatedStorage().removeAttribute(realm, this.getId(), name);
+        UserStorageUtil.userFederatedStorage(session).removeAttribute(realm, this.getId(), name);
     }
 
     @Override
@@ -244,19 +262,15 @@ public class UserAdapter implements UserModel {
     @Override
     public boolean isEmailVerified() {
         String val = getFirstAttribute(EMAIL_VERIFIED_ATTRIBUTE);
-        if (val == null) return false;
-        else return Boolean.valueOf(val);
+        if (val == null) {
+            return false;
+        }
+        return Boolean.valueOf(val);
     }
 
     @Override
     public void setEmailVerified(boolean verified) {
         setSingleAttribute(EMAIL_VERIFIED_ATTRIBUTE, Boolean.toString(verified));
-    }
-
-    @Override
-    public Set<GroupModel> getGroups() {
-        return getGroupsStream()
-            .collect(Collectors.toSet());
     }
 
     @Override
@@ -287,7 +301,7 @@ public class UserAdapter implements UserModel {
     public boolean isMemberOf(GroupModel group) {
         log.debugf("Checking isMemberOf: %s", group.toString());
         //todo take parent groups into account once they're supported
-        return getGroups().stream().anyMatch(it -> group.getId().equals(it.getId()));
+        return getGroupsStream().anyMatch(it -> group.getId().equals(it.getId()));
     }
 
     @Override
@@ -310,14 +324,18 @@ public class UserAdapter implements UserModel {
 
     @Override
     public Map<String, List<String>> getAttributes() {
-        MultivaluedHashMap<String, String> attributes = session.userFederatedStorage().getAttributes(realm, this.getId());
+        MultivaluedHashMap<String, String> attributes = UserStorageUtil
+            .userFederatedStorage(session)
+            .getAttributes(realm, this.getId());
         if (attributes == null) {
             attributes = new MultivaluedHashMap<>();
         }
         List<String> firstName = attributes.remove(FIRST_NAME_ATTRIBUTE);
-        attributes.add(UserModel.FIRST_NAME, firstName != null && firstName.size() >= 1 ? firstName.get(0) : null);
+        attributes.add(UserModel.FIRST_NAME,
+                       firstName != null && firstName.size() >= 1 ? firstName.get(0) : null);
         List<String> lastName = attributes.remove(LAST_NAME_ATTRIBUTE);
-        attributes.add(UserModel.LAST_NAME, lastName != null && lastName.size() >= 1 ? lastName.get(0) : null);
+        attributes.add(UserModel.LAST_NAME,
+                       lastName != null && lastName.size() >= 1 ? lastName.get(0) : null);
         List<String> email = attributes.remove(EMAIL_ATTRIBUTE);
         attributes.add(UserModel.EMAIL, email != null && email.size() >= 1 ? email.get(0) : null);
         attributes.add(UserModel.USERNAME, getUsername());
@@ -329,13 +347,10 @@ public class UserAdapter implements UserModel {
     }
 
     @Override
-    public Set<String> getRequiredActions() {
-        return session.userFederatedStorage().getRequiredActions(realm, this.getId());
-    }
-
-    @Override
     public Stream<String> getRequiredActionsStream() {
-        return session.userFederatedStorage().getRequiredActionsStream(realm, this.getId());
+        return UserStorageUtil
+            .userFederatedStorage(session)
+            .getRequiredActionsStream(realm, this.getId());
     }
 
     @Override
@@ -344,7 +359,10 @@ public class UserAdapter implements UserModel {
             // todo: import attr from users table
             return "0";
         }
-        String str = session.userFederatedStorage().getAttributes(realm, this.getId()).getFirst(mapAttribute(name));
+        String str = UserStorageUtil
+            .userFederatedStorage(session)
+            .getAttributes(realm, this.getId())
+            .getFirst(mapAttribute(name));
         if (str != null) {
             return str;
         } else {
@@ -356,22 +374,29 @@ public class UserAdapter implements UserModel {
     }
 
     @Override
-    public List<String> getAttribute(String name) {
+    public Stream<String> getAttributeStream(String name) {
         if (UserModel.USERNAME.equals(name)) {
-            return Collections.singletonList(getUsername());
+            return Stream.of(getUsername());
         }
-        List<String> result = session.userFederatedStorage().getAttributes(realm, this.getId()).get(mapAttribute(name));
-        return (result == null) ? Collections.emptyList() : result;
+        List<String> result = UserStorageUtil
+            .userFederatedStorage(session)
+            .getAttributes(realm, this.getId())
+            .get(mapAttribute(name));
+        return (result == null) ? Stream.of() : result.stream();
     }
 
     @Override
     public void addRequiredAction(String action) {
-        session.userFederatedStorage().addRequiredAction(realm, this.getId(), action);
+        UserStorageUtil
+            .userFederatedStorage(session)
+            .addRequiredAction(realm, this.getId(), action);
     }
 
     @Override
     public void removeRequiredAction(String action) {
-        session.userFederatedStorage().removeRequiredAction(realm, this.getId(), action);
+        UserStorageUtil
+            .userFederatedStorage(session)
+            .removeRequiredAction(realm, this.getId(), action);
     }
 
     private Optional<Group> findGroupById(String groupId) {
@@ -392,5 +417,9 @@ public class UserAdapter implements UserModel {
             return EMAIL_ATTRIBUTE;
         }
         return attributeName;
+    }
+
+    public SubjectCredentialManager credentialManager() {
+        return new LegacyUserCredentialManager(this.session, this.realm, this);
     }
 }

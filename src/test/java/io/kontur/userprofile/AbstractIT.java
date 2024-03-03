@@ -4,11 +4,9 @@ import static org.mockito.Mockito.when;
 
 import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.model.entity.user.User;
-
+import io.kontur.userprofile.service.UserService;
 import java.util.Optional;
 import java.util.UUID;
-
-import io.kontur.userprofile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

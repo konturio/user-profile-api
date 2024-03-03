@@ -1,8 +1,8 @@
 package io.kontur.userprofile.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kontur.userprofile.AbstractIT;
 import io.kontur.userprofile.dao.AppDao;
@@ -16,21 +16,18 @@ import io.kontur.userprofile.model.entity.AppUserFeature;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import com.fasterxml.jackson.databind.JsonNode;
 
 @SpringBootTest
 public class DaoIntegrityIT extends AbstractIT {
@@ -73,10 +70,7 @@ public class DaoIntegrityIT extends AbstractIT {
             entityManager.flush();
             throw new RuntimeException("expected exception was not thrown!");
         } catch (PersistenceException e) {
-            assertEquals(ConstraintViolationException.class, e.getCause().getClass());
-
-            ConstraintViolationException cve = (ConstraintViolationException) e.getCause();
-            String sqlMessage = cve.getSQLException().getMessage();
+            String sqlMessage = e.getMessage();
 
             assertTrue(sqlMessage.contains("ERROR: update or"
                 + " delete on table \"app\" violates foreign key constraint"
@@ -101,10 +95,7 @@ public class DaoIntegrityIT extends AbstractIT {
             entityManager.flush();
             throw new RuntimeException("expected exception was not thrown!");
         } catch (PersistenceException e) {
-            assertEquals(ConstraintViolationException.class, e.getCause().getClass());
-
-            ConstraintViolationException cve = (ConstraintViolationException) e.getCause();
-            String sqlMessage = cve.getSQLException().getMessage();
+            String sqlMessage = e.getMessage();
             assertTrue(sqlMessage.contains("ERROR: update or delete on table \"app\" violates "
                 + "foreign key constraint \"app_user_features_app_app_id\" on table "
                 + "\"app_user_feature\""));
@@ -133,7 +124,8 @@ public class DaoIntegrityIT extends AbstractIT {
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(true);
         request.setFeaturesConfig(Map.of("map_layers_panel", configurationOne));
-        request.setExtent(Arrays.asList(new BigDecimal(-1), new BigDecimal(-8), new BigDecimal(1), new BigDecimal(8)));
+        request.setExtent(Arrays.asList(new BigDecimal(-1), new BigDecimal(-8),
+                                        new BigDecimal(1), new BigDecimal(8)));
 
         AppDto result = appController.create(request);
         return result.getId();

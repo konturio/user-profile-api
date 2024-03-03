@@ -1,8 +1,8 @@
 package io.kontur.userprofile.model.entity.user;
 
 import java.util.Objects;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

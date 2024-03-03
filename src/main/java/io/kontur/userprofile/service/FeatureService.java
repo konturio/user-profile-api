@@ -8,16 +8,14 @@ import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.AppFeature;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -88,7 +86,9 @@ public class FeatureService {
 
     private Stream<AppFeature> getAppFeaturesByUserForApp(@NotNull String username,
                                                           @NotNull App app) {
-        List<Feature> allUserFeatures = appUserFeatureDao.getAppUserFeatures(app, username).toList();
+        List<Feature> allUserFeatures = appUserFeatureDao
+            .getAppUserFeatures(app, username)
+            .toList();
 
         boolean includeBetaFeatures = authService.currentUserHasBetaFeaturesRole();
         if (includeBetaFeatures) {

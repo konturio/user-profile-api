@@ -1,5 +1,14 @@
 package io.kontur.userprofile.controller;
 
+import static io.kontur.userprofile.service.AppService.DN2_ID;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +23,15 @@ import io.kontur.userprofile.model.entity.enums.FeatureType;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +39,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import static io.kontur.userprofile.service.AppService.DN2_ID;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -483,7 +488,8 @@ public class AppControllerIT extends AbstractIT {
 
         AppDto dto = createPublicAppDto();
         dto.setExtent(
-                Arrays.asList(new BigDecimal(-180), new BigDecimal(-80), new BigDecimal(180), new BigDecimal(80)));
+                Arrays.asList(new BigDecimal(-180), new BigDecimal(-80),
+                              new BigDecimal(180), new BigDecimal(80)));
 
 
         AppDto appDto = controller.create(dto);
@@ -515,7 +521,8 @@ public class AppControllerIT extends AbstractIT {
 
         AppDto dto = createPublicAppDto();
         dto.setExtent(
-                Arrays.asList(new BigDecimal(-180), new BigDecimal(-80), new BigDecimal(180), new BigDecimal(80)));
+                Arrays.asList(new BigDecimal(-180), new BigDecimal(-80),
+                              new BigDecimal(180), new BigDecimal(80)));
 
         AppDto appDto = controller.update(created.getId(), dto);
 
@@ -532,7 +539,8 @@ public class AppControllerIT extends AbstractIT {
         var appDto = createPrivateAppDto();
 
         assertThrows(JsonProcessingException.class, () -> {
-            appDto.setFeaturesConfig(Map.of(featureAvailableForUserApps, mapper.readTree(configurationIncorrectJsonString)));
+            appDto.setFeaturesConfig(Map.of(featureAvailableForUserApps,
+                                            mapper.readTree(configurationIncorrectJsonString)));
             controller.create(appDto);
         });
     }
@@ -545,7 +553,8 @@ public class AppControllerIT extends AbstractIT {
         AppDto appDto = createPublicAppDto();
 
         assertThrows(JsonProcessingException.class, () -> {
-            appDto.setFeaturesConfig(Map.of(featureAvailableForUserApps, mapper.readTree(configurationIncorrectJsonString)));
+            appDto.setFeaturesConfig(Map.of(featureAvailableForUserApps,
+                                            mapper.readTree(configurationIncorrectJsonString)));
             controller.update(created.getId(), appDto);
         });
     }
@@ -556,7 +565,8 @@ public class AppControllerIT extends AbstractIT {
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(true);
         request.setFeaturesConfig(Map.of(featureAvailableForUserApps, configurationOne));
-        request.setExtent(Arrays.asList(new BigDecimal(-180), new BigDecimal(-80), new BigDecimal(180), new BigDecimal(80)));
+        request.setExtent(Arrays.asList(new BigDecimal(-180), new BigDecimal(-80),
+                                        new BigDecimal(180), new BigDecimal(80)));
         return request;
     }
 
@@ -566,7 +576,8 @@ public class AppControllerIT extends AbstractIT {
         request.setDescription(UUID.randomUUID().toString());
         request.setPublic(false);
         request.setFeaturesConfig(Map.of(featureAvailableForUserApps2, configurationOne));
-        request.setExtent(Arrays.asList(new BigDecimal(-180), new BigDecimal(-80), new BigDecimal(180), new BigDecimal(80)));
+        request.setExtent(Arrays.asList(new BigDecimal(-180), new BigDecimal(-80),
+                                        new BigDecimal(180), new BigDecimal(80)));
         return request;
     }
 
@@ -581,8 +592,9 @@ public class AppControllerIT extends AbstractIT {
         assertBasicAppFields(request, response);
     }
 
-    private void thenAppFieldsShownToNonOwnersAreCorrectAndDefaultFeaturesAreAdded(AppDto request,
-                                                                                   AppDto response) {
+    private void
+        thenAppFieldsShownToNonOwnersAreCorrectAndDefaultFeaturesAreAdded(AppDto request,
+                                                                          AppDto response) {
         thenAppFieldsShownToNonOwnersAreCorrect(request, response);
         thenDefaultFeaturesArePresent(response);
     }
@@ -600,7 +612,8 @@ public class AppControllerIT extends AbstractIT {
         List<String> defaultFeatures = featureDao.getFeaturesAddedByDefaultToUserApps()
                 .stream().map(Feature::getName).toList();
 
-        defaultFeatures.forEach(feature -> assertTrue(dto.getFeaturesConfig().containsKey(feature)));
+        defaultFeatures
+            .forEach(feature -> assertTrue(dto.getFeaturesConfig().containsKey(feature)));
     }
 
     private void assertBasicAppFields(AppDto expected, AppDto actual) {

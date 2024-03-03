@@ -1,10 +1,10 @@
 package io.kontur.keycloak.service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceContext;
 import java.util.Optional;
 import java.util.stream.Stream;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import lombok.extern.jbosslog.JBossLog;
 
 @JBossLog
@@ -13,7 +13,8 @@ public abstract class JpaService<T> {
     protected EntityManager entityManager;
 
     public long count(Class<T> entityClazz) {
-        return (long) entityManager.createQuery("select count(*) from " + entityClazz.getSimpleName() + " u")
+        return (long) entityManager
+            .createQuery("select count(*) from " + entityClazz.getSimpleName() + " u")
             .getSingleResult();
     }
 

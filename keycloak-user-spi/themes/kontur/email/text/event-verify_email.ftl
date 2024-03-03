@@ -1,5 +1,4 @@
-Hi ${user},
-
+Hi ${fullName},
 Welcome to Kontur! We are thrilled to have you join our community. Your account is now active, and you can start using our services.
 
 Disaster.Ninja

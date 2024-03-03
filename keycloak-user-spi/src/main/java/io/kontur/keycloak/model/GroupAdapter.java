@@ -1,13 +1,9 @@
 package io.kontur.keycloak.model;
 
 import io.kontur.userprofile.model.entity.user.Group;
-
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Stream;
-
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;
@@ -34,13 +30,13 @@ public class GroupAdapter implements GroupModel {
     }
 
     @Override
-    public Set<RoleModel> getRealmRoleMappings() {
-        return Set.of(); //not supported for groups
+    public Stream<RoleModel> getRealmRoleMappingsStream() {
+        return Stream.empty(); //not supported for groups
     }
 
     @Override
-    public Set<RoleModel> getClientRoleMappings(ClientModel app) {
-        return Set.of(); //not supported for groups
+    public Stream<RoleModel> getClientRoleMappingsStream(ClientModel app) {
+        return Stream.empty(); //not supported for groups
     }
 
     @Override
@@ -52,15 +48,6 @@ public class GroupAdapter implements GroupModel {
     @Override
     public void grantRole(RoleModel role) {
         throw new ReadOnlyException("Group is read only for this update");
-    }
-
-    @Override
-    public Set<RoleModel> getRoleMappings() {
-        GroupModel group = realm.getGroupById(entity.getId());
-        if (group == null) {
-            return Collections.emptySet();
-        }
-        return group.getRoleMappings();
     }
 
     @Override
@@ -113,8 +100,8 @@ public class GroupAdapter implements GroupModel {
     }
 
     @Override
-    public List<String> getAttribute(String name) {
-        return List.of();
+    public Stream<String> getAttributeStream(String name) {
+        return Stream.empty();
     }
 
     @Override
@@ -142,8 +129,8 @@ public class GroupAdapter implements GroupModel {
     }
 
     @Override
-    public Set<GroupModel> getSubGroups() {
-        return Set.of(); //not supported
+    public Stream<GroupModel> getSubGroupsStream() {
+        return Stream.empty(); //not supported
     }
 
     @Override

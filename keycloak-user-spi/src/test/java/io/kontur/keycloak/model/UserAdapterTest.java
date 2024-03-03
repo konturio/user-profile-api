@@ -7,7 +7,8 @@ import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.E
 import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.ENABLED_ATTRIBUTE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.Role;
@@ -15,6 +16,7 @@ import io.kontur.userprofile.model.entity.user.User;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.keycloak.common.util.MultivaluedHashMap;
@@ -24,6 +26,7 @@ import org.keycloak.models.GroupModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleModel;
+import org.keycloak.storage.UserStorageUtil;
 import org.keycloak.storage.federated.UserFederatedStorageProvider;
 
 public class UserAdapterTest {
@@ -66,7 +69,7 @@ public class UserAdapterTest {
         when(realm.getGroupById(group2.getId())).thenReturn(mock(GroupModel.class));
 
 
-        when(session.userFederatedStorage()).thenReturn(storage);
+        when(UserStorageUtil.userFederatedStorage(session)).thenReturn(storage);
 
         MultivaluedHashMap<String, String> attributes = new MultivaluedHashMap<>();
         attributes.add(ENABLED_ATTRIBUTE, "true");
@@ -80,7 +83,9 @@ public class UserAdapterTest {
         User user = givenUserContainsReamMappingAndTwoClientsMappings();
 
         UserAdapter userAdapter = createAdapterForUser(user);
-        Set<RoleModel> roleAdapters = userAdapter.getRoleMappings();
+        Set<RoleModel> roleAdapters = userAdapter
+            .getRoleMappingsStream()
+            .collect(Collectors.toSet());
 
         thenSetSizeIs(roleAdapters, 6);
         thenSetContainsTwoRealmRoles(roleAdapters);
@@ -93,7 +98,9 @@ public class UserAdapterTest {
         User user = givenUserContainsReamMappingAndTwoClientsMappings();
 
         UserAdapter userAdapter = createAdapterForUser(user);
-        Set<RoleModel> roleAdapters = userAdapter.getRealmRoleMappings();
+        Set<RoleModel> roleAdapters = userAdapter
+            .getRealmRoleMappingsStream()
+            .collect(Collectors.toSet());
 
         thenSetSizeIs(roleAdapters, 2);
         thenSetContainsTwoRealmRoles(roleAdapters);
@@ -104,7 +111,9 @@ public class UserAdapterTest {
         User user = givenUserContainsReamMappingAndTwoClientsMappings();
 
         UserAdapter userAdapter = createAdapterForUser(user);
-        Set<RoleModel> roleAdapters = userAdapter.getClientRoleMappings(client1);
+        Set<RoleModel> roleAdapters = userAdapter
+            .getClientRoleMappingsStream(client1)
+            .collect(Collectors.toSet());
 
         thenSetSizeIs(roleAdapters, 2);
         thenSetContainsTwoClient1Roles(roleAdapters);
@@ -115,7 +124,9 @@ public class UserAdapterTest {
         User user = givenUserContainsReamMappingAndTwoClientsMappings();
 
         UserAdapter userAdapter = createAdapterForUser(user);
-        Set<RoleModel> roleAdapters = userAdapter.getClientRoleMappings(client2);
+        Set<RoleModel> roleAdapters = userAdapter
+            .getClientRoleMappingsStream(client2)
+            .collect(Collectors.toSet());
 
         thenSetSizeIs(roleAdapters, 2);
         thenSetContainsTwoClient2Roles(roleAdapters);
@@ -279,9 +290,13 @@ public class UserAdapterTest {
         User user = givenUserIsMemberOfTwoGroups();
         UserAdapter adapter = createAdapterForUser(user);
 
-        thenSetSizeIs(adapter.getGroups(), 2);
-        thenGroupModelSetContainsGroup(adapter.getGroups(), group1);
-        thenGroupModelSetContainsGroup(adapter.getGroups(), group2);
+        thenSetSizeIs(adapter.getGroupsStream().collect(Collectors.toSet()), 2);
+        thenGroupModelSetContainsGroup(adapter
+                                       .getGroupsStream()
+                                       .collect(Collectors.toSet()), group1);
+        thenGroupModelSetContainsGroup(adapter
+                                       .getGroupsStream()
+                                       .collect(Collectors.toSet()), group2);
     }
 
     @Test
@@ -289,7 +304,7 @@ public class UserAdapterTest {
         User user = givenUserHasNoRolesOrGroups();
         UserAdapter adapter = createAdapterForUser(user);
 
-        thenSetSizeIs(adapter.getGroups(), 0);
+        thenSetSizeIs(adapter.getGroupsStream().collect(Collectors.toSet()), 0);
     }
 
     @Test
@@ -356,10 +371,18 @@ public class UserAdapterTest {
     private void thenModelRoleMappingSizesAre(UserAdapter userAdapter, int roleMappings,
                                               int client1RoleMappings, int client2RoleMappings,
                                               int realmRoleMappings) {
-        thenSetSizeIs(userAdapter.getRoleMappings(), roleMappings);
-        thenSetSizeIs(userAdapter.getClientRoleMappings(client1), client1RoleMappings);
-        thenSetSizeIs(userAdapter.getClientRoleMappings(client2), client2RoleMappings);
-        thenSetSizeIs(userAdapter.getRealmRoleMappings(), realmRoleMappings);
+        thenSetSizeIs(userAdapter
+                      .getRoleMappingsStream()
+                      .collect(Collectors.toSet()), roleMappings);
+        thenSetSizeIs(userAdapter
+                      .getClientRoleMappingsStream(client1)
+                      .collect(Collectors.toSet()), client1RoleMappings);
+        thenSetSizeIs(userAdapter
+                      .getClientRoleMappingsStream(client2)
+                      .collect(Collectors.toSet()), client2RoleMappings);
+        thenSetSizeIs(userAdapter
+                      .getRealmRoleMappingsStream()
+                      .collect(Collectors.toSet()), realmRoleMappings);
     }
 
     private UserAdapter createAdapterForUser(User user) {

@@ -2,16 +2,16 @@ package io.kontur.keycloak.provider;
 
 import io.kontur.keycloak.model.UserAdapter;
 import io.kontur.keycloak.service.UserService;
+import io.kontur.keycloak.service.UserServiceImpl;
 import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.Role;
 import io.kontur.userprofile.model.entity.user.User;
-
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remove;
@@ -32,7 +32,7 @@ import org.keycloak.storage.user.UserLookupProvider;
 import org.keycloak.storage.user.UserQueryProvider;
 import org.keycloak.storage.user.UserRegistrationProvider;
 
-@Stateful(passivationCapable=false)
+@Stateful(passivationCapable = false)
 @Local(DatabaseUserStorageProvider.class)
 @JBossLog
 @Getter
@@ -48,6 +48,13 @@ public class DatabaseUserStorageProvider
     private UserService userService;
     private KeycloakSession session;
     private ComponentModel component;
+
+    DatabaseUserStorageProvider(KeycloakSession session, ComponentModel model) {
+        this.session = session;
+        this.component = model;
+        this.userService = new UserServiceImpl(session);
+    }
+
 
     @Override
     public int getUsersCount(RealmModel realm) {
@@ -81,105 +88,94 @@ public class DatabaseUserStorageProvider
         return userService.removeUser(user.getUsername());
     }
 
-    @Override
-    public List<UserModel> getUsers(RealmModel realm) {
+    public Stream<UserModel> getUsersStream(RealmModel realm) {
         return userService.getAllUsers()
-            .map(u -> UserAdapter.fromEntity(u, session, realm, component))
-            .collect(Collectors.toList());
+            .map(u -> UserAdapter.fromEntity(u, session, realm, component));
     }
 
-    @Override
-    public List<UserModel> getUsers(RealmModel realm, int firstResult, int maxResults) {
-        List<UserModel> allUsers = getUsers(realm);
-        return ListUtil.getEntriesFromList(allUsers, firstResult, maxResults);
+    public Stream<UserModel> getUsersStream(RealmModel realm, int firstResult, int maxResults) {
+        return getUsersStream(realm).skip(firstResult).limit(maxResults);
     }
 
     /**
      * Searches for users whose username, email, first name or last name contain provided string.
      */
     @Override
-    public List<UserModel> searchForUser(String search, RealmModel realm) {
-        log.debugf("Searching for user: search = '%s'", search);
-        if (search == null || search.isBlank()) {
-            return getUsers(realm);
-        }
-
-        return userService.searchForUsers(search)
-            .map(u -> UserAdapter.fromEntity(u, session, realm, component))
-            .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<UserModel> searchForUser(String search, RealmModel realm, int firstResult,
-                                         int maxResults) {
-        return ListUtil.getEntriesFromList(searchForUser(search, realm), firstResult, maxResults);
-    }
-
-    @Override
-    public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm) {
+    public Stream<UserModel> searchForUserStream(RealmModel realm, Map<String, String> params) {
+        log.infof("Searching for users");
         if (params == null || params.isEmpty()) {
-            return getUsers(realm);
+            log.infof("returning all users");
+            return getUsersStream(realm);
         }
-        throw new RuntimeException("Not implemented!"); //seems to be not used
+
+        for (Map.Entry entry : params.entrySet()) {
+            System.out.println("key: " + entry.getKey() + "; value: " + entry.getValue());
+        }
+
+        return userService.searchForUsers(params.get("keycloak.session.realm.users.query.search"))
+            .map(u -> UserAdapter.fromEntity(u, session, realm, component));
     }
 
     @Override
-    public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm,
-                                         int firstResult, int maxResults) {
-        return ListUtil.getEntriesFromList(searchForUser(params, realm), firstResult, maxResults);
+    public Stream<UserModel> searchForUserStream(RealmModel realm, Map<String, String> params,
+                                                 Integer firstResult, Integer maxResults) {
+        return searchForUserStream(realm, params).skip(firstResult).limit(maxResults);
     }
 
     @Override
-    public List<UserModel> getGroupMembers(RealmModel realm, GroupModel group) {
+    public Stream<UserModel> getGroupMembersStream(RealmModel realm, GroupModel group) {
         log.debugf("Getting group members (id: '%s') (name: '%s')", group.getId(), group.getName());
         return userService.getGroupMembers(group.getName())
-            .map(u -> UserAdapter.fromEntity(u, session, realm, component))
-            .collect(Collectors.toList());
+            .map(u -> UserAdapter.fromEntity(u, session, realm, component));
     }
 
     @Override
-    public List<UserModel> getGroupMembers(RealmModel realm, GroupModel group, int firstResult,
-                                           int maxResults) {
-        return ListUtil.getEntriesFromList(getGroupMembers(realm, group), firstResult, maxResults);
+    public Stream<UserModel> getGroupMembersStream(RealmModel realm,
+                                                   GroupModel group,
+                                                   Integer firstResult,
+                                                   Integer maxResults) {
+        return getGroupMembersStream(realm, group).skip(firstResult).limit(maxResults);
     }
 
     @Override
-    public List<UserModel> getRoleMembers(RealmModel realm, RoleModel role, int firstResult,
-                                          int maxResults) {
-        return ListUtil.getEntriesFromList(getRoleMembers(realm, role), firstResult, maxResults);
+    public Stream<UserModel> getRoleMembersStream(RealmModel realm,
+                                                  RoleModel role,
+                                                  Integer firstResult,
+                                                  Integer maxResults) {
+        return getRoleMembersStream(realm, role).skip(firstResult).limit(maxResults);
     }
 
     @Override
-    public List<UserModel> getRoleMembers(RealmModel realm, RoleModel role) {
+    public Stream<UserModel> getRoleMembersStream(RealmModel realm, RoleModel role) {
         return userService.getRoleMembers(role.getName())
-            .map(it -> UserAdapter.fromEntity(it, session, realm, component))
-            .collect(Collectors.toList());
+            .map(it -> UserAdapter.fromEntity(it, session, realm, component));
     }
 
     @Override
-    public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue,
-                                                        RealmModel realm) {
+    public Stream<UserModel> searchForUserByUserAttributeStream(RealmModel realm,
+                                                                String attrName,
+                                                                String attrValue) {
         throw new RuntimeException("Searching users by attributes is not supported");
     }
 
     @Override
-    public UserModel getUserById(String id, RealmModel realm) {
+    public UserModel getUserById(RealmModel realm, String id) {
         log.debugf("Getting user by keycloak id %s", id);
         StorageId storageId = new StorageId(id);
         String username = storageId.getExternalId();
 
-        return getUserByUsername(username, realm);
+        return getUserByUsername(realm, username);
     }
 
     @Override
-    public UserModel getUserByEmail(String email, RealmModel realm) {
+    public UserModel getUserByEmail(RealmModel realm, String email) {
         log.debugf("Getting user by email %s", email);
         return userService.getUserByEmail(email)
             .map(u -> UserAdapter.fromEntity(u, session, realm, component)).orElse(null);
     }
 
     @Override
-    public UserModel getUserByUsername(String username, RealmModel realm) {
+    public UserModel getUserByUsername(RealmModel realm, String username) {
         log.debugf("Getting user by username %s", username);
         return userService.getUserByUsername(username)
             .map(u -> UserAdapter.fromEntity(u, session, realm, component)).orElse(null);

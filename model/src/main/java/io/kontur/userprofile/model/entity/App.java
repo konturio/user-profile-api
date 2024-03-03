@@ -1,33 +1,28 @@
 package io.kontur.userprofile.model.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import com.vladmihalcea.hibernate.type.json.JsonStringType;
-import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.entity.user.User;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "APP")
-@TypeDefs({
-        @TypeDef(name = "json", typeClass = JsonStringType.class),
-        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class),
-        @TypeDef(name = "list-array", typeClass = ListArrayType.class)
-})
 public class App {
     @Id
     private UUID id;
@@ -39,16 +34,14 @@ public class App {
 
     @Column(name = "is_public")
     private boolean isPublic;
-    @Type(type = "list-array")
     private List<BigDecimal> extent;
     @Column(name = "sidebar_icon_url")
     private String sidebarIconUrl;
     @Column(name = "favicon_url")
     private String faviconUrl;
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "favicon_pack", columnDefinition = "json")
     private JsonNode faviconPack;
-    @Type(type = "list-array")
     @Column(name = "domains", columnDefinition = "text[]")
     private List<String> domains;
 

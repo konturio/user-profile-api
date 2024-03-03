@@ -12,6 +12,7 @@ import io.kontur.keycloak.service.UserService;
 import io.kontur.userprofile.model.entity.user.User;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +59,7 @@ public class DatabaseUserStorageProviderTest {
         User user2 = user("user2");
         when(userService.getAllUsers()).thenReturn(Stream.of(user1, user2));
 
-        List<UserModel> result = provider.getUsers(realm);
+        List<UserModel> result = provider.getUsersStream(realm).collect(Collectors.toList());
 
         assertEquals(2, result.size());
         assertEquals(user1.getUsername(), result.get(0).getUsername());
@@ -78,7 +79,7 @@ public class DatabaseUserStorageProviderTest {
     public void getUsersLimitedTest() {
         when(userService.getAllUsers()).thenReturn(tenUsers());
 
-        List<UserModel> result = provider.getUsers(realm, 2, 3);
+        List<UserModel> result = provider.getUsersStream(realm, 2, 3).collect(Collectors.toList());
 
         assertEquals(3, result.size());
         assertEquals("user3", result.get(0).getUsername());

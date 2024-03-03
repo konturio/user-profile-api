@@ -106,8 +106,10 @@ public class RoleAdapter implements RoleModel {
 
     @Override
     public boolean hasRole(RoleModel role) {
-        return getId().equals(role.getId()) ||
-                (isComposite() && realm.getRoleById(getId()) != null && realm.getRoleById(getId()).hasRole(role));
+        return getId().equals(role.getId())
+            || (isComposite()
+                && realm.getRoleById(getId()) != null
+                && realm.getRoleById(getId()).hasRole(role));
     }
 
     @Override

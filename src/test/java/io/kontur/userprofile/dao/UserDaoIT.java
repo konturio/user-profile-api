@@ -1,14 +1,13 @@
 package io.kontur.userprofile.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import io.kontur.userprofile.AbstractIT;
 import io.kontur.userprofile.model.entity.user.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.transaction.Transactional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
