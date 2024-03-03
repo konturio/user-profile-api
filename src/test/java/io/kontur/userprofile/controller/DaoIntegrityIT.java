@@ -16,15 +16,14 @@ import io.kontur.userprofile.model.entity.AppUserFeature;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
