@@ -125,8 +125,8 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
 
     private Stream<User> queryUserByBasicParams(String search) {
         if (search == null || search.isBlank()) {
-            log.infof("empty search request %s %b - returning an empty stream",
-                      search, search.isBlank());
+            log.infof("empty search request %s - returning an empty stream",
+                      search);
             return Stream.empty();
         }
         return entityManager.createQuery("from User u where u.username like ?1 or "
