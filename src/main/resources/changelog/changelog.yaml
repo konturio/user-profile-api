@@ -156,3 +156,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18044-create-initial-atlas-application.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/17998-add-new-parameters-in-database-for-about-pages.sql
