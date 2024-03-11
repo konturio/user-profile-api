@@ -150,3 +150,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/17339-switch-layer_features_panel-on-for-all-dn2-users.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/17718-create-mcda-app-for-pdc.sql
