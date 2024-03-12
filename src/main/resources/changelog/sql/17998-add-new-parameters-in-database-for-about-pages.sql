@@ -8,7 +8,7 @@ create table assets(
     type          text not null,
     filename      text not null,
     url           text not null,
-    description   character varying(255),
+    description   text,
     owner_user_id bigint,
     language      text,
     last_updated  timestamp with time zone not null default current_timestamp,
@@ -18,3 +18,18 @@ create table assets(
 );
 
 alter table feature owner to "user-profile-api";
+
+CREATE OR REPLACE FUNCTION public.refresh_last_updated()
+  RETURNS TRIGGER 
+  LANGUAGE PLPGSQL
+  AS
+$$
+BEGIN
+    IF NEW.last_name <> OLD.last_name THEN
+         INSERT INTO employee_audits(employee_id,last_name,changed_on)
+         VALUES(OLD.id,OLD.last_name,now());
+    END IF;
+
+    RETURN NEW;
+END;
+$$
