@@ -19,17 +19,26 @@ create table assets(
 
 alter table feature owner to "user-profile-api";
 
-CREATE OR REPLACE FUNCTION public.refresh_last_updated()
-  RETURNS TRIGGER 
-  LANGUAGE PLPGSQL
-  AS
+create or replace function public.refresh_last_updated()
+  returns trigger
+  language plpgsql
+  as
 $$
-BEGIN
-    IF NEW.last_name <> OLD.last_name THEN
-         INSERT INTO employee_audits(employee_id,last_name,changed_on)
-         VALUES(OLD.id,OLD.last_name,now());
-    END IF;
+begin
+    new.last_updated:= current_timestamp;
+    return new;
+end;
+$$
+;
 
-    RETURN NEW;
-END;
-$$
+drop trigger if exists refresh_assets_last_updated_timestamp ON public.assets;
+
+create trigger refresh_assets_last_updated_timestamp
+before update on public.assets
+    for each row execute function refresh_last_updated();
+
+alter function public.refresh_last_updated() owner to "user-profile-api";
+
+-- insert DN About page as an example
+insert into assets(type, filename, url, description, app_id, feature_id) 
+    values ('type', 'url', 'urlname1', 'description');
