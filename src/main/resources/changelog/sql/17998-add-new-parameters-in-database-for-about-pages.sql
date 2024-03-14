@@ -23,12 +23,12 @@ create or replace function public.refresh_last_updated()
   returns trigger
   language plpgsql
   as
-$$
+'
 begin
     new.last_updated:= current_timestamp;
     return new;
 end;
-$$
+'
 ;
 
 drop trigger if exists refresh_assets_last_updated_timestamp ON public.assets;
