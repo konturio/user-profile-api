@@ -35,7 +35,13 @@ with users_ids as (select id
                                   'vkozel@kontur.io', 
                                   'nlaptsik@kontur.io', 
                                   'ilosik@kontur.io',
-                                  'ahil@kontur.io')),
+                                  'ahil@kontur.io',
+                                  'atarakanov@kontur.io',
+                                  'arben@kontur.io',
+                                  'curtis@kontur.io',
+                                  'hoa@kontur.io',
+                                  'nprovenzano@kontur.io',
+                                  'tad@kontur.io')),
 features_ids as (select id 
                       from feature f
                       where f.name in ('toolbar', 'locate_me', 'map_ruler', 'mcda', ' create_layer', 'boundary_selector', 'geometry_uploader', 'focused_geometry_editor', 'draw_tools', 'side_bar', 'app_login', 'app_registration', 'map_layers_panel', 'legend_panel', 'focused_geometry_layer', 'geocoder', 'feature_settings', 'layers_in_area', 'use_3rd_party_analytics', 'translation', 'tooltip', 'popup', 'toasts', 'interactive_map', 'url_store', 'share_map', 'cookie_consent_banner', 'about_page'))
