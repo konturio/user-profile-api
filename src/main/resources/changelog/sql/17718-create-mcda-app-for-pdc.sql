@@ -3,7 +3,7 @@
 --changeset user-profile-service:17718-create-mcda-app-for-pdc.sql runOnChange:false
 
 insert into app (id, name, description, owner_user_id, is_public, extent, favicon_pack)
-values ('77260743-1da0-445b-8f56-ff6ca8520c55', 'MCDA', 'Application for Multiple Criteria Decision Analysis (MCDA) tool demonstration', null, true, '{-135,0,63,62}', '{
+values ('77260743-1da0-445b-8f56-ff6ca8520c55', 'MCDA', 'Application for Multiple Criteria Decision Analysis (MCDA) tool demonstration', null, true, '{-140,30,-45,50}', '{
   "favicon.svg": "/active/static/favicon/mcda-favicon.svg",
   "favicon.ico": "/active/static/favicon/mcda-favicon.ico",
   "apple-touch-icon.png": "/active/static/favicon/mcda-apple-touch-icon.png",
