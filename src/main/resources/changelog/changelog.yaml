@@ -153,3 +153,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/17718-create-mcda-app-for-pdc.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18044-create-initial-atlas-application.sql
