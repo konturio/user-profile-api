@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with:
-          java-version: 17
+          java-version: 17 # Keycloak image uses 17, so update JDK in Keycloak before changing this
           distribution: corretto
           cache: gradle
 
