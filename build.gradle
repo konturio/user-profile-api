@@ -11,7 +11,7 @@ plugins {
 
 group = 'io.kontur.userprofile'
 version = '0.6.3'
-sourceCompatibility = '17'
+sourceCompatibility = '17' // Keycloak image uses 17, so update JDK in Keycloak before changing this
 targetCompatibility = '17'
 String imageTag = System.getenv("IMAGE_TAG") ?: 'latest'
 
