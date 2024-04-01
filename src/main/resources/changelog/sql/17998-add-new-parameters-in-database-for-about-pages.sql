@@ -3,18 +3,21 @@
 --changeset user-profile-service:17998-add-new-parameters-in-database-for-about-pages.sql runOnChange:false
 
 -- create table ASSETS
+drop table if exists assets;
+
 create table assets(
     id            bigint not null constraint pk_assets primary key generated always as identity,
-    type          text not null,
+    media_type    text not null,
+    media_subtype text not null,
     filename      text not null,
-    url           text not null,
     description   text,
     owner_user_id bigint,
     language      text,
     last_updated  timestamp with time zone not null default current_timestamp,
     app_id        uuid not null constraint fk_assets_app references app,
     feature_id    bigint not null constraint fk_assets_feature references feature on delete cascade,
-    asset         bytea not null
+    asset         bytea not null,
+    constraint uk_assets_app_id_filename unique (app_id, filename, language)
 );
 
 alter table feature owner to "user-profile-api";
@@ -40,11 +43,11 @@ before update on public.assets
 alter function public.refresh_last_updated() owner to "user-profile-api";
 
 -- insert DN About page as an example
-insert into assets(type, filename, url, description, language, app_id, feature_id, asset) 
-    values ('about_page',
-            'About.tsx',
-            '/active/about',
-            'Default Disaster Ninja 2 About page',
+insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
+    values ('text',
+            'plain',
+            'about.tsx',
+            'Default Disaster Ninja About page',
             'en',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
