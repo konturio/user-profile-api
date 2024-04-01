@@ -46,7 +46,7 @@ alter function public.refresh_last_updated() owner to "user-profile-api";
 insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
     values ('text',
             'plain',
-            'about.tsx',
+            'about.md',
             'Default Disaster Ninja About page',
             'en',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
