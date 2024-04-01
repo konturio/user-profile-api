@@ -28,7 +28,9 @@ public class AssetController {
 
     @Transactional(readOnly = true)
     @Operation(summary = "Get asset for application by language and filename.")
-    @ApiResponse(responseCode = "200", description = "Success", content = @Content(mediaType = APPLICATION_OCTET_STREAM_VALUE))
+    @ApiResponse(responseCode = "200",
+            description = "Success. The actual content type will vary based on the asset (e.g., image/jpeg, text/plain, etc.).",
+            content = @Content(mediaType = APPLICATION_OCTET_STREAM_VALUE))
     @GetMapping(path = "/{appId}/{filename}")
     public ResponseEntity<byte[]> getAsset(@PathVariable(name = "appId", required = true) UUID appId,
                                            @PathVariable(name = "filename", required = true) String filename,

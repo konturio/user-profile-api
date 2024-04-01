@@ -155,3 +155,17 @@ export function AboutPage({ toHomePage }: { toHomePage: () => void }) {
     </Article>
   );
 }'::bytea);
+
+update app_feature
+    set configuration = '{
+        "tabName": "About",
+        "assetUrl": "/active/api/assets/58851b50-9574-4aec-a3a6-425fa18dcb54/about.md",
+        "subTabs": [
+            {
+                "tabName": "Privacy",
+                "assetUrl": "/active/api/assets/58851b50-9574-4aec-a3a6-425fa18dcb54/privacy.md"
+            }
+        ]
+    }'
+where app_id = '58851b50-9574-4aec-a3a6-425fa18dcb54'
+  and feature_id = (select id from feature where name = 'about_page' limit 1)
