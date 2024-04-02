@@ -159,11 +159,11 @@ export function AboutPage({ toHomePage }: { toHomePage: () => void }) {
 update app_feature
     set configuration = '{
         "tabName": "About",
-        "assetUrl": "/active/api/assets/58851b50-9574-4aec-a3a6-425fa18dcb54/about.md",
+        "assetUrl": "/active/api/apps/58851b50-9574-4aec-a3a6-425fa18dcb54/assets/about.md",
         "subTabs": [
             {
                 "tabName": "Privacy",
-                "assetUrl": "/active/api/assets/58851b50-9574-4aec-a3a6-425fa18dcb54/privacy.md"
+                "assetUrl": "/active/api/apps/58851b50-9574-4aec-a3a6-425fa18dcb54/assets/privacy.md"
             }
         ]
     }'

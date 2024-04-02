@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
+import io.kontur.userprofile.model.dto.AssetDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.user.User;
@@ -18,11 +19,11 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+
+import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,6 +150,20 @@ public class AppController {
     @GetMapping
     public List<AppSummaryDto> getList() {
         return appService.getAppListForCurrentUser();
+    }
+
+    @Transactional(readOnly = true)
+    @Operation(summary = "Get application asset by language and filename.")
+    @ApiResponse(responseCode = "200", description = "Success.",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = AssetDto.class)))
+    @GetMapping(path = "/{appId}/assets/{filename}")
+    public ResponseEntity<AssetDto> getAsset(@PathVariable(name = "appId", required = true) UUID appId,
+                                           @PathVariable(name = "filename", required = true) String filename,
+                                           HttpServletRequest request) {
+        String language = appService.parseLanguage(request.getLocale());
+        Optional<AssetDto> assetOpt = appService.getAssetByAppIdAndFileNameAndLanguage(appId, filename, language);
+        return assetOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     private AppDto getAppConfig(App app) {

@@ -90,9 +90,6 @@ public class WebSecurityConfiguration {
             .requestMatchers("/apps/**")
             .permitAll()
 
-            .requestMatchers("/assets/**")
-            .permitAll()
-
             .anyRequest().authenticated()
             .and()
             .oauth2ResourceServer(resourceServerConfigurer -> resourceServerConfigurer

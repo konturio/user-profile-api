@@ -6,27 +6,30 @@ import io.kontur.userprofile.dao.AppDao;
 import io.kontur.userprofile.dao.AppFeatureDao;
 import io.kontur.userprofile.dao.AppUserFeatureDao;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
+import io.kontur.userprofile.model.dto.AssetDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.AppFeature;
+import io.kontur.userprofile.model.entity.Asset;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import jakarta.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+
+import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class AppService {
     public static final UUID DN2_ID = UUID.fromString("58851b50-9574-4aec-a3a6-425fa18dcb54");
+    private final String DEFAULT_LANGUAGE = "en";
 
     private final AppDao appDao;
     private final AppFeatureDao appFeatureDao;
@@ -186,5 +189,16 @@ public class AppService {
                     HttpStatus.FORBIDDEN);
         }
         return app;
+    }
+
+    public Optional<AssetDto> getAssetByAppIdAndFileNameAndLanguage(UUID appId, String filename, String language) {
+        Asset asset = appDao.getAssetByAppIdAndFileNameAndLanguage(appId, filename, language, DEFAULT_LANGUAGE);
+        return asset == null ? Optional.empty() : Optional.of(AssetDto.fromEntity(asset));
+    }
+
+    public String parseLanguage(Locale locale) {
+        return locale == null || locale.getLanguage() == null || isBlank(locale.getLanguage())
+                ? DEFAULT_LANGUAGE
+                : locale.getLanguage();
     }
 }

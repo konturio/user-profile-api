@@ -135,4 +135,5 @@ public class DaoIntegrityIT extends AbstractIT {
         App app = appDao.getApp(id);
         appDao.deleteApp(app);
     }
+
 }
