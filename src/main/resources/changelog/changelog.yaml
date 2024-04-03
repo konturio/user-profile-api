@@ -162,3 +162,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18121-set-up-custom-domain-for-atlas-kontur-io.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18069-create-chat-feature-in-ups.sql
