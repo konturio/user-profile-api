@@ -68,10 +68,10 @@ public class AppDao {
     }
 
     private Asset getAssetByAppIdAndFileNameAndLanguage(UUID appId, String filename, String language) {
-        String sql = "select * from assets where app_id = :appId and filename = :filename and language = :language limit 1";
+        String sql = "select * from assets where app_id = :app_id and filename = :filename and language = :language limit 1";
 
         Query query = entityManager.createNativeQuery(sql, Asset.class)
-                .setParameter("appId", appId)
+                .setParameter("app_id", appId)
                 .setParameter("filename", filename)
                 .setParameter("language", language);
         List<Asset> results = query.getResultList();
