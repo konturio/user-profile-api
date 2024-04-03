@@ -7,8 +7,6 @@ select '9043acf9-2cf3-48ac-9656-a5d7c4b7593d', f.id
 from feature f
 where f.name in ('osm_edit_link', 'use_3rdparty_analytics', 'intercom');
 
-delete from app_user_feature where app_id = '9043acf9-2cf3-48ac-9656-a5d7c4b7593d';
-
 with users_ids as (select id 
                   from users 
                   where email in ('atsiatserkina@kontur.io', 
