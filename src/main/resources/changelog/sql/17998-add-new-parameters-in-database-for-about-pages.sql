@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset user-profile-service:17998-add-new-parameters-in-database-for-about-pages.sql runOnChange:false
+--changeset user-profile-service:17998-add-new-parameters-in-database-for-about-pages.sql runOnChange:true
 
 -- create table ASSETS
 drop table if exists assets;
