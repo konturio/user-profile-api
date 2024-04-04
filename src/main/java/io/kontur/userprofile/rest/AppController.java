@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
+import io.kontur.userprofile.model.dto.AssetDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.user.User;
@@ -19,10 +20,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+
+import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,15 +31,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/apps")
@@ -149,6 +141,20 @@ public class AppController {
     @GetMapping
     public List<AppSummaryDto> getList() {
         return appService.getAppListForCurrentUser();
+    }
+
+    @Transactional(readOnly = true)
+    @Operation(summary = "Get application asset by language and filename.")
+    @ApiResponse(responseCode = "200", description = "Success.",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = AssetDto.class)))
+    @GetMapping(path = "/{appId}/assets/{filename}")
+    public ResponseEntity<AssetDto> getAsset(@PathVariable(name = "appId", required = true) UUID appId,
+                                             @PathVariable(name = "filename", required = true) String filename,
+                                             @RequestHeader(name = "User-Language", required = false) String userLanguage) {
+        String language = appService.parseLanguage(userLanguage);
+        Optional<AssetDto> assetOpt = appService.getAssetByAppIdAndFileNameAndLanguage(appId, filename, language);
+        return assetOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     private AppDto getAppConfig(App app) {

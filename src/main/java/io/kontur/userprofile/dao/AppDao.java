@@ -2,6 +2,7 @@ package io.kontur.userprofile.dao;
 
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.entity.App;
+import io.kontur.userprofile.model.entity.Asset;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -54,6 +55,27 @@ public class AppDao {
         Query query = entityManager.createNativeQuery(sql, App.class)
                 .setParameter("domain", domain);
         List<App> results = query.getResultList();
+        return results.isEmpty() ? null : results.get(0);
+    }
+
+    public Asset getAssetByAppIdAndFileNameAndLanguage(UUID appId, String filename, String language, String defaultLanguage) {
+
+        Asset asset = getAssetByAppIdAndFileNameAndLanguage(appId, filename, language);
+        if (asset == null && !language.equals(defaultLanguage)) {
+            asset = getAssetByAppIdAndFileNameAndLanguage(appId, filename, defaultLanguage);
+        }
+        return asset;
+    }
+
+    private Asset getAssetByAppIdAndFileNameAndLanguage(UUID appId, String filename, String language) {
+        String sql = "select * from assets where app_id = :app_id and filename = :filename and language = :language limit 1";
+
+        Query query = entityManager.createNativeQuery(sql, Asset.class)
+                .setParameter("app_id", appId)
+                .setParameter("filename", filename)
+                .setParameter("language", language);
+        List<Asset> results = query.getResultList();
+
         return results.isEmpty() ? null : results.get(0);
     }
 }
