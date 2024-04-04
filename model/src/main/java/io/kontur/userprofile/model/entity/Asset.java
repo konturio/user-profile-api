@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -45,19 +44,6 @@ public class Asset {
     @Column(name = "last_updated", nullable = false)
     private OffsetDateTime lastUpdated;
 
-    @NotNull
-    @Column(name = "app_id", nullable = false)
-    private UUID appId;
-
-    @NotNull
-    @Column(name = "feature_id", nullable = false)
-    private Long featureId;
-
-    @NotNull
-    @Lob
-    @Column(nullable = false)
-    private byte[] asset;
-
     @ManyToOne
     @JoinColumn(name = "app_id", insertable = false, updatable = false)
     private App app;
@@ -65,4 +51,9 @@ public class Asset {
     @ManyToOne
     @JoinColumn(name = "feature_id", insertable = false, updatable = false)
     private Feature feature;
+
+    @NotNull
+    @Lob
+    @Column(name = "asset", nullable = false)
+    private byte[] asset;
 }
