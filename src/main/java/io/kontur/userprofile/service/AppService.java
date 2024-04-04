@@ -17,12 +17,11 @@ import jakarta.validation.constraints.NotNull;
 import java.util.*;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Service
 @RequiredArgsConstructor
@@ -196,9 +195,7 @@ public class AppService {
         return asset == null ? Optional.empty() : Optional.of(AssetDto.fromEntity(asset));
     }
 
-    public String parseLanguage(Locale locale) {
-        return locale == null || locale.getLanguage() == null || isBlank(locale.getLanguage())
-                ? DEFAULT_LANGUAGE
-                : locale.getLanguage();
+    public String parseLanguage(String userLanguage) {
+        return StringUtils.isBlank(userLanguage) ? DEFAULT_LANGUAGE : userLanguage;
     }
 }
