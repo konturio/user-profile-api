@@ -20,24 +20,24 @@ public class Asset {
     private Long id;
 
     @NotNull
-    @Column(nullable = false, name = "media_type")
+    @Column(name = "media_type", nullable = false)
     private String mediaType;
 
     @NotNull
-    @Column(nullable = false, name = "media_subtype")
+    @Column(name = "media_subtype", nullable = false)
     private String mediaSubtype;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "filename", nullable = false)
     private String filename;
 
-    @Column
+    @Column(name = "description")
     private String description;
 
     @Column(name = "owner_user_id")
     private Long ownerUserId;
 
-    @Column
+    @Column(name = "language")
     private String language;
 
     @NotNull
@@ -53,7 +53,6 @@ public class Asset {
     private Feature feature;
 
     @NotNull
-    @Lob
     @Column(name = "asset", nullable = false)
     private byte[] asset;
 }
