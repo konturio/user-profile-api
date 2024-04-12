@@ -170,4 +170,7 @@ databaseChangeLog:
       file: sql/18190-change-feature-set-for-atlas-app-in-ups.sql
   - include:
       relativeToChangelogFile: true
+      file: sql/18269-add-first-assets-to-user-profile-api-database.sql
+  - include:
+      relativeToChangelogFile: true
       file: sql/18209-create-reference-area-feature.sql
