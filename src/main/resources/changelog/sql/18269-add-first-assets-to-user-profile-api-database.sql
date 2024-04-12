@@ -76,7 +76,7 @@ Außerdem können Sie im linken Bereich zu Berichte wechseln, um auf Daten zu po
 
 Wir hoffen, dass dieses Tool Ihnen von Nutzen ist. Wenn Sie Fragen zur Funktionalität haben, können Sie die Chatbox auf Disaster Ninja nutzen, und wir helfen Ihnen gerne weiter. Sie können uns auch eine E-Mail an [hello@kontur.io](mailto:hello@kontur.io) schreiben, wenn Sie Feedback oder Vorschläge zur Verbesserung des Tools haben.
 
-Disaster Ninja ist ein Open-Source-Projekt. Sie finden den Code in [Konturs GitHub-Konto](https://github.com/konturio).'::bytea);
+Disaster Ninja ist ein Open-Source-Projekt. Sie finden den Code in [Konturs GitHub-Konto](https://github.com/konturio).'::bytea;
 
 --insert default DN Privacy page
 insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
@@ -253,7 +253,7 @@ Erasing personal data or ceasing to process it by The Controller may cause the s
 2. New Privacy Policy versions will occur on the website with a proper notification attached.
 3. Every change to The Privacy Policy will be binding from the day it’s being published on the website with proper notification. All changes will be properly announced and marked/featured with a one month notice from the changes implementation within The Privacy Policy.
 
-In case of further questions surrounding The hereby given Privacy Policy, please contact The Controller using this email: hello@kontur.io or contact address.'::bytea);
+In case of further questions surrounding The hereby given Privacy Policy, please contact The Controller using this email: hello@kontur.io or contact address.'::bytea;
 
 --insert default DN Cookies page
 insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
@@ -307,4 +307,4 @@ insert into assets(media_type, media_subtype, filename, description, language, a
 | yandexuid                 | .webvisor.org     | Allow to use additional features of the website and customize it according to users preferences                                                                                                                             | 400 days                   | Analytics     |
 | ymex                      | .yandex.ru        | Used to collect data about the user's interests and display relevant advertising for users on other sites                                                                                                                   | 310 days, 2 hours, 30 min  | Performance   |
 | ys                        | .yandex.ru        |                                                                                                                                                                                                                             | session                    |               |
-| yuidss                    | .yandex.ru        | Yandex stores this cookie in the user's browser in order to recognize the visitor.                                                                                                                                          | 345 days, 2 hours          | Performance   |'::bytea);
+| yuidss                    | .yandex.ru        | Yandex stores this cookie in the user's browser in order to recognize the visitor.                                                                                                                                          | 345 days, 2 hours          | Performance   |'::bytea;
