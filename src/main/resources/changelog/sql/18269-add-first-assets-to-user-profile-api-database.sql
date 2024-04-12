@@ -34,7 +34,7 @@ In addition, you can switch to Reports in the left panel to access data on poten
 
 We hope you find this tool valuable. Use the chatbox on Disaster Ninja for any questions about the functionality, and we will be happy to guide you. You can also contact us by email at [hello@kontur.io](mailto:hello@kontur.io) if you have feedback or suggestions on improving the tool.
 
-Disaster Ninja is an open-source project. Find the code in [Kontur’s GitHub account](https://github.com/konturio).'::bytea)
+Disaster Ninja is an open-source project. Find the code in [Kontur’s GitHub account](https://github.com/konturio).'::bytea
 where filename = 'about.md' and language = 'en' and app_id = '58851b50-9574-4aec-a3a6-425fa18dcb54';
 
 --insert DN About page in German
