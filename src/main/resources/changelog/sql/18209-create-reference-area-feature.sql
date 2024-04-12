@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset user-profile-api:create-reference-area-feature.sql runOnChange:false
+--changeset user-profile-api:18209-create-reference-area-feature.sql runOnChange:false
 
 insert into feature ("name", featuretype, enabled, beta, available_for_user_apps, default_for_user_apps, description) values
     ('reference_area', 'UI_PANEL', true, false, true, false, 'Reference area layer');
