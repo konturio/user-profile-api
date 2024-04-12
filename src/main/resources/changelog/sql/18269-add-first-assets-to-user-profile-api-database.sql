@@ -3,7 +3,8 @@
 --changeset user-profile-service:18269-add-first-assets-to-user-profile-api-database.sql runOnChange:true
 
 --update default DN About page
-update assets set asset =  
+update assets set media_subtype = 'markdown',
+asset =  
 'Welcome to Disaster Ninja!
 ==========================
 
@@ -40,7 +41,7 @@ where filename = 'about.md' and language = 'en' and app_id = '58851b50-9574-4aec
 --insert DN About page in German
 insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
     values ('text',
-            'plain',
+            'markdown',
             'about.de.md',
             'Disaster Ninja About page in German',
             'de',
@@ -81,7 +82,7 @@ Disaster Ninja ist ein Open-Source-Projekt. Sie finden den Code in [Konturs GitH
 --insert default DN Privacy page
 insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
     values ('text',
-            'plain',
+            'markdown',
             'privacy.md',
             'Default Disaster Ninja Privacy page',
             'en',
@@ -258,7 +259,7 @@ In case of further questions surrounding The hereby given Privacy Policy, please
 --insert default DN Cookies page
 insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
     values ('text',
-            'plain',
+            'markdown',
             'cookies.md',
             'Default Disaster Ninja Cookies page',
             'en',
