@@ -11,19 +11,19 @@ Do you want to be notified about ongoing disasters? Are you interested in instan
 
 We initially designed it as a decision support tool for humanitarian mappers. Now it has grown in functionality and use cases. Whether you work in disaster management, build a smart city, or perform research on climate change, Disaster Ninja can help you to:
 
-> ### 1\. Stay up to date with the latest hazard events globally.
+> ### 1. Stay up to date with the latest hazard events globally.
 >
 > The Disasters panel continually refreshes to inform you about ongoing events. It consumes data from the [Kontur Event Feed](https://www.kontur.io/portfolio/event-feed/), which you can also access via an API.
 >
-> ### 2\. Focus on your area of interest.
+> ### 2. Focus on your area of interest.
 >
 > The Drawing Tools panel allows you to draw or upload your own geometry on the map. You can also focus on a disaster-exposed area or an administrative unit — a country, city, or region.
 >
-> ### 3\. Get analytics for the focused area.
+> ### 3. Get analytics for the focused area.
 >
 > The Analytics panel shows the number of people living in that area per [Kontur Population](https://data.humdata.org/dataset/kontur-population-dataset) and estimated mapping gaps in OpenStreetMap. Kontur’s customers have access to hundreds of other indicators through Advanced Analytics.
 >
-> ### 4\. Explore data on the map and make conclusions.
+> ### 4. Explore data on the map and make conclusions.
 >
 > The Layers panel gives you various options to display two indicators simultaneously on a bivariate map, e.g., population density and distance to the nearest fire station. Use the color legend to assess which areas require attention.
 > Hint: in general, green indicates low risk / few gaps, red — high risk / many gaps.
@@ -53,19 +53,19 @@ Möchten Sie über aktuelle Katastrophen informiert werden? Sind Sie an sofortig
 
 Ursprünglich haben wir es als Entscheidungshilfe für Kartografen im humanitären Bereich entwickelt. Mittlerweile ist der Funktionsumfang und der Anwendungsbereich des Programms erweitert worden. Ganz gleich, ob Sie im Katastrophenmanagement tätig sind, eine intelligente Stadt bauen oder über den Klimawandel forschen, Disaster Ninja kann Ihnen dabei helfen:
 
-> ### 1\. Über die aktuellen Gefahrenereignisse weltweit auf dem Laufenden zu bleiben.
+> ### 1. Über die aktuellen Gefahrenereignisse weltweit auf dem Laufenden zu bleiben.
 >
 > Das Bedienfeld von Disasters wird kontinuierlich aktualisiert, um Sie über aktuelle Ereignisse zu informieren. Es bezieht die Daten aus dem [Kontur Ereignis-Feed](https://www.kontur.io/portfolio/event-feed/), auf den Sie auch über eine API zugreifen können.
 >
-> ### 2\. Den Fokus auf Ihr Interessengebiet zu legen.
+> ### 2. Den Fokus auf Ihr Interessengebiet zu legen.
 >
 > Mit den Zeichenwerkzeugen können Sie Ihre eigene geometrische Form auf die Karte zeichnen oder hochladen. Sie können sich auch auf ein von einer Katastrophe betroffenes Gebiet oder eine Verwaltungseinheit - ein Land, eine Stadt oder eine Region - konzentrieren.
 >
-> ### 3\. Die Analytik für den ausgewählten Bereich aufrufen.
+> ### 3. Die Analytik für den ausgewählten Bereich aufrufen.
 >
 > Das Bedienfeld Analytik zeigt die Anzahl der in diesem Gebiet lebenden Menschen pro [Kontur Bevölkerung](https://data.humdata.org/dataset/kontur-population-dataset) und geschätzte Kartierungslücken in OpenStreetMap. Kontur-Kunden haben über Erweiterte Analytik Zugang zu Hunderten von weiteren Indikatoren.
 >
-> ### 4\. Die Daten auf der Karte entdecken und Schlussfolgerungen ziehen.
+> ### 4. Die Daten auf der Karte entdecken und Schlussfolgerungen ziehen.
 >
 > Das Ebenen-Panel bietet Ihnen verschiedene Optionen, um zwei Indikatoren gleichzeitig auf einer bivariaten Karte anzuzeigen, z. B. die Bevölkerungsdichte und die Entfernung zur nächsten Feuerwache. Verwenden Sie die Farblegende, um zu beurteilen, welche Bereiche Aufmerksamkeit erfordern.
 > Tipp: Im Allgemeinen bedeutet grün ein geringes Risiko / wenige Lücken, rot ein hohes Risiko / viele Lücken.
