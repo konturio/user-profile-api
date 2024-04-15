@@ -174,3 +174,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18209-create-reference-area-feature.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18295-disable-layers-panel-on-atlas.sql
