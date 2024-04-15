@@ -177,3 +177,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18295-disable-layers-panel-on-atlas.sql
+  - include:
+      relativeToChangelogFile: true
+      file: update-privacy-asset-in-user-profile-api-database.sql
