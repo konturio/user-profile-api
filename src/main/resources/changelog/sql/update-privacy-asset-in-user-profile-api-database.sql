@@ -171,4 +171,9 @@ Erasing personal data or ceasing to process it by The Controller may cause the s
 3. Every change to The Privacy Policy will be binding from the day it’s being published on the website with proper notification. All changes will be properly announced and marked/featured with a one month notice from the changes implementation within The Privacy Policy.
 
 In case of further questions surrounding The hereby given Privacy Policy, please contact The Controller using this email: hello@kontur.io or contact address.'::bytea
-where filename = 'privacy.md' and language = 'en' and app_id = '58851b50-9574-4aec-a3a6-425fa18dcb54';
+where filename = 'privacy.md' and language = 'en' and app_id = '58851b50-9574-4aec-a3a6-425fa18dcb54'
+
+--rename about.de.md into about.md
+update assets
+set filename = 'about.md'
+where filename = 'about.de.md' and language = 'de' and app_id = '58851b50-9574-4aec-a3a6-425fa18dcb54';
