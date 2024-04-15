@@ -2,6 +2,7 @@
 
 --changeset user-profile-service:update-privacy-asset-in-user-profile-api-database.sql runOnChange:true
 
+--update privacy.md text
 update assets
 set asset =  
 '# Privacy Policy for EU/UK Residents
