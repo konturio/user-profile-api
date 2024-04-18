@@ -180,3 +180,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/update-privacy-asset-in-user-profile-api-database.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18216-add-dn2-assets-into-ups.sql
