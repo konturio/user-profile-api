@@ -186,3 +186,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18321-create-map-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18323-temporarily-switch-off-about-feature-for-kontur-apps.sql
