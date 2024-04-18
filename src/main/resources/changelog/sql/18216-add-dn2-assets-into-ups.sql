@@ -11,37 +11,37 @@ insert into assets(media_type, media_subtype, filename, description, language, a
             'ar',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
-            'Ù…Ø±Ø­Ø¨Ù‹Ø§ ÙÙŠ Disaster Ninja!
+            'مرحبًا في Disaster Ninja!
 =========================
 
-Ù‡Ù„ ØªØ±ÙŠØ¯ Ø£Ù† ÙŠØªÙ… Ø¥Ø®Ø·Ø§Ø±Ùƒ Ø¨Ø§Ù„ÙƒÙˆØ§Ø±Ø« Ø§Ù„Ø¬Ø§Ø±ÙŠØ©ØŸ Ù‡Ù„ Ø£Ù†Øª Ù…Ù‡ØªÙ… Ø¨Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø³ÙƒØ§Ù†ÙŠØ© Ø§Ù„ÙÙˆØ±ÙŠØ© ÙˆØ§Ù„ØªØ­Ù„ÙŠÙ„Ø§Øª Ø§Ù„Ø£Ø®Ø±Ù‰ Ù„Ø£ÙŠ Ù…Ù†Ø·Ù‚Ø© ÙÙŠ Ø§Ù„Ø¹Ø§Ù„Ù…ØŸ ÙŠØ¹Ø±Ø¶ Disaster Ninja Ø¨Ø¹Ø¶ Ù‚Ø¯Ø±Ø§Øª [Kontur](https://www.kontur.io/) ÙÙŠ ØªÙ„Ø¨ÙŠØ© Ù‡Ø°Ù‡ Ø§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª.
+هل تريد أن يتم إخطارك بالكوارث الجارية؟ هل أنت مهتم بالبيانات السكانية الفورية والتحليلات الأخرى لأي منطقة في العالم؟ يعرض Disaster Ninja بعض قدرات [Kontur](https://www.kontur.io/) في تلبية هذه الاحتياجات.
 
-Ù„Ù‚Ø¯ ØµÙ…Ù…Ù†Ø§Ù‡ ÙÙŠ Ø§Ù„Ø¨Ø¯Ø§ÙŠØ© Ù„ÙŠÙƒÙˆÙ† Ø£Ø¯Ø§Ø© Ø¯Ø¹Ù… Ù‚Ø±Ø§Ø± Ù„Ù…ØµÙ…Ù…ÙŠ Ø§Ù„Ø®Ø±Ø§Ø¦Ø· Ø§Ù„Ø¥Ù†Ø³Ø§Ù†ÙŠØ©. Ø§Ù„Ø¢Ù†ØŒ Ø§Ø²Ø¯Ø§Ø¯Øª ÙˆØ¸Ø§Ø¦ÙÙ‡ ÙˆØ­Ø§Ù„Ø§Øª Ø§Ø³ØªØ®Ø¯Ø§Ù…Ù‡. Ø³ÙˆØ§Ø¡ ÙƒÙ†Øª ØªØ¹Ù…Ù„ ÙÙŠ Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„ÙƒÙˆØ§Ø±Ø«ØŒ Ø£Ùˆ ØªØ¨Ù†ÙŠ Ù…Ø¯ÙŠÙ†Ø© Ø°ÙƒÙŠØ©ØŒ Ø£Ùˆ ØªØ¬Ø±ÙŠ Ø¨Ø­Ø«Ù‹Ø§ Ø¹Ù† ØªØºÙŠØ± Ø§Ù„Ù…Ù†Ø§Ø®ØŒ ÙŠÙ…ÙƒÙ† Ø£Ù† ÙŠØ³Ø§Ø¹Ø¯Ùƒ Disaster Ninja Ø¹Ù„Ù‰:
+لقد صممناه في البداية ليكون أداة دعم قرار لمصممي الخرائط الإنسانية. الآن، ازدادت وظائفه وحالات استخدامه. سواء كنت تعمل في إدارة الكوارث، أو تبني مدينة ذكية، أو تجري بحثًا عن تغير المناخ، يمكن أن يساعدك Disaster Ninja على:
 
-> ### 1\. Ø§Ù„Ø¨Ù‚Ø§Ø¡ Ø¹Ù„Ù‰ Ø§Ø·Ù„Ø§Ø¹ Ø¨Ø¢Ø®Ø± Ø§Ù„ØªØ·ÙˆØ±Ø§Øª Ù„Ù„Ø£Ø­Ø¯Ø§Ø« Ø§Ù„Ø®Ø·Ø±Ø© Ø¹Ù„Ù‰ Ù…Ø³ØªÙˆÙ‰ Ø§Ù„Ø¹Ø§Ù„Ù….
+> ### 1. البقاء على اطلاع بآخر التطورات للأحداث الخطرة على مستوى العالم.
 >
-> ÙŠØªÙ… ØªØ­Ø¯ÙŠØ« Ù„ÙˆØ­Ø© Ø§Ù„ÙƒÙˆØ§Ø±Ø« Ø¨Ø§Ø³ØªÙ…Ø±Ø§Ø± Ù„Ø¥Ø¨Ù„Ø§ØºÙƒ Ø¨Ø§Ù„Ø£Ø­Ø¯Ø§Ø« Ø§Ù„Ø¬Ø§Ø±ÙŠØ©. Ø¥Ù†Ù‡Ø§ ØªØ³ØªÙ‡Ù„Ùƒ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ù† [Kontur Event Feed](https://www.kontur.io/portfolio/event-feed/) ÙˆØ§Ù„ØªÙŠ ÙŠÙ…ÙƒÙ†Ùƒ Ø£ÙŠØ¶Ù‹Ø§ Ø§Ù„ÙˆØµÙˆÙ„ Ø¥Ù„ÙŠÙ‡Ø§ Ø¹Ø¨Ø± ÙˆØ§Ø¬Ù‡Ø© Ø¨Ø±Ù…Ø¬Ø© Ø§Ù„ØªØ·Ø¨ÙŠÙ‚Ø§Øª.
+> يتم تحديث لوحة الكوارث باستمرار لإبلاغك بالأحداث الجارية. إنها تستهلك البيانات من [Kontur Event Feed](https://www.kontur.io/portfolio/event-feed/) والتي يمكنك أيضًا الوصول إليها عبر واجهة برمجة التطبيقات.
 >
-> ### 2\. Ø§Ù„ØªØ±ÙƒÙŠØ² Ø¹Ù„Ù‰ Ù…Ø¬Ø§Ù„ Ø§Ù‡ØªÙ…Ø§Ù…Ùƒ.
+> ### 2. التركيز على مجال اهتمامك.
 >
-> ØªØªÙŠØ­ Ù„Ùƒ Ù„ÙˆØ­Ø© Ø£Ø¯ÙˆØ§Øª Ø§Ù„Ø±Ø³Ù… Ø±Ø³Ù… Ø£Ùˆ ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ø´ÙƒÙ„ Ø§Ù„Ù‡Ù†Ø¯Ø³ÙŠ Ø§Ù„Ø®Ø§Øµ Ø¨Ùƒ Ø¹Ù„Ù‰ Ø§Ù„Ø®Ø±ÙŠØ·Ø©. ÙŠÙ…ÙƒÙ†Ùƒ Ø£ÙŠØ¶Ù‹Ø§ Ø§Ù„ØªØ±ÙƒÙŠØ² Ø¹Ù„Ù‰ Ù…Ù†Ø·Ù‚Ø© Ù…Ø¹Ø±Ø¶Ø© Ù„Ù„ÙƒÙˆØ§Ø±Ø« Ø£Ùˆ ÙˆØ­Ø¯Ø© Ø¥Ø¯Ø§Ø±ÙŠØ© - Ø¨Ù„Ø¯ Ø£Ùˆ Ù…Ø¯ÙŠÙ†Ø© Ø£Ùˆ Ù…Ù†Ø·Ù‚Ø©.
+> تتيح لك لوحة أدوات الرسم رسم أو تحميل الشكل الهندسي الخاص بك على الخريطة. يمكنك أيضًا التركيز على منطقة معرضة للكوارث أو وحدة إدارية - بلد أو مدينة أو منطقة.
 >
-> ### 3\. Ø§Ù„Ø­ØµÙˆÙ„ Ø¹Ù„Ù‰ ØªØ­Ù„ÙŠÙ„Ø§Øª Ù„Ù…Ù†Ø·Ù‚Ø© Ø§Ù„Ø§Ù‡ØªÙ…Ø§Ù….
+> ### 3. الحصول على تحليلات لمنطقة الاهتمام.
 >
-> ØªØ¹Ø±Ø¶ Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­Ù„ÙŠÙ„Ø§Øª Ø¹Ø¯Ø¯ Ø§Ù„Ø£Ø´Ø®Ø§Øµ Ø§Ù„Ø°ÙŠÙ† ÙŠØ¹ÙŠØ´ÙˆÙ† ÙÙŠ ØªÙ„Ùƒ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ø­Ø³Ø¨ [Kontur Population](https://data.humdata.org/dataset/kontur-population-dataset) ÙˆÙØ¬ÙˆØ§Øª Ø§Ù„Ø®Ø±Ø§Ø¦Ø· Ø§Ù„Ù…Ù‚Ø¯Ø±Ø© ÙÙŠ OpenStreetMap. ÙŠÙ…ÙƒÙ† Ù„Ø¹Ù…Ù„Ø§Ø¡ Kontur Ø§Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ Ù…Ø¦Ø§Øª Ø§Ù„Ù…Ø¤Ø´Ø±Ø§Øª Ø§Ù„Ø£Ø®Ø±Ù‰ Ù…Ù† Ø®Ù„Ø§Ù„ Ø§Ù„ØªØ­Ù„ÙŠÙ„Ø§Øª Ø§Ù„Ù…ØªÙ‚Ø¯Ù…Ø©.
+> تعرض لوحة التحليلات عدد الأشخاص الذين يعيشون في تلك المنطقة حسب [Kontur Population](https://data.humdata.org/dataset/kontur-population-dataset) وفجوات الخرائط المقدرة في OpenStreetMap. يمكن لعملاء Kontur الوصول إلى مئات المؤشرات الأخرى من خلال التحليلات المتقدمة.
 >
-> ### 4\. Ø§Ø³ØªÙƒØ´Ø§Ù Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø¹Ù„Ù‰ Ø§Ù„Ø®Ø±ÙŠØ·Ø© ÙˆØ§Ù„ØªÙˆØµÙ„ Ø¥Ù„Ù‰ Ø§Ø³ØªÙ†ØªØ§Ø¬Ø§Øª.
+> ### 4. استكشاف البيانات على الخريطة والتوصل إلى استنتاجات.
 >
-> ØªÙ…Ù†Ø­Ùƒ Ù„ÙˆØ­Ø© Layers Ø®ÙŠØ§Ø±Ø§Øª Ù…ØªÙ†ÙˆØ¹Ø© Ù„Ø¹Ø±Ø¶ Ù…Ø¤Ø´Ø±ÙŠÙ† ÙÙŠ ÙˆÙ‚Øª ÙˆØ§Ø­Ø¯ Ø¹Ù„Ù‰ Ø®Ø±ÙŠØ·Ø© Ø«Ù†Ø§Ø¦ÙŠØ© Ø§Ù„Ù…ØªØºÙŠØ± Ø¹Ù„Ù‰ Ø³Ø¨ÙŠÙ„ Ø§Ù„Ù…Ø«Ø§Ù„ Ø§Ù„ÙƒØ«Ø§ÙØ© Ø§Ù„Ø³ÙƒØ§Ù†ÙŠØ© ÙˆØ§Ù„Ù…Ø³Ø§ÙØ© Ø¥Ù„Ù‰ Ø£Ù‚Ø±Ø¨ Ù…Ø­Ø·Ø© Ø¥Ø·ÙØ§Ø¡. Ø§Ø³ØªØ®Ø¯Ù… ÙˆØ³ÙŠÙ„Ø© Ø¥ÙŠØ¶Ø§Ø­ Ø§Ù„Ù„ÙˆÙ† Ù„ØªÙ‚ÙŠÙŠÙ… Ø§Ù„Ù…Ù†Ø§Ø·Ù‚ Ø§Ù„ØªÙŠ ØªØªØ·Ù„Ø¨ Ø§Ù„Ø§Ù†ØªØ¨Ø§Ù‡.
-> Ø¨Ø´ÙƒÙ„ Ø¹Ø§Ù…ØŒ ÙŠØ´ÙŠØ± Ø§Ù„Ù„ÙˆÙ† Ø§Ù„Ø£Ø®Ø¶Ø± Ø¥Ù„Ù‰ Ù…Ø®Ø§Ø·Ø± Ù…Ù†Ø®ÙØ¶Ø© / ÙØ¬ÙˆØ§Øª Ù‚Ù„ÙŠÙ„Ø©ØŒ ÙˆØ§Ù„Ø£Ø­Ù…Ø± - Ù…Ø®Ø§Ø·Ø± Ø¹Ø§Ù„ÙŠØ© / Ø§Ù„Ø¹Ø¯ÙŠØ¯ Ù…Ù† Ø§Ù„ÙØ¬ÙˆØ§Øª.
+> تمنحك لوحة Layers خيارات متنوعة لعرض مؤشرين في وقت واحد على خريطة ثنائية المتغير على سبيل المثال الكثافة السكانية والمسافة إلى أقرب محطة إطفاء. استخدم وسيلة إيضاح اللون لتقييم المناطق التي تتطلب الانتباه.
+> بشكل عام، يشير اللون الأخضر إلى مخاطر منخفضة / فجوات قليلة، والأحمر - مخاطر عالية / العديد من الفجوات.
 
-Ø¨Ø§Ù„Ø¥Ø¶Ø§ÙØ© Ø¥Ù„Ù‰ Ø°Ù„Ùƒ ØŒ ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„ØªØ¨Ø¯ÙŠÙ„ Ø¥Ù„Ù‰ Ø§Ù„ØªÙ‚Ø§Ø±ÙŠØ± ÙÙŠ Ø§Ù„Ù„ÙˆØ­Ø© Ø§Ù„ÙŠÙ…Ù†Ù‰ Ù„Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…ØªØ¹Ù„Ù‚Ø© Ø¨Ø§Ù„Ø£Ø®Ø·Ø§Ø¡ ÙˆØ§Ù„ØªÙ†Ø§Ù‚Ø¶Ø§Øª Ø§Ù„Ù…Ø­ØªÙ…Ù„Ø© ÙÙŠ OpenStreetMap ÙˆØ§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø© ÙÙŠ Ø¥ØµÙ„Ø§Ø­Ù‡Ø§ Ø¹Ù† Ø·Ø±ÙŠÙ‚ Ø±Ø³Ù… Ø®Ø±ÙŠØ·Ø© Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ø§Ù„Ù…Ø¹Ù†ÙŠØ© Ø¨Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù…Ø­Ø±Ø± JOSM.
+بالإضافة إلى ذلك ، يمكنك التبديل إلى التقارير في اللوحة اليمنى للوصول إلى البيانات المتعلقة بالأخطاء والتناقضات المحتملة في OpenStreetMap والمساعدة في إصلاحها عن طريق رسم خريطة المنطقة المعنية باستخدام محرر JOSM.
 
-### [Ø§Ù„Ø§Ù†ØªÙ‚Ø§Ù„ Ø¥Ù„Ù‰ Ø§Ù„Ø®Ø±ÙŠØ·Ø© Ø§Ù„Ø¢Ù† âžœ](/ "map")
+### [الانتقال إلى الخريطة الآن ➜](/ "map")
 
-Ù†Ø£Ù…Ù„ Ø£Ù† ØªØ¬Ø¯ Ù‡Ø°Ù‡ Ø§Ù„Ø£Ø¯Ø§Ø© Ø°Ø§Øª Ù‚ÙŠÙ…Ø©. Ø§Ø³ØªØ®Ø¯Ù… Ù…Ø±Ø¨Ø¹ Ø§Ù„Ø¯Ø±Ø¯Ø´Ø© Ø¹Ù„Ù‰ Disaster Ninja Ù„Ø£ÙŠØ© Ø£Ø³Ø¦Ù„Ø© Ø­ÙˆÙ„ ÙˆØ¸Ø§Ø¦ÙÙ‡ØŒ ÙˆØ³Ù†ÙƒÙˆÙ† Ø³Ø¹Ø¯Ø§Ø¡ Ø¨Ø¥Ø±Ø´Ø§Ø¯Ùƒ. ÙŠÙ…ÙƒÙ†Ùƒ Ø£ÙŠØ¶Ù‹Ø§ Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ Ø¹Ø¨Ø± Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ[hello@kontur.io](mailto:hello@kontur.io) Ø¥Ø°Ø§ ÙƒØ§Ù† Ù„Ø¯ÙŠÙƒ Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ø£Ùˆ Ø§Ù‚ØªØ±Ø§Ø­Ø§Øª Ø¨Ø´Ø£Ù† ØªØ­Ø³ÙŠÙ† Ø§Ù„Ø£Ø¯Ø§Ø©.
+نأمل أن تجد هذه الأداة ذات قيمة. استخدم مربع الدردشة على Disaster Ninja لأية أسئلة حول وظائفه، وسنكون سعداء بإرشادك. يمكنك أيضًا التواصل معنا عبر البريد الإلكتروني[hello@kontur.io](mailto:hello@kontur.io) إذا كان لديك ملاحظات أو اقتراحات بشأن تحسين الأداة.
 
-ÙŠÙØ¹Ø¯Ù‘ Disaster Ninja Ù…Ø´Ø±ÙˆØ¹Ù‹Ø§ Ù…ÙØªÙˆØ­ Ø§Ù„Ù…ØµØ¯Ø±. ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„ÙƒÙˆØ¯ ÙÙŠ Ø­Ø³Ø§Ø¨ [Kontur](https://github.com/konturio) Ø¹Ù„Ù‰ [GitHub](https://github.com/konturio).'::bytea);
+يُعدّ Disaster Ninja مشروعًا مفتوح المصدر. تحقق من الكود في حساب [Kontur](https://github.com/konturio) على [GitHub](https://github.com/konturio).'::bytea);
 
 --insert DN About page in Indonesian
 insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
@@ -59,26 +59,26 @@ Apakah Anda ingin menerima kabar tentang bencana yang sedang terjadi? Anda terta
 
 Pada awalnya, kami merancang alat ini sebagai alat bantu untuk pemetaan kemanusiaan. Kini, fungsionalitas dan kasus penggunaannya telah bertambah. Apakah Anda bekerja pada pengelolaan bencana, membangun kota cerdas, ataupun meneliti perubahan iklim, Disaster Ninja dapat membantu Anda untuk:
 
-> ### 1\. Selalu mendapatkan kabar terbaru tentang kejadian berbahaya terkini di seluruh dunia.
+> ### 1. Selalu mendapatkan kabar terbaru tentang kejadian berbahaya terkini di seluruh dunia.
 >
 > Panel Bencana disegarkan secara terus-menerus untuk memberi tahu Anda kejadian yang sedang berlangsung. Panel ini memakai data dari [Feed Kejadian Kontur](https://www.kontur.io/portfolio/event-feed/), yang juga dapat diakses melalui API.
 >
-> ### 2\. Fokus pada area perhatian Anda.
+> ### 2. Fokus pada area perhatian Anda.
 >
-> Panel Peralatan Gambar memungkinkan Anda menggambar atau mengunggah geometri Anda sendiri pada peta. Anda juga dapat berfokus pada area yang terpapar bencana atau satuan administratif â€” negara, kota, atau wilayah.
+> Panel Peralatan Gambar memungkinkan Anda menggambar atau mengunggah geometri Anda sendiri pada peta. Anda juga dapat berfokus pada area yang terpapar bencana atau satuan administratif — negara, kota, atau wilayah.
 >
-> ### 3\. Dapatkan analitik untuk area yang menjadi fokus.
+> ### 3. Dapatkan analitik untuk area yang menjadi fokus.
 >
 > Panel Analitik memperlihatkan jumlah orang yang tinggal di area tersebut untuk setiap [Populasi Kontur](https://data.humdata.org/dataset/kontur-population-dataset) dan perkiraan kesenjangan pemetaan di OpenStreetMap. Pelanggan Kontur memiliki akses ke ratusan indikator lainnya melalui Analitik Lanjut.
 >
-> ### 4\. Selidiki data pada peta dan buat kesimpulan.
+> ### 4. Selidiki data pada peta dan buat kesimpulan.
 >
 > Panel Lapisan memberi Anda berbagai opsi untuk menampilkan dua indikator secara serentak pada peta bivariat, misalnya kepadatan populasi dan jarak ke stasiun pemadam kebakaran terdekat. Gunakan legenda warna untuk menilai area mana yang perlu diperhatikan.
-> Petunjuk: secara umum, warna hijau menunjukkan risiko rendah/sedikit kesenjangan, warna merah â€” risiko tinggi/banyak kesenjangan.
+> Petunjuk: secara umum, warna hijau menunjukkan risiko rendah/sedikit kesenjangan, warna merah — risiko tinggi/banyak kesenjangan.
 
 Selain itu, Anda dapat beralih ke Laporan di panel kiri untuk mengakses data tentang potensi kesalahan dan inkonsistensi di OpenStreetMap serta membantu memperbaikinya dengan memetakan masing-masing area menggunakan editor JOSM.
 
-### [Buka peta sekarang âžœ](/ "map")
+### [Buka peta sekarang ➜](/ "map")
 
 Kami berharap agar alat ini bermanfaat bagi Anda. Gunakan kotak obrolan di Disaster Ninja untuk setiap pertanyaan tentang fungsionalitas, dan kami dengan senang hati akan memandu Anda. Anda juga dapat menghubungi kami melalui email di [hello@kontur.io](mailto:hello@kontur.io) jika Anda memiliki tanggapan atau saran untuk meningkatkan alat ini.
 
@@ -93,37 +93,37 @@ insert into assets(media_type, media_subtype, filename, description, language, a
             'ko',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
-            'Disaster Ninjaì— ì˜¤ì‹  ê²ƒì„ í™˜ì˜í•©ë‹ˆë‹¤!
+            'Disaster Ninja에 오신 것을 환영합니다!
 ============================
 
-í˜„ìž¬ ì§„í–‰ ì¤‘ì¸ ìž¬ë‚œì— ëŒ€í•´ ì•Œë¦¼ì„ ë°›ì•„ë³´ì‹œê² ìŠµë‹ˆê¹Œ? ì „ ì„¸ê³„ ëª¨ë“  ì§€ì—­ì˜ ì¸êµ¬ ë°ì´í„°ì™€ ê¸°íƒ€ ë¶„ì„ ì‚¬í•­ì„ ì¦‰ì‹œ ì•Œì•„ë³´ê³  ì‹¶ìœ¼ì‹ ê°€ìš”? Disaster Ninjaì—ì„œëŠ” ì´ëŸ¬í•œ ìš”êµ¬ ì‚¬í•­ì„ í•´ê²°í•˜ê¸° ìœ„í•´ ëª‡ ê°€ì§€ [Kontur](https://www.kontur.io/) ê¸°ëŠ¥ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.
+현재 진행 중인 재난에 대해 알림을 받아보시겠습니까? 전 세계 모든 지역의 인구 데이터와 기타 분석 사항을 즉시 알아보고 싶으신가요? Disaster Ninja에서는 이러한 요구 사항을 해결하기 위해 몇 가지 [Kontur](https://www.kontur.io/) 기능을 사용합니다.
 
-ì²˜ìŒì—ëŠ” ì¸ë„ì£¼ì˜ì ì¸ ë¬¸ì œë¥¼ ë‹¤ë£¨ê¸° ìœ„í•œ ì˜ì‚¬ ê²°ì • ì§€ì› ë„êµ¬ë¡œ ê³ ì•ˆë˜ì—ˆì§€ë§Œ, ì´ì œëŠ” ê¸°ëŠ¥ê³¼ ìš©ë²•ì´ ì—¬ëŸ¬ ê°€ì§€ë¡œ ëŠ˜ì–´ë‚¬ìŠµë‹ˆë‹¤. ìž¬ë‚œ ê´€ë¦¬, ìŠ¤ë§ˆíŠ¸ ì‹œí‹° êµ¬ì¶•, ê¸°í›„ ë³€í™”ì— ê´€í•œ ì—°êµ¬ ìˆ˜í–‰ ë“± ì–´ë–¤ ì—…ë¬´ë¥¼ í•˜ë”ë¼ë„ ë‹¤ìŒê³¼ ê°™ì€ ë„ì›€ì„ ë“œë¦´ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+처음에는 인도주의적인 문제를 다루기 위한 의사 결정 지원 도구로 고안되었지만, 이제는 기능과 용법이 여러 가지로 늘어났습니다. 재난 관리, 스마트 시티 구축, 기후 변화에 관한 연구 수행 등 어떤 업무를 하더라도 다음과 같은 도움을 드릴 수 있습니다.
 
-> ### 1\. ì „ ì„¸ê³„ì˜ ìµœì‹  ìœ„í—˜ ì´ë²¤íŠ¸ì˜ ë™í–¥ì„ ì•Œë ¤ ë“œë¦½ë‹ˆë‹¤.
+> ### 1. 전 세계의 최신 위험 이벤트의 동향을 알려 드립니다.
 >
-> ìž¬ë‚œ íŒ¨ë„ì´ ì§€ì†ì ìœ¼ë¡œ ìƒˆë¡œ ê³ ì¹¨ ë˜ì–´ í˜„ìž¬ ì¼ì–´ë‚˜ëŠ” ì´ë²¤íŠ¸ì— ëŒ€í•œ ì •ë³´ë¥¼ ì œê³µí•©ë‹ˆë‹¤. [Kontur ì´ë²¤íŠ¸ í”¼ë“œ](https://www.kontur.io/portfolio/event-feed/)ì˜ ë°ì´í„°ë¥¼ ì‚¬ìš©í•˜ë©°, APIë¥¼ í†µí•´ì„œë„ í•´ë‹¹ ë°ì´í„°ì— ì•¡ì„¸ìŠ¤í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+> 재난 패널이 지속적으로 새로 고침 되어 현재 일어나는 이벤트에 대한 정보를 제공합니다. [Kontur 이벤트 피드](https://www.kontur.io/portfolio/event-feed/)의 데이터를 사용하며, API를 통해서도 해당 데이터에 액세스할 수 있습니다.
 >
-> ### 2\. ê´€ì‹¬ ì˜ì—­ì„ ì§‘ì¤‘ì ìœ¼ë¡œ ë³´ì—¬ ë“œë¦½ë‹ˆë‹¤.
+> ### 2. 관심 영역을 집중적으로 보여 드립니다.
 >
-> ê·¸ë¦¬ê¸° ë„êµ¬ íŒ¨ë„ì„ ì‚¬ìš©í•˜ë©´ ìžì²´ ê¸°í•˜ ë„í˜•ì„ ì§€ë„ì— ê·¸ë¦¬ê±°ë‚˜ ì—…ë¡œë“œí•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ìž¬ë‚œì— ë…¸ì¶œëœ ì˜ì—­ì´ë‚˜ í–‰ì • ë‹¨ìœ„(ì˜ˆ: êµ­ê°€, ë„ì‹œ, ì§€ì—­)ì— ì´ˆì ì„ ë§žì¶œ ìˆ˜ë„ ìžˆìŠµë‹ˆë‹¤.
+> 그리기 도구 패널을 사용하면 자체 기하 도형을 지도에 그리거나 업로드할 수 있습니다. 재난에 노출된 영역이나 행정 단위(예: 국가, 도시, 지역)에 초점을 맞출 수도 있습니다.
 >
-> ### 3\. ì§‘ì¤‘ ì˜ì—­ì— ëŒ€í•œ ë¶„ì„ì„ ì œê³µí•©ë‹ˆë‹¤.
+> ### 3. 집중 영역에 대한 분석을 제공합니다.
 >
-> ë¶„ì„ íŒ¨ë„ì€ [Kontur ì¸êµ¬](https://data.humdata.org/dataset/kontur-population-dataset)ë‹¹ í•´ë‹¹ ì˜ì—­ì— ê±°ì£¼í•˜ëŠ” ì‚¬ëžŒì˜ ìˆ˜ì™€ OpenStreetMap ë‚´ ì˜ˆìƒ ë§¤í•‘ ê°­ì„ ë³´ì—¬ì¤ë‹ˆë‹¤. ê·¸ ì™¸ì—ë„ Kontur ê³ ê°ì€ ê³ ê¸‰ ë¶„ì„ì„ í†µí•´ ìˆ˜ë°± ê°€ì§€ ì§€í‘œì— ì•¡ì„¸ìŠ¤í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+> 분석 패널은 [Kontur 인구](https://data.humdata.org/dataset/kontur-population-dataset)당 해당 영역에 거주하는 사람의 수와 OpenStreetMap 내 예상 매핑 갭을 보여줍니다. 그 외에도 Kontur 고객은 고급 분석을 통해 수백 가지 지표에 액세스할 수 있습니다.
 >
-> ### 4\. ì§€ë„ì˜ ë°ì´í„°ë¥¼ íƒìƒ‰í•˜ì—¬ ê²°ë¡ ì„ ë‚´ë¦´ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+> ### 4. 지도의 데이터를 탐색하여 결론을 내릴 수 있습니다.
 >
-> ë ˆì´ì–´ íŒ¨ë„ì„ ì‚¬ìš©í•˜ë©´ ì´ë³€ìˆ˜ ì§€ë„ì—ì„œ ë‘ ê°€ì§€ ì§€í‘œë¥¼ ë™ì‹œì— í‘œì‹œí•˜ëŠ” ë‹¤ì–‘í•œ ì˜µì…˜ì„ ì‚¬ìš©í•  ìˆ˜ ìžˆê²Œ ë©ë‹ˆë‹¤(ì˜ˆ: ì¸êµ¬ ë°€ë„, ê°€ìž¥ ê°€ê¹Œìš´ ì†Œë°©ì„œê¹Œì§€ì˜ ê±°ë¦¬). ìƒ‰ìƒ ë²”ë¡€ë¥¼ ì‚¬ìš©í•˜ì—¬ ì£¼ì˜ê°€ í•„ìš”í•œ ì˜ì—­ì„ í‰ê°€í•˜ì„¸ìš”.
-> ížŒíŠ¸: ì¼ë°˜ì ìœ¼ë¡œ ë…¹ìƒ‰ì€ ì €ìœ„í—˜/ì ì€ ê°­ì„ ì˜ë¯¸í•˜ê³  ë¹¨ê°„ìƒ‰ì€ ê³ ìœ„í—˜/ë§Žì€ ê°­ì„ ì˜ë¯¸í•©ë‹ˆë‹¤.
+> 레이어 패널을 사용하면 이변수 지도에서 두 가지 지표를 동시에 표시하는 다양한 옵션을 사용할 수 있게 됩니다(예: 인구 밀도, 가장 가까운 소방서까지의 거리). 색상 범례를 사용하여 주의가 필요한 영역을 평가하세요.
+> 힌트: 일반적으로 녹색은 저위험/적은 갭을 의미하고 빨간색은 고위험/많은 갭을 의미합니다.
 
-ë˜í•œ, ì™¼ìª½ íŒ¨ë„ì˜ ë³´ê³ ì„œë¡œ ì´ë™í•˜ì—¬ OpenStreetMapì˜ ìž ìž¬ì ì¸ ì˜¤ë¥˜ ë° ë¶ˆì¼ì¹˜ ë°ì´í„°ì— ì•¡ì„¸ìŠ¤í•˜ê³ , JOSM íŽ¸ì§‘ê¸°ë¥¼ í†µí•´ ê° ì˜ì—­ì„ ë§¤í•‘í•˜ì—¬ í•´ë‹¹ ë°ì´í„°ë¥¼ ìˆ˜ì •í•  ìˆ˜ë„ ìžˆìŠµë‹ˆë‹¤.
+또한, 왼쪽 패널의 보고서로 이동하여 OpenStreetMap의 잠재적인 오류 및 불일치 데이터에 액세스하고, JOSM 편집기를 통해 각 영역을 매핑하여 해당 데이터를 수정할 수도 있습니다.
 
-### [ì§€ê¸ˆ ë°”ë¡œ ì§€ë„ë¡œ ì´ë™í•˜ì„¸ìš”. âžœ](/ "map")
+### [지금 바로 지도로 이동하세요. ➜](/ "map")
 
-ì´ ë„êµ¬ê°€ ë§Žì€ ë„ì›€ì´ ë˜ê¸°ë¥¼ ë°”ëžë‹ˆë‹¤. ê¸°ëŠ¥ì— ëŒ€í•´ ê¶ê¸ˆí•œ ì ì€ Disaster Ninjaì˜ ì±—ë°•ìŠ¤ë¥¼ í†µí•´ ì–¸ì œë“ ì§€ ë¬¸ì˜í•´ ì£¼ì‹œë©´ ë„ì™€ ë“œë¦¬ê² ìŠµë‹ˆë‹¤. ë„êµ¬ ê°œì„ ì— ëŒ€í•œ í”¼ë“œë°±ì´ë‚˜ ì œì•ˆ ì‚¬í•­ì´ ìžˆì„ ê²½ìš°, [hello@kontur.io](mailto:hello@kontur.io) ë¡œ ì´ë©”ì¼ ì£¼ì…”ë„ ë©ë‹ˆë‹¤.
+이 도구가 많은 도움이 되기를 바랍니다. 기능에 대해 궁금한 점은 Disaster Ninja의 챗박스를 통해 언제든지 문의해 주시면 도와 드리겠습니다. 도구 개선에 대한 피드백이나 제안 사항이 있을 경우, [hello@kontur.io](mailto:hello@kontur.io) 로 이메일 주셔도 됩니다.
 
-Disaster NinjaëŠ” ì˜¤í”ˆ ì†ŒìŠ¤ í”„ë¡œì íŠ¸ìž…ë‹ˆë‹¤. [Konturì˜ GitHub ê³„ì •](https://github.com/konturio)ì—ì„œ ì½”ë“œë¥¼ ì°¾ì•„ë³´ì„¸ìš”.'::bytea);
+Disaster Ninja는 오픈 소스 프로젝트입니다. [Kontur의 GitHub 계정](https://github.com/konturio)에서 코드를 찾아보세요.'::bytea);
 
 --insert DN About page in Ukrainian
 insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
@@ -134,37 +134,37 @@ insert into assets(media_type, media_subtype, filename, description, language, a
             'uk',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
-            'Ð’Ñ–Ñ‚Ð°Ñ”Ð¼Ð¾ Ð½Ð° Disaster Ninja!
+            'Вітаємо на Disaster Ninja!
 ==========================
 
-Ð’Ð¸ Ñ…Ð¾Ñ‡ÐµÑ‚Ðµ Ð¾Ñ‚Ñ€Ð¸Ð¼ÑƒÐ²Ð°Ñ‚Ð¸ Ð¿Ð¾Ð²Ñ–Ð´Ð¾Ð¼Ð»ÐµÐ½Ð½Ñ Ð¿Ñ€Ð¾ ÐºÐ°Ñ‚Ð°ÑÑ‚Ñ€Ð¾Ñ„Ð¸? Ð’Ð°Ñ Ñ†Ñ–ÐºÐ°Ð²Ð»ÑÑ‚ÑŒ Ð¼Ð¸Ñ‚Ñ‚Ñ”Ð²Ñ– Ð´Ð°Ð½Ñ– Ð¿Ñ€Ð¾ Ð½Ð°ÑÐµÐ»ÐµÐ½Ð½Ñ Ñ‚Ð° Ñ–Ð½ÑˆÐ° Ð°Ð½Ð°Ð»Ñ–Ñ‚Ð¸ÐºÐ° Ð´Ð»Ñ Ð±ÑƒÐ´ÑŒ-ÑÐºÐ¾Ð³Ð¾ Ñ€ÐµÐ³Ñ–Ð¾Ð½Ñƒ ÑÐ²Ñ–Ñ‚Ñƒ? Disaster Ninja Ð²Ñ–Ð´ [Kontur](https://www.kontur.io/) Ð¼Ð¾Ð¶Ðµ Ð·Ð°Ð´Ð¾Ð²Ð¾Ð»ÑŒÐ½Ð¸Ñ‚Ð¸ Ñ†Ñ– Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸.
+Ви хочете отримувати повідомлення про катастрофи? Вас цікавлять миттєві дані про населення та інша аналітика для будь-якого регіону світу? Disaster Ninja від [Kontur](https://www.kontur.io/) може задовольнити ці потреби.
 
-ÐœÐ¸ Ñ€Ð¾Ð·Ñ€Ð¾Ð±Ð¸Ð»Ð¸ Ñ†Ðµ ÑÐº Ñ–Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚ Ð¿Ñ–Ð´Ñ‚Ñ€Ð¸Ð¼ÐºÐ¸ Ð¿Ñ€Ð¸Ð¹Ð½ÑÑ‚Ñ‚Ñ Ñ€Ñ–ÑˆÐµÐ½ÑŒ Ð´Ð»Ñ Ð³ÑƒÐ¼Ð°Ð½Ñ–Ñ‚Ð°Ñ€Ð½Ð¸Ñ… ÐºÐ°Ñ€Ñ‚Ð¾Ð³Ñ€Ð°Ñ„Ñ–Ð². Ð¢ÐµÐ¿ÐµÑ€ Ð¹Ð¾Ð³Ð¾ Ñ„ÑƒÐ½ÐºÑ†Ñ–Ð¾Ð½Ð°Ð»ÑŒÐ½Ñ–ÑÑ‚ÑŒ Ð·Ñ€Ð¾ÑÐ»Ð°. ÐÐµÐ·Ð°Ð»ÐµÐ¶Ð½Ð¾ Ð²Ñ–Ð´ Ñ‚Ð¾Ð³Ð¾, Ñ‡Ð¸ Ð¿Ñ€Ð°Ñ†ÑŽÑ”Ñ‚Ðµ Ð²Ð¸ Ð² ÑÑ„ÐµÑ€Ñ– Ð±Ð¾Ñ€Ð¾Ñ‚ÑŒÐ±Ð¸ Ð·Ñ– ÑÑ‚Ð¸Ñ…Ñ–Ð¹Ð½Ð¸Ð¼Ð¸ Ð»Ð¸Ñ…Ð°Ð¼Ð¸, Ð±ÑƒÐ´ÑƒÑ”Ñ‚Ðµ Ñ€Ð¾Ð·ÑƒÐ¼Ð½Ðµ Ð¼Ñ–ÑÑ‚Ð¾ Ñ‡Ð¸ Ð¿Ñ€Ð¾Ð²Ð¾Ð´Ð¸Ñ‚Ðµ Ð´Ð¾ÑÐ»Ñ–Ð´Ð¶ÐµÐ½Ð½Ñ Ñ‰Ð¾Ð´Ð¾ Ð·Ð¼Ñ–Ð½Ð¸ ÐºÐ»Ñ–Ð¼Ð°Ñ‚Ñƒ, Disaster Ninja Ð¼Ð¾Ð¶Ðµ Ð²Ð°Ð¼ Ð´Ð¾Ð¿Ð¾Ð¼Ð¾Ð³Ñ‚Ð¸:
+Ми розробили це як інструмент підтримки прийняття рішень для гуманітарних картографів. Тепер його функціональність зросла. Незалежно від того, чи працюєте ви в сфері боротьби зі стихійними лихами, будуєте розумне місто чи проводите дослідження щодо зміни клімату, Disaster Ninja може вам допомогти:
 
-> ### 1\. Ð‘ÑƒÐ´ÑŒÑ‚Ðµ Ð² ÐºÑƒÑ€ÑÑ– Ð¾ÑÑ‚Ð°Ð½Ð½Ñ–Ñ… ÐºÐ°Ñ‚Ð°ÑÑ‚Ñ€Ð¾Ñ„ Ñƒ Ð²ÑÑŒÐ¾Ð¼Ñƒ ÑÐ²Ñ–Ñ‚Ñ–.
+> ### 1. Будьте в курсі останніх катастроф у всьому світі.
 >
-> ÐŸÐ°Ð½ÐµÐ»ÑŒ ÐšÐ°Ñ‚Ð°ÑÑ‚Ñ€Ð¾Ñ„ Ð¿Ð¾ÑÑ‚Ñ–Ð¹Ð½Ð¾ Ð¾Ð½Ð¾Ð²Ð»ÑŽÑ”Ñ‚ÑŒÑÑ, Ñ‰Ð¾Ð± Ñ–Ð½Ñ„Ð¾Ñ€Ð¼ÑƒÐ²Ð°Ñ‚Ð¸ Ð²Ð°Ñ Ð¿Ñ€Ð¾ Ð¿Ð¾Ñ‚Ð¾Ñ‡Ð½Ñ– Ð¿Ð¾Ð´Ñ–Ñ—. Ð”Ð°Ð½Ñ– Ð¾Ñ‚Ñ€Ð¸Ð¼Ð°Ð½Ñ– Ð· ÐºÐ°Ð½Ð°Ð»Ñƒ Ð¿Ð¾Ð´Ñ–Ð¹ [Kontur](https://www.kontur.io/portfolio/event-feed/), Ð´Ð¾ ÑÐºÐ¾Ð³Ð¾ Ñ‚Ð°ÐºÐ¾Ð¶ Ð¼Ð¾Ð¶Ð½Ð° Ð¾Ñ‚Ñ€Ð¸Ð¼Ð°Ñ‚Ð¸ Ð´Ð¾ÑÑ‚ÑƒÐ¿ Ñ‡ÐµÑ€ÐµÐ· API.
+> Панель Катастроф постійно оновлюється, щоб інформувати вас про поточні події. Дані отримані з каналу подій [Kontur](https://www.kontur.io/portfolio/event-feed/), до якого також можна отримати доступ через API.
 >
-> ### 2\. Ð¤Ð¾ÐºÑƒÑÑƒÐ¹Ñ‚ÐµÑÑ Ð½Ð° Ð²Ð°ÑˆÑ–Ð¹ ÑÑ„ÐµÑ€Ñ– Ñ–Ð½Ñ‚ÐµÑ€ÐµÑÑ–Ð².
+> ### 2. Фокусуйтеся на вашій сфері інтересів.
 >
-> ÐŸÐ°Ð½ÐµÐ»ÑŒ "Ð†Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚Ð¸ Ð¼Ð°Ð»ÑŽÐ²Ð°Ð½Ð½Ñ" Ð´Ð¾Ð·Ð²Ð¾Ð»ÑÑ” Ð¼Ð°Ð»ÑŽÐ²Ð°Ñ‚Ð¸ Ð°Ð±Ð¾ Ð·Ð°Ð²Ð°Ð½Ñ‚Ð°Ð¶ÑƒÐ²Ð°Ñ‚Ð¸ Ð²Ð»Ð°ÑÐ½Ñƒ Ð³ÐµÐ¾Ð¼ÐµÑ‚Ñ€Ñ–ÑŽ Ð½Ð° ÐºÐ°Ñ€Ñ‚Ñƒ. Ð’Ð¸ Ñ‚Ð°ÐºÐ¾Ð¶ Ð¼Ð¾Ð¶ÐµÑ‚Ðµ Ñ„Ð¾ÐºÑƒÑÑƒÐ²Ð°Ñ‚Ð¸ÑÑ Ð½Ð° Ð¾Ð±Ð»Ð°ÑÑ‚Ñ–, Ñ‰Ð¾ Ð¿Ð¾ÑÑ‚Ñ€Ð°Ð¶Ð´Ð°Ð»Ð° Ð²Ñ–Ð´ ÑÑ‚Ð¸Ñ…Ñ–Ð¹Ð½Ð¾Ð³Ð¾ Ð»Ð¸Ñ…Ð°, Ð°Ð±Ð¾ Ð½Ð° Ð°Ð´Ð¼Ñ–Ð½Ñ–ÑÑ‚Ñ€Ð°Ñ‚Ð¸Ð²Ð½Ñ–Ð¹ Ð¾Ð´Ð¸Ð½Ð¸Ñ†Ñ– â€” ÐºÑ€Ð°Ñ—Ð½Ð°, Ñ€Ð°Ð¹Ð¾Ð½ Ñ‡Ð¸ Ð¼Ñ–ÑÑ‚Ð¾.
+> Панель "Інструменти малювання" дозволяє малювати або завантажувати власну геометрію на карту. Ви також можете фокусуватися на області, що постраждала від стихійного лиха, або на адміністративній одиниці — країна, район чи місто.
 >
-> ### 3\. ÐžÑ‚Ñ€Ð¸Ð¼Ð°Ð¹Ñ‚Ðµ Ð°Ð½Ð°Ð»Ñ–Ñ‚Ð¸ÐºÑƒ Ð´Ð»Ñ Ð²Ð¸Ð±Ñ€Ð°Ð½Ð¾Ñ— Ð¾Ð±Ð»Ð°ÑÑ‚Ñ–.
+> ### 3. Отримайте аналітику для вибраної області.
 >
-> ÐŸÐ°Ð½ÐµÐ»ÑŒ ÐÐ½Ð°Ð»Ñ–Ñ‚Ð¸ÐºÐ° Ð¿Ð¾ÐºÐ°Ð·ÑƒÑ” ÐºÑ–Ð»ÑŒÐºÑ–ÑÑ‚ÑŒ Ð»ÑŽÐ´ÐµÐ¹, ÑÐºÑ– Ð¿Ñ€Ð¾Ð¶Ð¸Ð²Ð°ÑŽÑ‚ÑŒ Ñƒ Ñ†ÑŒÐ¾Ð¼Ñƒ Ñ€ÐµÐ³Ñ–Ð¾Ð½Ñ– Ð½Ð° Ð¾ÑÐ½Ð¾Ð²Ñ– [Ð½Ð°ÑÐµÐ»ÐµÐ½Ð½Ñ Kontur](https://data.humdata.org/dataset/kontur-population-dataset) Ñ– Ð¿Ð¾Ñ‚ÐµÐ½Ñ†Ñ–Ð¹Ð½Ñ– Ð¿Ñ€Ð¾Ð³Ð°Ð»Ð¸Ð½Ð¸ ÐºÐ°Ñ€Ñ‚Ð¾Ð³Ñ€Ð°Ñ„ÑƒÐ²Ð°Ð½Ð½Ñ Ð² OpenStreetMap. ÐšÐ»Ñ–Ñ”Ð½Ñ‚Ð¸ Kontur Ð¼Ð°ÑŽÑ‚ÑŒ Ð´Ð¾ÑÑ‚ÑƒÐ¿ Ð´Ð¾ ÑÐ¾Ñ‚ÐµÐ½ÑŒ Ñ–Ð½ÑˆÐ¸Ñ… Ð¿Ð¾ÐºÐ°Ð·Ð½Ð¸ÐºÑ–Ð² Ð·Ð° Ð´Ð¾Ð¿Ð¾Ð¼Ð¾Ð³Ð¾ÑŽ Ð”ÐµÑ‚Ð°Ð»ÑŒÐ½Ð¾Ñ— ÐÐ½Ð°Ð»Ñ–Ñ‚Ð¸ÐºÐ¸.
+> Панель Аналітика показує кількість людей, які проживають у цьому регіоні на основі [населення Kontur](https://data.humdata.org/dataset/kontur-population-dataset) і потенційні прогалини картографування в OpenStreetMap. Клієнти Kontur мають доступ до сотень інших показників за допомогою Детальної Аналітики.
 >
-> ### 4\. Ð”Ð¾ÑÐ»Ñ–Ð´Ð¶ÑƒÐ¹Ñ‚Ðµ Ð´Ð°Ð½Ñ– Ð½Ð° ÐºÐ°Ñ€Ñ‚Ñ– Ñ‚Ð° Ñ€Ð¾Ð±Ñ–Ñ‚ÑŒ Ð²Ð¸ÑÐ½Ð¾Ð²ÐºÐ¸.
+> ### 4. Досліджуйте дані на карті та робіть висновки.
 >
-> ÐŸÐ°Ð½ÐµÐ»ÑŒ "Ð¨Ð°Ñ€Ð¸" Ð½Ð°Ð´Ð°Ñ” Ñ€Ñ–Ð·Ð½Ñ– Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¸ Ð´Ð»Ñ Ð¾Ð´Ð½Ð¾Ñ‡Ð°ÑÐ½Ð¾Ð³Ð¾ Ð²Ñ–Ð´Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð½Ñ Ð´Ð²Ð¾Ñ… Ñ–Ð½Ð´Ð¸ÐºÐ°Ñ‚Ð¾Ñ€Ñ–Ð² Ð½Ð° ÐºÐ°Ñ€Ñ‚Ñ–, Ð½Ð°Ð¿Ñ€Ð¸ÐºÐ»Ð°Ð´, Ñ‰Ñ–Ð»ÑŒÐ½Ñ–ÑÑ‚ÑŒ Ð½Ð°ÑÐµÐ»ÐµÐ½Ð½Ñ Ñ‚Ð° Ð²Ñ–Ð´ÑÑ‚Ð°Ð½ÑŒ Ð´Ð¾ Ð½Ð°Ð¹Ð±Ð»Ð¸Ð¶Ñ‡Ð¾Ñ— Ð¿Ð¾Ð¶ÐµÐ¶Ð½Ð¾Ñ— Ñ‡Ð°ÑÑ‚Ð¸Ð½Ð¸. Ð’Ð¸ÐºÐ¾Ñ€Ð¸ÑÑ‚Ð¾Ð²ÑƒÐ¹Ñ‚Ðµ Ð»ÐµÐ³ÐµÐ½Ð´Ñƒ ÐºÐ¾Ð»ÑŒÐ¾Ñ€Ñ–Ð², Ñ‰Ð¾Ð± Ð²Ð¸Ð·Ð½Ð°Ñ‡Ð¸Ñ‚Ð¸, ÑÐºÑ– Ð¾Ð±Ð»Ð°ÑÑ‚Ñ– Ð¿Ð¾Ñ‚Ñ€ÐµÐ±ÑƒÑŽÑ‚ÑŒ ÑƒÐ²Ð°Ð³Ð¸.
-> ÐŸÑ–Ð´ÐºÐ°Ð·ÐºÐ°: Ð·Ð°Ð³Ð°Ð»Ð¾Ð¼ Ð·ÐµÐ»ÐµÐ½Ð¸Ð¹ ÐºÐ¾Ð»Ñ–Ñ€ Ð¾Ð·Ð½Ð°Ñ‡Ð°Ñ” Ð½Ð¸Ð·ÑŒÐºÐ¸Ð¹ Ñ€Ð¸Ð·Ð¸Ðº / Ð¼Ð°Ð»Ð¾ Ð¿Ñ€Ð¾Ð³Ð°Ð»Ð¸Ð½, Ñ‡ÐµÑ€Ð²Ð¾Ð½Ð¸Ð¹ â€” Ð²Ð¸ÑÐ¾ÐºÐ¸Ð¹ Ñ€Ð¸Ð·Ð¸Ðº / Ð±Ð°Ð³Ð°Ñ‚Ð¾ Ð¿Ñ€Ð¾Ð³Ð°Ð»Ð¸Ð½.
+> Панель "Шари" надає різні параметри для одночасного відображення двох індикаторів на карті, наприклад, щільність населення та відстань до найближчої пожежної частини. Використовуйте легенду кольорів, щоб визначити, які області потребують уваги.
+> Підказка: загалом зелений колір означає низький ризик / мало прогалин, червоний — високий ризик / багато прогалин.
 
-ÐšÑ€Ñ–Ð¼ Ñ‚Ð¾Ð³Ð¾, Ð²Ð¸ Ð¼Ð¾Ð¶ÐµÑ‚Ðµ Ð¿ÐµÑ€ÐµÐ¹Ñ‚Ð¸ Ð´Ð¾ Ð·Ð²Ñ–Ñ‚Ñ–Ð² Ð½Ð° Ð»Ñ–Ð²Ñ–Ð¹ Ð¿Ð°Ð½ÐµÐ»Ñ–, Ñ‰Ð¾Ð± Ð¾Ñ‚Ñ€Ð¸Ð¼Ð°Ñ‚Ð¸ Ð´Ð¾ÑÑ‚ÑƒÐ¿ Ð´Ð¾ Ð´Ð°Ð½Ð¸Ñ… Ð¿Ñ€Ð¾ Ð¿Ð¾Ñ‚ÐµÐ½Ñ†Ñ–Ð¹Ð½Ñ– Ð¿Ð¾Ð¼Ð¸Ð»ÐºÐ¸ Ñ‚Ð° Ð½ÐµÐ²Ñ–Ð´Ð¿Ð¾Ð²Ñ–Ð´Ð½Ð¾ÑÑ‚Ñ– Ð² Ð´Ð°Ð½Ð¸Ñ… OpenStreetMap Ñ– Ð´Ð¾Ð¿Ð¾Ð¼Ð¾Ð³Ñ‚Ð¸ Ñ—Ñ… Ð²Ð¸Ð¿Ñ€Ð°Ð²Ð¸Ñ‚Ð¸, Ð½Ð°Ð¿Ñ€Ð¸ÐºÐ»Ð°Ð´ Ð·Ð° Ð´Ð¾Ð¿Ð¾Ð¼Ð¾Ð³Ð¾ÑŽ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð° JOSM.
+Крім того, ви можете перейти до звітів на лівій панелі, щоб отримати доступ до даних про потенційні помилки та невідповідності в даних OpenStreetMap і допомогти їх виправити, наприклад за допомогою редактора JOSM.
 
-### [ÐŸÐµÑ€ÐµÐ¹Ñ‚Ð¸ Ð´Ð¾ Ð¼Ð°Ð¿Ð¸ âžœ](/ "map")
+### [Перейти до мапи ➜](/ "map")
 
-ÐœÐ¸ ÑÐ¿Ð¾Ð´Ñ–Ð²Ð°Ñ”Ð¼Ð¾ÑÑ, Ñ‰Ð¾ Ñ†ÐµÐ¹ Ñ–Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚ Ð±ÑƒÐ´Ðµ ÐºÐ¾Ñ€Ð¸ÑÐ½Ð¸Ð¹. Ð’Ð¸ÐºÐ¾Ñ€Ð¸ÑÑ‚Ð¾Ð²ÑƒÐ¹Ñ‚Ðµ Ð²Ñ–ÐºÐ½Ð¾ Ñ‡Ð°Ñ‚Ñƒ Ð½Ð° Disaster Ninja, Ñ‰Ð¾Ð± Ð·Ð°Ð´Ð°Ñ‚Ð¸ Ð±ÑƒÐ´ÑŒ-ÑÐºÑ– Ð·Ð°Ð¿Ð¸Ñ‚Ð°Ð½Ð½Ñ Ñ‰Ð¾Ð´Ð¾ Ñ„ÑƒÐ½ÐºÑ†Ñ–Ð¾Ð½Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚Ñ–, Ñ– Ð¼Ð¸ Ð· Ñ€Ð°Ð´Ñ–ÑÑ‚ÑŽ Ð´Ð¾Ð¿Ð¾Ð¼Ð¾Ð¶ÐµÐ¼Ð¾ Ð²Ð°Ð¼. Ð’Ð¸ Ñ‚Ð°ÐºÐ¾Ð¶ Ð¼Ð¾Ð¶ÐµÑ‚Ðµ Ð·Ð²â€™ÑÐ·Ð°Ñ‚Ð¸ÑÑ Ð· Ð½Ð°Ð¼Ð¸ ÐµÐ»ÐµÐºÑ‚Ñ€Ð¾Ð½Ð½Ð¾ÑŽ Ð¿Ð¾ÑˆÑ‚Ð¾ÑŽ [hello@kontur.io](mailto:hello@kontur.io) ÑÐºÑ‰Ð¾ Ñƒ Ð²Ð°Ñ Ñ” Ð²Ñ–Ð´Ð³ÑƒÐºÐ¸ Ñ‡Ð¸ Ð¿Ñ€Ð¾Ð¿Ð¾Ð·Ð¸Ñ†Ñ–Ñ— Ñ‰Ð¾Ð´Ð¾ Ð²Ð´Ð¾ÑÐºÐ¾Ð½Ð°Ð»ÐµÐ½Ð½Ñ Ñ–Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚Ñƒ.
+Ми сподіваємося, що цей інструмент буде корисний. Використовуйте вікно чату на Disaster Ninja, щоб задати будь-які запитання щодо функціональності, і ми з радістю допоможемо вам. Ви також можете зв’язатися з нами електронною поштою [hello@kontur.io](mailto:hello@kontur.io) якщо у вас є відгуки чи пропозиції щодо вдосконалення інструменту.
 
-Disaster Ninja Ñ” Ð¿Ñ€Ð¾Ñ”ÐºÑ‚Ð¾Ð¼ Ð· Ð²Ñ–Ð´ÐºÑ€Ð¸Ñ‚Ð¸Ð¼ ÐºÐ¾Ð´Ð¾Ð¼. Ð”Ð¸Ð²Ñ–Ñ‚ÑŒÑÑ ÐºÐ¾Ð´ Ð² Ð¾Ð±Ð»Ñ–ÐºÐ¾Ð²Ð¾Ð¼Ñƒ Ð·Ð°Ð¿Ð¸ÑÑ– GitHub [Kontur](https://github.com/konturio).'::bytea);
+Disaster Ninja є проєктом з відкритим кодом. Дивіться код в обліковому записі GitHub [Kontur](https://github.com/konturio).'::bytea);
 
 --insert DN About page in Spanish
 insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
@@ -175,34 +175,34 @@ insert into assets(media_type, media_subtype, filename, description, language, a
             'es',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
-            'Â¡Bienvenido a Disaster Ninja!
+            '¡Bienvenido a Disaster Ninja!
 =============================
 
-Â¿Desea recibir notificaciones sobre desastres en curso? Â¿Le interesan los datos de poblaciÃ³n instantÃ¡neos y otros datos analÃ­ticos de alguna regiÃ³n del mundo? Disaster Ninja muestra algunas de las capacidades de [Kontur](https://www.kontur.io/) para ocuparse de estas necesidades.
+¿Desea recibir notificaciones sobre desastres en curso? ¿Le interesan los datos de población instantáneos y otros datos analíticos de alguna región del mundo? Disaster Ninja muestra algunas de las capacidades de [Kontur](https://www.kontur.io/) para ocuparse de estas necesidades.
 
-Inicialmente la diseÃ±amos como una herramienta de apoyo a los mapeadores de servicios humanitarios. Ahora ha ampliado sus funcionalidades y aplicaciones prÃ¡cticas. Tanto si trabaja en la gestiÃ³n de desastres como si construye una ciudad inteligente o realiza investigaciones sobre el cambio climÃ¡tico, Disaster Ninja puede ayudarle a:
+Inicialmente la diseñamos como una herramienta de apoyo a los mapeadores de servicios humanitarios. Ahora ha ampliado sus funcionalidades y aplicaciones prácticas. Tanto si trabaja en la gestión de desastres como si construye una ciudad inteligente o realiza investigaciones sobre el cambio climático, Disaster Ninja puede ayudarle a:
 
-> ### 1\. Estar al dÃ­a con los Ãºltimos eventos peligrosos a nivel mundial.
+> ### 1. Estar al día con los últimos eventos peligrosos a nivel mundial.
 >
-> El panel de Desastres se actualiza continuamente para informarle sobre los acontecimientos en curso. Utiliza la informaciÃ³n proporcionada por [Kontur Event Feed](https://www.kontur.io/portfolio/event-feed/), a la que tambiÃ©n puede acceder a travÃ©s de la interfaz de la aplicaciÃ³n.
+> El panel de Desastres se actualiza continuamente para informarle sobre los acontecimientos en curso. Utiliza la información proporcionada por [Kontur Event Feed](https://www.kontur.io/portfolio/event-feed/), a la que también puede acceder a través de la interfaz de la aplicación.
 >
-> ### 2\. Centrarse en su Ã¡rea de interÃ©s.
+> ### 2. Centrarse en su área de interés.
 >
-> El panel de Herramientas de Dibujo le permite dibujar o subir su propia geometrÃ­a en el mapa. TambiÃ©n puede centrarse en un Ã¡rea o en una unidad administrativa - paÃ­s, ciudad o regiÃ³n â€” expuesta a desastres.
+> El panel de Herramientas de Dibujo le permite dibujar o subir su propia geometría en el mapa. También puede centrarse en un área o en una unidad administrativa - país, ciudad o región — expuesta a desastres.
 >
-> ### 3\. Recibir anÃ¡lisis de su Ã¡rea de interÃ©s.
+> ### 3. Recibir análisis de su área de interés.
 >
-> El panel de AnÃ¡lisis le muestra el nÃºmero de personas que viven en la zona segÃºn [Kontur Population](https://data.humdata.org/dataset/kontur-population-dataset) y segÃºn una estimaciÃ³n de las zonas sin mapear en OpenStreetMap. Los clientes de Kontur tienen acceso a cientos de otros indicadores a travÃ©s de Advance Analytics.
+> El panel de Análisis le muestra el número de personas que viven en la zona según [Kontur Population](https://data.humdata.org/dataset/kontur-population-dataset) y según una estimación de las zonas sin mapear en OpenStreetMap. Los clientes de Kontur tienen acceso a cientos de otros indicadores a través de Advance Analytics.
 >
-> ### 4\. Explorar los datos del mapa y sacar sus propias conclusiones.
+> ### 4. Explorar los datos del mapa y sacar sus propias conclusiones.
 >
-> El panel Capas le ofrece varias opciones para mostrar dos indicadores en simultÃ¡neo en un mapa bivariado, p. ej:, la densidad de poblaciÃ³n y la distancia a la estaciÃ³n de bomberos mÃ¡s cercana. Utilice las leyendas de colores para evaluar quÃ© Ã¡reas requieren atenciÃ³n.
-> Consejo: en general, el verde indica riesgo bajo / pocas zonas sin mapear, el rojo â€” riesgo alto / muchas zonas sin mapear.
+> El panel Capas le ofrece varias opciones para mostrar dos indicadores en simultáneo en un mapa bivariado, p. ej:, la densidad de población y la distancia a la estación de bomberos más cercana. Utilice las leyendas de colores para evaluar qué áreas requieren atención.
+> Consejo: en general, el verde indica riesgo bajo / pocas zonas sin mapear, el rojo — riesgo alto / muchas zonas sin mapear.
 
-AdemÃ¡s, puede cambiar a Informes en el panel de la izquierda para acceder a los datos sobre posibles errores e inconsistencias en OpenStreetMap y ayudarle a realizar correcciones mapeando la zona correspondiente con el editor JOSM.
+Además, puede cambiar a Informes en el panel de la izquierda para acceder a los datos sobre posibles errores e inconsistencias en OpenStreetMap y ayudarle a realizar correcciones mapeando la zona correspondiente con el editor JOSM.
 
-### [Ir al mapa ahora âžœ](/ "map")
+### [Ir al mapa ahora ➜](/ "map")
 
-Esperamos que esta herramienta le resulte valiosa. Utilice el chat de Disaster Ninja si tiene alguna pregunta sobre sus funcionalidades y estaremos encantados de ayudarle. TambiÃ©n puede contactarnos por correo electrÃ³nico en [hello@kontur.io](mailto:hello@kontur.io) si tiene algÃºn comentario o sugerencia para mejorar la herramienta.
+Esperamos que esta herramienta le resulte valiosa. Utilice el chat de Disaster Ninja si tiene alguna pregunta sobre sus funcionalidades y estaremos encantados de ayudarle. También puede contactarnos por correo electrónico en [hello@kontur.io](mailto:hello@kontur.io) si tiene algún comentario o sugerencia para mejorar la herramienta.
 
-Disaster Ninja es un proyecto de cÃ³digo abierto. Encuentre el cÃ³digo en la [cuenta de GitHub de Kontur](https://github.com/konturio).'::bytea);
+Disaster Ninja es un proyecto de código abierto. Encuentre el código en la [cuenta de GitHub de Kontur](https://github.com/konturio).'::bytea);
