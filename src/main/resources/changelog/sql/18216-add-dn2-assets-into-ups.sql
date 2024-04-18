@@ -3,48 +3,43 @@
 --changeset user-profile-service:18216-add-dn2-assets-into-ups.sql runOnChange:true
 
 --insert DN icons
-insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
+insert into assets(media_type, media_subtype, filename, description, app_id, feature_id, asset)
     values ('image',
             'svg',
             'favicon.svg',
             'Disaster Ninja favicon in svg format',
-            'null',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
             ''::bytea);
-insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
+insert into assets(media_type, media_subtype, filename, description, app_id, feature_id, asset)
     values ('image',
             'ico',
             'favicon.ico',
             'Disaster Ninja favicon in ico format',
-            'null',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
             ''::bytea);
-insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
+insert into assets(media_type, media_subtype, filename, description,, app_id, feature_id, asset)
     values ('image',
             'png',
             'apple-touch-icon.png',
             'Disaster Ninja Apple touch icon',
-            'null',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
             ''::bytea);
-insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
+insert into assets(media_type, media_subtype, filename, description, app_id, feature_id, asset)
     values ('image',
             'png',
             'icon-192x192.png',
             'Disaster Ninja 192x192px icon',
-            'null',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
             ''::bytea);
-insert into assets(media_type, media_subtype, filename, description, language, app_id, feature_id, asset)
+insert into assets(media_type, media_subtype, filename, description, app_id, feature_id, asset)
     values ('image',
             'png',
             'icon-512x512.png',
             'Disaster Ninja 512x512px icon',
-            'null',
             '58851b50-9574-4aec-a3a6-425fa18dcb54',
             (select id from feature where name = 'about_page' limit 1),
             ''::bytea);
