@@ -45,6 +45,8 @@ public class Feature { //use subclasses by type, when required
     private boolean defaultForUserApps;
     @Column(name = "available_for_user_apps")
     private boolean availableForUserApps;
+    @Column(name = "available_for_user_configuration")
+    private boolean availableForUserConfiguration;
 
     /**
      * beta features are shown only to {@link User} having {@link Role.Names#BETA_FEATURES}.

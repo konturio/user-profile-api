@@ -1,5 +1,6 @@
 package io.kontur.userprofile.model.entity;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.model.entity.user.User;
 import java.io.Serializable;
 import java.util.UUID;
@@ -15,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "app_user_feature")
@@ -37,12 +40,21 @@ public class AppUserFeature {
     @JoinColumn(name = "feature_id", insertable = false, updatable = false)
     private Feature feature;
 
-    public AppUserFeature(@NotNull App app, @NotNull User user, @NotNull Feature feature) {
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "configuration", columnDefinition = "json")
+    private JsonNode configuration;
+
+    public AppUserFeature(@NotNull App app, @NotNull User user, @NotNull Feature feature, JsonNode configuration) {
         this.app = app;
         this.user = user;
         this.feature = feature;
+        this.configuration = configuration;
 
         setKeyComponents(app, user, feature); //required to set manually
+    }
+
+    public void setConfiguration(JsonNode configuration) {
+        this.configuration = configuration;
     }
 
     private void setKeyComponents(@NotNull App app, @NotNull User user, @NotNull Feature feature) {

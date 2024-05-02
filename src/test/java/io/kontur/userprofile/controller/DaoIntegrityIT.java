@@ -104,7 +104,7 @@ public class DaoIntegrityIT extends AbstractIT {
 
     void createAppUserFeature(App app, User user) {
         Feature feature = featureDao.getFeatureByName("communities");
-        AppUserFeature auf = new AppUserFeature(app, user, feature);
+        AppUserFeature auf = new AppUserFeature(app, user, feature, null);
         entityManager.persist(auf);
     }
 

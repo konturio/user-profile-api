@@ -16,10 +16,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import io.kontur.userprofile.auth.AuthService;
-import io.kontur.userprofile.dao.AppFeatureDao;
-import io.kontur.userprofile.dao.AppUserFeatureDao;
-import io.kontur.userprofile.dao.FeatureDao;
-import io.kontur.userprofile.dao.UserDao;
+import io.kontur.userprofile.dao.*;
 import io.kontur.userprofile.model.dto.FeatureDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.Feature;
@@ -57,11 +54,13 @@ public class FeaturesControllerTest { //todo test for enable/disable for DAO
     @Mock
     FeatureDao featureDao = mock(FeatureDao.class);
     @Mock
+    AppDao appDao = mock(AppDao.class);
+    @Mock
     AppService appService = mock(AppService.class);
     @Mock
     AuthService authService = new AuthService(userDao);
     FeatureService featureService =
-        new FeatureService(authService, appFeatureDao, featureDao, appUserFeatureDao);
+        new FeatureService(authService, appDao, userDao, appFeatureDao, featureDao, appUserFeatureDao);
     FeaturesController featuresController = new FeaturesController(featureService, appService);
     private User userWithoutBetaRole = userWithoutBetaRole();
     private User userWithBetaRole = userWithBetaRole();
