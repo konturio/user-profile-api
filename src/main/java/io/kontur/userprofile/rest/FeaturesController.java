@@ -1,5 +1,6 @@
 package io.kontur.userprofile.rest;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.model.dto.FeatureDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.service.AppService;
@@ -13,13 +14,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -56,6 +57,22 @@ public class FeaturesController {
         return featureService.getCurrentUserAppFeatures(app)
             .map(FeatureDto::fromEntity)
             .collect(Collectors.toList());
+    }
+
+    @Operation(summary = "Update feature configuration for a user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully updated the user's feature configuration"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized: User not authenticated"),
+            @ApiResponse(responseCode = "403", description = "Forbidden: User is not allowed to configure this feature"),
+            @ApiResponse(responseCode = "404", description = "Not Found: App, feature, or user does not exist"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error: Error processing the update")
+    })
+    @PutMapping("/{featureName}")
+    public ResponseEntity<Void> updateUserFeatureConfiguration(
+            @PathVariable(name = "featureName", required = true) String featureName,
+            @RequestParam(name = "appId", defaultValue = "58851b50-9574-4aec-a3a6-425fa18dcb54", required = true) UUID appId,
+            @RequestBody JsonNode configuration) {
+        return featureService.updateAppUserFeatureConfiguration(appId, featureName, configuration);
     }
 
 }

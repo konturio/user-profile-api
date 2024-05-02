@@ -1,26 +1,30 @@
 package io.kontur.userprofile.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.auth.AuthService;
-import io.kontur.userprofile.dao.AppFeatureDao;
-import io.kontur.userprofile.dao.AppUserFeatureDao;
-import io.kontur.userprofile.dao.FeatureDao;
+import io.kontur.userprofile.dao.*;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.AppFeature;
+import io.kontur.userprofile.model.entity.AppUserFeature;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.enums.FeatureType;
+import io.kontur.userprofile.model.entity.user.User;
 import jakarta.validation.constraints.NotNull;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class FeatureService {
     private final AuthService authService;
+    private final AppDao appDao;
+    private final UserDao userDao;
     private final AppFeatureDao appFeatureDao;
     private final FeatureDao featureDao;
     private final AppUserFeatureDao appUserFeatureDao;
@@ -72,6 +76,35 @@ public class FeatureService {
         return appFeatureDao.getEnabledNonBetaAppFeaturesFor(app);
     }
 
+    public ResponseEntity<Void> updateAppUserFeatureConfiguration(UUID appId, String featureName, JsonNode configuration) {
+        Optional<String> usernameOpt = authService.getCurrentUsername();
+
+        if (usernameOpt.isEmpty())
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+        App app = appDao.getApp(appId);
+        Feature feature = featureDao.getFeatureByName(featureName);
+        User user = userDao.getUser(usernameOpt.get());
+
+        if (app == null || feature == null || user == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        if (!feature.isAvailableForUserConfiguration())
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
+        if (!appUserFeatureDao.userHasConfiguredFeature(app, usernameOpt.get(), feature)) {
+            appUserFeatureDao.saveAppUserFeatures(
+                    appFeatureDao.getAppFeaturesFor(app)
+                            .map(appFeature -> new AppUserFeature(appFeature.getApp(), user, appFeature.getFeature(), null))
+                            .collect(Collectors.toList()));
+        }
+
+        if (appUserFeatureDao.updateAppUserFeatureConfiguration(app, usernameOpt.get(), feature, configuration) < 1)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return ResponseEntity.ok().build();
+    }
+
     private Stream<Feature> getUserAppFeatures(@NotNull String username,
                                                @NotNull App app) {
         Stream<Feature> allUserFeatures = appUserFeatureDao.getAppUserFeatures(app, username);
@@ -86,19 +119,26 @@ public class FeatureService {
 
     private Stream<AppFeature> getAppFeaturesByUserForApp(@NotNull String username,
                                                           @NotNull App app) {
-        List<Feature> allUserFeatures = appUserFeatureDao
-            .getAppUserFeatures(app, username)
-            .toList();
+        List<AppUserFeature> appUserFeatures = appUserFeatureDao
+            .selectAppUserFeaturesFor(app, username);
 
-        boolean includeBetaFeatures = authService.currentUserHasBetaFeaturesRole();
-        if (includeBetaFeatures) {
-            return getAppFeaturesFor(app)
-                    .filter(appFeature -> allUserFeatures.contains(appFeature.getFeature()));
-        } else {
-            return getAppFeaturesFor(app)
-                    .filter(appFeature -> allUserFeatures.contains(appFeature.getFeature()))
-                    .filter(appFeature -> !appFeature.getFeature().isBeta());
+        List<Feature> features = appUserFeatures.stream().map(AppUserFeature::getFeature).toList();
+
+        Stream<AppFeature> appFeatures = getAppFeaturesFor(app)
+                .filter(appFeature -> features.contains(appFeature.getFeature()))
+                .peek(appFeature -> appFeature.setConfiguration(
+                        appUserFeatures
+                                .stream()
+                                .filter(auf -> auf.getConfiguration() != null && auf.getFeature().equals(appFeature.getFeature()))
+                                .map(AppUserFeature::getConfiguration)
+                                .findFirst()
+                                .orElse(appFeature.getConfiguration())
+                ));
+
+        if (!authService.currentUserHasBetaFeaturesRole()) {
+            return appFeatures.filter(appFeature -> !appFeature.getFeature().isBeta());
         }
+        return appFeatures;
     }
 
 }
