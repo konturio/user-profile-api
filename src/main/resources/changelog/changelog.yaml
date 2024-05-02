@@ -192,3 +192,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/12308-add-app-user-feature-configuration.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18417-create-llm-analytics-feature-in-ups.sql
