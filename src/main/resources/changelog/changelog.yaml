@@ -195,3 +195,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18417-create-llm-analytics-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18424-create-subscription-feature-in-ups.sql
