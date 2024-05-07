@@ -9,6 +9,7 @@ import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.dao.AppDao;
 import io.kontur.userprofile.dao.AppFeatureDao;
 import io.kontur.userprofile.dao.AppUserFeatureDao;
+import io.kontur.userprofile.dao.FeatureDao;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.user.User;
@@ -30,6 +31,8 @@ public class AbstractAppControllerTest {
     @Mock
     AppDao appDao = mock(AppDao.class);
     @Mock
+    FeatureDao featureDao = mock(FeatureDao.class);
+    @Mock
     AppFeatureDao appFeatureDao = mock(AppFeatureDao.class);
     @Mock
     AppUserFeatureDao appUserFeatureDao = mock(AppUserFeatureDao.class);
@@ -37,7 +40,7 @@ public class AbstractAppControllerTest {
     AuthService authService = mock(AuthService.class);
     @Mock
     FeatureService featureService = mock(FeatureService.class);
-    AppService appService = new AppService(appDao, appFeatureDao, appUserFeatureDao,
+    AppService appService = new AppService(appDao, featureDao, appFeatureDao, appUserFeatureDao,
         featureService, authService);
     AppController controller = new AppController(appService, featureService, authService);
 
