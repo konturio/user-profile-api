@@ -5,6 +5,7 @@ import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.dao.AppDao;
 import io.kontur.userprofile.dao.AppFeatureDao;
 import io.kontur.userprofile.dao.AppUserFeatureDao;
+import io.kontur.userprofile.dao.FeatureDao;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.dto.AssetDto;
 import io.kontur.userprofile.model.entity.App;
@@ -14,14 +15,20 @@ import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.*;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +38,7 @@ public class AppService {
     private final String DEFAULT_LANGUAGE = "en";
 
     private final AppDao appDao;
+    private final FeatureDao featureDao;
     private final AppFeatureDao appFeatureDao;
     private final AppUserFeatureDao appUserFeatureDao;
     private final FeatureService featureService;
@@ -197,5 +205,32 @@ public class AppService {
 
     public String parseLanguage(String userLanguage) {
         return StringUtils.isBlank(userLanguage) ? DEFAULT_LANGUAGE : userLanguage;
+    }
+
+    public void uploadAsset(UUID appId, String featureName, String description, MultipartFile file, String language) throws IOException {
+        App app = appDao.getApp(appId);
+        Feature feature = featureDao.getFeatureByName(featureName);
+        validateAssetUploadParams(app, appId, feature, featureName, file);
+
+        MediaType type = MediaType.parseMediaType(file.getContentType());
+        appDao.createAsset(type.getType(), type.getSubtype(), file.getOriginalFilename(), description, language, appId, feature.getId(), file.getBytes());
+    }
+
+    private void validateAssetUploadParams(App app, UUID appId, Feature feature, String featureName, MultipartFile file) {
+        if (app == null) {
+            throw new InvalidParameterException("App with provided ID doesn't exist: " + appId);
+        }
+        if (feature == null) {
+            throw new InvalidParameterException("Feature with provided name doesn't exist: " + featureName);
+        }
+        if (file == null || file.isEmpty()) {
+            throw new InvalidParameterException("No file was uploaded.");
+        }
+        if (file.getContentType() == null || isBlank(file.getContentType())) {
+            throw new InvalidParameterException("No content type provided.");
+        }
+        if (file.getOriginalFilename() == null || isBlank(file.getOriginalFilename())) {
+            throw new InvalidParameterException("No filename provided.");
+        }
     }
 }

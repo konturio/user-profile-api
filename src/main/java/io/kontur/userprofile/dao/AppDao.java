@@ -78,4 +78,20 @@ public class AppDao {
 
         return results.isEmpty() ? null : results.get(0);
     }
+
+    public void createAsset(String mediaType, String mediaSubType, String filename, String description, String language, UUID appId, Long featureId, byte[] asset) {
+        String sql = "INSERT INTO assets (media_type, media_subtype, filename, description, language, app_id, feature_id, asset) " +
+                "VALUES (:media_type, :media_subtype, :filename, :description, :language, :app_id, :feature_id, :asset)";
+
+        entityManager.createNativeQuery(sql)
+                .setParameter("media_type", mediaType)
+                .setParameter("media_subtype", mediaSubType)
+                .setParameter("filename", filename)
+                .setParameter("description", description)
+                .setParameter("language", language)
+                .setParameter("app_id", appId)
+                .setParameter("feature_id", featureId)
+                .setParameter("asset", asset)
+                .executeUpdate();
+    }
 }

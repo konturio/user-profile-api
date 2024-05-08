@@ -21,9 +21,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -32,6 +34,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(path = "/apps")
@@ -155,6 +158,28 @@ public class AppController {
         String language = appService.parseLanguage(userLanguage);
         Optional<AssetDto> assetOpt = appService.getAssetByAppIdAndFileNameAndLanguage(appId, filename, language);
         return assetOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @Operation(summary = "Save application asset.")
+    @ApiResponse(responseCode = "200", description = "Success.",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = AssetDto.class)))
+    @PostMapping(path = "/{appId}/assets/upload")
+    @PreAuthorize("hasRole('" + CREATE_APPS + "')")
+    public ResponseEntity<?> uploadAsset(@PathVariable(name = "appId", required = true) UUID appId,
+                                         @RequestParam(name = "featureName", required = true) String featureName,
+                                         @RequestParam(value = "description", required = false) String description,
+                                         @RequestParam(value = "file", required = true) MultipartFile file,
+                                         @RequestHeader(name = "User-Language", required = false) String userLanguage) {
+
+        try {
+            appService.uploadAsset(appId, featureName, description, file, appService.parseLanguage(userLanguage));
+            return ResponseEntity.ok().build();
+        } catch (InvalidParameterException | ConstraintViolationException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     private AppDto getAppConfig(App app) {
