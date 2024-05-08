@@ -14,4 +14,4 @@ from app_user_feature (select a.app_id, a.user_id,
 	                      (select id from feature where name = 'reference_area' limit 1) 
 	                        from (select distinct app_id, user_id 
 	                          from app_user_feature 
-	                            where app_id in (select id from app where app_id in ('58851b50-9574-4aec-a3a6-425fa18dcb54', '634f23f5-f898-4098-a8bd-09eb7c1e1ae5', 'c5ecc65b-1e7e-4e31-92a4-222fadeaeef0', '77260743-1da0-445b-8f56-ff6ca8520c55'))) a)
+	                            where app_id in (select id from app where app_id in ('58851b50-9574-4aec-a3a6-425fa18dcb54', '634f23f5-f898-4098-a8bd-09eb7c1e1ae5', 'c5ecc65b-1e7e-4e31-92a4-222fadeaeef0', '77260743-1da0-445b-8f56-ff6ca8520c55'))) a);
