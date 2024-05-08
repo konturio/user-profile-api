@@ -4,13 +4,13 @@
 
 delete
 from app_feature
-where app_id = '58851b50-9574-4aec-a3a6-425fa18dcb54'
+where app_id = '77260743-1da0-445b-8f56-ff6ca8520c55'
   and feature_id in (select id
                      from feature
                      where name = 'reference_area');
 
 delete from app_user_feature
-where app_id = '58851b50-9574-4aec-a3a6-425fa18dcb54'
+where app_id = '77260743-1da0-445b-8f56-ff6ca8520c55'
  and feature_id in (select id 
                       from feature 
                       where name = 'reference_area');
