@@ -198,3 +198,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18424-create-subscription-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18443-delete-reference-area-feature-on-apps-except-atlas.sql
