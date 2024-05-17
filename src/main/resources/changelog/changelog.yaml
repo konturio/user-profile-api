@@ -201,3 +201,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18443-delete-reference-area-feature-on-apps-except-atlas.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18551-switch-off-analytics_panel-and-advanced_analytics_panel-on-atlas.sql
