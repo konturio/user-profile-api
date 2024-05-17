@@ -1,1 +1,1 @@
-DATABASE_URL = 'postgresql://database_link'  # Replace with your actual database URL
+DATABASE_URL = 'postgresql://localhost:54321/user-profile-api-db?password=UDeH2l25WME1V1tnIS0LTDbL&user=user-profile-api'  # Replace with your actual database URL
