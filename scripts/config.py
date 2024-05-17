@@ -1,0 +1,1 @@
+DATABASE_URL = 'postgresql://database_link'  # Replace with your actual database URL
