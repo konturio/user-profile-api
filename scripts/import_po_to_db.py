@@ -1,19 +1,8 @@
 import os
-from sqlalchemy import create_engine, Column, Integer, String, LargeBinary, ForeignKey, UniqueConstraint, DateTime
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from babel.messages.pofile import read_po
 from datetime import datetime
 import tempfile
-from models import Asset
-from config import DATABASE_URL
-
-engine = create_engine(DATABASE_URL)
-Session = sessionmaker(bind=engine)
-session = Session()
-
-
-def get_english_markdown_assets():
-    return session.query(Asset).filter(Asset.media_type == 'text', Asset.media_subtype == 'markdown', Asset.language == 'en').all()
+from models import Asset, session, get_english_markdown_assets
 
 
 def preprocess_po_file(file_path):

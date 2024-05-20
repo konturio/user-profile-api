@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, Column, Integer, String, LargeBinary, ForeignKey, UniqueConstraint, DateTime
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from datetime import datetime
+from config import DATABASE_URL
 
 Base = declarative_base()
 
@@ -35,3 +36,11 @@ class Asset(Base):
 
     app = relationship("App")
     feature = relationship("Feature")
+
+# Set up the database engine and session
+engine = create_engine(DATABASE_URL)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+def get_english_markdown_assets():
+    return session.query(Asset).filter(Asset.media_type == 'text', Asset.media_subtype == 'markdown', Asset.language == 'en').all()

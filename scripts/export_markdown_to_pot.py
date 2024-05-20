@@ -1,15 +1,8 @@
-from sqlalchemy import create_engine, Column, Integer, String, LargeBinary, ForeignKey, UniqueConstraint, DateTime
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship
-from models import Asset
-from config import DATABASE_URL
-
-engine = create_engine(DATABASE_URL)
-Session = sessionmaker(bind=engine)
-session = Session()
+from models import Asset, session, get_english_markdown_assets
 
 
 def get_english_markdown_assets():
-    return session.query(Asset).filter(Asset.media_type == 'text',Asset.media_subtype == 'markdown', Asset.language == 'en').all()
+    return session.query(Asset).filter(Asset.media_type == 'text', Asset.media_subtype == 'markdown', Asset.language == 'en').all()
 
 
 def extract_markdown_content(markdown):
@@ -31,7 +24,7 @@ def export_to_pot_file(translatable_strings, file_path):
 
 def export_markdown_assets_to_gettext(output_file):
     assets = get_english_markdown_assets()
-    translatable_strings = []
+    translatable_strings = [asset.asset.decode('utf-8') for asset in assets]
 
     for asset in assets:
         markdown = asset.asset.decode('utf-8')

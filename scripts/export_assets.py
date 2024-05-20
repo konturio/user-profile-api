@@ -1,12 +1,5 @@
-from sqlalchemy import create_engine, Column, Integer, String, LargeBinary, ForeignKey, UniqueConstraint, DateTime
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship
-from models import Asset
-from config import DATABASE_URL
+from models import Asset, session
 import os
-
-engine = create_engine(DATABASE_URL)
-Session = sessionmaker(bind=engine)
-session = Session()
 
 
 def export_assets(output_directory):
