@@ -1,6 +1,5 @@
 import os
 from babel.messages.pofile import read_po
-from datetime import datetime
 import tempfile
 from models import Asset, session, get_english_markdown_assets
 
@@ -39,7 +38,6 @@ def add_or_update_translations(session, translations, language):
             existing_asset = session.query(Asset).filter_by(filename=asset.filename, language=language).first()
             if existing_asset:
                 existing_asset.asset = translated_text.encode('utf-8')
-                existing_asset.last_updated = datetime.utcnow()
             else:
                 new_asset = Asset(
                     media_type=asset.media_type,
@@ -50,8 +48,7 @@ def add_or_update_translations(session, translations, language):
                     language=language,
                     app_id=asset.app_id,
                     feature_id=asset.feature_id,
-                    asset=translated_text.encode('utf-8'),
-                    last_updated=datetime.utcnow()
+                    asset=translated_text.encode('utf-8')
                 )
                 session.add(new_asset)
 

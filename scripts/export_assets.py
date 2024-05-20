@@ -23,11 +23,14 @@ def export_assets(output_directory):
 
         file_path = os.path.join(directory_path, filename)
 
-        # Сохранить ассет в файл
-        with open(file_path, 'wb') as file:
-            file.write(asset.asset)
-
-        print(f'Asset exported to {file_path}')
+        # Проверить, существует ли файл
+        if not os.path.exists(file_path):
+            # Сохранить ассет в файл, если файл не существует
+            with open(file_path, 'wb') as file:
+                file.write(asset.asset)
+            print(f'Asset exported to {file_path}')
+        else:
+            print(f'File {file_path} already exists. Skipping export.')
 
 # Задать выходную директорию и запустить экспорт
 output_directory = 'assets'

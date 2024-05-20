@@ -1,6 +1,5 @@
 import os
 from sqlalchemy.exc import IntegrityError
-from datetime import datetime
 import mimetypes
 from models import Asset, App, Feature, session
 
@@ -23,43 +22,55 @@ def get_feature_id(feature_name):
     return feature.id
 
 
-def add_asset_to_db(file_path, app_id, feature_id, language, description, owner_user_id):
+def add_or_update_asset(file_path, app_id, feature_id, language, description, owner_user_id):
     filename = os.path.basename(file_path)
     mime_type = mimetypes.guess_type(file_path)[0]
 
     if mime_type:
         media_type, media_subtype = mime_type.split('/')
     else:
-        # Специальная обработка для файлов Markdown
         if filename.lower().endswith('.md'):
             media_type, media_subtype = 'text', 'markdown'
         else:
-            # Если не удается определить mime-тип, используем "application/octet-stream"
-            media_type, media_subtype = 'application', 'octet-stream'
+            media_type, media_subtype = 'undefined', 'undefined'
 
     with open(file_path, 'rb') as file:
         asset_data = file.read()
 
-    new_asset = Asset(
-        media_type=media_type,
-        media_subtype=media_subtype,
-        filename=filename,
-        description=description,
-        owner_user_id=owner_user_id,
-        language=language,
+    existing_asset = session.query(Asset).filter_by(
         app_id=app_id,
         feature_id=feature_id,
-        asset=asset_data,
-        last_updated=datetime.utcnow()
-    )
+        filename=filename,
+        language=language
+    ).first()
+
+    if existing_asset:
+        if existing_asset.asset != asset_data:
+            existing_asset.asset = asset_data
+            session.commit()
+            print(f'Updated {filename} in the database.')
+        else:
+            print(f'No changes detected for {filename}. Skipping update.')
+    else:
+        new_asset = Asset(
+            media_type=media_type,
+            media_subtype=media_subtype,
+            filename=filename,
+            description=description,
+            owner_user_id=owner_user_id,
+            language=language,
+            app_id=app_id,
+            feature_id=feature_id,
+            asset=asset_data
+        )
+        session.add(new_asset)
+        print(f'Added {filename} to the database.')
 
     try:
-        session.add(new_asset)
         session.commit()
-        print(f'Added {filename} to database.')
     except IntegrityError:
         session.rollback()
-        print(f'Skipped {filename}: already exists in database.')
+        print(f'Skipped {filename}: failed to add or update in database.')
 
 
 def process_assets_in_directory(directory):
@@ -74,9 +85,9 @@ def process_assets_in_directory(directory):
                             language = language_dir.name
                             for file in os.scandir(language_dir.path):
                                 if file.is_file():
-                                    description = "Example description"
-                                    owner_user_id = 1
-                                    add_asset_to_db(file.path, app_id, feature_id, language, description, owner_user_id)
+                                    description = "Asset uploaded via script"
+                                    owner_user_id = None
+                                    add_or_update_asset(file.path, app_id, feature_id, language, description, owner_user_id)
 
 # Задать выходную директорию и запустить экспорт
 assets_directory = 'assets'
