@@ -5,18 +5,20 @@ from models import Asset, App, Feature, session
 
 
 def get_app_id(app_name):
-    app = session.query(App).filter_by(name=str(app_name)).first()
+    app_name = str(app_name)
+    app = session.query(App).filter_by(name=app_name).first()
     if app is None:
-        app = App(name=str(app_name))
+        app = App(name=app_name)
         session.add(app)
         session.commit()
     return app.id
 
 
 def get_feature_id(feature_name):
-    feature = session.query(Feature).filter_by(name=str(feature_name)).first()
+    feature_name = str(feature_name)
+    feature = session.query(Feature).filter_by(name=feature_name).first()
     if feature is None:
-        feature = Feature(name=str(feature_name))
+        feature = Feature(name=feature_name)
         session.add(feature)
         session.commit()
     return feature.id
@@ -47,6 +49,7 @@ def add_or_update_asset(file_path, app_id, feature_id, language, description, ow
     if existing_asset:
         if existing_asset.asset != asset_data:
             existing_asset.asset = asset_data
+            existing_asset.last_updated = datetime.utcnow()
             session.commit()
             print(f'Updated {filename} in the database.')
         else:
@@ -61,7 +64,8 @@ def add_or_update_asset(file_path, app_id, feature_id, language, description, ow
             language=language,
             app_id=app_id,
             feature_id=feature_id,
-            asset=asset_data
+            asset=asset_data,
+            last_updated=datetime.utcnow()
         )
         session.add(new_asset)
         print(f'Added {filename} to the database.')
@@ -74,20 +78,16 @@ def add_or_update_asset(file_path, app_id, feature_id, language, description, ow
 
 
 def process_assets_in_directory(directory):
-    for app_dir in os.scandir(directory):
-        if app_dir.is_dir():
-            app_id = get_app_id(app_dir.name)
-            for feature_dir in os.scandir(app_dir.path):
-                if feature_dir.is_dir():
-                    feature_id = get_feature_id(feature_dir.name)
-                    for language_dir in os.scandir(feature_dir.path):
-                        if language_dir.is_dir():
-                            language = language_dir.name
-                            for file in os.scandir(language_dir.path):
-                                if file.is_file():
-                                    description = "Asset uploaded via script"
-                                    owner_user_id = None
-                                    add_or_update_asset(file.path, app_id, feature_id, language, description, owner_user_id)
+    for app_dir in filter(lambda e: e.is_dir(), os.scandir(directory)):
+        app_id = get_app_id(app_dir.name)
+        for feature_dir in filter(lambda e: e.is_dir(), os.scandir(app_dir.path)):
+            feature_id = get_feature_id(feature_dir.name)
+            for language_dir in filter(lambda e: e.is_dir(), os.scandir(feature_dir.path)):
+                language = language_dir.name
+                for file in filter(lambda e: e.is_file(), os.scandir(language_dir.path)):
+                    description = "Asset uploaded via script"
+                    owner_user_id = None
+                    add_or_update_asset(file.path, app_id, feature_id, language, description, owner_user_id)
 
 # Задать выходную директорию и запустить экспорт
 assets_directory = 'assets'

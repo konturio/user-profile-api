@@ -1,12 +1,4 @@
-from models import Asset, session, get_english_markdown_assets
-
-
-def get_english_markdown_assets():
-    return session.query(Asset).filter(Asset.media_type == 'text', Asset.media_subtype == 'markdown', Asset.language == 'en').all()
-
-
-def extract_markdown_content(markdown):
-    return markdown
+from models import get_english_markdown_assets
 
 
 def export_to_pot_file(translatable_strings, file_path):
@@ -24,7 +16,7 @@ def export_to_pot_file(translatable_strings, file_path):
 
 def export_markdown_assets_to_gettext(output_file):
     assets = get_english_markdown_assets()
-    translatable_strings = [extract_markdown_content(asset.asset.decode('utf-8')) for asset in assets]
+    translatable_strings = [asset.asset.decode('utf-8') for asset in assets]
 
     export_to_pot_file(translatable_strings, output_file)
 
