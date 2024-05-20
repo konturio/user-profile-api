@@ -23,7 +23,7 @@ Your next big opportunity is waiting to be mapped out!
 ### Area Selection
 To choose an area for analysis, you can use the toolbar to select an administrative unit, draw a shape manually, or import a GeoJSON file.
 
-### Analytical Panel
+### Analytics Panel
 This panel displays essential data about your selected area.
 
 **AI Insights**
