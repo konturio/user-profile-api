@@ -24,11 +24,7 @@ def export_to_pot_file(translatable_strings, file_path):
 
 def export_markdown_assets_to_gettext(output_file):
     assets = get_english_markdown_assets()
-    translatable_strings = [asset.asset.decode('utf-8') for asset in assets]
-
-    for asset in assets:
-        markdown = asset.asset.decode('utf-8')
-        translatable_strings.append(extract_markdown_content(markdown))
+    translatable_strings = [extract_markdown_content(asset.asset.decode('utf-8')) for asset in assets]
 
     export_to_pot_file(translatable_strings, output_file)
 
