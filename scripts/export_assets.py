@@ -3,15 +3,15 @@ import os
 
 
 def export_assets(output_directory):
-    # Создать выходную директорию, если она не существует
+    # Create the output directory if it does not exist
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
-    # Извлечь все ассеты из базы данных
+    # Extract all assets from the database
     assets = session.query(Asset).all()
 
     for asset in assets:
-        # Построить путь для сохранения файла
+        # Build the path for saving the file
         app_name = asset.app.name
         feature_name = asset.feature.name
         language = asset.language
@@ -23,15 +23,15 @@ def export_assets(output_directory):
 
         file_path = os.path.join(directory_path, filename)
 
-        # Проверить, существует ли файл
+        # Check if the file exists
         if not os.path.exists(file_path):
-            # Сохранить ассет в файл, если файл не существует
+            # Save the asset to the file if the file does not exist
             with open(file_path, 'wb') as file:
                 file.write(asset.asset)
             print(f'Asset exported to {file_path}')
         else:
             print(f'File {file_path} already exists. Skipping export.')
 
-# Задать выходную директорию и запустить экспорт
+# Specify the output directory and start the export
 output_directory = 'assets'
 export_assets(output_directory)

@@ -4,24 +4,22 @@ import mimetypes
 from models import Asset, App, Feature, session
 
 
-def get_app_id(app_name):
-    app_name = str(app_name)
-    app = session.query(App).filter_by(name=app_name).first()
-    if app is None:
-        app = App(name=app_name)
-        session.add(app)
+def get_or_create_model_id(model, name):
+    name = str(name)
+    m = session.query(model).filter_by(name=name).first()
+    if m is None:
+        m = model(name=name)
+        session.add(m)
         session.commit()
-    return app.id
+    return m.id
+
+
+def get_app_id(app_name):
+    return get_or_create_model_id(model=App, name=app_name)
 
 
 def get_feature_id(feature_name):
-    feature_name = str(feature_name)
-    feature = session.query(Feature).filter_by(name=feature_name).first()
-    if feature is None:
-        feature = Feature(name=feature_name)
-        session.add(feature)
-        session.commit()
-    return feature.id
+    return get_or_create_model_id(model=Feature, name=feature_name)
 
 
 def add_or_update_asset(file_path, app_id, feature_id, language, description, owner_user_id):
@@ -89,6 +87,6 @@ def process_assets_in_directory(directory):
                     owner_user_id = None
                     add_or_update_asset(file.path, app_id, feature_id, language, description, owner_user_id)
 
-# Задать выходную директорию и запустить экспорт
+# Specify the output directory and start the export
 assets_directory = 'assets'
 process_assets_in_directory(assets_directory)
