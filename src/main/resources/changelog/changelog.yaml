@@ -204,3 +204,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18551-switch-off-analytics_panel-and-advanced_analytics_panel-on-atlas.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18476-switch-about-feature-on-for-all-apps-in-ups-again.sql
