@@ -47,7 +47,6 @@ def add_or_update_asset(file_path, app_id, feature_id, language, description, ow
     if existing_asset:
         if existing_asset.asset != asset_data:
             existing_asset.asset = asset_data
-            existing_asset.last_updated = datetime.utcnow()
             session.commit()
             print(f'Updated {filename} in the database.')
         else:
@@ -62,8 +61,7 @@ def add_or_update_asset(file_path, app_id, feature_id, language, description, ow
             language=language,
             app_id=app_id,
             feature_id=feature_id,
-            asset=asset_data,
-            last_updated=datetime.utcnow()
+            asset=asset_data
         )
         session.add(new_asset)
         print(f'Added {filename} to the database.')

@@ -8,7 +8,7 @@ OpenAerialMap (OAM) is an open-source initiative started by [Humanitarian OpenSt
 
 See the clusters which show OpenAerialMap images availability and use the map to pan and zoom for searching available imagery. There, you can find the OAM Global mosaic layer, which contains all images that have ever been uploaded to the OpenAerialMap. Every new uploaded image appears right after the processing. This layer is already available in OpenStreetMap editors like JOSM and ID as a base map option. If you want to use it in any GIS related application, feel free to add the link manually: https://apps.kontur.io/raster-tiler/oam/mosaic/{zoom}/{x}/{y}.png
 
-### [Go to the map now ➜](https://new.openaerialmap.org/)
+### [Go to the map now ➜](/ "map")
 
 ### License
 
