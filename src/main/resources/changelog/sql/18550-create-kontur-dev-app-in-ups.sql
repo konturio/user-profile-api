@@ -69,3 +69,32 @@ insert into app_user_feature
          users_ids.id                           as user_id,
          features_ids.id                        as feature_id
   from users_ids, features_ids;
+
+
+--configurate analytics panel 
+update app_feature
+set configuration = '{"statistics": [{
+  "formula": "sumX",
+  "x": "population"
+}, {
+  "formula": "sumX",
+  "x": "populated_area_km2"
+}, {
+  "formula": "percentageXWhereNoY",
+  "x": "populated_area_km2",
+  "y": "count"
+}, {
+  "formula": "sumXWhereNoY",
+  "x": "populated_area_km2",
+  "y": "count"
+}, {
+  "formula": "percentageXWhereNoY",
+  "x": "populated_area_km2",
+  "y": "building_count"
+}, {
+  "formula": "percentageXWhereNoY",
+  "x": "populated_area_km2",
+  "y": "highway_length"
+}]}'
+where app_id = '0b5b4047-3d9b-4ec4-993f-acf9c7315536'
+  and feature_id = (select id from feature where name = 'analytics_panel');
