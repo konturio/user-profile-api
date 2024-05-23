@@ -207,3 +207,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18476-switch-about-feature-on-for-all-apps-in-ups-again.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18550-create-kontur-dev-app-in-ups.sql
