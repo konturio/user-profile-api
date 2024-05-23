@@ -24,7 +24,7 @@ Hint: in general, green indicates low risk / few gaps, red — high risk / many 
 
 In addition, you can switch to Reports in the left panel to access data on potential errors and inconsistencies in OpenStreetMap and help fix them by mapping the respective area with the JOSM editor.
 
-### [Go to the map now ➜](https://disaster.ninja/active)
+### [Go to the map now ➜](/ "map")
 
 We hope you find this tool valuable. Use the chatbox on Disaster Ninja for any questions about the functionality, and we will be happy to guide you. You can also contact us by email at [hello@kontur.io](mailto:hello@kontur.io) if you have feedback or suggestions on improving the tool.
 
