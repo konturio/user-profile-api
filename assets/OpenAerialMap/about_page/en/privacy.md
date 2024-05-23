@@ -73,7 +73,7 @@
     4. “Session” cookies, are temporary cookies that memorize your online activities.
     5. “Advertising” Cookie files, enabling to provide Users with advertising content more appropriate to their interests.
     6. “Function” Cookie files, enabling “to memorize” the User’s chosen settings and adjusting the website towards the User's needs and wishes.
-   
+
    All Cookies files, other than “vital”, are processed by the Controller based on consent given by the Client.
 4. The Controller uses the exterior Cookie files for the following purposes:
     1. To collect general and anonymous statistical data using the analytics tools:
@@ -102,7 +102,7 @@
 
 1. Right of access by the data subject – Article 15 GDPR
 
-   - The Client has the right to access his personal data collected and stored by the Controller at any time. This right comprises the possibility to:
+    - The Client has the right to access his personal data collected and stored by the Controller at any time. This right comprises the possibility to:
 
     1. Access to the own data subject.
         - The data subject has the right to request the Controller to confirm if he/she is processing his/her personal data. If the processing of personal data takes place, the person has the right to request access to his personal data.
