@@ -2,6 +2,7 @@ package io.kontur.keycloak.service;
 
 import io.kontur.userprofile.model.entity.user.User;
 import java.util.Optional;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 import javax.ejb.Singleton;
@@ -124,13 +125,8 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
     }
 
     private Stream<User> queryUserByBasicParams(String search) {
-        if (search == null || search.isBlank()) {
-            log.infof("empty search request %s - returning an empty stream",
-                      search);
-            return Stream.empty();
-        }
         return entityManager.createQuery("from User u where u.username like ?1 or "
                 + "u.email like ?1 or u.fullName like ?1",
-            User.class).setParameter(1, "%" + search + "%").getResultStream();
+            User.class).setParameter(1, "%" + Objects.toString(search, "") + "%").getResultStream();
     }
 }
