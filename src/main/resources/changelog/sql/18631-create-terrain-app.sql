@@ -17,7 +17,7 @@ from feature f
 where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'live_sensor', 'mcda', 'boundary_selector', 'geometry_uploader', 
                 'focused_geometry_editor', 'side_bar', 'map', 'reports', 'app_login', 
                 'subscription', 'about_page', 'analytics_panel', 'llm_analytics', 'advanced_analytics_panel', 'events_list', 'map_layers_panel', 
-                'legend_panel', 'episodes_timeline', 'chat_panel', 'feed_selector', 'events_list__bbox_filter', 'current_event',
+                'legend_panel', 'episodes_timeline', 'chat_panel', 'feed_selector', 'events_list__bbox_filter', 
                 'focused_geometry_layer', 'reference_area', 'layers_in_area', 'use_3rd_party_analytics', 'tooltip', 'toasts', 'intercom');
 
 
