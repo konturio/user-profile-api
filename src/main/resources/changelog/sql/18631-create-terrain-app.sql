@@ -3,7 +3,7 @@
 --changeset user-profile-service:18631-create-terrain-app.sql runOnChange:false
 
 insert into app (id, name, description, owner_user_id, is_public, extent, favicon_pack)
-values ('3a433e95-0449-48a3-b4ff-9cffea805c74', 'Terrain Finance', 'Whitelable Finance application as a sales tool for Nick Provenzano', null, true, '{-135,0,63,62}', '{
+values ('3a433e95-0449-48a3-b4ff-9cffea805c74', 'Terrain', 'Whitelable Finance application as a sales tool for Nick Provenzano', null, true, '{-135,0,63,62}', '{
   "favicon.svg": "/active/api/apps/3a433e95-0449-48a3-b4ff-9cffea805c74/assets/favicon.svg",
   "favicon.ico": "/active/api/apps/3a433e95-0449-48a3-b4ff-9cffea805c74/assets/favicon.ico",
   "apple-touch-icon.png": "/active/api/apps/3a433e95-0449-48a3-b4ff-9cffea805c74/assets/apple-touch-icon.png",
