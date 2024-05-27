@@ -27,7 +27,7 @@ Additionally, folder `i18n` store translation-related files such as `assets.pot`
 
 ##### Preparation
 
-Scripts are designed to be performed on local machine. First, make sure you have the connection to `user-profile-api` and you have working links to the database. Links should be placed in `config.py` - see `config_template.py` for the instructions. 
+Scripts are designed to be performed on local machine. First, make sure you have the connection to `user-profile-api` and you have working links to the database. Links should be placed in `config.py` - see `config_template.py` for the instructions. Second, scripts use `sqlalchemy` to connect with database. Make sure you have `sqlalchemy` for Python installed. 
 
 ##### add_new_assets.py
 
