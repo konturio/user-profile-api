@@ -45,9 +45,9 @@ Scripts are designed to be performed on local machine. First, make sure you have
 
 ##### export_markdown_to_pot.py
 
-Purpose: To convert existing Markdown files of database to POT format for translation.
-Usage:
-      •	Run the script to extract strings from Markdown files and export them as POT file.
+- Purpose: To convert existing Markdown files of database to POT format for translation.
+- Usage:
+  - Run the script to extract strings from Markdown files and export them as POT file.
 
 ##### import_po_to_db.py
 
