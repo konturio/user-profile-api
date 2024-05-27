@@ -13,6 +13,12 @@ Notes to keep in mind while working with `keycloak-user-spi`:
 - Group and Roles are stored in local keycloak DB, **but they are synced with UPS DB**. Groups and Roles are stored in `user_groups` and `user_roles` accordingly. Current Adapters implementation restricts roles and groups updates.
 - Group and Role names are stored both in keycloak and UPS DB. Changing some parameters (like name) in one of storage isn't synchronized with another one.   
 
+# Scripts and Assets Folder Structure
+
+A table named `assets` was created to gather media files contained in that each Kontur app. To facilitate content management, the folder structure was reorganised and new items were added:
+- `assets`: Contains media files organized by `app_name`, `feature_name`, and `language`.
+- `i18n`: Stores translation files such as `assets.pot` and `assets.po`.
+- `scripts`: Houses automation scripts for asset management. See [README](../scripts/README.md) before running the scripts on your local machine.
 
 # Deployment
 - To deploy both UPS REST API and keycloak with User SPI plugin standard Kontur workflow is used. Artifacts are built automatically for every commit. Deployment version is specified in CD repo 
