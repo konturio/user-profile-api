@@ -35,3 +35,13 @@ management:
 
 springdoc:
   writer-with-default-pretty-printer: true
+
+# Payment gateways config
+payments:
+  paypal:
+    host: https://api.sandbox.paypal.com
+    webhook-id: 2P781688HP282732G # sandbox
+    client-id: AWJQJnM0O2nDEUgmMe9827bk73hjJdo3f4tPK9vwKvBVwFnDk1UGzk_Y2yeh5huiStwwdJVRmdOYWmhv
+    client-secret: 1JE4291016473214C # this is fake, get the actual one from the PayPal dashboard
+    connection-timeout: 10
+    read-timeout: 30
