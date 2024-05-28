@@ -2,16 +2,10 @@ package io.kontur.userprofile.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.auth.AuthService;
-import io.kontur.userprofile.dao.AppDao;
-import io.kontur.userprofile.dao.AppFeatureDao;
-import io.kontur.userprofile.dao.AppUserFeatureDao;
-import io.kontur.userprofile.dao.FeatureDao;
+import io.kontur.userprofile.dao.*;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.dto.AssetDto;
-import io.kontur.userprofile.model.entity.App;
-import io.kontur.userprofile.model.entity.AppFeature;
-import io.kontur.userprofile.model.entity.Asset;
-import io.kontur.userprofile.model.entity.Feature;
+import io.kontur.userprofile.model.entity.*;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import jakarta.validation.constraints.NotNull;
 
@@ -39,25 +33,24 @@ public class AppService {
 
     private final AppDao appDao;
     private final FeatureDao featureDao;
-    private final AppFeatureDao appFeatureDao;
-    private final AppUserFeatureDao appUserFeatureDao;
+    private final CustomAppFeatureDao customAppFeatureDao;
     private final FeatureService featureService;
     private final AuthService authService;
 
-    private List<AppFeature> createAppFeatures(App app,
+    private List<CustomAppFeature> createAppFeatures(App app,
                                                @NonNull Map<String,
                                                JsonNode> featuresConfig) {
-        List<AppFeature> appFeatures = new ArrayList<>();
+        List<CustomAppFeature> appFeatures = new ArrayList<>();
 
         List<Feature> featuresAddedByDefaultToUserApps = featureService
                 .getFeaturesAddedByDefaultToUserApps();
         featuresAddedByDefaultToUserApps
-            .forEach(f -> appFeatures.add(new AppFeature(app, f, featuresConfig.get(f.getName()))));
+            .forEach(f -> appFeatures.add(new CustomAppFeature(app, f, false, null, null, featuresConfig.get(f.getName()))));
 
         for (Map.Entry<String, JsonNode> featureConfig : featuresConfig.entrySet()) {
             Feature feature = getFeatureForUserApp(featureConfig.getKey());
             if (!feature.isDefaultForUserApps()) {
-                AppFeature appFeature = new AppFeature(app, feature, featureConfig.getValue());
+                CustomAppFeature appFeature = new CustomAppFeature(app, feature, false, null, null, featureConfig.getValue());
                 appFeatures.add(appFeature);
             }
         }
@@ -71,10 +64,6 @@ public class AppService {
             throw new WebApplicationException("Feature with name " + featureName
                     + " was not found", HttpStatus.BAD_REQUEST);
         }
-        if (feature.isBeta()) {
-            throw new WebApplicationException("Not allowed to use beta features!",
-                    HttpStatus.FORBIDDEN);
-        }
         if (!feature.isAvailableForUserApps()) {
             throw new WebApplicationException("Feature " + featureName
                     + " is not allowed for user apps", HttpStatus.BAD_REQUEST);
@@ -85,10 +74,10 @@ public class AppService {
     public App createApp(App app, Map<String, JsonNode> featuresConfig) {
         app.setId(UUID.randomUUID());
 
-        List<AppFeature> appFeatures = createAppFeatures(app, featuresConfig);
+        List<CustomAppFeature> appFeatures = createAppFeatures(app, featuresConfig);
 
         appDao.createApp(app);
-        appFeatureDao.saveAppFeatures(appFeatures);
+        customAppFeatureDao.saveAppFeatures(appFeatures);
 
         return app;
     }
@@ -103,16 +92,20 @@ public class AppService {
         app.setSidebarIconUrl(update.getSidebarIconUrl());
         app.setFaviconUrl(update.getFaviconUrl());
 
-        appFeatureDao.deleteAllAppFeaturesFrom(app);
+        customAppFeatureDao.deleteAllAppFeaturesFrom(app);
 
         if (featuresConfig != null) {
-            appFeatureDao.saveAppFeatures(featuresConfig
+            customAppFeatureDao.saveAppFeatures(featuresConfig
                     .entrySet()
                     .stream()
-                    .map(entry -> new AppFeature(app,
-                                                 getFeatureForUserApp(entry.getKey()),
-                                                 entry.getValue()))
-                                          .toList());
+                    .map(entry -> new CustomAppFeature(
+                            app,
+                            getFeatureForUserApp(entry.getKey()),
+                            false,
+                            null,
+                            null,
+                            entry.getValue()))
+                    .toList());
         }
 
         return appDao.updateApp(app);
@@ -121,8 +114,7 @@ public class AppService {
     public void deleteApp(UUID id) {
         App app = getAppForChange(id);
 
-        appUserFeatureDao.deleteAllAppUserFeaturesFrom(app);
-        appFeatureDao.deleteAllAppFeaturesFrom(app);
+        customAppFeatureDao.deleteAllAppFeaturesFrom(app);
         appDao.deleteApp(app);
     }
 
