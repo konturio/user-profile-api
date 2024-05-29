@@ -2,6 +2,7 @@
 
 --changeset user-profile-service:18550-create-kontur-dev-app-in-ups.sql runOnChange:false
 
+--create Oasis app
 insert into app (id, name, description, owner_user_id, is_public, extent, favicon_pack)
 values ('0b5b4047-3d9b-4ec4-993f-acf9c7315536', 'Oasis', 'Application for development team with all set of features', null, true, '{41, 41, 41, 41}', '{
   "favicon.svg": "/active/api/apps/0b5b4047-3d9b-4ec4-993f-acf9c7315536/assets/favicon.svg",
@@ -11,12 +12,14 @@ values ('0b5b4047-3d9b-4ec4-993f-acf9c7315536', 'Oasis', 'Application for develo
   "icon-512x512.png": "/active/api/apps/0b5b4047-3d9b-4ec4-993f-acf9c7315536/assets/icon-512x512.png"
 }'::json);
 
+-- Oasis app guest features
 insert into custom_app_feature (app_id, feature_id, authenticated)
 select '0b5b4047-3d9b-4ec4-993f-acf9c7315536', f.id, false
 from feature f
 where f.name in ('side_bar', 'app_login', 'subscription', 'about_page', 'use_3rdparty_analytics',
                  'tooltip', 'toasts', 'intercom');
 
+-- Oasis app role based features
 insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
 select '0b5b4047-3d9b-4ec4-993f-acf9c7315536', f.id, true, r.id
 from feature f, custom_role r
