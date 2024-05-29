@@ -28,7 +28,7 @@ where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'live_sen
   and r.name = 'oasis_admin';
 
 --configurate analytics panel 
-update app_feature
+update custom_app_feature
 set configuration = '{"statistics": [{
   "formula": "sumX",
   "x": "population"
@@ -53,4 +53,4 @@ set configuration = '{"statistics": [{
   "y": "highway_length"
 }]}'
 where app_id = '0b5b4047-3d9b-4ec4-993f-acf9c7315536'
-  and feature_id = (select id from feature where name = 'analytics_panel');
+  and f.name = (select id from feature where name = 'analytics_panel');
