@@ -27,6 +27,7 @@ public class CustomAppFeatureDao {
 
     public void saveAppFeatures(List<CustomAppFeature> appFeatures) {
         appFeatures.forEach(appFeature -> {
+            // Convert JSON null to Java/SQL null to prevent unexpected behavior when using this column later.
             if (appFeature.getConfiguration() == null || appFeature.getConfiguration().isNull()) {
                 appFeature.setConfiguration(null);
             }

@@ -34,7 +34,7 @@ insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
 select '9043acf9-2cf3-48ac-9656-a5d7c4b7593d', f.id, true, r.id
 from feature f, custom_role r
 where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'mcda', 'boundary_selector',
-                 'geometry_uploader', 'focused_geometry_editor', 'map', 'analytics_panel', 'llm_analytics',
+                 'geometry_uploader', 'focused_geometry_editor', 'map', 'llm_analytics',
                  'legend_panel', 'chat_panel', 'focused_geometry_layer', 'reference_area', 'layers_in_area')
   and r.name in ('kontur_atlas_edu', 'kontur_atlas_pro', 'kontur_atlas_demo', 'kontur_atlas_admin');
 
