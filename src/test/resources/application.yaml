@@ -8,7 +8,7 @@ spring:
     changelog: classpath:changelog/changelog.yaml
   datasource:
     driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: 'jdbc:tc:postgis:13-3.1-alpine:///user-profile-api?TC_INITSCRIPT=db/init_test_db.sql'
+    url: 'jdbc:tc:postgis:16-3.4-alpine:///user-profile-api?TC_INITSCRIPT=db/init_test_db.sql'
 #    type: com.zaxxer.hikari.HikariDataSource
 #    url: jdbc:postgresql://localhost:5432/userprofile
     password: user-profile-api

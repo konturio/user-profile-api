@@ -61,8 +61,8 @@ public class AppControllerIT extends AbstractIT {
     private final ObjectMapper mapper = new ObjectMapper();
     private static final String featureAvailableForUserApps = "map_layers_panel";
 
-    private static final String featureAvailableForUserApps2 = "translation";
-    private static final String featureNotAvailableForUserApps = "current_episode";
+    private static final String featureAvailableForUserApps2 = "side_bar";
+    private static final String featureNotAvailableForUserApps = "events_list";
     private static final String notExistingFeature = "not-existing-feature";
     private static final String configurationOneString = """
             {"statistics": [{
@@ -404,42 +404,6 @@ public class AppControllerIT extends AbstractIT {
             throw new RuntimeException("expected exception was not thrown");
         } catch (WebApplicationException e) {
             assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
-        }
-    }
-
-    @Test
-    public void betaFeaturesCannotBeAddedToAppIfUserDoesNotHaveTheBetaRole() {
-        givenUserWithoutBetaRoleIsAuthenticated(user1);
-
-        AppDto request = createPublicAppDto();
-        AppDto response1 = controller.create(request);
-
-        AppDto update = createPublicAppDto();
-        update.setFeaturesConfig(Map.of(createBetaFeature().getName(), configurationOne));
-
-        try {
-            controller.update(response1.getId(), update);
-            throw new RuntimeException("expected exception was not thrown");
-        } catch (WebApplicationException e) {
-            assertEquals(HttpStatus.FORBIDDEN, e.getStatus());
-        }
-    }
-
-    @Test
-    public void betaFeaturesCannotBeAddedToAppEvenIfTheUserHasTheBetaRole() {
-        givenUserWithBetaRoleIsAuthenticated(user1);
-
-        AppDto request = createPublicAppDto();
-        AppDto response1 = controller.create(request);
-
-        AppDto update = createPublicAppDto();
-        update.setFeaturesConfig(Map.of(createBetaFeature().getName(), configurationOne));
-
-        try {
-            controller.update(response1.getId(), update);
-            throw new RuntimeException("expected exception was not thrown");
-        } catch (WebApplicationException e) {
-            assertEquals(HttpStatus.FORBIDDEN, e.getStatus());
         }
     }
 

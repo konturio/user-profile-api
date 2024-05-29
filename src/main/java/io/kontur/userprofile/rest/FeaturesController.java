@@ -54,7 +54,7 @@ public class FeaturesController {
             example = "58851b50-9574-4aec-a3a6-425fa18dcb54") //DN2_ID, but must be constant here
             UUID appId) {
         App app = appService.getApp(appId);
-        return featureService.getCurrentUserAppFeatures(app)
+        return featureService.getAllFeaturesAvailableToUser(app).stream()
             .map(FeatureDto::fromEntity)
             .collect(Collectors.toList());
     }
@@ -70,7 +70,7 @@ public class FeaturesController {
     @PutMapping("/{featureName}")
     public ResponseEntity<Void> updateUserFeatureConfiguration(
             @PathVariable(name = "featureName", required = true) String featureName,
-            @RequestParam(name = "appId", defaultValue = "58851b50-9574-4aec-a3a6-425fa18dcb54", required = true) UUID appId,
+            @RequestParam(name = "appId", required = true) UUID appId,
             @RequestBody JsonNode configuration) {
         return featureService.updateAppUserFeatureConfiguration(appId, featureName, configuration);
     }

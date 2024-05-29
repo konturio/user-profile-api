@@ -207,3 +207,12 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18476-switch-about-feature-on-for-all-apps-in-ups-again.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/create-roles-tables.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/delete-unused-features.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/initial-roles-setup.sql

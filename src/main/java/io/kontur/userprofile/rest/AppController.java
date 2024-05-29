@@ -26,8 +26,7 @@ import java.util.*;
 
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class AppController {
 
-    private static final Logger log = LoggerFactory.getLogger(AppController.class);
+    private static final Logger log = Logger.getLogger(AppController.class);
 
     private final AppService appService;
     private final FeatureService featureService;
@@ -64,7 +63,7 @@ public class AppController {
         appService.createApp(app, appDto.getFeaturesConfig());
 
         Map<Feature, JsonNode> appFeatureConfigurations = new HashMap<>();
-        featureService.getAppFeaturesFor(app).forEach(appFeature ->
+        featureService.getAllAppFeaturesAvailableToUser(app).forEach(appFeature ->
                 appFeatureConfigurations.put(appFeature.getFeature(),
                                              appFeature.getConfiguration()));
 
@@ -92,7 +91,7 @@ public class AppController {
         App updated = appService.updateApp(id, app, appDto.getFeaturesConfig());
 
         Map<Feature, JsonNode> featuresConfig = new HashMap<>();
-        featureService.getAppFeaturesFor(updated).forEach(appFeature ->
+        featureService.getAllAppFeaturesAvailableToUser(updated).forEach(appFeature ->
                 featuresConfig.put(appFeature.getFeature(), appFeature.getConfiguration()));
 
         return AppDto.fromEntities(updated, featuresConfig, true);
@@ -117,7 +116,7 @@ public class AppController {
                     schema = @Schema(implementation = AppDto.class)))
     @GetMapping(path = "/configuration")
     public AppDto get(@RequestParam String domain) {
-        log.info("Returning app configuration for domain: {}", domain);
+        log.infof("Returning app configuration for domain: %s", domain);
 
         App app = appService.getApp(domain);
         if (app == null) {
@@ -184,7 +183,7 @@ public class AppController {
 
     private AppDto getAppConfig(App app) {
         Map<Feature, JsonNode> appFeatureConfigurations = new HashMap<>();
-        featureService.getAppFeaturesForCurrentUserAndFor(app)
+        featureService.getAllAppFeaturesAvailableToUser(app)
             .forEach(appFeature ->
                      appFeatureConfigurations.put(appFeature.getFeature(),
                                                   appFeature.getConfiguration()));
