@@ -118,8 +118,8 @@ where f.name in ('map', 'events_list', 'events_list__bbox_filter', 'current_even
 
 -- Kontur employees roles
 insert into user_custom_role (user_id, role_id, started_at)
-select u.id, r.id
-from users u, custom_role r, now()
+select u.id, r.id, now()
+from users u, custom_role r
 where r.name in ('kontur_atlas_admin', 'mcda_admin', 'oasis_admin')
     and u.email in ('pkrukovich@kontur.io', 'ahil@kontur.io', 'avalasiuk@kontur.io', 'darafei@kontur.io',
                     'nlaptsik@kontur.io', 'atarakanov@kontur.io', 'a.artyukevich@kontur.io', 'vbondar@kontur.io',
