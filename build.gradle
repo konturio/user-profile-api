@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'io.kontur.userprofile'
-version = '0.7.5'
+version = '0.7.7'
 sourceCompatibility = '17' // Keycloak image uses 17, so update JDK in Keycloak before changing this
 targetCompatibility = '17'
 String imageTag = System.getenv("IMAGE_TAG") ?: 'latest'
@@ -59,6 +59,8 @@ dependencies {
     implementation group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '9.0.1'
     implementation 'ch.qos.logback.contrib:logback-jackson:0.1.5'
     implementation 'ch.qos.logback.contrib:logback-json-classic:0.1.5'
+    implementation 'org.slf4j:slf4j-api:2.0.12'
+    implementation 'ch.qos.logback:logback-classic:1.4.12'
 
     //lombok
     annotationProcessor 'org.projectlombok:lombok:1.18.24'

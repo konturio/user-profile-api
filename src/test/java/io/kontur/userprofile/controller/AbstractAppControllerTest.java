@@ -7,8 +7,7 @@ import static org.mockito.Mockito.when;
 
 import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.dao.AppDao;
-import io.kontur.userprofile.dao.AppFeatureDao;
-import io.kontur.userprofile.dao.AppUserFeatureDao;
+import io.kontur.userprofile.dao.CustomAppFeatureDao;
 import io.kontur.userprofile.dao.FeatureDao;
 import io.kontur.userprofile.model.dto.AppSummaryDto;
 import io.kontur.userprofile.model.entity.App;
@@ -33,15 +32,12 @@ public class AbstractAppControllerTest {
     @Mock
     FeatureDao featureDao = mock(FeatureDao.class);
     @Mock
-    AppFeatureDao appFeatureDao = mock(AppFeatureDao.class);
-    @Mock
-    AppUserFeatureDao appUserFeatureDao = mock(AppUserFeatureDao.class);
+    CustomAppFeatureDao customAppFeatureDao = mock(CustomAppFeatureDao.class);
     @Mock
     AuthService authService = mock(AuthService.class);
     @Mock
     FeatureService featureService = mock(FeatureService.class);
-    AppService appService = new AppService(appDao, featureDao, appFeatureDao, appUserFeatureDao,
-        featureService, authService);
+    AppService appService = new AppService(appDao, featureDao, customAppFeatureDao, featureService, authService);
     AppController controller = new AppController(appService, featureService, authService);
 
     @BeforeEach

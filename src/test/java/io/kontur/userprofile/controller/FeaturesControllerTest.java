@@ -3,12 +3,7 @@ package io.kontur.userprofile.controller;
 import static io.kontur.userprofile.AuthUtils.mockAuthWithClaims;
 import static io.kontur.userprofile.AuthUtils.mockAuthWithNoGrantedAuthorities;
 import static io.kontur.userprofile.AuthUtils.mockNullAuth;
-import static io.kontur.userprofile.TestDataFactory.createEnabledBetaEventFeed;
-import static io.kontur.userprofile.TestDataFactory.createEnabledBetaFeature;
-import static io.kontur.userprofile.TestDataFactory.createEnabledEventFeed;
-import static io.kontur.userprofile.TestDataFactory.createEnabledFeature;
-import static io.kontur.userprofile.TestDataFactory.userWithBetaRole;
-import static io.kontur.userprofile.TestDataFactory.userWithoutBetaRole;
+import static io.kontur.userprofile.TestDataFactory.*;
 import static io.kontur.userprofile.controller.AppControllerIT.DN2_NAME;
 import static io.kontur.userprofile.service.AppService.DN2_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,38 +14,35 @@ import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.dao.*;
 import io.kontur.userprofile.model.dto.FeatureDto;
 import io.kontur.userprofile.model.entity.App;
+import io.kontur.userprofile.model.entity.CustomAppFeature;
 import io.kontur.userprofile.model.entity.Feature;
-import io.kontur.userprofile.model.entity.user.Role;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.FeaturesController;
 import io.kontur.userprofile.service.AppService;
 import io.kontur.userprofile.service.FeatureService;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 public class FeaturesControllerTest { //todo test for enable/disable for DAO
     //features
-    private final Feature defaultDn2Feature = createEnabledFeature();
-    private final Feature privateFeature = createEnabledFeature();
-    private final Feature betaFeature = createEnabledBetaFeature();
-    //event feeds
-    private final Feature defaultDn2Feed = createEnabledEventFeed();
-    private final Feature privateEventFeed = createEnabledEventFeed();
-    private final Feature betaEventFeed = createEnabledBetaEventFeed();
+    private final Feature enabledFeature1 = createEnabledFeature("enabledFeature1");
+    private final Feature enabledFeature2 = createEnabledFeature("enabledFeature2");
+    //event feed
+    private final Feature enabledEventFeed = createEnabledEventFeed();
 
-    private final App dn2 = new App(DN2_ID,
-                                    DN2_NAME, null, null, true, null, null, null, null, null);
+    private final App dn2 = new App(DN2_ID, DN2_NAME, null, null, true, null, null, null, null, null);
 
     @Mock
     UserDao userDao = mock(UserDao.class);
     @Mock
-    AppUserFeatureDao appUserFeatureDao = mock(AppUserFeatureDao.class);
+    CustomAppFeatureDao customAppFeatureDao = mock(CustomAppFeatureDao.class);
     @Mock
-    AppFeatureDao appFeatureDao = mock(AppFeatureDao.class);
+    UserCustomRoleDao userCustomRoleDao = mock(UserCustomRoleDao.class);
     @Mock
     FeatureDao featureDao = mock(FeatureDao.class);
     @Mock
@@ -60,126 +52,55 @@ public class FeaturesControllerTest { //todo test for enable/disable for DAO
     @Mock
     AuthService authService = new AuthService(userDao);
     FeatureService featureService =
-        new FeatureService(authService, appDao, userDao, appFeatureDao, featureDao, appUserFeatureDao);
+        new FeatureService(authService, appDao, userDao, customAppFeatureDao, userCustomRoleDao, featureDao);
     FeaturesController featuresController = new FeaturesController(featureService, appService);
-    private User userWithoutBetaRole = userWithoutBetaRole();
-    private User userWithBetaRole = userWithBetaRole();
+    private User user = defaultUser();
 
     @BeforeEach
     public void beforeEach() {
         when(appService.getDefaultId()).thenReturn(DN2_ID);
         when(appService.getApp(DN2_ID)).thenReturn(dn2);
-        when(appFeatureDao.getEnabledNonBetaAppFeaturesFor(dn2)).thenReturn(
-            Stream.of(defaultDn2Feature, defaultDn2Feed));
+        when(customAppFeatureDao.getAllFeaturesAvailableToUser(dn2, null, null)).thenReturn(List.of(
+                new CustomAppFeature(dn2, enabledFeature1, false),
+                new CustomAppFeature(dn2, enabledEventFeed, false)
+        ));
+        when(customAppFeatureDao.getAllFeaturesAvailableToUser(dn2, user.getUsername(), new ArrayList<>())).thenReturn(List.of(
+                new CustomAppFeature(dn2, enabledFeature1, false),
+                new CustomAppFeature(dn2, enabledFeature2, true),
+                new CustomAppFeature(dn2, enabledEventFeed, false)
+        ));
 
-        when(userDao.getUser(userWithBetaRole.getUsername())).thenReturn(userWithBetaRole);
-        when(userDao.getUser(userWithoutBetaRole.getUsername())).thenReturn(userWithoutBetaRole);
+        when(userDao.getUser(user.getUsername())).thenReturn(user);
     }
 
     @Test
     public void getUserFeatures_UserIsNotAuthorizedTest() {
         givenUserIsUnauthorized();
-        thenOnlyDefaultAppFeaturesAreReturned();
+        thenOnlyGuestAppFeaturesAreReturned();
     }
 
     @Test
     public void getUserFeatures_NoAuthTest() {
         givenAuthorizationIsNull();
-        thenOnlyDefaultAppFeaturesAreReturned();
+        thenOnlyGuestAppFeaturesAreReturned();
     }
 
     @Test
     public void getUserFeatures_NoAuthClaimsInTokenTest() {
         givenAuthorizationContainsNoAuthorities();
-        thenOnlyDefaultAppFeaturesAreReturned();
+        thenOnlyGuestAppFeaturesAreReturned();
     }
 
     @Test
-    public void getUserFeatures_UserIsAuthorizedNoBetaRoleTest() {
-        givenUserWithoutBetaRoleIsLoggedIn();
-        //enabled features are configured by user (including beta features), but result
-        // doesn't include beta ones - as user does not have a corresponding role
-        thenResultContainsOnlyPrivateFeatures();
-    }
-
-    @Test
-    public void getUserFeatures_UserIsAuthorizedNoBetaRole_NoAnyFeaturesConfiguredTest() {
-        givenUserWithoutAnyConfiguredFeaturesIsLoggedIn();
-        //no features are configured by user
-        //so result contains the list of public features
-        thenOnlyDefaultAppFeaturesAreReturned();
-    }
-
-    @Test
-    public void getUserFeatures_UserIsAuthorizedAndHasBetaRoleTest() {
-        givenUserWithBetaRoleIsLoggedIn();
-
-        List<FeatureDto> result = featuresController.getUserFeatures(DN2_ID);
-
-        //enabled features are configured by user (including beta features),
-        // result includes beta features - as user does have a corresponding role
-        assertEquals(4, result.size());
-        thenResultContainsPrivateFeatures(result);
-        thenResultContainsPrivateBetaFeatures(result);
+    public void getUserFeatures_UserIsAuthorized() {
+        givenUserIsLoggedIn();
+        thenResultContainsGuestAndAuthFeatures();
     }
 
     @Test
     public void getUserFeatures_UserIsNotFoundTest() {
         authorizeNotExistingUser();
-        thenOnlyDefaultAppFeaturesAreReturned();
-    }
-
-    @Test
-    public void getUserFeed_UserIsNotAuthorizedTest() {
-        givenUserIsUnauthorized();
-        thenOnlyDefaultDn2EventFeedIsReturned();
-    }
-
-    @Test
-    public void getUserFeed_NoAuthTest() {
-        givenAuthorizationIsNull();
-        thenOnlyDefaultDn2EventFeedIsReturned();
-    }
-
-    @Test
-    public void getUserFeed_NoAuthClaimsInTokenTest() {
-        givenAuthorizationContainsNoAuthorities();
-        thenOnlyDefaultDn2EventFeedIsReturned();
-    }
-
-    @Test
-    public void getUserFeed_UserIsAuthorizedNoBetaRoleTest() {
-        givenUserWithoutBetaRoleIsLoggedIn();
-        //two feeds are configured by user - which is incorrect, but beta are not allowed
-        thenOnlyPrivateEventFeedIsReturned();
-    }
-
-    @Test
-    public void getUserFeed_UserIsAuthorizedIncludeBetaTest() {
-        givenUserWithBetaRoleIsLoggedIn();
-        //two feeds are configured by user - which is incorrect, but non-beta should go first
-        thenOnlyPrivateEventFeedIsReturned();
-    }
-
-    @Test
-    public void getUserFeed_UserIsNotFoundTest() {
-        authorizeNotExistingUser();
-        thenOnlyDefaultDn2EventFeedIsReturned();
-    }
-
-
-    private void givenUserWithBetaRoleIsLoggedIn() {
-        mockAuthWithClaims(List.of(Role.Names.BETA_FEATURES), userWithBetaRole.getUsername());
-        when(appUserFeatureDao.userHasAnyConfiguredFeatures(dn2,
-            userWithBetaRole.getUsername()))
-            .thenReturn(true);
-        when(appUserFeatureDao.getAppUserFeatures(dn2, userWithBetaRole.getUsername()))
-            .thenReturn(Stream.of(
-                betaFeature,
-                privateFeature,
-                privateEventFeed,
-                betaEventFeed
-            ));
+        thenOnlyGuestAppFeaturesAreReturned();
     }
 
     private void authorizeNotExistingUser() {
@@ -196,21 +117,8 @@ public class FeaturesControllerTest { //todo test for enable/disable for DAO
         mockNullAuth();
     }
 
-    private void givenUserWithoutBetaRoleIsLoggedIn() {
-        mockAuthWithClaims(List.of("nothing"), userWithoutBetaRole.getUsername());
-        when(appUserFeatureDao.userHasAnyConfiguredFeatures(dn2,
-            userWithoutBetaRole.getUsername()))
-            .thenReturn(true);
-        when(appUserFeatureDao.getAppUserFeatures(dn2, userWithoutBetaRole.getUsername()))
-            .thenReturn(Stream.of(betaFeature, privateFeature,
-                privateEventFeed, betaEventFeed
-            ));
-    }
-
-    private void givenUserWithoutAnyConfiguredFeaturesIsLoggedIn() {
-        mockAuthWithClaims(List.of("nothing"), userWithoutBetaRole.getUsername());
-        when(appUserFeatureDao.userHasAnyConfiguredFeatures(dn2,
-            userWithoutBetaRole.getUsername())).thenReturn(false);
+    private void givenUserIsLoggedIn() {
+        mockAuthWithClaims(List.of("nothing"), user.getUsername());
     }
 
     private void givenUserIsUnauthorized() {
@@ -224,52 +132,37 @@ public class FeaturesControllerTest { //todo test for enable/disable for DAO
         return privateFeatureDto.get();
     }
 
-    private void thenOnlyDefaultAppFeaturesAreReturned() {
+    private void thenOnlyGuestAppFeaturesAreReturned() {
         List<FeatureDto> result = featuresController.getUserFeatures(DN2_ID);
         assertEquals(2, result.size());
 
-        FeatureDto fefaultAppFeatureDto =
-            findDtoInResult(result, defaultDn2Feature.getName());
-        assertDto(defaultDn2Feature, fefaultAppFeatureDto);
+        FeatureDto enabledFeature1Dto =
+            findDtoInResult(result, enabledFeature1.getName());
+        assertDto(enabledFeature1, enabledFeature1Dto);
 
-        FeatureDto defaultDn2EventFeedDto =
-            findDtoInResult(result, defaultDn2Feed.getName());
-        assertDto(defaultDn2Feed, defaultDn2EventFeedDto);
+        FeatureDto enabledEventFeedDto =
+            findDtoInResult(result, enabledEventFeed.getName());
+        assertDto(enabledEventFeed, enabledEventFeedDto);
     }
 
-    private void thenOnlyPrivateEventFeedIsReturned() {
-        String result = featuresController.getDefaultUserEventFeed();
-        assertEquals(privateEventFeed.getName(), result);
-    }
-
-    private void thenOnlyDefaultDn2EventFeedIsReturned() {
-        String result = featuresController.getDefaultUserEventFeed();
-        assertEquals(defaultDn2Feed.getName(), result);
-    }
-
-    private void thenResultContainsOnlyPrivateFeatures() {
+    private void thenResultContainsGuestAndAuthFeatures() {
         List<FeatureDto> result = featuresController.getUserFeatures(DN2_ID);
-        assertEquals(2, result.size());
-        thenResultContainsPrivateFeatures(result);
+        assertEquals(3, result.size());
+        thenResultContainsGuestAndAuthFeatures(result);
     }
 
-    private void thenResultContainsPrivateFeatures(List<FeatureDto> result) {
-        FeatureDto privateFeatureDto =
-            findDtoInResult(result, privateFeature.getName());
-        assertDto(privateFeature, privateFeatureDto);
+    private void thenResultContainsGuestAndAuthFeatures(List<FeatureDto> result) {
+        FeatureDto enabledFeature1Dto =
+            findDtoInResult(result, enabledFeature1.getName());
+        assertDto(enabledFeature1, enabledFeature1Dto);
+
+        FeatureDto enabledFeature2Dto =
+                findDtoInResult(result, enabledFeature2.getName());
+        assertDto(enabledFeature2, enabledFeature2Dto);
 
         FeatureDto privateEventFeedDto =
-            findDtoInResult(result, privateEventFeed.getName());
-        assertDto(privateEventFeed, privateEventFeedDto);
-    }
-
-    private void thenResultContainsPrivateBetaFeatures(List<FeatureDto> result) {
-        FeatureDto betaFeatureDto = findDtoInResult(result, betaFeature.getName());
-        assertDto(betaFeature, betaFeatureDto);
-
-        FeatureDto betaEventFeedDto =
-            findDtoInResult(result, betaEventFeed.getName());
-        assertDto(betaEventFeed, betaEventFeedDto);
+            findDtoInResult(result, enabledEventFeed.getName());
+        assertDto(enabledEventFeed, privateEventFeedDto);
     }
 
     private void assertDto(Feature source, FeatureDto dto) {

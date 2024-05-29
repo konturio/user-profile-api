@@ -1,8 +1,6 @@
 package io.kontur.userprofile.auth;
 
-import static io.kontur.userprofile.config.WebSecurityConfiguration.ClaimParams.ROLE_PREFIX;
 import static io.kontur.userprofile.config.WebSecurityConfiguration.ClaimParams.USERNAME_PREFIX;
-import static io.kontur.userprofile.model.entity.user.Role.Names.BETA_FEATURES;
 
 import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.entity.user.User;
@@ -53,16 +51,6 @@ public class AuthService {
             .filter(it -> it.startsWith(USERNAME_PREFIX))
             .findAny()
             .map(this::removePrefixFromUsernameClaim);
-    }
-
-    public boolean currentUserHasBetaFeaturesRole() {
-        List<String> tokenClaims = getTokenClaims();
-        return containsBetaFeatureRole(tokenClaims);
-    }
-
-    private boolean containsBetaFeatureRole(List<String> tokenClaims) {
-        return tokenClaims.stream()
-            .anyMatch((ROLE_PREFIX + BETA_FEATURES)::equals);
     }
 
     private String removePrefixFromUsernameClaim(String claim) {
