@@ -14,7 +14,7 @@ values ('0b5b4047-3d9b-4ec4-993f-acf9c7315536', 'Oasis', 'Application for develo
 insert into app_feature (app_id, feature_id)
 select '0b5b4047-3d9b-4ec4-993f-acf9c7315536', f.id
 from feature f
-where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'live_sensor', 'mcda', 'bivariate_manager', 'create_layer', 
+where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'live_sensor', 'mcda', 'bivariate_manager', 'create_layer', 'kontur-public',
                 'boundary_selector', 'geometry_uploader', 'focused_geometry_editor', 'side_bar', 'map', 'reports', 'app_login', 'bivariate_color_manager', 
                 'subscription', 'about_page', 'analytics_panel', 'llm_analytics', 'advanced_analytics_panel', 'events_list', 'map_layers_panel', 
                 'legend_panel', 'episodes_timeline', 'layer_features_panel', 'chat_panel', 'feed_selector', 'events_list__bbox_filter', 
@@ -59,7 +59,7 @@ with users_ids as (select id
 features_ids as (select id 
                       from feature f
                       where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'live_sensor', 'mcda', 'bivariate_manager', 'create_layer', 
-                                      'boundary_selector', 'geometry_uploader', 'focused_geometry_editor', 'side_bar', 'map', 'reports', 'app_login', 
+                                      'boundary_selector', 'geometry_uploader', 'focused_geometry_editor', 'side_bar', 'map', 'reports', 'app_login', 'kontur-public',
                                       'bivariate_color_manager', 'subscription', 'about_page', 'analytics_panel', 'llm_analytics', 'advanced_analytics_panel', 
                                       'events_list', 'map_layers_panel', 'legend_panel', 'episodes_timeline', 'layer_features_panel', 'chat_panel', 
                                       'feed_selector', 'events_list__bbox_filter', 'current_event','focused_geometry_layer', 'reference_area', 
