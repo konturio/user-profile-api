@@ -14,7 +14,7 @@ values ('3a433e95-0449-48a3-b4ff-9cffea805c74', 'Terrain', 'Whitelable Finance a
 insert into app_feature (app_id, feature_id)
 select '3a433e95-0449-48a3-b4ff-9cffea805c74', f.id
 from feature f
-where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'mcda', 'boundary_selector', 
+where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'mcda', 'boundary_selector', 'kontur-public',
                 'geometry_uploader', 'focused_geometry_editor', 'side_bar', 'map', 'reports', 'app_login', 
                 'about_page', 'analytics_panel', 'llm_analytics', 'advanced_analytics_panel', 'events_list', 'map_layers_panel', 
                 'legend_panel', 'episodes_timeline', 'chat_panel', 'feed_selector', 'events_list__bbox_filter', 
@@ -58,7 +58,7 @@ with users_ids as (select id
                                   '')),
 features_ids as (select id 
                       from feature f
-                      where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'mcda', 'boundary_selector', 
+                      where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'mcda', 'boundary_selector', 'kontur-public',
                                       'geometry_uploader', 'focused_geometry_editor', 'side_bar', 'map', 'reports', 'app_login', 
                                       'about_page', 'analytics_panel', 'llm_analytics', 'advanced_analytics_panel', 'events_list', 'map_layers_panel', 
                                       'legend_panel', 'episodes_timeline', 'chat_panel', 'feed_selector', 'events_list__bbox_filter', 
