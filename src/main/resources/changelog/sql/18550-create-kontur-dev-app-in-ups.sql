@@ -21,9 +21,10 @@ insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
 select '0b5b4047-3d9b-4ec4-993f-acf9c7315536', f.id, true, r.id
 from feature f, custom_role r
 where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'live_sensor', 'mcda', 'bivariate_manager', 'create_layer', 'kontur-public',
-                'boundary_selector', 'geometry_uploader', 'focused_geometry_editor', 'map', 'analytics_panel', 'llm_analytics', 'advanced_analytics_panel', 
-                'events_list', 'map_layers_panel', 'reports', 'bivariate_color_manager', 'legend_panel', 'episodes_timeline', 'layer_features_panel', 'chat_panel', 
-                'feed_selector', 'events_list__bbox_filter', 'current_event', 'focused_geometry_layer', 'reference_area', 'layers_in_area')
+                'boundary_selector', 'geometry_uploader', 'focused_geometry_editor', 'map', 'analytics_panel', 'llm_analytics', 
+                'advanced_analytics_panel', 'events_list', 'map_layers_panel', 'reports', 'bivariate_color_manager', 'legend_panel', 
+                'episodes_timeline', 'layer_features_panel', 'chat_panel', 'feed_selector', 'events_list__bbox_filter', 'current_event',
+                'focused_geometry_layer', 'reference_area', 'layers_in_area')
   and r.name = 'oasis_admin';
 
 --configurate analytics panel 
