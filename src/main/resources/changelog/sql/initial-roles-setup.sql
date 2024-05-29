@@ -81,7 +81,7 @@ where f.name in ('toolbar', 'locate_me', 'map_ruler', 'boundary_selector', 'geom
 insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
 select '77260743-1da0-445b-8f56-ff6ca8520c55', f.id, true, r.id
 from feature f, custom_role r
-where f.name in ('mcda', 'analytics_panel', 'llm_analytics', 'reference_area')
+where f.name in ('mcda', 'llm_analytics', 'reference_area')
   and r.name in ('mcda_demo', 'mcda_admin');
 
 -- OAM app guest features
