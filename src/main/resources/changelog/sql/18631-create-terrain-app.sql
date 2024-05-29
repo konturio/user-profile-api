@@ -14,7 +14,7 @@ values ('3a433e95-0449-48a3-b4ff-9cffea805c74', 'Terrain', 'Whitelable Finance a
 
 -- create new app role
 insert into custom_role (name)
-values ('terrain_admin', 'terrain_demo');
+values ('terrain_admin');
 
 -- assign new app role to Kontur employees
 insert into user_custom_role (user_id, role_id, started_at)
