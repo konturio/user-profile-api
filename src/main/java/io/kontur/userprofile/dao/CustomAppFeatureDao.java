@@ -28,7 +28,7 @@ public class CustomAppFeatureDao {
     public void saveAppFeatures(List<CustomAppFeature> appFeatures) {
         appFeatures.forEach(appFeature -> {
             // Convert JSON null to Java/SQL null to prevent unexpected behavior when using this column later.
-            if (appFeature.getConfiguration() == null || appFeature.getConfiguration().isNull()) {
+            if (appFeature.getConfiguration() != null && appFeature.getConfiguration().isNull()) {
                 appFeature.setConfiguration(null);
             }
             entityManager.createNativeQuery("insert into custom_app_feature (app_id, feature_id, authenticated, role_id, configuration_for_user_id, configuration) "
