@@ -17,12 +17,9 @@ create table if not exists user_custom_role (
     user_id bigint not null,
     role_id bigint not null,
     subscription_id text,
-    started_at timestamptz,
+    started_at timestamptz not null,
     ended_at timestamptz,
-    constraint uq_user_custom_role unique nulls not distinct (user_id, role_id, subscription_id, started_at, ended_at),
-    constraint ch_user_custom_role check (
-        (subscription_id is null or started_at is not null and ended_at is not null)
-    )
+    constraint uq_user_custom_role unique nulls not distinct (user_id, role_id, subscription_id, started_at, ended_at)
 );
 
 create table if not exists custom_app_feature (

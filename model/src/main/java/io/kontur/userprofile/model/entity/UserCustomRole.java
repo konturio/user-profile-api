@@ -32,20 +32,13 @@ public class UserCustomRole {
     private String subscriptionId;
 
     @Column(name = "started_at")
+    @NotNull
     private OffsetDateTime startedAt;
 
     @Column(name = "ended_at")
     private OffsetDateTime endedAt;
 
-    @PrePersist
-    @PreUpdate
-    private void validate() {
-        if (subscriptionId != null && (startedAt == null || endedAt == null)) {
-            throw new IllegalStateException("Both started_at and ended_at must be set if subscription_id is not null");
-        }
-    }
-
-    public UserCustomRole(@NotNull User user, @NotNull CustomRole role, String subscriptionId, OffsetDateTime startedAt, OffsetDateTime endedAt) {
+    public UserCustomRole(@NotNull User user, @NotNull CustomRole role, String subscriptionId, @NotNull OffsetDateTime startedAt, OffsetDateTime endedAt) {
         this.user = user;
         this.role = role;
         this.subscriptionId = subscriptionId;
