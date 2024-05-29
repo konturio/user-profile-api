@@ -43,6 +43,8 @@ management:
 
 springdoc:
   writer-with-default-pretty-printer: true
+  swagger-ui:
+    path: 'doc'
 
 sentry:
   dsn: https://fixme@dsn.ingest.sentry.io/project-id

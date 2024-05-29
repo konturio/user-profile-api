@@ -28,18 +28,6 @@ public class AbstractIT {
         when(authService.getCurrentUser()).thenReturn(Optional.of(user));
     }
 
-    protected void givenUserWithBetaRoleIsAuthenticated(User user) {
-        when(authService.currentUserHasBetaFeaturesRole()).thenReturn(true);
-        when(authService.getCurrentUsername()).thenReturn(Optional.of(user.getUsername()));
-        when(authService.getCurrentUser()).thenReturn(Optional.of(user));
-    }
-
-    protected void givenUserWithoutBetaRoleIsAuthenticated(User user) {
-        when(authService.currentUserHasBetaFeaturesRole()).thenReturn(false);
-        when(authService.getCurrentUsername()).thenReturn(Optional.of(user.getUsername()));
-        when(authService.getCurrentUser()).thenReturn(Optional.of(user));
-    }
-
     protected User createUser() {
         User user = User.builder()
                 .username(UUID.randomUUID().toString())

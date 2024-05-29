@@ -6,13 +6,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kontur.userprofile.AbstractIT;
 import io.kontur.userprofile.dao.AppDao;
-import io.kontur.userprofile.dao.AppFeatureDao;
-import io.kontur.userprofile.dao.AppUserFeatureDao;
+import io.kontur.userprofile.dao.CustomAppFeatureDao;
 import io.kontur.userprofile.dao.FeatureDao;
 import io.kontur.userprofile.model.dto.AppDto;
 import io.kontur.userprofile.model.entity.App;
-import io.kontur.userprofile.model.entity.AppFeature;
-import io.kontur.userprofile.model.entity.AppUserFeature;
 import io.kontur.userprofile.model.entity.Feature;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.AppController;
@@ -34,9 +31,7 @@ public class DaoIntegrityIT extends AbstractIT {
     @Autowired
     AppDao appDao;
     @Autowired
-    AppFeatureDao appFeatureDao;
-    @Autowired
-    AppUserFeatureDao appUserFeatureDao;
+    CustomAppFeatureDao customAppFeatureDao;
     @Autowired
     FeatureDao featureDao;
 
@@ -63,7 +58,7 @@ public class DaoIntegrityIT extends AbstractIT {
 
         UUID id = createApp();
         App app = appDao.getApp(id);
-        createAppFeature(app);
+        createAppFeature(app, false);
 
         try {
             delete(id);
@@ -74,7 +69,7 @@ public class DaoIntegrityIT extends AbstractIT {
 
             assertTrue(sqlMessage.contains("ERROR: update or"
                 + " delete on table \"app\" violates foreign key constraint"
-                + " \"app_features_app_app_id\" on table \"app_feature\""));
+                + " \"fk_custom_app_feature_app_id\" on table \"custom_app_feature\""));
         }
     }
 
@@ -86,9 +81,9 @@ public class DaoIntegrityIT extends AbstractIT {
 
         UUID id = createApp();
         App app = appDao.getApp(id);
-        createAppUserFeature(app, user);
+        createAppFeature(app, true);
 
-        appFeatureDao.deleteAllAppFeaturesFrom(app);
+        customAppFeatureDao.deleteAllAppFeaturesFrom(app);
 
         try {
             delete(id);
@@ -97,21 +92,20 @@ public class DaoIntegrityIT extends AbstractIT {
         } catch (PersistenceException e) {
             String sqlMessage = e.getMessage();
             assertTrue(sqlMessage.contains("ERROR: update or delete on table \"app\" violates "
-                + "foreign key constraint \"app_user_features_app_app_id\" on table "
-                + "\"app_user_feature\""));
+                + "foreign key constraint \"fk_custom_app_feature_app_id\" on table "
+                + "\"custom_app_feature\""));
         }
     }
 
-    void createAppUserFeature(App app, User user) {
-        Feature feature = featureDao.getFeatureByName("communities");
-        AppUserFeature auf = new AppUserFeature(app, user, feature, null);
-        entityManager.persist(auf);
-    }
-
-    void createAppFeature(App app) {
-        Feature feature = featureDao.getFeatureByName("communities");
-        AppFeature auf = new AppFeature(app, feature, null);
-        entityManager.persist(auf);
+    void createAppFeature(App app, boolean authenticated) {
+        Feature feature = featureDao.getFeatureByName("side_bar");
+        entityManager.createNativeQuery("insert into custom_app_feature (app_id, feature_id, authenticated, role_id, configuration_for_user_id, configuration) "
+                        + "values (:appId, :featureId, :authenticated, null, null, null) "
+                        + "on conflict do nothing")
+                .setParameter("appId", app.getId())
+                .setParameter("featureId", feature.getId())
+                .setParameter("authenticated", authenticated)
+                .executeUpdate();
     }
 
     UUID createApp() throws IOException {

@@ -31,6 +31,6 @@ public class FeatureControllerIT extends AbstractIT {
         givenUserIsNotAuthenticated();
 
         List<FeatureDto> features = featuresController.getUserFeatures(DN2_ID);
-        assertEquals(40, features.size()); //just some features
+        assertEquals(28, features.size()); //just some features
     }
 }
