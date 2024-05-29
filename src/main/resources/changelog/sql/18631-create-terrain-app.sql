@@ -35,7 +35,7 @@ select '3a433e95-0449-48a3-b4ff-9cffea805c74', f.id, false
 from feature f
 where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'boundary_selector', 'geometry_uploader',
                  'focused_geometry_editor', 'side_bar', 'map', 'reports', 'app_login', 'about_page', 'analytics_panel',
-                 'events_list', 'map_layers_panel', 'legend_panel', 'episodes_timeline',
+                 'events_list', 'map_layers_panel', 'legend_panel', 'episodes_timeline', 'current_event',
                  'chat_panel', 'events_list__bbox_filter', 'focused_geometry_layer', 'layers_in_area',
                  'use_3rdparty_analytics', 'tooltip', 'toasts', 'kontur-public');
 
