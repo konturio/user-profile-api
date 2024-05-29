@@ -75,7 +75,7 @@ select '77260743-1da0-445b-8f56-ff6ca8520c55', f.id, false
 from feature f
 where f.name in ('toolbar', 'locate_me', 'map_ruler', 'boundary_selector', 'geometry_uploader',
                  'focused_geometry_editor', 'side_bar', 'map', 'app_login', 'legend_panel', 'focused_geometry_layer',
-                 'layers_in_area', 'use_3rdparty_analytics', 'tooltip', 'toasts');
+                 'layers_in_area', 'tooltip', 'toasts');
 
 -- MCDA app role based features
 insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
