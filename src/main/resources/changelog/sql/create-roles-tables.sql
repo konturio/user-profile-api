@@ -17,7 +17,7 @@ create table if not exists user_custom_role (
     user_id bigint not null,
     role_id bigint not null,
     subscription_id text,
-    started_at timestamptz not null,
+    started_at timestamptz not null default now(),
     ended_at timestamptz,
     constraint uq_user_custom_role unique nulls not distinct (user_id, role_id, subscription_id, started_at, ended_at)
 );
