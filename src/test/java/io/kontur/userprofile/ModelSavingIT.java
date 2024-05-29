@@ -38,7 +38,7 @@ public class ModelSavingIT {
                 .setParameter(1, "map_layers_panel")
                 .getSingleResult();
 
-        CustomAppFeature appFeature = new CustomAppFeature(userApp, layersPanel, false, null, null, null);
+        CustomAppFeature appFeature = new CustomAppFeature(userApp, layersPanel, false);
         entityManager.persist(appFeature);
     }
 

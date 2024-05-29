@@ -45,12 +45,12 @@ public class AppService {
         List<Feature> featuresAddedByDefaultToUserApps = featureService
                 .getFeaturesAddedByDefaultToUserApps();
         featuresAddedByDefaultToUserApps
-            .forEach(f -> appFeatures.add(new CustomAppFeature(app, f, false, null, null, featuresConfig.get(f.getName()))));
+            .forEach(f -> appFeatures.add(new CustomAppFeature(app, f, false, featuresConfig.get(f.getName()))));
 
         for (Map.Entry<String, JsonNode> featureConfig : featuresConfig.entrySet()) {
             Feature feature = getFeatureForUserApp(featureConfig.getKey());
             if (!feature.isDefaultForUserApps()) {
-                CustomAppFeature appFeature = new CustomAppFeature(app, feature, false, null, null, featureConfig.getValue());
+                CustomAppFeature appFeature = new CustomAppFeature(app, feature, false, featureConfig.getValue());
                 appFeatures.add(appFeature);
             }
         }
@@ -102,8 +102,6 @@ public class AppService {
                             app,
                             getFeatureForUserApp(entry.getKey()),
                             false,
-                            null,
-                            null,
                             entry.getValue()))
                     .toList());
         }

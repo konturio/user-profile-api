@@ -61,13 +61,13 @@ public class FeaturesControllerTest { //todo test for enable/disable for DAO
         when(appService.getDefaultId()).thenReturn(DN2_ID);
         when(appService.getApp(DN2_ID)).thenReturn(dn2);
         when(customAppFeatureDao.getAllFeaturesAvailableToUser(dn2, null, null)).thenReturn(List.of(
-                new CustomAppFeature(dn2, enabledFeature1, false, null, null, null),
-                new CustomAppFeature(dn2, enabledEventFeed, false, null, null, null)
+                new CustomAppFeature(dn2, enabledFeature1, false),
+                new CustomAppFeature(dn2, enabledEventFeed, false)
         ));
         when(customAppFeatureDao.getAllFeaturesAvailableToUser(dn2, user.getUsername(), new ArrayList<>())).thenReturn(List.of(
-                new CustomAppFeature(dn2, enabledFeature1, false, null, null, null),
-                new CustomAppFeature(dn2, enabledFeature2, true, null, null, null),
-                new CustomAppFeature(dn2, enabledEventFeed, false, null, null, null)
+                new CustomAppFeature(dn2, enabledFeature1, false),
+                new CustomAppFeature(dn2, enabledFeature2, true),
+                new CustomAppFeature(dn2, enabledEventFeed, false)
         ));
 
         when(userDao.getUser(user.getUsername())).thenReturn(user);

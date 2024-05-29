@@ -61,11 +61,74 @@ public class CustomAppFeature {
         }
     }
 
+    /**
+     * General constructor
+     */
     public CustomAppFeature(@NotNull App app, @NotNull Feature feature, @NotNull Boolean authenticated, CustomRole role, User configurationForUser, JsonNode configuration) {
         this.app = app;
         this.feature = feature;
         this.authenticated = authenticated;
         this.role = role;
+        this.configurationForUser = configurationForUser;
+        this.configuration = configuration;
+    }
+
+    /**
+     * Constructor for guest and authenticated without configuration
+     */
+    public CustomAppFeature(@NotNull App app, @NotNull Feature feature, @NotNull Boolean authenticated) {
+        this.app = app;
+        this.feature = feature;
+        this.authenticated = authenticated;
+        this.role = null;
+        this.configurationForUser = null;
+        this.configuration = null;
+    }
+
+    /**
+     * Constructor for guest and authenticated with configuration
+     */
+    public CustomAppFeature(@NotNull App app, @NotNull Feature feature, @NotNull Boolean authenticated, JsonNode configuration) {
+        this.app = app;
+        this.feature = feature;
+        this.authenticated = authenticated;
+        this.role = null;
+        this.configurationForUser = null;
+        this.configuration = configuration;
+    }
+
+    /**
+     * Constructor for role without configuration
+     */
+    public CustomAppFeature(@NotNull App app, @NotNull Feature feature, CustomRole role) {
+        this.app = app;
+        this.feature = feature;
+        this.authenticated = true;
+        this.role = role;
+        this.configurationForUser = null;
+        this.configuration = null;
+    }
+
+    /**
+     * Constructor for role with configuration
+     */
+    public CustomAppFeature(@NotNull App app, @NotNull Feature feature, CustomRole role, JsonNode configuration) {
+        this.app = app;
+        this.feature = feature;
+        this.authenticated = true;
+        this.role = role;
+        this.configurationForUser = null;
+        this.configuration = configuration;
+    }
+
+    /**
+     * Constructor for user configuration
+     */
+    public CustomAppFeature(@NotNull App app, @NotNull Feature feature, User configurationForUser, JsonNode configuration) {
+        this.app = app;
+        this.feature = feature;
+        this.authenticated = true;
+        this.role = null;
         this.configurationForUser = configurationForUser;
         this.configuration = configuration;
     }
