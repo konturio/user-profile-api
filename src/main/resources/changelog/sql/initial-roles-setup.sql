@@ -113,7 +113,7 @@ where f.name in ('map', 'layers_in_area');
 insert into custom_app_feature (app_id, feature_id, authenticated)
 select '8906feaf-fc18-4180-bb5f-ff545cf65100', f.id, false
 from feature f
-where f.name in ('map', 'events_list', 'events_list__bbox_filter', 'current_event', 'focused_geometry_layer',
+where f.name in ('map', 'events_list', 'events_list__bbox_filter', 'current_event',
                  'layers_in_area', 'kontur-public');
 
 -- Kontur employees roles
