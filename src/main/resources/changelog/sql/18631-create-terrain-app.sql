@@ -48,7 +48,7 @@ where f.name in ('mcda', 'bivariate_manager', 'kontur-public', 'llm_analytics', 
   and r.name = 'terrain_admin';
 
 --configurate analytics panel 
-update app_feature
+update custom_app_feature
 set configuration = '{"statistics": [{
   "formula": "sumX",
   "x": "population"
