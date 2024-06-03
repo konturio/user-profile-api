@@ -56,4 +56,6 @@ set configuration = '{"statistics": [{
   "y": "highway_length"
 }]}'
 where app_id = '0b5b4047-3d9b-4ec4-993f-acf9c7315536'
-  and feature_id in (select f.id from feature f where f.name = 'analytics_panel');
+  and feature_id in (select f.id from feature f where f.name = 'analytics_panel')
+  and authenticated
+  and role_id = (select r.id from custom_role r where r.name = 'oasis_admin');
