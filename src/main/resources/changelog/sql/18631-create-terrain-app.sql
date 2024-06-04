@@ -56,4 +56,5 @@ set configuration = '{"statistics": [{
   "x": "populated_area_km2"
 }]}'
 where app_id = '3a433e95-0449-48a3-b4ff-9cffea805c74'
-  and feature_id in (select f.id from feature f where f.name = 'analytics_panel');
+  and feature_id in (select f.id from feature f where f.name = 'analytics_panel')
+  and not authenticated;
