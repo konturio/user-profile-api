@@ -12,14 +12,14 @@ values ('0b5b4047-3d9b-4ec4-993f-acf9c7315536', 'Oasis', 'Application for develo
   "icon-512x512.png": "/active/api/apps/0b5b4047-3d9b-4ec4-993f-acf9c7315536/assets/icon-512x512.png"
 }'::json);
 
--- Oasis app guest features
+-- Add guest features
 insert into custom_app_feature (app_id, feature_id, authenticated)
 select '0b5b4047-3d9b-4ec4-993f-acf9c7315536', f.id, false
 from feature f
 where f.name in ('side_bar', 'app_login', 'subscription', 'about_page', 'use_3rdparty_analytics',
                  'tooltip', 'toasts', 'intercom');
 
--- Oasis app role based features
+-- Add role based features
 insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
 select '0b5b4047-3d9b-4ec4-993f-acf9c7315536', f.id, true, r.id
 from feature f, custom_role r
@@ -59,3 +59,10 @@ where app_id = '0b5b4047-3d9b-4ec4-993f-acf9c7315536'
   and feature_id in (select f.id from feature f where f.name = 'analytics_panel')
   and authenticated
   and role_id = (select r.id from custom_role r where r.name = 'oasis_admin');
+
+-- Assign demo roles for Atlas app
+insert into user_custom_role (user_id, role_id, started_at, ended_at)
+select u.id, r.id, now(), '2024-12-31 23:59:59'
+from users u, custom_role r
+where r.name in ('kontur_atlas_demo')
+    and u.email in ('', '', '');
