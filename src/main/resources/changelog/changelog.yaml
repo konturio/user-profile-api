@@ -219,3 +219,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18550-create-kontur-dev-app-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18631-create-terrain-app.sql
