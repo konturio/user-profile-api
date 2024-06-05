@@ -105,7 +105,11 @@ public class CustomAppFeatureDao {
 
     private List<CustomAppFeature> getAuthenticatedAppFeaturesFor(App app) {
         return entityManager.createQuery("from CustomAppFeature a "
-                                + "where a.app.id = ?1 and authenticated and a.feature.enabled",
+                                + "where a.app.id = ?1 " +
+                                "and a.authenticated " +
+                                "and a.role.id is null " +
+                                "and a.configurationForUser.id is null " +
+                                "and a.feature.enabled",
                         CustomAppFeature.class)
                 .setParameter(1, app.getId())
                 .getResultList();
