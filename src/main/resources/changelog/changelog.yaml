@@ -216,3 +216,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/initial-roles-setup.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18550-create-kontur-dev-app-in-ups.sql
