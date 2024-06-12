@@ -33,6 +33,7 @@ public class WebConfiguration {
                 .build();
     }
 
+    // this one is supposed to be protected by OAuth
     @Bean
     public RestTemplate paypalApiRestTemplate(RestTemplateBuilder builder,
                                               HttpClient httpClient,
