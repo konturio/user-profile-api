@@ -67,7 +67,7 @@ public class HooksController {
             log.info("Subscription webhook: got " + eventType);
 
             PayPalVerification vo = PayPalVerification.of(headers, webhookId);
-            vo.setWebhook_event(payload);
+            vo.setWebhookEvent(payload);
             verifyWebhook(vo);
 
             // now we know the hook is valid, let's process it
