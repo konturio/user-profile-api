@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +22,6 @@ public class CustomRole {
     @NotNull
     private String name;
 
-    @Column(name = "plan_id", unique = true)
-    private String planId;
+    @Column(name = "plan_ids", columnDefinition = "text[]")
+    private List<String> planIds;
 }

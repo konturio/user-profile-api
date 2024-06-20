@@ -222,3 +222,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/18631-create-terrain-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-subscription-feature-configuration.sql
