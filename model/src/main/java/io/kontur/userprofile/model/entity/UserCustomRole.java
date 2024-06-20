@@ -31,6 +31,9 @@ public class UserCustomRole {
     @Column(name = "subscription_id")
     private String subscriptionId;
 
+    @Column(name = "plan_id")
+    private String planId;
+
     @Column(name = "started_at")
     @NotNull
     private OffsetDateTime startedAt;
@@ -38,10 +41,11 @@ public class UserCustomRole {
     @Column(name = "ended_at")
     private OffsetDateTime endedAt;
 
-    public UserCustomRole(@NotNull User user, @NotNull CustomRole role, String subscriptionId, @NotNull OffsetDateTime startedAt, OffsetDateTime endedAt) {
+    public UserCustomRole(@NotNull User user, @NotNull CustomRole role, String subscriptionId, String planId, @NotNull OffsetDateTime startedAt, OffsetDateTime endedAt) {
         this.user = user;
         this.role = role;
         this.subscriptionId = subscriptionId;
+        this.planId = planId;
         this.startedAt = startedAt;
         this.endedAt = endedAt;
     }
