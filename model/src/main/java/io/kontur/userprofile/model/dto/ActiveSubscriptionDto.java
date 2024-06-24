@@ -3,8 +3,7 @@ package io.kontur.userprofile.model.dto;
 import io.kontur.userprofile.model.entity.UserBillingSubscription;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
