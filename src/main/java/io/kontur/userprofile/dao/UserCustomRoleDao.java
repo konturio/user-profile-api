@@ -64,11 +64,8 @@ public class UserCustomRoleDao {
             throw new WebApplicationException(format(
                     "More than one active subscription found. Username: %s, App: %s",
                     user.getUsername(), app.getId()), HttpStatus.INTERNAL_SERVER_ERROR);
-        } else if (results.isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(results.get(0));
-        }
+        } 
+        return results.stream().findAny();
     }
 
     public UserBillingSubscription setActiveSubscription(User user, App app, BillingPlan billingPlan, String subscriptionId) {
