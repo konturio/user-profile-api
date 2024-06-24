@@ -225,3 +225,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/add-subscription-feature-configuration.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-active-subscription.sql

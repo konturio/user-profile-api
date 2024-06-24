@@ -1,10 +1,19 @@
 package io.kontur.userprofile.service;
 
+import io.kontur.userprofile.auth.AuthService;
+import io.kontur.userprofile.dao.UserCustomRoleDao;
 import io.kontur.userprofile.dao.UserDao;
+import io.kontur.userprofile.model.dto.ActiveSubscriptionDto;
 import io.kontur.userprofile.model.dto.UserDto;
+import io.kontur.userprofile.model.entity.App;
+import io.kontur.userprofile.model.entity.BillingPlan;
+import io.kontur.userprofile.model.entity.UserBillingSubscription;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserDao userDao;
+    private final UserCustomRoleDao userCustomRoleDao;
+    private final AppService appService;
+    private final AuthService authService;
 
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
@@ -50,5 +62,26 @@ public class UserService {
         userDao.updateUser(user);
 
         return user;
+    }
+
+    public Optional<ActiveSubscriptionDto> getActiveSubscription(UUID appId) {
+        App app = appService.getAppOrThrow(appId);
+        User user = authService.getCurrentUserOrElseThrow();
+
+        return userCustomRoleDao.getActiveSubscription(user, app).map(ActiveSubscriptionDto::new);
+    }
+
+    public ActiveSubscriptionDto setActiveSubscription(UUID appId, String billingPlanId, String subscriptionId) {
+        App app = appService.getAppOrThrow(appId);
+        User user = authService.getCurrentUserOrElseThrow();
+        BillingPlan billingPlan = getBillingPlanByIdOrElseThrow(billingPlanId);
+
+        UserBillingSubscription subscription = userCustomRoleDao.setActiveSubscription(user, app, billingPlan, subscriptionId);
+        return new ActiveSubscriptionDto(subscription);
+    }
+
+    public BillingPlan getBillingPlanByIdOrElseThrow(String id) {
+        return Optional.ofNullable(userCustomRoleDao.getBillingPlanById(id))
+                .orElseThrow(() -> new WebApplicationException("Billing plan not found by id " + id, HttpStatus.NOT_FOUND));
     }
 }

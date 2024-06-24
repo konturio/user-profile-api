@@ -2,6 +2,8 @@ package io.kontur.userprofile.rest.exception;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.jboss.logging.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private final static Logger log = Logger.getLogger(RestResponseEntityExceptionHandler.class);
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -33,11 +37,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<Object> handleHttpClientErrorException(HttpClientErrorException ex) {
+        log.warn(ex.getMessage(), ex);
         return new ResponseEntity<>(ex.getMessage(), ex.getStatusCode());
     }
 
     @ExceptionHandler(WebApplicationException.class)
     public ResponseEntity<Object> handleWebApplicationException(WebApplicationException ex) {
+        log.warn(ex.getMessage(), ex);
         return new ResponseEntity<>(ex.getMessage(), ex.getStatus());
     }
 
