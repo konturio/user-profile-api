@@ -31,7 +31,7 @@ public class UserCustomRoleDao {
                                 + "from UserCustomRole "
                                 + "where user.username = ?1 "
                                 + "and startedAt < current_timestamp "
-                                + "and (endedAt is null or current_timestamp > endedAt)",
+                                + "and (endedAt is null or current_timestamp < endedAt)",
                         Long.class)
                 .setParameter(1, username)
                 .getResultList();
