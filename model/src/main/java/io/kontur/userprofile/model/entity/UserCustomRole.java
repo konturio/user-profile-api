@@ -12,7 +12,8 @@ import java.time.OffsetDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity@Table(name = "user_custom_role")
+@Entity
+@Table(name = "user_custom_role")
 public class UserCustomRole {
 
     @Id
