@@ -3,17 +3,17 @@ package io.kontur.userprofile.model.entity;
 import io.kontur.userprofile.model.entity.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
 
-@Entity
-@Table(name = "user_custom_role", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "role_id", "subscription_id", "started_at", "ended_at"})
-})
-@Getter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "user_custom_role")
 public class UserCustomRole {
 
     @Id
@@ -21,18 +21,12 @@ public class UserCustomRole {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    @JoinColumn(name = "role_id")
     private CustomRole role;
-
-    @Column(name = "subscription_id")
-    private String subscriptionId;
-
-    @Column(name = "plan_id")
-    private String planId;
 
     @Column(name = "started_at")
     @NotNull
@@ -40,13 +34,4 @@ public class UserCustomRole {
 
     @Column(name = "ended_at")
     private OffsetDateTime endedAt;
-
-    public UserCustomRole(@NotNull User user, @NotNull CustomRole role, String subscriptionId, String planId, @NotNull OffsetDateTime startedAt, OffsetDateTime endedAt) {
-        this.user = user;
-        this.role = role;
-        this.subscriptionId = subscriptionId;
-        this.planId = planId;
-        this.startedAt = startedAt;
-        this.endedAt = endedAt;
-    }
 }

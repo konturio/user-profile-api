@@ -4,19 +4,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.kontur.userprofile.model.entity.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "custom_app_feature", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"app_id", "feature_id", "authenticated", "role_id", "configuration_for_user_id"})
 })
-@Getter
-@Setter
-@NoArgsConstructor
 public class CustomAppFeature {
 
     @Id

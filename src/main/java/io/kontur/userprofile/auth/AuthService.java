@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import io.kontur.userprofile.rest.exception.WebApplicationException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +46,13 @@ public class AuthService {
     public Optional<String> getCurrentUsername() {
         List<String> tokenClaims = getTokenClaims();
         return getCurrentUsername(tokenClaims);
+    }
+
+    public User getCurrentUserOrElseThrow() {
+        String username = getCurrentUsername()
+                .orElseThrow(() -> new WebApplicationException("User not authenticated", HttpStatus.UNAUTHORIZED));
+        return Optional.ofNullable(userDao.getUser(username))
+                .orElseThrow(() -> new WebApplicationException("User not found by username " + username, HttpStatus.NOT_FOUND));
     }
 
     private Optional<String> getCurrentUsername(List<String> tokenClaims) {

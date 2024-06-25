@@ -170,7 +170,7 @@ public class AppService {
         return result.stream().distinct().toList();
     }
 
-    private App getAppOrThrow(UUID id) {
+    public App getAppOrThrow(UUID id) {
         App app = appDao.getApp(id);
         if (app == null) {
             throw new WebApplicationException("App not found by id " + id,
