@@ -89,8 +89,8 @@ public class CustomAppFeatureDao {
 
     private void updateFeaturesMap(Map<Long, CustomAppFeature> featureMap, List<CustomAppFeature> features, boolean onlyOverride) {
         for (CustomAppFeature feature : features) {
-            if (!onlyOverride || featureMap.containsKey(feature.getId())) {
-                featureMap.put(feature.getId(), feature);
+            if (!onlyOverride || featureMap.containsKey(feature.getFeature().getId())) {
+                featureMap.put(feature.getFeature().getId(), feature);
             }
         }
     }
