@@ -64,7 +64,7 @@ public class UserCustomRoleDao {
             throw new WebApplicationException(format(
                     "More than one active subscription found. Username: %s, App: %s",
                     user.getUsername(), app.getId()), HttpStatus.INTERNAL_SERVER_ERROR);
-        } 
+        }
         return results.stream().findAny();
     }
 
@@ -79,7 +79,8 @@ public class UserCustomRoleDao {
         return entityManager.find(BillingPlan.class, id);
     }
 
-    private void expireActiveSubscription(String id) {
+    // also needed for subscription cancellation via a webhook
+    public void expireActiveSubscription(String id) {
         UserBillingSubscription subscription = entityManager.find(UserBillingSubscription.class, id);
 
         subscription.setActive(false);

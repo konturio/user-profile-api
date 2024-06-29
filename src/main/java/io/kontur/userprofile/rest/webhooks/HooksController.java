@@ -1,7 +1,5 @@
 package io.kontur.userprofile.rest.webhooks;
 
-import java.util.Map;
-
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -24,7 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kontur.userprofile.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.ValidationException;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 
@@ -70,12 +67,21 @@ public class HooksController {
             vo.setWebhookEvent(payload);
             verifyWebhook(vo);
 
+            final JsonNode resource = payload.get("resource");
+            final String subscriptionId = resource.get("id").asText();
+            final String planId = resource.get("plan_id").asText();
+            final String status = resource.get("status").asText();
+
             // now we know the hook is valid, let's process it
             switch (eventType) {
                 case "BILLING.SUBSCRIPTION.CREATED":
-                    log.info("Subscription webhook: created");
+                    log.infof("PayPal webhook: subscription '%s' for plan '%s' was created", subscriptionId, planId);
                     // check the status, warn if not active/payed for
-                    // but create and make active in our DB regardless
+                    // but the subscription itself should ba active in our DB regardless
+                    if (!isActive(status)) {
+                        log.warnf("PayPal webhook: UNPAID subscription '%s' for plan '%s'", subscriptionId, planId);
+                        // TODO: implement proper notification system
+                    }
                     break;
 
                 case "BILLING.SUBSCRIPTION.ACTIVATED":
@@ -83,6 +89,8 @@ public class HooksController {
                     log.info("Subscription webhook: activated");
                     // if already exists an active one do nothing
                     // otherwise create a new one
+                    // FIXME: we can't create a new subscription record with
+                    // the same subscription ID.
                     break;
 
                 case "BILLING.SUBSCRIPTION.CANCELLED":
@@ -90,11 +98,12 @@ public class HooksController {
                 case "BILLING.SUBSCRIPTION.EXPIRED":
                     // for us all three work the same:
                     // put the end date at NOW
-                    log.info("Subscription webhook: cancelled");
+                    userService.expireActiveSubscription(subscriptionId);
+                    log.infof("PayPal webhook: subscription '%s' for plan '%s' was cancelled", subscriptionId, planId);
                     break;
             }
         } catch (ValidationException | JsonProcessingException ve) {
-            log.warn("Subscription webhook: ", ve);
+            log.warn("PayPal subscription webhook: ", ve);
         }
 
         // in any case return 200 OK not to get the same message again
@@ -102,6 +111,17 @@ public class HooksController {
         // because our response might not reach PayPal
         // thus the operations need to be idempotent
         return ResponseEntity.ok().build();
+    }
+
+    private boolean isActive(String status) {
+        switch (status) {
+            case "ACTIVE":
+            case "APPROVED":
+                return true;
+
+            default:
+                return false;
+        }
     }
 
     private void verifyWebhook(PayPalVerification vo) throws JsonMappingException, JsonProcessingException {
