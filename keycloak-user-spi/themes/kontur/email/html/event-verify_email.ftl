@@ -19,7 +19,7 @@
 <p>
     <b>Event API</b>
     <br>
-    <i>For developers:</i> Connect to a real-time disaster feed via our simple API. See <a href="https://www.kontur.io/portfolio/event-feed/api-access/">Event API documentation</a>.
+    <i>For developers:</i> Connect to a real-time disaster feed via our simple API. See <a href="https://www.kontur.io/portfolio/event-feed/doc/">Event API documentation</a>.
 </p>
 
 <p>
