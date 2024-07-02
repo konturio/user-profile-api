@@ -85,6 +85,10 @@ public class UserService {
         userCustomRoleDao.expireActiveSubscription(id);
     }
 
+    public void reactivateSubscription(String id) {
+        userCustomRoleDao.reactivateSubscription(id);
+    }
+
     public BillingPlan getBillingPlanByIdOrElseThrow(String id) {
         return Optional.ofNullable(userCustomRoleDao.getBillingPlanById(id))
                 .orElseThrow(() -> new WebApplicationException("Billing plan not found by id " + id, HttpStatus.NOT_FOUND));

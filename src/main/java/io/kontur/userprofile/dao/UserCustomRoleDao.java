@@ -90,6 +90,28 @@ public class UserCustomRoleDao {
         entityManager.flush();
     }
 
+    public void reactivateSubscription(String id) {
+        // if already exists an active one do nothing
+        // otherwise create a new one
+
+        UserBillingSubscription subscription = entityManager.find(UserBillingSubscription.class, id);
+
+        if (subscription == null) {
+            // FIXME: can't create a new one without user id and app id!
+            throw new WebApplicationException("Failed to activate unknown subscription " + id, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (subscription.getActive()) return;
+
+        // FIXME: we can't create a new subscription record with
+        // the same subscription ID. Reactivating.
+        subscription.setActive(true);
+        subscription.setExpiredAt(null);
+
+        entityManager.merge(subscription);
+        entityManager.flush();
+    }
+
     private UserBillingSubscription createActiveSubscription(User user, App app, BillingPlan billingPlan, String subscriptionId) {
         UserBillingSubscription subscription = new UserBillingSubscription(subscriptionId, billingPlan, app, user);
         try {

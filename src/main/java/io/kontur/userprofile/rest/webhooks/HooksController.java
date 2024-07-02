@@ -86,11 +86,8 @@ public class HooksController {
 
                 case "BILLING.SUBSCRIPTION.ACTIVATED":
                 case "BILLING.SUBSCRIPTION.REACTIVATED":
-                    log.info("Subscription webhook: activated");
-                    // if already exists an active one do nothing
-                    // otherwise create a new one
-                    // FIXME: we can't create a new subscription record with
-                    // the same subscription ID.
+                    userService.reactivateSubscription(subscriptionId);
+                    log.infof("PayPal webhook: subscription '%s' for plan '%s' was activated", subscriptionId, planId);
                     break;
 
                 case "BILLING.SUBSCRIPTION.CANCELLED":
