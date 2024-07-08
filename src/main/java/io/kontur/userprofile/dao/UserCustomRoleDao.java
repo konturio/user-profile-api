@@ -101,7 +101,14 @@ public class UserCustomRoleDao {
             throw new WebApplicationException("Failed to activate unknown subscription " + id, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        // The subscription with the given id is the active one, nothing to do
         if (subscription.getActive()) return;
+
+        // the user has another subscription tht's active for the same app
+        // so expire it
+        getActiveSubscription(subscription.getUser(), subscription.getApp())
+            .map(UserBillingSubscription::getId)
+            .ifPresent(this::expireActiveSubscription);
 
         // FIXME: we can't create a new subscription record with
         // the same subscription ID. Reactivating.
