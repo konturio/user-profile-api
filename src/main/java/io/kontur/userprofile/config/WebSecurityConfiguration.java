@@ -90,7 +90,13 @@ public class WebSecurityConfiguration {
             .requestMatchers("/apps/**")
             .permitAll()
 
+            // Webhooks have to be accessible by payment systems without authentication
+            .requestMatchers("/hooks/**")
+            .permitAll()
+
             .anyRequest().authenticated()
+            .and()
+            .csrf().ignoringRequestMatchers("/hooks/**")
             .and()
             .oauth2ResourceServer(resourceServerConfigurer -> resourceServerConfigurer
                 .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(
