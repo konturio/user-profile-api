@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.kontur.userprofile.rest.webhooks.PayPalVerification;
+import io.kontur.userprofile.model.dto.paypal.PayPalVerificationDto;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ public class PayPalVerificationTest {
     void verificationJsonHasCorrectStructure() throws JsonMappingException, JsonProcessingException {
         // test that Jackson serialization produces correct field names
         // this is important for PayPal to work
-        final var o = new PayPalVerification(
+        final var o = new PayPalVerificationDto(
                 example.get("auth_algo"),
                 example.get("cert_url"),
                 example.get("transmission_id"),

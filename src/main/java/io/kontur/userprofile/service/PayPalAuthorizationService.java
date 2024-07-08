@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
 import io.kontur.userprofile.client.PayPalClient;
-import io.kontur.userprofile.client.PayPalTokenResponse;
+import io.kontur.userprofile.model.dto.paypal.PayPalTokenResponseDto;
 import lombok.RequiredArgsConstructor;
 
 
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class PayPalAuthorizationService {
     private static final Logger logger = Logger.getLogger(PayPalAuthorizationService.class);
 
-    private static volatile PayPalTokenResponse tokenResponse = null;
+    private static volatile PayPalTokenResponseDto tokenResponse = null;
     private static volatile Instant tokenExpiration = Instant.now();
 
     private final PayPalClient payPalClient;
@@ -37,7 +37,7 @@ public class PayPalAuthorizationService {
         return tokenResponse.getAccessToken(); // FIXME: might be a stale token in a case of exception
     }
 
-    private void saveToken(PayPalTokenResponse token) {
+    private void saveToken(PayPalTokenResponseDto token) {
         Instant expiresAt = Instant.now().plusSeconds(token.lifetimeSeconds());
         tokenResponse = token;
         tokenExpiration = expiresAt.minusSeconds(30);

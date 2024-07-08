@@ -1,9 +1,7 @@
-package io.kontur.userprofile.rest.webhooks;
+package io.kontur.userprofile.model.dto.paypal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-
-import org.springframework.http.HttpHeaders;
 
 import lombok.Data;
 
@@ -13,7 +11,7 @@ import lombok.Data;
  * to be employed elsewhere. It was made public for testing.
  */
 @Data
-public class PayPalVerification {
+public class PayPalVerificationDto {
     @JsonProperty("auth_algo")
     private final String authAlgo;
     @JsonProperty("cert_url")
@@ -28,14 +26,4 @@ public class PayPalVerification {
     private final String webhookID;
     @JsonProperty("webhook_event")
     private JsonNode webhookEvent; // to be set later
-
-    public static PayPalVerification of(final HttpHeaders headers, final String webhookID) {
-        final String authAlgo = headers.getOrEmpty("Paypal-Auth-Algo").get(0);
-        final String certURL = headers.getOrEmpty("Paypal-Cert-Url").get(0);
-        final String transmissionID = headers.getOrEmpty("Paypal-Transmission-Id").get(0);
-        final String transmissionSig = headers.getOrEmpty("Paypal-Transmission-Sig").get(0);
-        final String transmissionTime = headers.getOrEmpty("Paypal-Transmission-Time").get(0);
-        return new PayPalVerification(authAlgo, certURL, transmissionID, transmissionSig, transmissionTime,
-                webhookID);
-    }
 }

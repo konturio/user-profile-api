@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.kontur.userprofile.model.dto.paypal.PayPalVerificationDto;
 import io.kontur.userprofile.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.ValidationException;
@@ -63,7 +64,7 @@ public class HooksController {
             String eventType = payload.get("event_type").asText();
             log.info("Subscription webhook: got " + eventType);
 
-            PayPalVerification vo = PayPalVerification.of(headers, webhookId);
+            PayPalVerificationDto vo = payPalVerificationDto(headers, webhookId);
             vo.setWebhookEvent(payload);
             verifyWebhook(vo);
 
@@ -121,7 +122,7 @@ public class HooksController {
         }
     }
 
-    private void verifyWebhook(PayPalVerification vo) throws JsonMappingException, JsonProcessingException {
+    private void verifyWebhook(PayPalVerificationDto vo) throws JsonMappingException, JsonProcessingException {
         // Call PayPal API to verify webhook
         String url = paypalHost + "/v1/notifications/verify-webhook-signature";
         HttpHeaders headers = new HttpHeaders();
@@ -138,5 +139,16 @@ public class HooksController {
         JsonNode responseBody = new ObjectMapper().readTree(response.getBody());
         if (!"SUCCESS".equals(responseBody.get("verification_status").asText()))
             throw new ValidationException("Webhook didn't validate");
+    }
+
+
+    public static PayPalVerificationDto payPalVerificationDto(final HttpHeaders headers, final String webhookID) {
+        final String authAlgo = headers.getOrEmpty("Paypal-Auth-Algo").get(0);
+        final String certURL = headers.getOrEmpty("Paypal-Cert-Url").get(0);
+        final String transmissionID = headers.getOrEmpty("Paypal-Transmission-Id").get(0);
+        final String transmissionSig = headers.getOrEmpty("Paypal-Transmission-Sig").get(0);
+        final String transmissionTime = headers.getOrEmpty("Paypal-Transmission-Time").get(0);
+        return new PayPalVerificationDto(authAlgo, certURL, transmissionID, transmissionSig, transmissionTime,
+                webhookID);
     }
 }

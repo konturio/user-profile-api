@@ -14,6 +14,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import io.kontur.userprofile.model.dto.paypal.PayPalTokenResponseDto;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -31,7 +32,7 @@ public class PayPalClient {
     private String paypalClientSecret;
 
 
-    public PayPalTokenResponse getToken() {
+    public PayPalTokenResponseDto getToken() {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         params.add("client_id", paypalClientId);
         params.add("grant_type", "client_credentials"); // TODO: what's the right type?
@@ -41,7 +42,7 @@ public class PayPalClient {
         headers.setBasicAuth(paypalClientId, paypalClientSecret);
 
 
-        ResponseEntity<PayPalTokenResponse> response = paypalAuthorizationRestTemplate
+        ResponseEntity<PayPalTokenResponseDto> response = paypalAuthorizationRestTemplate
                 .exchange(String.format("%s/v1/oauth2/token", paypalHost),
                     HttpMethod.POST, new HttpEntity<>(params, headers), new ParameterizedTypeReference<>() {});
 

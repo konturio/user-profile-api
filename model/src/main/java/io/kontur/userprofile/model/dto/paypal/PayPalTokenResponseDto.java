@@ -1,4 +1,4 @@
-package io.kontur.userprofile.client;
+package io.kontur.userprofile.model.dto.paypal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PayPalTokenResponse {
+public class PayPalTokenResponseDto {
     private String scope;
 
     @JsonProperty("access_token")
