@@ -98,7 +98,7 @@ public class UserCustomRoleDao {
         } catch (EntityExistsException e) {
             throw new WebApplicationException("Billing subscription already exists with ID " + subscriptionId, HttpStatus.CONFLICT);
         } catch (Exception e) {
-            throw new WebApplicationException("Failed to save billing subscription " + subscriptionId, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new WebApplicationException("Failed to save billing subscription " + subscriptionId, HttpStatus.CONFLICT);
         }
     }
 
