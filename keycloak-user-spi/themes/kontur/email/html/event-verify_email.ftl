@@ -29,7 +29,7 @@
 </p>
 
 <p>
-    <a href="https://atlas.kontur.io/about/terms/">Terms and Conditions</a> | <a href="https://atlas.kontur.io/about/privacy/">Privacy Policy</a>
+    <a href="https://atlas.kontur.io/active/about/terms/">Terms and Conditions</a> | <a href="https://atlas.kontur.io/active/about/privacy/">Privacy Policy</a>
 </p>
 
 <p>
