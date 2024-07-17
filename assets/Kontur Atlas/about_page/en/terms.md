@@ -99,9 +99,11 @@ Certain Content, Products and Services available via Kontur Cloud Services may i
 
 Third-party links on these sites may direct you to third-party websites that are not affiliated with us. We are not responsible for examining or evaluating the content or accuracy, and we do not warrant and will not have any liability or responsibility for any third-party materials or websites, or for any other materials, Products, or Services of third parties.
 
-We are not liable for any harm or damages related to the purchase or use of Products, Services, resources, content, or any other transactions made in connection with any third-party websites. Please review carefully the third-party's policies and practices and make sure you understand them before you engage in any transaction. Complaints, claims, concerns, or questions regarding third-party products should be directed to the third party.
-SECTION 10 - USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS
-If, at our request, you send certain specific submissions (for example contest entries) or without a request from us, you send creative ideas, suggestions, proposals, plans, or other materials, whether online, by email, by postal mail, or otherwise (collectively, 'comments'), you agree that we may, at any time, without restriction, edit, copy, publish, distribute, translate and otherwise use in any medium any comments that you forward to us. We are and shall be under no obligation (1) to maintain any information of this kind in confidence; (2) to pay compensation for any comments; or (3) to respond to any comments.
+We are not liable for any harm or damages related to the purchase or use of Products, Services, resources, content, or any other transactions made in connection with any third-party websites. Please review carefully the third-party’s policies and practices and make sure you understand them before you engage in any transaction. Complaints, claims, concerns, or questions regarding third-party products should be directed to the third party.
+
+## SECTION 10 – USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS
+	
+If, at our request, you send certain specific submissions (for example contest entries) or without a request from us, you send creative ideas, suggestions, proposals, plans, or other materials, whether online, by email, by postal mail, or otherwise (collectively, ’comments’), you agree that we may, at any time, without restriction, edit, copy, publish, distribute, translate and otherwise use in any medium any comments that you forward to us. We are and shall be under no obligation (1) to maintain any information of this kind in confidence; (2) to pay compensation for any comments; or (3) to respond to any comments.
 
 We may, but have no obligation to, monitor, edit or remove content that we determine in our sole discretion to be unlawful, offensive, threatening, libelous, defamatory, pornographic, obscene or otherwise objectionable or violates any party’s intellectual property or these Terms of Service.
 
@@ -130,7 +132,7 @@ We do not warrant that the results that may be obtained from the use of Kontur C
 
 You agree that from time to time we may remove Kontur Cloud Services as a whole or any part of Kontur Cloud Services for indefinite periods of time or cancel Kontur Cloud Services at any time, without notice to you.
 
-You expressly agree that your use of, or inability to use, the Kontur Cloud Services is at your sole risk. The Kontur Cloud Services and all Products and Services delivered to you through the Kontur Cloud Services are (except as expressly stated by us) provided 'as is' and 'as available' for your use, without any representation, warranties or conditions of any kind, either express or implied, including all implied warranties or conditions of merchantability, merchantable quality, fitness for a particular purpose, durability, title, and non-infringement.
+You expressly agree that your use of, or inability to use, the Kontur Cloud Services is at your sole risk. The Kontur Cloud Services and all Products and Services delivered to you through the Kontur Cloud Services are (except as expressly stated by us) provided ’as is’ and ’as available’ for your use, without any representation, warranties or conditions of any kind, either express or implied, including all implied warranties or conditions of merchantability, merchantable quality, fitness for a particular purpose, durability, title, and non-infringement.
 
 In no case shall Kontur Inc., Mapy Konturowe Sp z o.o., our directors, officers, employees, affiliates, agents, contractors, interns, suppliers, service providers or licensors be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special, or consequential damages of any kind, including, without limitation lost profits, lost revenue, lost savings, loss of data, replacement costs, or any similar damages, whether based in contract, tort (including negligence), strict liability or otherwise, arising from your use of any of the Service or any Products procured using the Service, or for any other claim related in any way to your use of the service or any product, including, but not limited to, any errors or omissions in any content, or any loss or damage of any kind incurred as a result of the use of the Service or any Content (or Product) posted, transmitted, or otherwise made available via the Service, even if advised of their possibility.
 
@@ -361,13 +363,13 @@ szczegółowy opis problemu.
 Odpowiedź na reklamację użytkownika zostanie udzielona w ciągu 14 dni od jej otrzymania. W skomplikowanych przypadkach zastrzegamy sobie dłuższy termin na rozpatrzenie reklamacji. O takim przypadku użytkownik zostanie poinformowany w terminie wskazanym w zdaniu poprzedzającym.
 Ponadto, jeśli użytkownik nie jest zadowolony ze sposobu, w jaki reklamacja została przez nas rozpatrzona, użytkownik może skorzystać z pozasądowych metod rozpatrywania skarg dostępnych w kraju zamieszkania użytkownika.
 
-## SEKCJA 20 – ZMIANY WARUNKÓW ŚWIADCZENIA USŁUG
+## SEKCJA 21 – ZMIANY WARUNKÓW ŚWIADCZENIA USŁUG
 
 Użytkownik może zapoznać się z najbardziej aktualną wersją Warunków świadczenia usług w dowolnym momencie na naszej stronie.
 
 Zastrzegamy sobie prawo, według własnego uznania, do aktualizacji, zmiany lub zastąpienia dowolnej części niniejszych Warunków świadczenia usług poprzez publikowanie aktualizacji i zmian na naszej stronie internetowej. Obowiązkiem użytkownika jest okresowe sprawdzanie naszej strony internetowej pod kątem zmian. Dalsze korzystanie z usług Kontur Cloud lub dostęp do nich po opublikowaniu jakichkolwiek zmian w niniejszych Warunkach świadczenia usług oznacza akceptację tych zmian.
 
-## SEKCJA 21 – DANE KONTAKTOWE
+## SEKCJA 22 – DANE KONTAKTOWE
 
 Pytania dotyczące Warunków świadczenia usług należy kierować do nas na adres hello@kontur.io.
 
