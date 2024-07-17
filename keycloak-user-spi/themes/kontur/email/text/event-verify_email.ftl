@@ -13,5 +13,7 @@ For developers: Connect to a real-time disaster feed via our simple API. See htt
 Need Help?
 If you have any questions or need support, reach out to us at hello@kontur.io.
 
+Terms and Conditions: https://atlas.kontur.io/about/terms/ | Privacy Policy: https://atlas.kontur.io/about/privacy/
+
 Happy to have you on board,
 The Kontur Team
