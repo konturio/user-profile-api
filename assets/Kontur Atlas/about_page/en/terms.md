@@ -4,7 +4,7 @@
 
 ## OVERVIEW
 
-This document, hereinafter referred to as “TERMS OF SERVICE” sets forth the rules regarding Kontur Inc. and Mapy Konturowe Sp. z o.o. Websites,  Applications and Services hereinafter referred to as Kontur Cloud Services  that includes in particular but not exclusively https://www.kontur.io, https://atlas.kontur.io, https://maps.kontur.io, https://disaster.ninja, https://new.openaerialmap.org/ available under the domains accordingly or any other Websites, Applications  or Services that are owned and/or operated by Kontur Inc. and/or Mapy Konturowe Sp z o.o.
+This document, hereinafter referred to as “TERMS OF SERVICE” sets forth the rules regarding Kontur Inc. and Mapy Konturowe Sp. z o.o. Websites, Applications and Services hereinafter referred to as Kontur Cloud Services that includes in particular but not exclusively https://www.kontur.io, https://atlas.kontur.io, https://maps.kontur.io, https://disaster.ninja, https://new.openaerialmap.org/ available under the domains accordingly or any other Websites, Applications or Services that are owned and/or operated by Kontur Inc. and/or Mapy Konturowe Sp z o.o.
 Throughout the Kontur Cloud Services, the terms “we”, “us” and “our” refer to Mapy Konturowe Sp z o.o. and/or Kontur Inc. Mapy Konturowe Sp z o.o. and/or Kontur Inc. offer the Kontur Cloud Services, including all information, tools and Services available from these sites to you, the user, conditioned upon your acceptance of all terms, conditions, policies, and notices stated here.
 
 By visiting Kontur Cloud Services or purchasing Services and/or Products from us, you engage in our “Service” and agree to be bound by the following terms and conditions (“Terms of Service”, “Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the Kontur Cloud Services, including without limitation users who are browsers, vendors, customers, merchants, and/or contributors of content.
@@ -24,11 +24,9 @@ Any new features or tools which are added to the above-mentioned Kontur Cloud Se
 By agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence, or that you are the age of majority in your state or province of residence and you have given us your consent to allow any of your minor dependents to use Kontur Cloud Services.
 You may not use our products for any illegal or unauthorized purpose nor may you, in the use of the Service, violate any laws in your jurisdiction (including but not limited to copyright laws).
 
-
 You must not transmit any worms or viruses or any code of a destructive nature.
 
 A breach or violation of any of the Terms will result in an immediate termination of your Services.
-
 
 ## SECTION 2 – GENERAL CONDITIONS
 
@@ -96,6 +94,7 @@ Any use by you of the optional tools offered through the site is entirely at you
 We may also, in the future, offer new Products, Services and/or Features through the Kontur Cloud Services. (including the release of new tools and resources). Such new Features, Products and/or Services shall also be subject to these Terms of Service.
 
 ## SECTION 9 – THIRD-PARTY LINKS
+
 Certain Content, Products and Services available via Kontur Cloud Services may include materials from the third parties.
 
 Third-party links on these sites may direct you to third-party websites that are not affiliated with us. We are not responsible for examining or evaluating the content or accuracy, and we do not warrant and will not have any liability or responsibility for any third-party materials or websites, or for any other materials, Products, or Services of third parties.
@@ -119,10 +118,12 @@ Occasionally there may be information on Kontur Cloud Services that contains err
 We undertake no obligation to update, amend or clarify information in Kontur Cloud Services or on any related website, including without limitation, pricing information, except as required by law. No specified update or refresh date, applied in Kontur Cloud Services or on any related website, should be taken to indicate that all information in the Kontur Cloud Services or on any related website has been modified or updated.
 
 ## SECTION 13 – PROHIBITED USES
+
 In addition to other prohibitions as set forth in the Terms of Service, you are prohibited from using Kontur Cloud Services or its content:
 (a) for any unlawful purpose; (b) to solicit others to perform or participate in any unlawful acts; (c) to violate any international or state regulations, rules, laws, or local ordinances; (d) to infringe upon or violate our intellectual property rights or the intellectual property rights of others; (e) to harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate based on gender, sexual orientation, religion, ethnicity, race, age, national origin, or disability; (f) to submit false or misleading information; (g) to upload or transmit viruses or any other type of malicious code that will or may be used in any way that will affect the functionality or operation of the Service or of any related website, other websites, or the Internet; (h) to collect or track the personal information of others; (i) to spam, phish, pharm, pretext, spider, crawl, or scrape; (j) for any obscene or immoral purpose; or (k) to interfere with or circumvent the security features of Kontur Cloud Services or any related website, other websites, or the Internet. We reserve the right to terminate your use of Kontur Cloud Services or any related website for violating any of the prohibited uses.
 
 ## SECTION 14 – DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY
+
 We do not guarantee, represent or warrant that your use of Kontur Cloud Services will be uninterrupted, timely, secure or error-free.
 
 We do not warrant that the results that may be obtained from the use of Kontur Cloud Services will be accurate or reliable.
@@ -164,16 +165,18 @@ These Terms of Service and any policies or operating rules posted by us on these
 Any ambiguities in the interpretation of these Terms of Service shall not be construed against the drafting party.
 
 ## SECTION 19 – GOVERNING LAW
+
 These Terms of Service and any separate agreements whereby we provide you services shall be governed by and construed in accordance with the laws of the Republic of Poland.
 
 The terms of service have been negotiated in Polish and English. In the event of any discrepancy between these versions, the provisions of the Polish version shall prevail. 
 
 ## SECTIONS 20 – COMPLAINT PROCEDURE AND EXTRAJUDICIAL METHODS OF DEALING WITH COMPLAINTS
+
 As a user of our Services you are able to file a complaint regarding the operation of the Service. To do so you can write us an email at (hello@kontur.io), providing at least following information:
 - your name and surname,
 - your email address,
 - detailed description of an issue.
-  
+
 We will answer to your complaint within 14 days of receiving it. In complex cases, we reserve a longer timeframe for completing the evaluation of the complaint. We will inform you about such an case in the timeframe specified in the previous sentence
 Moreover if you would be not satisfied about the way how we resolved your complain, you are able to use an extrajudicial methods of dealing with complaints available in a country of your residence.
 
@@ -184,6 +187,7 @@ You can review the most current version of the Terms of Service at any time at o
 We reserve the right, at our sole discretion, to update, change or replace any part of these Terms of Service by posting updates and changes to our website. It is your responsibility to check our website periodically for changes. Your continued use of or access to Kontur Cloud Services following the posting of any changes to these Terms of Service constitutes acceptance of those changes.
 
 ## SECTION 22 – CONTACT INFORMATION
+
 Questions about the Terms of Service should be sent to us at hello@kontur.io.
 
 Our contact information is posted below:
@@ -195,17 +199,18 @@ E-mail: hello@kontur.io.
 
 ## PRZEGLĄD
 
-Niniejszy dokument, zwany dalej "WARUNKAMI ŚWIADCZENIA USŁUG", określa zasady dotyczące stron internetowych, aplikacji i usług Kontur Inc. i Mapy Konturowe Sp. z o.o., zwanych dalej Usługami Kontur Claud, które obejmują w szczególności, ale nie wyłącznie, https://www.kontur.io,  https://atlas.kontur.io, https://maps.kontur.io, https://disaster.ninja, https://new.openaerialmap.org dostępne w odpowiednich domenach lub wszelkie inne strony internetowe, aplikacje lub usługi, które są własnością i/lub są obsługiwane przez Kontur Inc. i/lub Mapy Konturowe Sp. z o.o.
+Niniejszy dokument, zwany dalej "WARUNKAMI ŚWIADCZENIA USŁUG", określa zasady dotyczące stron internetowych, aplikacji i usług Kontur Inc. i Mapy Konturowe Sp. z o.o., zwanych dalej Usługami Kontur Claud, które obejmują w szczególności, ale nie wyłącznie, https://www.kontur.io, https://atlas.kontur.io, https://maps.kontur.io, https://disaster.ninja, https://new.openaerialmap.org dostępne w odpowiednich domenach lub wszelkie inne strony internetowe, aplikacje lub usługi, które są własnością i/lub są obsługiwane przez Kontur Inc. i/lub Mapy Konturowe Sp. z o.o.
 W Usługach Kontur Cloud terminy "my", "nas" i "nasz" odnoszą się do Mapy Konturowe Sp. z o.o. i/lub Kontur Inc. Mapy Konturowe Sp. z o.o. i/lub Kontur Inc. oferują usługi Kontur Claud, w tym wszystkie informacje, narzędzia i usługi dostępne w tych witrynach dla użytkownika, pod warunkiem zaakceptowania przez użytkownika wszystkich warunków, zasad i uwag określonych tutaj.
 
-Odwiedzając nasze Strone internetowe i/lub kupując od nas Usługi i/lub Produkty, użytkownik angażuje się w naszą "Usługę" i wyraża zgodę na przestrzeganie poniższych warunków ("Warunki świadczenia usług", "Warunki"), w tym dodatkowych warunków i polityk, o których mowa w niniejszym dokumencie i/lub dostępnych za pośrednictwem hiperłącza. Niniejsze Warunki świadczenia usług mają zastosowanie do wszystkich użytkowników  Usług Kontur Claud, w tym między innymi użytkowników, którzy są przeglądarkami, sprzedawcami, klientami, handlowcami i/lub autorami treści.
+Odwiedzając nasze Strone internetowe i/lub kupując od nas Usługi i/lub Produkty, użytkownik angażuje się w naszą "Usługę" i wyraża zgodę na przestrzeganie poniższych warunków ("Warunki świadczenia usług", "Warunki"), w tym dodatkowych warunków i polityk, o których mowa w niniejszym dokumencie i/lub dostępnych za pośrednictwem hiperłącza. Niniejsze Warunki świadczenia usług mają zastosowanie do wszystkich użytkowników Usług Kontur Claud, w tym między innymi użytkowników, którzy są przeglądarkami, sprzedawcami, klientami, handlowcami i/lub autorami treści.
 W każdym przypadku, gdy osoba fizyczna (konsument) korzysta z naszej Usługi, prawo właściwe dla konsumentów w kraju, w którym Usługi są świadczone, ma pierwszeństwo przed postanowieniami niniejszych Warunków świadczenia usług. Ta sama zasada dotyczy:
-osoby fizycznej prowadzącej jednoosobową działalność gospodarczą, która korzysta z naszych Usług bez związku z prowadzoną działalnością gospodarczą oraz
-osoby fizycznej prowadzącej jednoosobową działalność gospodarczą, który korzysta z naszych Usług w związku z prowadzoną przez siebie działalnością gospodarczą, ale z treści tego korzystania wynika, że nie ma ono dla niego charakteru zawodowego. 
+- osoby fizycznej prowadzącej jednoosobową działalność gospodarczą, która korzysta z naszych Usług bez związku z prowadzoną działalnością gospodarczą oraz
+- osoby fizycznej prowadzącej jednoosobową działalność gospodarczą, który korzysta z naszych Usług w związku z prowadzoną przez siebie działalnością gospodarczą, ale z treści tego korzystania wynika, że nie ma ono dla niego charakteru zawodowego. 
 Prosimy o uważne zapoznanie się z niniejszymi Warunkami świadczenia usług przed uzyskaniem dostępu do Usług Kontur Cloud lub korzystaniem z nich. Uzyskując dostęp do dowolnej części Usług Kontur Cloud lub korzystając z nich, użytkownik wyraża zgodę na przestrzeganie niniejszych Warunków świadczenia usług. Jeśli użytkownik nie wyraża zgody na wszystkie warunki niniejszej umowy, nie może uzyskiwać dostępu do usług Kontur Cloud ani korzystać z żadnych usług. Jeśli niniejsze Warunki świadczenia usług są uważane za ofertę, akceptacja jest wyraźnie ograniczona do niniejszych Warunków świadczenia usług.
 Wszelkie nowe funkcje lub narzędzia dodane do wyżej wymienionych Usług Kontur Cloud będą również podlegać Warunkom świadczenia usług. Z najbardziej aktualną wersją Warunków świadczenia usług można zapoznać się w dowolnym momencie na tej stronie. Zastrzegamy sobie prawo do aktualizacji, zmiany lub zastąpienia dowolnej części niniejszych Warunków świadczenia usług poprzez publikowanie aktualizacji i/lub zmian w tym dokumencie. Obowiązkiem użytkownika jest okresowe sprawdzanie tej strony pod kątem zmian. Dalsze korzystanie z Usług Kontur Cloud lub dostęp do nich po opublikowaniu jakichkolwiek zmian oznacza akceptację tych zmian.
 
 ## SEKCJA 1 – REGULAMIN SKLEPU INTERNETOWEGO
+
 Wyrażając zgodę na niniejsze Warunki świadczenia usług, użytkownik oświadcza, że jest co najmniej pełnoletni w swoim stanie lub prowincji zamieszkania lub że jest pełnoletni w swoim stanie lub prowincji zamieszkania i wyraził zgodę na korzystanie z Usług Kontur Cloud przez osoby niepełnoletnie pozostające na jego utrzymaniu.
 Użytkownik nie może korzystać z naszych produktów w jakimkolwiek nielegalnym lub nieautoryzowanym celu, ani nie może, korzystając z Usługi, naruszać jakichkolwiek praw obowiązujących w jego jurysdykcji (w tym między innymi praw autorskich).
 
@@ -220,11 +225,11 @@ Użytkownik zgadza się nie powielać, duplikować, kopiować, sprzedawać, odsp
 
 Nagłówki użyte w niniejszej umowie zostały zamieszczone wyłącznie dla wygody i nie ograniczają ani w żaden inny sposób nie wpływają na niniejsze Warunki.
 Usługa ma następujące wymagania sprzętowe:
-aktualna przeglądarka internetowa oparta na Chromium,
-klawiatura sprzętowa i mysz z kółkiem przewijania lub równoważne urządzenia wejściowe,
-szybkie łącze internetowe (prędkość pobierania 25 Mb/s lub większa),
-możliwość sprzętowej akceleracji WebGL,
-rozdzielczość ekranu Full HD (1920×1080) lub wyższa.
+- aktualna przeglądarka internetowa oparta na Chromium,
+- klawiatura sprzętowa i mysz z kółkiem przewijania lub równoważne urządzenia wejściowe,
+- szybkie łącze internetowe (prędkość pobierania 25 Mb/s lub większa),
+- możliwość sprzętowej akceleracji WebGL,
+- rozdzielczość ekranu Full HD (1920×1080) lub wyższa.
 
 ## SEKCJA 3 – DOKŁADNOŚĆ, KOMPLETNOŚĆ I AKTUALNOŚĆ INFORMACJI
 
@@ -251,7 +256,7 @@ Nie gwarantujemy, że jakość Usług Kontur Claud, informacji lub innych materi
 Użytkownik zgadza się podawać aktualne, kompletne i dokładne informacje dotyczące zakupów i konta w przypadku wszystkich zakupów dokonywanych w Usługach Kontur Cloud . Użytkownik zgadza się niezwłocznie aktualizować swoje konto i inne informacje, w tym adres e-mail, numery kart kredytowych i daty ważności, abyśmy mogli zrealizować transakcje i skontaktować się z użytkownikiem w razie potrzeby.
 
 ## SEKCJA 7 – WARUNKI PŁATNOŚCI
-Rejestrując się w którymkolwiek z naszych cyklicznych planów płatności i/lub dokonując jednorazowego zakupu, użytkownik zgadza się uiścić wszystkie opłaty lub obciążenia swojego konta za Usługi Kontur Cloud  zgodnie z opłatami, obciążeniami i warunkami rozliczeń obowiązującymi w momencie, gdy każda opłata lub obciążenie jest należne i wymagalne. O ile nie określono inaczej w formularzu zamówienia, użytkownik musi dostarczyć nam ważną kartę bankową (Visa, MasterCard lub innego akceptowanego emitenta) ("Dostawca płatności") jako warunek rejestracji w wybranym wcześniej planie. Umowa z Dostawcą płatności reguluje korzystanie z wyznaczonego konta karty bankowej i należy zapoznać się z tą umową, aby zrozumieć swoje prawa i obowiązki dotyczące Dostawcy płatności.
+Rejestrując się w którymkolwiek z naszych cyklicznych planów płatności i/lub dokonując jednorazowego zakupu, użytkownik zgadza się uiścić wszystkie opłaty lub obciążenia swojego konta za Usługi Kontur Cloud zgodnie z opłatami, obciążeniami i warunkami rozliczeń obowiązującymi w momencie, gdy każda opłata lub obciążenie jest należne i wymagalne. O ile nie określono inaczej w formularzu zamówienia, użytkownik musi dostarczyć nam ważną kartę bankową (Visa, MasterCard lub innego akceptowanego emitenta) ("Dostawca płatności") jako warunek rejestracji w wybranym wcześniej planie. Umowa z Dostawcą płatności reguluje korzystanie z wyznaczonego konta karty bankowej i należy zapoznać się z tą umową, aby zrozumieć swoje prawa i obowiązki dotyczące Dostawcy płatności.
 
 Przekazując nam numer karty bankowej i powiązane informacje dotyczące płatności, użytkownik upoważnia nas do niezwłocznego zweryfikowania tych informacji, a następnie wystawienia faktury za wszystkie należne opłaty i obciążenia. Nie jest wymagane żadne dodatkowe powiadomienie ani zgoda. Użytkownik zgadza się niezwłocznie powiadomić nas o wszelkich zmianach adresu rozliczeniowego lub karty kredytowej użytej do płatności.
 
@@ -281,24 +286,29 @@ Niektóre Treści, Produkty i Usługi dostępne za pośrednictwem Usług Kontur 
 Nie ponosimy odpowiedzialności za jakiekolwiek szkody związane z zakupem lub korzystaniem z Produktów, Usług, zasobów, treści lub jakichkolwiek innych transakcji dokonywanych w związku z witrynami internetowymi osób trzecich. Przed zawarciem jakiejkolwiek transakcji należy dokładnie zapoznać się z zasadami i praktykami stosowanymi przez osoby trzecie i upewnić się, że są one zrozumiałe. Skargi, roszczenia, wątpliwości lub pytania dotyczące produktów stron trzecich należy kierować do strony trzeciej.
 
 ## SEKCJA 10 – KOMENTARZE UŻYTKOWNIKÓW, OPINIE I INNE ZGŁOSZENIA
+
 Jeśli, na naszą prośbę, użytkownik prześle określone zgłoszenia (na przykład zgłoszenia do konkursów) lub bez naszej prośby prześle kreatywne pomysły, sugestie, propozycje, plany lub inne materiały, czy to online, pocztą elektroniczną, pocztą tradycyjną lub w inny sposób (łącznie "komentarze"), użytkownik zgadza się, że możemy w dowolnym momencie, bez ograniczeń, edytować, kopiować, publikować, rozpowszechniać, tłumaczyć i w inny sposób wykorzystywać w dowolnym medium wszelkie komentarze, które nam prześlesz. Nie jesteśmy i nie będziemy zobowiązani (1) do zachowania poufności jakichkolwiek informacji tego rodzaju; (2) do wypłaty rekompensaty za jakiekolwiek komentarze; lub (3) do odpowiadania na jakiekolwiek komentarze.
 
 Możemy, ale nie mamy obowiązku, monitorować, edytować lub usuwać treści, które według naszego wyłącznego uznania uznamy za niezgodne z prawem, obraźliwe, zawierające groźby, zniesławiające, oszczercze, pornograficzne, obsceniczne lub w inny sposób budzące zastrzeżenia lub naruszające własność intelektualną jakiejkolwiek strony lub niniejsze Warunki świadczenia usług.
 Użytkownik zgadza się, że jego komentarze nie będą naruszać żadnych praw osób trzecich, w tym praw autorskich, znaków towarowych, prywatności, dóbr osobistych ani innych praw osobistych lub majątkowych. Ponadto użytkownik zgadza się, że jego komentarze nie będą zawierać zniesławiających lub w inny sposób niezgodnych z prawem, obraźliwych lub obscenicznych materiałów, ani nie będą zawierać wirusów komputerowych lub innego złośliwego oprogramowania, które mogłoby w jakikolwiek sposób wpłynąć na działanie Usługi lub jakiejkolwiek powiązanej strony internetowej. Użytkownik nie może używać fałszywego adresu e-mail, podawać się za kogoś innego niż on sam ani w inny sposób wprowadzać w błąd nas lub osób trzecich co do pochodzenia jakichkolwiek komentarzy. Użytkownik ponosi wyłączną odpowiedzialność za wszelkie komentarze i ich dokładność. Nie ponosimy żadnej odpowiedzialności za komentarze zamieszczane przez użytkownika lub osoby trzecie.
 
 ## SEKCJA 11 – DANE OSOBOWE
+
 Przekazywanie przez użytkownika danych osobowych za pośrednictwem Usług Kontur Cloud podlega naszej Polityce prywatności. Aby zapoznać się z naszą Polityką prywatności, zobacz [Polityka prywatności](/about/privacy).
 
 ## SEKCJA 12 – BŁĘDY, NIEŚCISŁOŚCI I POMINIĘCIA
+
 Czasami w Usługach Kontur Cloud mogą znajdować się informacje zawierające błędy, nieścisłości lub pominięcia, które mogą odnosić się do opisów produktów, cen, promocji, ofert, opłat za wysyłkę produktów, czasu dostawy i dostępności. Zastrzegamy sobie prawo do poprawiania wszelkich błędów, nieścisłości lub pominięć oraz do zmiany lub aktualizacji informacji lub anulowania zamówień, jeżeli jakiekolwiek informacje w Usłudze lub na powiązanej stronie internetowej są niedokładne, w dowolnym momencie bez uprzedniego powiadomienia (w tym po złożeniu zamówienia).
 
 Nie zobowiązujemy się do aktualizowania, zmieniania lub wyjaśniania informacji w Usługach Kontur Cloud lub na jakiejkolwiek powiązanej stronie internetowej, w tym między innymi informacji o cenach, z wyjątkiem przypadków wymaganych przez prawo. Żadna określona data aktualizacji lub odświeżenia, zastosowana w Usługach Kontur Cloud lub na jakiejkolwiek powiązanej stronie internetowej, nie powinna być traktowana jako wskazująca, że wszystkie informacje w Usługach Kontur Cloud lub na jakiejkolwiek powiązanej stronie internetowej zostały zmodyfikowane lub zaktualizowane.
 
 ## SEKCJA 13 – ZABRONIONE ZASTOSOWANIA
+
 Oprócz innych zakazów określonych w Warunkach świadczenia usług, użytkownikowi zabrania się korzystania z Usług Kontur Cloud lub ich zawartości:
 (a) w jakimkolwiek niezgodnym z prawem celu; (b) nakłaniania innych do wykonywania lub uczestniczenia w jakichkolwiek niezgodnych z prawem działaniach; (c) naruszania jakichkolwiek międzynarodowych lub stanowych przepisów, zasad, praw lub lokalnych rozporządzeń; (d) naruszania lub łamania naszych praw własności intelektualnej lub praw własności intelektualnej innych osób; (e) nękać, wykorzystywać, obrażać, krzywdzić, zniesławiać, oczerniać, dyskredytować, zastraszać lub dyskryminować ze względu na płeć, orientację seksualną, religię, pochodzenie etniczne, rasę, wiek, pochodzenie narodowe lub niepełnosprawność; (f) przesyłać fałszywych lub wprowadzających w błąd informacji; (g) przesyłania lub przekazywania wirusów lub innego rodzaju złośliwego kodu, który będzie lub może być wykorzystany w jakikolwiek sposób, który wpłynie na funkcjonalność lub działanie Usługi lub jakiejkolwiek powiązanej strony internetowej, innych stron internetowych lub Internetu; (h) gromadzenia lub śledzenia danych osobowych innych osób; (i) spamowania, phishingu, pharmingu, podszywania się, spideringu, crawlingu lub scrapingu; (j) w jakimkolwiek nieprzyzwoitym lub niemoralnym celu; lub (k) ingerowania lub obchodzenia zabezpieczeń Usług Kontur Cloud lub jakiejkolwiek powiązanej strony internetowej , innych stron internetowych lub Internetu. Zastrzegamy sobie prawo do zakończenia korzystania z Usług Kontur Cloud lub dowolnej powiązanej strony internetowej w przypadku naruszenia któregokolwiek z zabronionych zastosowań.
 
 ## SEKCJA 14 – ZRZECZENIE SIĘ GWARANCJI; OGRANICZENIE ODPOWIEDZIALNOŚCI
+
 Nie gwarantujemy, nie oświadczamy ani nie zapewniamy, że korzystanie z Usług Kontur Cloud będzie nieprzerwane, terminowe, bezpieczne lub wolne od błędów.
 
 Nie gwarantujemy, że wyniki uzyskane w wyniku korzystania z Usług Kontur Cloud będą dokładne lub wiarygodne.
@@ -328,8 +338,8 @@ Jeśli w naszej wyłącznej ocenie użytkownik nie przestrzega lub podejrzewamy,
 
 Jeżeli z Usługi korzysta konsument, a lokalne prawo przyznaje mu ustawowe prawo do odstąpienia od umowy w określonym czasie od zawarcia tej umowy, nie może on skorzystać z tego prawa, ponieważ świadczenie Usługi zostało rozpoczęte za jego zgodą.
 Ta sama zasada dotyczy:
-osoby fizycznej prowadzącej jednoosobową działalność gospodarczą, która korzysta z naszych Usług bez związku z prowadzoną działalnością gospodarczą oraz
-osoby prowadzącej jednoosobową działalność gospodarczą, która korzysta z naszych Usług w związku z prowadzoną działalnością gospodarczą, ale z treści tego korzystania wynika, że nie ma ono dla niej charakteru zawodowego.
+- osoby fizycznej prowadzącej jednoosobową działalność gospodarczą, która korzysta z naszych Usług bez związku z prowadzoną działalnością gospodarczą oraz
+- osoby prowadzącej jednoosobową działalność gospodarczą, która korzysta z naszych Usług w związku z prowadzoną działalnością gospodarczą, ale z treści tego korzystania wynika, że nie ma ono dla niej charakteru zawodowego.
 
 ## SEKCJA 18 – CAŁOŚĆ UMOWY
 
@@ -338,10 +348,12 @@ Niniejsze Warunki świadczenia usług oraz wszelkie zasady lub reguły operacyjn
 Wszelkie niejasności w interpretacji niniejszych Warunków świadczenia usług nie będą interpretowane na niekorzyść strony redagującej.
 
 ## SEKCJA 19 – PRAWO WŁAŚCIWE
+
 Niniejsze Warunki świadczenia usług oraz wszelkie odrębne umowy, na mocy których świadczymy usługi na rzecz użytkownika, podlegają prawu Rzeczypospolitej Polskiej i zgodnie z nim będą interpretowane.
 Warunki świadczenia usług zostały wynegocjowane sporządzone języku polskim i angielskim. W przypadku jakichkolwiek rozbieżności między tymi wersjami, postanowienia wersji polskiej będą̨ miały pierwszeństwo.
 
 ## SEKCJA 20 – PROCEDURA REKLAMACYJNA I POZASĄDOWE SPOSOBY ROZPATRYWANIA REKLAMACJI
+
 Użytkownik naszych Usług ma możliwość złożyć reklamację dotyczącą działania Usługi. W tym celu użytkownik może napisać do nas wiadomość e-mail na adres (hello@kontur.io), podając co najmniej następujące informacje:
 imię i nazwisko,
 adres e-mail,
@@ -356,6 +368,7 @@ Użytkownik może zapoznać się z najbardziej aktualną wersją Warunków świa
 Zastrzegamy sobie prawo, według własnego uznania, do aktualizacji, zmiany lub zastąpienia dowolnej części niniejszych Warunków świadczenia usług poprzez publikowanie aktualizacji i zmian na naszej stronie internetowej. Obowiązkiem użytkownika jest okresowe sprawdzanie naszej strony internetowej pod kątem zmian. Dalsze korzystanie z usług Kontur Cloud lub dostęp do nich po opublikowaniu jakichkolwiek zmian w niniejszych Warunkach świadczenia usług oznacza akceptację tych zmian.
 
 ## SEKCJA 21 – DANE KONTAKTOWE
+
 Pytania dotyczące Warunków świadczenia usług należy kierować do nas na adres hello@kontur.io.
 
 Nasze dane kontaktowe znajdują się poniżej:
