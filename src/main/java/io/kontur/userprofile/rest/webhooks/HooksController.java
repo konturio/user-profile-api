@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.kontur.userprofile.model.dto.paypal.PayPalVerificationDto;
+import io.kontur.userprofile.service.PayPalAuthorizationService;
 import io.kontur.userprofile.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.ValidationException;
@@ -40,6 +41,8 @@ public class HooksController {
     // Presumably we'll need it to connect the user to the subscription (ID)
     // when we get a new subscription notification
     private final UserService userService;
+
+    private final PayPalAuthorizationService paypalAuthService;
 
     private final RestTemplate paypalApiRestTemplate;
 
@@ -124,19 +127,20 @@ public class HooksController {
 
     private void verifyWebhook(PayPalVerificationDto vo) throws JsonMappingException, JsonProcessingException {
         // Call PayPal API to verify webhook
-        String url = paypalHost + "/v1/notifications/verify-webhook-signature";
-        HttpHeaders headers = new HttpHeaders();
+        // TODO: move all this URL-building and authentication headers-setting logic to a separate service
+        final String url = paypalHost + "/v1/notifications/verify-webhook-signature";
+        final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        // We need OAuth 2.0 here
-        // Flow type: clientCredentials
-        // Token URL: https://api-m.paypal.com/v1/oauth2/token
-        // Required scopes: https://uri.paypal.com/services/applications/webhooks ; https://uri.paypal.com/services/applications/verify-webhook-signature
-        // headers.setBasicAuth(clientId, clientSecret);
 
-        HttpEntity<String> entity = new HttpEntity<>(vo.toString(), headers);
-        ResponseEntity<String> response = paypalApiRestTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+        // this should authenticate us with PayPal and get OAuth access token
+        headers.setBearerAuth(paypalAuthService.getAccessToken());
 
-        JsonNode responseBody = new ObjectMapper().readTree(response.getBody());
+        final var om = new ObjectMapper();
+        final String payload = om.writeValueAsString(vo);
+        final HttpEntity<String> entity = new HttpEntity<>(payload, headers);
+        final ResponseEntity<String> response = paypalApiRestTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+
+        final JsonNode responseBody = om.readTree(response.getBody());
         if (!"SUCCESS".equals(responseBody.get("verification_status").asText()))
             throw new ValidationException("Webhook didn't validate");
     }

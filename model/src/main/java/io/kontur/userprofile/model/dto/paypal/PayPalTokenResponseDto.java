@@ -2,13 +2,13 @@ package io.kontur.userprofile.model.dto.paypal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 public class PayPalTokenResponseDto {
     private String scope;
 

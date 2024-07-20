@@ -10,8 +10,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import io.kontur.userprofile.model.dto.paypal.PayPalTokenResponseDto;
@@ -33,12 +31,10 @@ public class PayPalClient {
 
 
     public PayPalTokenResponseDto getToken() {
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-        params.add("client_id", paypalClientId);
-        params.add("grant_type", "client_credentials"); // TODO: what's the right type?
+        final String params = "grant_type=client_credentials";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBasicAuth(paypalClientId, paypalClientSecret);
 
 
