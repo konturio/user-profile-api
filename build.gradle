@@ -93,6 +93,9 @@ dependencies {
 
     //postgresql
     implementation 'org.postgresql:postgresql:42.7.2'
+
+    //HTTP client
+    implementation 'org.apache.httpcomponents.client5:httpclient5'
 }
 
 configurations.all {

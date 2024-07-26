@@ -2,3 +2,7 @@ build/
 .idea/
 .gradle/
 scripts/config.py
+.vscode/
+bin/
+model/bin
+keycloak-user-spi/bin/

@@ -64,7 +64,7 @@ public class UserCustomRoleDao {
             throw new WebApplicationException(format(
                     "More than one active subscription found. Username: %s, App: %s",
                     user.getUsername(), app.getId()), HttpStatus.INTERNAL_SERVER_ERROR);
-        } 
+        }
         return results.stream().findAny();
     }
 
@@ -79,11 +79,41 @@ public class UserCustomRoleDao {
         return entityManager.find(BillingPlan.class, id);
     }
 
-    private void expireActiveSubscription(String id) {
+    // also needed for subscription cancellation via a webhook
+    public void expireActiveSubscription(String id) {
         UserBillingSubscription subscription = entityManager.find(UserBillingSubscription.class, id);
 
         subscription.setActive(false);
         subscription.setExpiredAt(OffsetDateTime.now());
+
+        entityManager.merge(subscription);
+        entityManager.flush();
+    }
+
+    public void reactivateSubscription(String id) {
+        // if already exists an active one do nothing
+        // otherwise create a new one
+
+        UserBillingSubscription subscription = entityManager.find(UserBillingSubscription.class, id);
+
+        if (subscription == null) {
+            // FIXME: can't create a new one without user id and app id!
+            throw new WebApplicationException("Failed to activate unknown subscription " + id, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        // The subscription with the given id is the active one, nothing to do
+        if (subscription.getActive()) return;
+
+        // the user has another subscription tht's active for the same app
+        // so expire it
+        getActiveSubscription(subscription.getUser(), subscription.getApp())
+            .map(UserBillingSubscription::getId)
+            .ifPresent(this::expireActiveSubscription);
+
+        // FIXME: we can't create a new subscription record with
+        // the same subscription ID. Reactivating.
+        subscription.setActive(true);
+        subscription.setExpiredAt(null);
 
         entityManager.merge(subscription);
         entityManager.flush();
