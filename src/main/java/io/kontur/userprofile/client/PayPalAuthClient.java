@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class PayPalClient {
+public class PayPalAuthClient {
     private final RestTemplate paypalAuthorizationRestTemplate;
 
     @Value("${payments.paypal.host}")

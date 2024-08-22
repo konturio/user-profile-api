@@ -10,6 +10,7 @@ import io.kontur.userprofile.model.dto.UserDto;
 import io.kontur.userprofile.model.dto.UserSummaryDto;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
+import io.kontur.userprofile.service.PayPalAPIService;
 import io.kontur.userprofile.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +34,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
     private final AuthService authService;
-
+    private final PayPalAPIService payPalAPIService;
     private final UserService userService;
 
     @Operation(summary = "Get List of Users")
@@ -121,6 +122,12 @@ public class UserController {
             @RequestParam(name = "billingPlanId", required = true) String billingPlanId,
             @RequestParam(name = "billingSubscriptionId", required = true) String billingSubscriptionId
     ) {
+        // Check that billingSubscriptionId is an actual subscription ID from PayPal
+        // and not an arbitrary fake string of characters
+        // FIXME: don't forget to fix when connecting another payments gateway
+        if (!payPalAPIService.subscriptionIdIsValid(billingSubscriptionId))
+            return ResponseEntity.badRequest().build();
+
         return ResponseEntity.ok(userService.setActiveSubscription(appId, billingPlanId, billingSubscriptionId));
     }
 }

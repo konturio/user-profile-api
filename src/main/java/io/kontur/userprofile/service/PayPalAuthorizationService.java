@@ -6,7 +6,7 @@ import org.jboss.logging.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
-import io.kontur.userprofile.client.PayPalClient;
+import io.kontur.userprofile.client.PayPalAuthClient;
 import io.kontur.userprofile.model.dto.paypal.PayPalTokenResponseDto;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ public class PayPalAuthorizationService {
     private static volatile PayPalTokenResponseDto tokenResponse = null;
     private static volatile Instant tokenExpiration = Instant.now();
 
-    private final PayPalClient payPalClient;
+    private final PayPalAuthClient payPalClient;
 
     public String getAccessToken() {
         if (tokenResponse == null || tokenExpiration.isBefore(Instant.now())) {
