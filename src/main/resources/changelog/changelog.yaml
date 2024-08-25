@@ -228,3 +228,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/add-active-subscription.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19451-create-search_bar-feature-in-ups.sql
