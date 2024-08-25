@@ -228,3 +228,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/add-active-subscription.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19052-create-admin-boundary-breadcrumbs-feature-in-ups.sql
