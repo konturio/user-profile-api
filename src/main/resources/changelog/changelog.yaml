@@ -228,3 +228,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/add-active-subscription.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/18681-create-search-locations-feature-in-ups.sql
