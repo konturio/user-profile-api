@@ -25,7 +25,8 @@ on conflict do nothing;
 insert into custom_app_feature (app_id, feature_id, authenticated)
 select ('634f23f5-f898-4098-a8bd-09eb7c1e1ae5'), f.id, false
 from feature f
-where f.name in ('admin_boundary_breadcrumbs');
+where f.name in ('admin_boundary_breadcrumbs')
+on conflict do nothing;
 
 --Terrain for guests
 insert into custom_app_feature (app_id, feature_id, authenticated)
