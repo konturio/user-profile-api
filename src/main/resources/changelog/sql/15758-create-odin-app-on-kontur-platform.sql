@@ -44,7 +44,10 @@ on conflict do nothing;
 insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
 select '415e2172-3e94-4749-b714-d37470acf88a', f.id, true, r.id
 from feature f, custom_role r
-where f.name in ('toolbar', 'locate_me', 'map_ruler', 'boundary_selector', 'geometry_uploader', 'focused_geometry_editor', 'map', 'analytics_panel', 'events_list', 'legend_panel', 'episodes_timeline', 'chat_panel', 'feed_selector', 'kontur-public', 'events_list__bbox_filter', 'current_event', 'focused_geometry_layer', 'layers_in_area', 'mcda', 'osm_edit_link', 'search_locations', 'admin_boundary_breadcrumbs')
+where f.name in ('toolbar', 'locate_me', 'map_ruler', 'boundary_selector', 'geometry_uploader', 'focused_geometry_editor', 
+	'map', 'analytics_panel', 'events_list', 'legend_panel', 'episodes_timeline', 'chat_panel', 'feed_selector', 'kontur-public', 
+	'events_list__bbox_filter', 'current_event', 'focused_geometry_layer', 'layers_in_area', 'mcda', 'osm_edit_link', 
+	'search_locations', 'admin_boundary_breadcrumbs', 'map_layers_panel', 'live_sensor', 'create_layer')
   and r.name in ('odin_admin', 'odin_demo')
 on conflict do nothing;
 
