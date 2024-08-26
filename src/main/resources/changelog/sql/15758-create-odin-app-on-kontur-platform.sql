@@ -51,13 +51,24 @@ on conflict do nothing;
 --configurate analytics panel 
 update custom_app_feature
 set configuration = '{"statistics": [{
-  "formula": "sumX",
-  "x": "population"
-}, {
-  "formula": "sumX",
-  "x": "populated_area_km2"
-}]}'
+    "formula": "sumX",
+    "x": "population"
+  }, {
+    "formula": "sumX",
+    "x": "populated_area_km2"
+  }, {
+    "formula": "sumX",
+    "x": "industrial_area"
+  }, {
+    "formula": "sumX",
+    "x": "forest"
+  }, {
+    "formula": "sumX",
+    "x": "volcanos_count"
+  }, {
+    "formula": "maxX",
+    "x": "wildfires"
+  }]}'
 where app_id = '415e2172-3e94-4749-b714-d37470acf88a'
   and feature_id in (select f.id from feature f where f.name = 'analytics_panel')
-  and authenticated
-on conflict do nothing;
+  and authenticated;
