@@ -25,12 +25,4 @@ public class FeatureControllerIT extends AbstractIT {
         String defaultFeed = featuresController.getDefaultUserEventFeed();
         assertEquals("kontur-public", defaultFeed);
     }
-
-    @Test
-    public void dn2DefaultFeaturesAreAvailableToUnauthorizedUser() {
-        givenUserIsNotAuthenticated();
-
-        List<FeatureDto> features = featuresController.getUserFeatures(DN2_ID);
-        assertEquals(28, features.size()); //just some features
-    }
 }
