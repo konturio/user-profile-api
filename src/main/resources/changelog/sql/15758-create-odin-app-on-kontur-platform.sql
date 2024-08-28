@@ -40,24 +40,36 @@ on conflict do nothing;
 --configurate analytics panel 
 update custom_app_feature
 set configuration = '{"statistics": [{
-    "formula": "sumX",
-    "x": "population"
-  }, {
-    "formula": "sumX",
-    "x": "populated_area_km2"
-  }, {
-    "formula": "sumX",
-    "x": "industrial_area"
-  }, {
-    "formula": "sumX",
-    "x": "forest"
-  }, {
-    "formula": "sumX",
-    "x": "volcanos_count"
-  }, {
-    "formula": "maxX",
-    "x": "wildfires"
-  }]}'
+"formula": "sumX",
+"x": "population"
+}, {
+"formula": "sumX",
+"x": "populated_area_km2"
+}, {
+"formula": "sumX",
+"x": "forest"
+}, {
+"formula": "avgX",
+"x": "avg_forest_canopy_height"
+}, {
+"formula": "maxX",
+"x": "wildfires"
+}, {
+"formula": "maxX",
+"x": "drought_days_count"
+}, {
+"formula": "avgX",
+"x": "worldclim_avg_temperature"
+}, {
+"formula": "maxX",
+"x": "worldclim_max_temperature"
+}, {
+"formula": "sumX",
+"x": "volcanos_count"
+}, {
+"formula": "sumX",
+"x": "industrial_area"
+}]}'
 where app_id = '415e2172-3e94-4749-b714-d37470acf88a'
   and feature_id in (select f.id from feature f where f.name = 'analytics_panel')
   and authenticated;
