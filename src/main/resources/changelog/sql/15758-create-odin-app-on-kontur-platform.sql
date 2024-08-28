@@ -19,20 +19,6 @@ values ('odin_admin'),
 		('odin_demo')
 on conflict do nothing;
 
---assign new app role to Kontur employees
-insert into user_custom_role (user_id, role_id, started_at)
-select u.id, r.id, now()
-from users u, custom_role r
-where r.name = 'odin_admin'
-    and u.email in ('pkrukovich@kontur.io', 'ahil@kontur.io', 'avalasiuk@kontur.io', 'darafei@kontur.io',
-                    'nlaptsik@kontur.io', 'atarakanov@kontur.io', 'a.artyukevich@kontur.io', 'vbondar@kontur.io',
-                    'arben@kontur.io', 'tgrigoryan@kontur.io', 'aklopau@kontur.io', 'atsiatserkina@kontur.io',
-                    'ekarpach@kontur.io', 'kbakhanko@kontur.io', 'abaranau@kontur.io', 'curtis@kontur.io',
-                    'milvari@kontur.io', 'vkozel@kontur.io', 'amurashka@kontur.io', 'hoa@kontur.io',
-                    'gdowling@kontur.io', 'nprovenzano@kontur.io', 'tad@kontur.io', 'nharshunova@kontur.io',
-                    'achichigin@kontur.io', 'hevans@kontur.io', 'hrubanau@kontur.io', 'akolesen@kontur.io')
-on conflict do nothing;
-
 --add ODIN app guest features
 insert into custom_app_feature (app_id, feature_id, authenticated)
 select '415e2172-3e94-4749-b714-d37470acf88a', f.id, false
