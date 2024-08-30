@@ -240,3 +240,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/15758-create-odin-app-on-kontur-platform.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19451-create-search_bar-feature-in-ups.sql
