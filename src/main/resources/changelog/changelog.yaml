@@ -234,3 +234,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/19052-create-admin-boundary-breadcrumbs-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19104-add-about_page-feature-config-for-each-kontur-app.sql
