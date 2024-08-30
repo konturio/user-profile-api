@@ -237,3 +237,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/19104-add-about_page-feature-config-for-each-kontur-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/15758-create-odin-app-on-kontur-platform.sql
