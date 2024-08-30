@@ -230,4 +230,16 @@ databaseChangeLog:
       file: sql/add-active-subscription.sql
   - include:
       relativeToChangelogFile: true
+      file: sql/18681-create-search-locations-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19052-create-admin-boundary-breadcrumbs-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19104-add-about_page-feature-config-for-each-kontur-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/15758-create-odin-app-on-kontur-platform.sql
+  - include:
+      relativeToChangelogFile: true
       file: sql/19451-create-search_bar-feature-in-ups.sql
