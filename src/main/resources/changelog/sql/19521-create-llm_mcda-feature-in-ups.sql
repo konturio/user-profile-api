@@ -9,7 +9,7 @@ on conflict do nothing;
 
 -- Terrain
 insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
-select '3a433e95-0449-48a3-b4ff-9cffea805c74', f.id, false
+select '3a433e95-0449-48a3-b4ff-9cffea805c74', f.id, true, r.id
 from feature f, custom_role r
 where f.name in ('llm_mcda')
     and r.name in ('terrain_admin')
@@ -17,7 +17,7 @@ on conflict do nothing;
 
 -- MCDA
 insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
-select '77260743-1da0-445b-8f56-ff6ca8520c55', f.id, false
+select '77260743-1da0-445b-8f56-ff6ca8520c55', f.id, true, r.id
 from feature f, custom_role r
 where f.name in ('llm_mcda')
   and r.name in ('mcda_demo', 'mcda_admin')
