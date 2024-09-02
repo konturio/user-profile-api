@@ -243,3 +243,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/19451-create-search_bar-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19393-upload-odin-icons-on-github-and-ups.sql
