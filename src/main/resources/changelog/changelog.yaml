@@ -245,4 +245,4 @@ databaseChangeLog:
       file: sql/19451-create-search_bar-feature-in-ups.sql
   - include:
       relativeToChangelogFile: true
-      file: sql/19521-create-llm_mcda-feature-in-ups
+      file: sql/19521-create-llm_mcda-feature-in-ups.sql
