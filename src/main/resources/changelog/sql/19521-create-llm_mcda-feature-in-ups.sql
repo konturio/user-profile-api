@@ -19,6 +19,7 @@ insert into custom_app_feature (app_id, feature_id, authenticated)
 select '77260743-1da0-445b-8f56-ff6ca8520c55', f.id, false
 from feature f
 where f.name in ('llm_mcda')
+  and r.name in ('mcda_demo', 'mcda_admin')
 on conflict do nothing;
 
 -- Atlas
