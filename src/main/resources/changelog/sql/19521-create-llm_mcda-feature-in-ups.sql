@@ -4,7 +4,7 @@
 
 --create Search bar feature
 insert into feature ("name", featuretype, enabled, beta, available_for_user_apps, default_for_user_apps, description)
-values ('llm_mcda', 'UI_PANEL', true, true, true, false, 'LLM MCDA allows to type questions or requests in the search bar and get MCDA composed by ChatGPT based on the input and the axes Insights DB has.')
+values ('llm_mcda', 'UI_PANEL', true, true, true, false, 'LLM MCDA allows users to receive AI-generated Multi-Criteria Decision Analysis based on user`s input in search bar and indicator list in Insights database')
 on conflict do nothing;
 
 -- Terrain
