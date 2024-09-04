@@ -28,4 +28,4 @@ Außerdem können Sie im linken Bereich zu Berichte wechseln, um auf Daten zu po
 
 Wir hoffen, dass dieses Tool Ihnen von Nutzen ist. Wenn Sie Fragen zur Funktionalität haben, können Sie die Chatbox auf Disaster Ninja nutzen, und wir helfen Ihnen gerne weiter. Sie können uns auch eine E-Mail an [hello@kontur.io](mailto:hello@kontur.io) schreiben, wenn Sie Feedback oder Vorschläge zur Verbesserung des Tools haben.
 
-Disaster Ninja ist ein Open-Source-Projekt. Sie finden den Code in [Konturs GitHub-Konto](https://github.com/konturio).
+Disaster Ninja ist ein Open-Source-Projekt. Sie finden den Code in [Kontur’s GitHub-Konto](https://github.com/konturio).
