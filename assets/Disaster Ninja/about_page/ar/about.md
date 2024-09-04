@@ -28,4 +28,4 @@
 
 نأمل أن تجد هذه الأداة ذات قيمة. استخدم مربع الدردشة على Disaster Ninja لأية أسئلة حول وظائفه، وسنكون سعداء بإرشادك. يمكنك أيضًا التواصل معنا عبر البريد الإلكتروني[hello@kontur.io](mailto:hello@kontur.io) إذا كان لديك ملاحظات أو اقتراحات بشأن تحسين الأداة.
 
-يُعدّ Disaster Ninja مشروعًا مفتوح المصدر. تحقق من الكود في حساب [Kontur](https://github.com/konturio) على [GitHub](https://github.com/konturio).
+يُعدّ Disaster Ninja مشروعًا مفتوح المصدر. تحقق من الكود في [حساب Kontur على GitHub](https://github.com/konturio).
