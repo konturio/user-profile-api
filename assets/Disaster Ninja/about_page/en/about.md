@@ -1,5 +1,4 @@
-Welcome to Disaster Ninja!
-==========================
+# Welcome to Disaster Ninja!
 
 Do you want to be notified about ongoing disasters? Are you interested in instant population data and other analytics for any region of the world? Disaster Ninja showcases some of [Kontur](https://www.kontur.io/)’s capabilities in addressing these needs.
 
