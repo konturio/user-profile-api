@@ -1,5 +1,4 @@
-Willkommen bei Disaster Ninja!
-==============================
+# Willkommen bei Disaster Ninja!
 
 Möchten Sie über aktuelle Katastrophen informiert werden? Sind Sie an sofortigen Bevölkerungsdaten und anderen Analysen für eine beliebige Region auf der Welt interessiert? Disaster Ninja zeigt Ihnen einige der Funktionen von [Kontur](https://www.kontur.io/), mit denen diese Anforderungen umgesetzt werden können.
 
