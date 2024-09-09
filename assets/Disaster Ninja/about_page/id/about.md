@@ -1,5 +1,4 @@
-Selamat datang di Disaster Ninja!
-=================================
+# Selamat datang di Disaster Ninja!
 
 Apakah Anda ingin menerima kabar tentang bencana yang sedang terjadi? Anda tertarik dengan data populasi dan analitik lainnya yang tersaji seketika untuk wilayah mana pun di dunia? Disaster Ninja menampilkan beberapa kemampuan dari [Kontur](https://www.kontur.io/) dalam mengatasi berbagai kebutuhan ini.
 
