@@ -1,7 +1,6 @@
 ![Oasis image](image.gif)
 
-Hi there!
-==========================
+# Hi there!
 
 Oasis is a dev application available only for Kontur Crew.  
 
