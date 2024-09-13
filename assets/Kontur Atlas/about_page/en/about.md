@@ -69,4 +69,4 @@ By default, the map displays red hexagons in high-value areas and green hexagons
 
 Enhance your analysis by fine-tuning the range and what is bad and good of each layer. This means you can focus specifically on aspects crucial to your study.
 
-### [Learn more about Atlas on kontur.io](https://www.kontur.io/atlas)
+### [Learn more on kontur.io](https://www.kontur.io/atlas)
