@@ -24,7 +24,7 @@ Use these insights to make smart decisions, like picking the perfect spot for yo
 
 Your next big opportunity is waiting to be mapped out!
 
-### [Subscribe to Atlas](/pricing)
+### _[Subscribe to Atlas](/pricing)_
 
 ## How to Use
 
@@ -69,4 +69,4 @@ By default, the map displays red hexagons in high-value areas and green hexagons
 
 Enhance your analysis by fine-tuning the range and what is bad and good of each layer. This means you can focus specifically on aspects crucial to your study.
 
-### [Learn more on kontur.io](https://www.kontur.io/atlas)
+### _[Learn more on kontur.io](https://www.kontur.io/atlas)_
