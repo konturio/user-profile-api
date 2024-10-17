@@ -68,7 +68,9 @@ def add_or_update_asset(file_path, app_id, feature_id, language, description, ow
 
     try:
         session.commit()
-    except IntegrityError:
+    except IntegrityError as e:
+        print(e)
+        # do SELECT setval('assets_id_seq', (SELECT MAX(id) FROM assets), true) if PK violation
         session.rollback()
         print(f'Skipped {filename}: failed to add or update in database.')
 
