@@ -2,6 +2,7 @@ build/
 .idea/
 .gradle/
 scripts/config.py
+scripts/__pycache__/
 .vscode/
 bin/
 model/bin
