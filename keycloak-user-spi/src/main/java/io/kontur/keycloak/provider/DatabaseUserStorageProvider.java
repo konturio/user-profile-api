@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import jakarta.ws.rs.core.MultivaluedMap;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -79,7 +80,23 @@ public class DatabaseUserStorageProvider
             .build();
         userService.createUser(user);
         log.infof("Created user: %s", user);
-        return UserAdapter.fromEntity(user, session, realm, component);
+
+        MultivaluedMap<String, String> formParameters = session.getContext().getHttpRequest().getDecodedFormParameters();
+        String phoneNumber = formParameters.getFirst("phone_number");
+        String linkedin = formParameters.getFirst("linkedin");
+
+        UserAdapter userAdapter = UserAdapter.fromEntity(user, session, realm, component);
+
+        setUserAttribute(userAdapter, "phone_number", phoneNumber);
+        setUserAttribute(userAdapter, "linkedin", linkedin);
+
+        return userAdapter;
+    }
+
+    private void setUserAttribute(UserAdapter userAdapter, String attributeName, String attributeValue) {
+        if (attributeValue != null && !attributeValue.isEmpty()) {
+            userAdapter.setSingleAttribute(attributeName, attributeValue);
+        }
     }
 
     @Override
