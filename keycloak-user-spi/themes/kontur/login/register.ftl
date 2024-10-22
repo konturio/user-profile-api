@@ -61,6 +61,17 @@
                 </div>
             </#if>
 
+            <div class="form-group">
+                <div class="${properties.kcLabelWrapperClass!}">
+                    <label for="phone" class="${properties.kcLabelClass!}">${msg("phoneNumber")}</label>
+                </div>
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input type="text" id="phone" class="${properties.kcInputClass!}" name="phone"
+                           value="${(register.formData.phone!'')}"
+                    />
+                </div>
+            </div>
+
             <#if passwordRequired??>
                 <div class="${properties.kcFormGroupClass!}">
                     <div class="${properties.kcLabelWrapperClass!}">
