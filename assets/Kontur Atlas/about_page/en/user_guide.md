@@ -6,8 +6,6 @@
 
 [AI insights](#ai-insights)
 
-[Other tools](#other-tools)
-
 ## Multi-Criteria Decision Analysis
 
 <iframe width="800" height="470" src="https://www.youtube.com/embed/g7WMD10DMPs?si=Gl6RdNM0L3ufi0uF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -172,12 +170,3 @@ Then select another area, and you'll get the AI report highlighting the differen
 ### Personalizing the report
 
 AI insights report is customizable. Provide a short bio: preferences for analytics, occupation, and interest in geospatial analysis, and LLM will personalize the response based on this info. Selected language is also taken into account while generating the report.
-
-## Other tools
-
-- Edit MCDA  
-- Download MCDA analysis   
-- Upload MCDA analysis  
-- Download selected area as GeoJSON  
-- Upload GeoJSON as selected area  
-- Create and edit selected area 
