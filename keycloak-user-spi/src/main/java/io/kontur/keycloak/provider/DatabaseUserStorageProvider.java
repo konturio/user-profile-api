@@ -82,12 +82,12 @@ public class DatabaseUserStorageProvider
         log.infof("Created user: %s", user);
 
         MultivaluedMap<String, String> formParameters = session.getContext().getHttpRequest().getDecodedFormParameters();
-        String phoneNumber = formParameters.getFirst("phone_number");
+        String phoneNumber = formParameters.getFirst("phone");
         String linkedin = formParameters.getFirst("linkedin");
 
         UserAdapter userAdapter = UserAdapter.fromEntity(user, session, realm, component);
 
-        setUserAttribute(userAdapter, "phone_number", phoneNumber);
+        setUserAttribute(userAdapter, "phone", phoneNumber);
         setUserAttribute(userAdapter, "linkedin", linkedin);
 
         return userAdapter;
