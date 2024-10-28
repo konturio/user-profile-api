@@ -2,10 +2,7 @@ package io.kontur.keycloak.provider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import io.kontur.keycloak.model.UserAdapter;
 import io.kontur.keycloak.service.UserService;
@@ -14,12 +11,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.keycloak.component.ComponentModel;
+import org.keycloak.http.HttpRequest;
+import org.keycloak.models.KeycloakContext;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
+import org.keycloak.storage.UserStorageUtil;
+import org.keycloak.storage.federated.UserFederatedStorageProvider;
 import org.mockito.ArgumentMatcher;
 
 public class DatabaseUserStorageProviderTest {
@@ -30,6 +34,11 @@ public class DatabaseUserStorageProviderTest {
     private ComponentModel component = mock(ComponentModel.class);
     private RealmModel realm = mock(RealmModel.class);
 
+    private KeycloakContext context = mock(KeycloakContext.class);
+    private HttpRequest httpRequest = mock(HttpRequest.class);
+    private UserFederatedStorageProvider federatedStorageProvider = mock(UserFederatedStorageProvider.class);
+
+
     @BeforeEach
     public void before() {
         provider = new DatabaseUserStorageProvider();
@@ -38,8 +47,23 @@ public class DatabaseUserStorageProviderTest {
         provider.setComponent(component);
     }
 
+    private void mockHttpRequestParameters() {
+        MultivaluedMap<String, String> formParameters = new MultivaluedHashMap<>();
+        formParameters.putSingle("phone_number", "1234567890");
+        formParameters.putSingle("linkedin", "linkedin-profile");
+        when(httpRequest.getDecodedFormParameters()).thenReturn(formParameters);
+    }
+
     @Test
     public void addUserTest() {
+        // Setup mock for Keycloak session context and HTTP request
+        when(session.getContext()).thenReturn(context);
+        when(context.getHttpRequest()).thenReturn(httpRequest);
+        when(UserStorageUtil.userFederatedStorage(session)).thenReturn(federatedStorageProvider);
+        doNothing().when(federatedStorageProvider)
+                .setSingleAttribute(any(RealmModel.class), anyString(), anyString(), anyString());
+        mockHttpRequestParameters();
+
         provider.addUser(realm, email);
 
         verify(userService, times(1)).createUser(
