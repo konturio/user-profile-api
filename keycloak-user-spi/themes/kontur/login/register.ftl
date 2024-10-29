@@ -11,6 +11,7 @@
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="firstName" class="${properties.kcInputClass!}" name="firstName"
+                           required
                            value="${(register.formData.firstName!'')}"
                            aria-invalid="<#if messagesPerField.existsError('fullName')>true</#if>"
                     />
@@ -29,6 +30,7 @@
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="email" class="${properties.kcInputClass!}" name="email"
+                           required
                            value="${(register.formData.email!'')}" autocomplete="email"
                            aria-invalid="<#if messagesPerField.existsError('email')>true</#if>"
                     />
@@ -67,6 +69,7 @@
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="phone" class="${properties.kcInputClass!}" name="phone"
+                           required
                            value="${(register.formData.phone!'')}"
                     />
                 </div>
@@ -91,6 +94,7 @@
                     <div class="${properties.kcInputWrapperClass!}">
                         <div class="${properties.kcInputGroup!}">
                             <input type="password" id="password" class="${properties.kcInputClass!}" name="password"
+                                   required
                                    autocomplete="new-password"
                                    aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
                             />
@@ -118,6 +122,7 @@
                     <div class="${properties.kcInputWrapperClass!}">
                         <div class="${properties.kcInputGroup!}">
                             <input type="password" id="password-confirm" class="${properties.kcInputClass!}"
+                                   required
                                    name="password-confirm"
                                    aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
                             />
