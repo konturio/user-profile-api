@@ -77,7 +77,7 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="linkedin" class="${properties.kcLabelClass!}">LinkedIn</label>
+                    <label for="linkedin" class="${properties.kcLabelClass!}">LinkedIn (Optional)</label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="linkedin" class="${properties.kcInputClass!}" name="linkedin"
