@@ -249,3 +249,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/19393-upload-odin-icons-on-github-and-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19111-deploy-globalgiving-crisis-monitoring-application.sql
