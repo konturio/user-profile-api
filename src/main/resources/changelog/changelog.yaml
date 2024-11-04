@@ -252,3 +252,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/19111-deploy-globalgiving-crisis-monitoring-application.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/20084-add-upload-geojson-button-to-toolbar-in-gg-app.sql
