@@ -258,3 +258,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/20045-add-more-analytics-to-analytics-panel-in-gg-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/20104-update-layer_features_panel-config-for-kontur-apps.sql
