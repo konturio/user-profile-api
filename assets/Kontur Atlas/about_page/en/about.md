@@ -30,13 +30,13 @@ Your next big opportunity is waiting to be mapped out!
 
 ---
 
-## ![Area Selection](about-atlas-3.png)
+<iframe width="800" height="470" src="https://www.youtube.com/embed/g7WMD10DMPs?si=Gl6RdNM0L3ufi0uF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Area Selection
 
 To choose an area for analysis, you can use the toolbar to select an administrative unit, draw a shape manually, or import a GeoJSON file.
 
-## ![Analytics Panel](about-atlas-4.png)
+<iframe width="800" height="470" src="https://www.youtube.com/embed/aCXaAYEW0oM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Analytics Panel
 
@@ -51,7 +51,7 @@ Compares your area's data with global averages, alerting you to any significant 
 Reference Area: This allows you to set a known area as a reference point for comparisons and highlights differences.
 Bio: Here, you can record details like who you're working for, your analysis purpose, and key topics, helping to personalize AI conclusions.
 
-## ![Creating Custom Analysis](about-atlas-5.png)
+<iframe width="800" height="470" src="https://www.youtube.com/embed/Md5Mex-POBo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Creating Custom Analysis
 
