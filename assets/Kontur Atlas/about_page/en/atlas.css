@@ -1,0 +1,8 @@
+/* Atlas specific styles */
+#app-pages-docid-about {
+  & div section:nth-child(2) {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1em;
+  }
+}
