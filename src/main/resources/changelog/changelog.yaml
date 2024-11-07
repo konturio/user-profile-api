@@ -261,3 +261,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/20104-update-layer_features_panel-config-for-kontur-apps.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/20121-add-admin-boundary-breadcrumbs-feature-in-gg-app.sql
