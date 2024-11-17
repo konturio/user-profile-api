@@ -1,10 +1,10 @@
-![Kontur Atlas](about-atlas-1.png)
+![Kontur Atlas](about-atlas-cover-with-logo.png)
 
 # Kontur Atlas
 
 Atlas is your GPS for big decisions. It's a tool that helps you use maps and data to figure out a wide range of things, from where to open a new store to exploring environmental sustainability.
 
-![Geospatial Data with Ease](about-atlas-2.png)
+![Geospatial Data with Ease](about-atlas-data-flow.png)
 
 ## Geospatial Data with Ease
 
@@ -18,7 +18,7 @@ With a few clicks, Atlas turns that data into maps and visuals so it's easy to u
 
 ### Analyze & Decide
 
-Use these insights to make smart decisions, like picking the perfect spot for your next big project or making concussions based on spatial patterns.
+Use these insights to make smart decisions, like picking the perfect spot for your next big project or making conclusions based on spatial patterns.
 
 ### Jump in and start exploring
 
