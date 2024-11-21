@@ -49,7 +49,7 @@ public class DatabaseUserStorageProviderTest {
 
     private void mockHttpRequestParameters() {
         MultivaluedMap<String, String> formParameters = new MultivaluedHashMap<>();
-        formParameters.putSingle("phone", "1234567890");
+        formParameters.putSingle("fullPhone", "+1234567890");
         formParameters.putSingle("linkedin", "linkedin-profile");
         when(httpRequest.getDecodedFormParameters()).thenReturn(formParameters);
     }

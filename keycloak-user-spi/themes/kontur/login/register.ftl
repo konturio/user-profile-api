@@ -4,6 +4,9 @@
     <#if section = "header">
         ${msg("registerTitle")}
     <#elseif section = "form">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.7.0/build/css/intlTelInput.min.css"/>
+
         <form id="kc-register-form" class="${properties.kcFormClass!}" action="${url.registrationAction}" method="post">
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcLabelWrapperClass!}">
@@ -72,6 +75,12 @@
                            required
                            value="${(register.formData.phone!'')}"
                     />
+
+
+                    <span id="input-error-phone" class="${properties.kcInputErrorMessageClass!}"
+                              aria-live="polite">
+                        Please enter a valid phone number
+                    </span>
                 </div>
             </div>
 
@@ -164,6 +173,34 @@
                 </div>
             </div>
         </form>
+
         <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.7.0/build/js/intlTelInput.min.js"></script>
+        <script>
+            const form = document.getElementById("kc-register-form");
+            const input = document.getElementById("phone");
+            const phoneErrorElement = document.getElementById("input-error-phone");
+
+            const phoneInput = window.intlTelInput(input, {
+                initialCountry: "us",
+                loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.7.0/build/js/utils.js",
+            });
+            form.addEventListener('submit', function (event) {
+
+                if (!phoneInput.isValidNumber()) {
+                    phoneErrorElement.style.display = "block";
+                    event.preventDefault();
+                } else {
+                    const fullPhoneInput = document.createElement("input");
+                    fullPhoneInput.type = "hidden";
+                    fullPhoneInput.name = "fullPhone";
+                    fullPhoneInput.value = phoneInput.getNumber();
+
+                    form.appendChild(fullPhoneInput);
+                }
+            });
+
+        </script>
+
     </#if>
 </@layout.registrationLayout>
