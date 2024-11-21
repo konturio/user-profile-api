@@ -78,7 +78,7 @@
 
 
                     <span id="input-error-phone" class="${properties.kcInputErrorMessageClass!}"
-                              aria-live="polite">
+                              aria-live="polite" style="display: none;">
                         Please enter a valid phone number
                     </span>
                 </div>
