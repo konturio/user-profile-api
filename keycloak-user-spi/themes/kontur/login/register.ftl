@@ -20,7 +20,8 @@
                     />
 
                     <#if messagesPerField.existsError('fullName')>
-                        <span id="input-error-firstname" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
+                        <span id="input-error-firstname" class="${properties.kcInputErrorMessageClass!}"
+                              aria-live="polite">
                             ${kcSanitize(messagesPerField.get('fullName'))?no_esc}
                         </span>
                     </#if>
@@ -58,7 +59,8 @@
                         />
 
                         <#if messagesPerField.existsError('username')>
-                            <span id="input-error-username" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
+                            <span id="input-error-username" class="${properties.kcInputErrorMessageClass!}"
+                                  aria-live="polite">
                                 ${kcSanitize(messagesPerField.get('username'))?no_esc}
                             </span>
                         </#if>
@@ -75,12 +77,6 @@
                            required
                            value="${(register.formData.phone!'')}"
                     />
-
-
-                    <span id="input-error-phone" class="${properties.kcInputErrorMessageClass!}"
-                              aria-live="polite" style="display: none;">
-                        Please enter a valid phone number
-                    </span>
                 </div>
             </div>
 
@@ -108,7 +104,7 @@
                                    aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
                             />
                             <button class="pf-c-button pf-m-control" type="button" aria-label="${msg('showPassword')}"
-                                    aria-controls="password"  data-password-toggle
+                                    aria-controls="password" data-password-toggle
                                     data-label-show="${msg('showPassword')}" data-label-hide="${msg('hidePassword')}">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </button>
@@ -116,7 +112,8 @@
 
 
                         <#if messagesPerField.existsError('password')>
-                            <span id="input-error-password" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
+                            <span id="input-error-password" class="${properties.kcInputErrorMessageClass!}"
+                                  aria-live="polite">
                                 ${kcSanitize(messagesPerField.get('password'))?no_esc}
                             </span>
                         </#if>
@@ -136,14 +133,15 @@
                                    aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
                             />
                             <button class="pf-c-button pf-m-control" type="button" aria-label="${msg('showPassword')}"
-                                    aria-controls="password-confirm"  data-password-toggle
+                                    aria-controls="password-confirm" data-password-toggle
                                     data-label-show="${msg('showPassword')}" data-label-hide="${msg('hidePassword')}">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </button>
                         </div>
 
                         <#if messagesPerField.existsError('password-confirm')>
-                            <span id="input-error-password-confirm" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
+                            <span id="input-error-password-confirm" class="${properties.kcInputErrorMessageClass!}"
+                                  aria-live="polite">
                                 ${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}
                             </span>
                         </#if>
@@ -169,7 +167,8 @@
                 </div>
 
                 <div id="kc-form-buttons" class="${properties.kcFormButtonsClass!}">
-                    <input class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" type="submit" value="${msg("doRegister")}"/>
+                    <input class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}"
+                           type="submit" value="${msg("doRegister")}"/>
                 </div>
             </div>
         </form>
@@ -179,26 +178,30 @@
         <script>
             const form = document.getElementById("kc-register-form");
             const input = document.getElementById("phone");
-            const phoneErrorElement = document.getElementById("input-error-phone");
+            const savedCountry = "${(register.formData.country!'')}"
 
             const phoneInput = window.intlTelInput(input, {
-                initialCountry: "us",
+                initialCountry: savedCountry || "us",
                 separateDialCode: true,
-                loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.7.0/build/js/utils.js",
             });
-            form.addEventListener('submit', function (event) {
+            form.addEventListener('submit', function () {
 
-                if (!phoneInput.isValidNumber()) {
-                    phoneErrorElement.style.display = "block";
-                    event.preventDefault();
-                } else {
-                    const fullPhoneInput = document.createElement("input");
-                    fullPhoneInput.type = "hidden";
-                    fullPhoneInput.name = "fullPhone";
-                    fullPhoneInput.value = phoneInput.getNumber();
+                const {dialCode} = phoneInput.getSelectedCountryData();
+                const phoneValue = input.value.trim();
+                const fullPhone = `+${dialCode}${phoneValue}`;
 
-                    form.appendChild(fullPhoneInput);
-                }
+                const fullPhoneInput = document.createElement("input");
+                fullPhoneInput.type = "hidden";
+                fullPhoneInput.name = "fullPhone";
+                fullPhoneInput.value = phoneInput.getNumber();
+                form.appendChild(fullPhoneInput);
+
+
+                const countryInput = document.createElement("input");
+                countryInput.type = "hidden";
+                countryInput.name = "country";
+                countryInput.value = dialCode;
+                form.appendChild(countryInput);
             });
 
         </script>
