@@ -178,7 +178,7 @@
         <script>
             const form = document.getElementById("kc-register-form");
             const input = document.getElementById("phone");
-            const savedCountry = "${(register.formData.country!'')}"
+            const savedCountry = "${register.formData.country!''}"
 
             const phoneInput = window.intlTelInput(input, {
                 initialCountry: savedCountry || "us",
@@ -188,12 +188,12 @@
 
                 const {dialCode} = phoneInput.getSelectedCountryData();
                 const phoneValue = input.value.trim();
-                const fullPhone = `+${dialCode}${phoneValue}`;
+                const fullPhone = '+' + dialCode + phoneValue;
 
                 const fullPhoneInput = document.createElement("input");
                 fullPhoneInput.type = "hidden";
                 fullPhoneInput.name = "fullPhone";
-                fullPhoneInput.value = phoneInput.getNumber();
+                fullPhoneInput.value = fullPhone;
                 form.appendChild(fullPhoneInput);
 
 
