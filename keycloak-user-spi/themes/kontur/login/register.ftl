@@ -183,6 +183,7 @@
 
             const phoneInput = window.intlTelInput(input, {
                 initialCountry: "us",
+                separateDialCode: true,
                 loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.7.0/build/js/utils.js",
             });
             form.addEventListener('submit', function (event) {
