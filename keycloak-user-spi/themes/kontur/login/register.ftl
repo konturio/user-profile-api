@@ -186,9 +186,9 @@
             });
             form.addEventListener('submit', function () {
 
-                const {dialCode} = phoneInput.getSelectedCountryData();
+                const {dialCode, iso2} = phoneInput.getSelectedCountryData();
                 const phoneValue = input.value.trim();
-                const fullPhone = '+' + dialCode + phoneValue;
+                const fullPhone = '+' + iso2 + phoneValue;
 
                 const fullPhoneInput = document.createElement("input");
                 fullPhoneInput.type = "hidden";
