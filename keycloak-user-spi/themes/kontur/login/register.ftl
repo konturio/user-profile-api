@@ -188,7 +188,7 @@
 
                 const {dialCode, iso2} = phoneInput.getSelectedCountryData();
                 const phoneValue = input.value.trim();
-                const fullPhone = '+' + iso2 + phoneValue;
+                const fullPhone = '+' + dialCode + phoneValue;
 
                 const fullPhoneInput = document.createElement("input");
                 fullPhoneInput.type = "hidden";
@@ -200,7 +200,7 @@
                 const countryInput = document.createElement("input");
                 countryInput.type = "hidden";
                 countryInput.name = "country";
-                countryInput.value = dialCode;
+                countryInput.value = iso2;
                 form.appendChild(countryInput);
             });
 
