@@ -180,30 +180,31 @@
             const input = document.getElementById("phone");
             const savedCountry = "${register.formData.country!''}"
 
-            const phoneInput = window.intlTelInput(input, {
-                initialCountry: savedCountry || "us",
-                separateDialCode: true,
-            });
-            form.addEventListener('submit', function () {
+            if (form && input) {
+                const phoneInput = window.intlTelInput(input, {
+                    initialCountry: savedCountry || "us",
+                    separateDialCode: true,
+                });
 
-                const {dialCode, iso2} = phoneInput.getSelectedCountryData();
-                const phoneValue = input.value.trim();
-                const fullPhone = '+' + dialCode + phoneValue;
+                form.addEventListener('submit', function () {
 
-                const fullPhoneInput = document.createElement("input");
-                fullPhoneInput.type = "hidden";
-                fullPhoneInput.name = "fullPhone";
-                fullPhoneInput.value = fullPhone;
-                form.appendChild(fullPhoneInput);
+                    const {dialCode, iso2} = phoneInput.getSelectedCountryData();
+                    const phoneValue = input.value.trim();
+                    const fullPhone = '+' + dialCode + phoneValue;
 
+                    const fullPhoneInput = document.createElement("input");
+                    fullPhoneInput.type = "hidden";
+                    fullPhoneInput.name = "fullPhone";
+                    fullPhoneInput.value = fullPhone;
+                    form.appendChild(fullPhoneInput);
 
-                const countryInput = document.createElement("input");
-                countryInput.type = "hidden";
-                countryInput.name = "country";
-                countryInput.value = iso2;
-                form.appendChild(countryInput);
-            });
-
+                    const countryInput = document.createElement("input");
+                    countryInput.type = "hidden";
+                    countryInput.name = "country";
+                    countryInput.value = iso2;
+                    form.appendChild(countryInput);
+                });
+            }
         </script>
 
     </#if>
