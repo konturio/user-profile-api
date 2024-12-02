@@ -149,6 +149,13 @@
                 </div>
             </#if>
 
+            <div class="${properties.kcFormGroupClass!}">
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input type="checkbox" id="newsletter-consent" name="newsletterConsent" />
+                    <label for="newsletter-consent">${msg("newsletterConsent")}</label>
+                </div>
+            </div>
+
             <@registerCommons.termsAcceptance/>
 
             <#if recaptchaRequired??>
