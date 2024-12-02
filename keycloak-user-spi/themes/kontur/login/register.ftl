@@ -149,14 +149,21 @@
                 </div>
             </#if>
 
+            <@registerCommons.termsAcceptance/>
+
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="checkbox" id="newsletter-consent" name="newsletterConsent" />
-                    <label for="newsletter-consent">${msg("newsletterConsent")}</label>
+                    <label for="newsletter-consent" class="${properties.kcLabelClass!}">${msg("newsletterConsentLabel")}</label>
                 </div>
             </div>
 
-            <@registerCommons.termsAcceptance/>
+            <div class="${properties.kcFormGroupClass!}">
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input type="checkbox" id="call-consent" name="callConsent" />
+                    <label for="call-consent" class="${properties.kcLabelClass!}">${msg("callConsentLabel")}</label>
+                </div>
+            </div>
 
             <#if recaptchaRequired??>
                 <div class="form-group">
