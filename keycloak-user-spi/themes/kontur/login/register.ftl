@@ -203,7 +203,7 @@
                 form.addEventListener('submit', function () {
 
                     const {dialCode, iso2} = phoneInput.getSelectedCountryData();
-                    const phoneValue = input.value.trim();
+                    const phoneValue = input.value.replace(/ /g,"");
                     const fullPhone = '+' + dialCode + phoneValue;
 
                     const fullPhoneInput = document.createElement("input");
