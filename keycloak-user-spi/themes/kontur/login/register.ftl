@@ -74,7 +74,7 @@
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="phone" class="${properties.kcInputClass!}" name="phone"
-                           required
+                           required maxlength="50"
                            value="${(register.formData.phone!'')}"
                     />
                 </div>
