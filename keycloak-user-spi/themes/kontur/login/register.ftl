@@ -74,7 +74,7 @@
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="phone" class="${properties.kcInputClass!}" name="phone"
-                           required
+                           required maxlength="50"
                            value="${(register.formData.phone!'')}"
                     />
                 </div>
@@ -151,6 +151,20 @@
 
             <@registerCommons.termsAcceptance/>
 
+            <div class="${properties.kcFormGroupClass!}">
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input type="checkbox" id="newsletter-consent" name="newsletterConsent" />
+                    <label for="newsletter-consent" class="${properties.kcLabelClass!}">${msg("newsletterConsentLabel")}</label>
+                </div>
+            </div>
+
+            <div class="${properties.kcFormGroupClass!}">
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input type="checkbox" id="call-consent" name="callConsent" />
+                    <label for="call-consent" class="${properties.kcLabelClass!}">${msg("callConsentLabel")}</label>
+                </div>
+            </div>
+
             <#if recaptchaRequired??>
                 <div class="form-group">
                     <div class="${properties.kcInputWrapperClass!}">
@@ -189,7 +203,7 @@
                 form.addEventListener('submit', function () {
 
                     const {dialCode, iso2} = phoneInput.getSelectedCountryData();
-                    const phoneValue = input.value.trim();
+                    const phoneValue = input.value.replace(/ /g,"");
                     const fullPhone = '+' + dialCode + phoneValue;
 
                     const fullPhoneInput = document.createElement("input");

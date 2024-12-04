@@ -84,11 +84,15 @@ public class DatabaseUserStorageProvider
         MultivaluedMap<String, String> formParameters = session.getContext().getHttpRequest().getDecodedFormParameters();
         String phoneNumber = formParameters.getFirst("fullPhone");
         String linkedin = formParameters.getFirst("linkedin");
+        String newsletterConsent = formParameters.getFirst("newsletterConsent");
+        String callConsent = formParameters.getFirst("callConsent");
 
         UserAdapter userAdapter = UserAdapter.fromEntity(user, session, realm, component);
 
         setUserAttribute(userAdapter, "phone", phoneNumber);
         setUserAttribute(userAdapter, "linkedin", linkedin);
+        setUserAttribute(userAdapter, "newsletterConsent", newsletterConsent != null ? "true" : "false");
+        setUserAttribute(userAdapter, "callConsent", callConsent != null ? "true" : "false");
 
         return userAdapter;
     }
