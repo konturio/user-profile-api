@@ -1,14 +1,14 @@
 # User Guide
 
-[Multi-Criteria Decision Analysis](#multi-criteria-decision-analysis)
+[Multi-Criteria Decision Analysis](#hdr-1-1)
 
-[Area selection](#area-selection)
+[Area selection](#hdr-1-2)
 
-[AI insights](#ai-insights)
+[AI insights](#hdr-1-3)
 
 ## Multi-Criteria Decision Analysis
 
-<iframe width="800" height="470" src="https://www.youtube.com/embed/g7WMD10DMPs?si=Gl6RdNM0L3ufi0uF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+![Kontur Atlas - First launch MCDA tutorial](https://www.youtube.com/watch?v=g7WMD10DMPs::800,470,true)
 
 ### Analysis creation
 
@@ -21,7 +21,7 @@ Before combining layers, the following steps are applied to each layer:
 
 The results are visualized on the map, where hexagons with the lowest values (0) are shown in red, and those with the highest values (1) are shown in green.
 
-![](user_guide_analysis_visualization.jpg)
+![Analysis visualization](user_guide_analysis_visualization.jpg)
 
 ### Analysis customization options 
 
@@ -37,7 +37,7 @@ Users can adjust each layer’s options, such as:
 
 This is useful when the area of interest has values that deviate significantly from the global averages, or when you need to focus on a specific value range.  
 For example, if you want to find areas far from electric vehicle stations, but the global maximum distance is around 7,000 km, it makes sense to set the maximum to a more realistic 70 km for this case.  
-![](user_guide_proximity_to_electric_vehicle_stations_default_value_range.jpg)![](user_guide_proximity_to_electric_vehicle_stations_custom_value_range.jpg)
+![Proximity to electric vehicle stations default value range](user_guide_proximity_to_electric_vehicle_stations_default_value_range.jpg)![Proximity to electric vehicle stations custom value range](user_guide_proximity_to_electric_vehicle_stations_custom_value_range.jpg)
 
 #### Outliers
 
@@ -53,20 +53,20 @@ Possible values:
 For example, consider the distance to power lines in Haiti from OSM data, with the upper limit set at 3000 meters, and the sentiment set that 0 is good and the longer distance is worse.
 
 **Outliers: Clamp**  
-![](user_guide_proximity_to_powerlines_clamped_outliers.jpg)
+![Proximity to powerlines with clamped outliers](user_guide_proximity_to_powerlines_clamped_outliers.jpg)
 
 **Meaning:** Values that exceed the limits contribute equally to the analysis, no matter how far they are from those limits.  
 **Use Case:** Useful for identifying people living more than 3,000 meters from power lines, without needing to account for the exact distance.
 
 **Outliers: Don’t modify**
 
-![](user_guide_proximity_to_powerlines_not_modified_outliers.jpg)
+![Proximity to powerlines with not modified outliers](user_guide_proximity_to_powerlines_not_modified_outliers.jpg)
 
 **Meaning:** Contribution to the analysis increases with the distance from the acceptable limit.  
 **Use Case:** Useful when analyzing locations for building a solar station, where distances beyond the limits are still considered but involve additional costs.
 
 **Outliers: Hide**  
-![](user_guide_proximity_to_powerlines_hidden_outliers.jpg)
+![Proximity to powerlines with hidden outliers](user_guide_proximity_to_powerlines_hidden_outliers.jpg)
 
 **Meaning:** Hexagons with values beyond the limits are excluded from the analysis.  
 **Use Case:** Useful if non-electrified areas are not considered, for example, when opening a store.
@@ -107,9 +107,9 @@ Possible values:
 **What is it for:**
 
 Population distribution shows many areas with low population and a sharp rise in cities.   
-![](user_guide_population_distribution_without_transformation.jpg)
+![Distribution without transformation](user_guide_population_distribution_without_transformation.jpg)
 Low-contrast visualizations like this one lose a lot of information and nuance. To recover this information and make the map more contrastive, GIS specialists employ mathematical transformations that make the distribution more linear-like. Here’s an example where we transform the distribution with Log(x):  
-![](user_guide_transformed_population_distribution.jpg)
+![Transformed population distribution](user_guide_transformed_population_distribution.jpg)
 This map presents much more information, making mountains, small towns, and city outskirts distinguishable. Each layer has its own transformation function determined by the nature of the distribution. Previously, users had to do this manually for each layer. Now, Atlas automatically chooses the best transformation, making it easier to get a great analysis.
 
 #### Normalize
@@ -118,14 +118,14 @@ All layers (criteria) can be rescaled to have a range in \[0, 1\], also known as
 
 ## Area selection
 
-<iframe width="800" height="470" src="https://www.youtube.com/embed/aCXaAYEW0oM?si=AXz-UM_-W6d-Zudw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+![Kontur Atlas - Area selecting tools tutorial](https://www.youtube.com/watch?v=aCXaAYEW0oM::800,470,true)
 
 User can select area of interest on map using following tools on toolbar: 
 
 ### Select admin boundaries 
 
 In “select admin boundaries” mode user can select administrative boundaries from dropdown after clicking to map hexagon.
-![](user_guide_select_admin_boundary.jpg)
+![Select admin boundary tool](user_guide_select_admin_boundary.jpg)
 
 ### Upload GeoJSON
 
@@ -143,11 +143,11 @@ User can:
   * Point   
 * Edit selected area   
 
-![](user_guide_draw_geometry.jpg)
+![Draw geometry tool](user_guide_draw_geometry.jpg)
 
 ## AI insights
 
-<iframe width="800" height="470" src="https://www.youtube.com/embed/aCXaAYEW0oM?si=Rr3deVxmSagXtnPz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+![Kontur Atlas - AI Insights tutorial](https://www.youtube.com/watch?v=Md5Mex-POBo&t::800,470,true)
 
 ### Selected area analysis
 
@@ -159,7 +159,7 @@ This widget provides users with statistical highlights of a selected area in tex
 * Extracts values that significantly differ between the selected area’s averages and global averages.  
 * Provides conclusions generated by a Large Language Model (currently ChatGPT) based on this data, presented in several paragraphs.
 
-![](user_guide_comparison_analysis.jpg)
+![Comparison analysis](user_guide_comparison_analysis.jpg)
 
 ### Comparing analytics with reference area
 
