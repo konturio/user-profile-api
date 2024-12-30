@@ -264,3 +264,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/20121-add-admin-boundary-breadcrumbs-feature-in-gg-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/20466-set-events_list-feature-mcda-config-for-gg-and-dn-in-ups.sql
