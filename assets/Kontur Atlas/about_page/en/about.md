@@ -1,10 +1,10 @@
-![Kontur Atlas](about-atlas-1.png)
+![Kontur Atlas](about-atlas-cover-with-logo.png)
 
 # Kontur Atlas
 
 Atlas is your GPS for big decisions. It's a tool that helps you use maps and data to figure out a wide range of things, from where to open a new store to exploring environmental sustainability.
 
-![Geospatial Data with Ease](about-atlas-2.png)
+![Geospatial Data with Ease](about-atlas-data-flow.png)
 
 ## Geospatial Data with Ease
 
@@ -18,25 +18,25 @@ With a few clicks, Atlas turns that data into maps and visuals so it's easy to u
 
 ### Analyze & Decide
 
-Use these insights to make smart decisions, like picking the perfect spot for your next big project or making concussions based on spatial patterns.
+Use these insights to make smart decisions, like picking the perfect spot for your next big project or making conclusions based on spatial patterns.
 
 ### Jump in and start exploring
 
 Your next big opportunity is waiting to be mapped out!
 
-### _[Subscribe to Atlas](/pricing)_
+### **_[Subscribe to Atlas](/pricing)_**
 
 ## How to Use
 
 ---
 
-## ![Area Selection](about-atlas-3.png)
+![Kontur Atlas - First launch MCDA tutorial](https://www.youtube.com/watch?v=g7WMD10DMPs::800,470,true)
 
 ### Area Selection
 
 To choose an area for analysis, you can use the toolbar to select an administrative unit, draw a shape manually, or import a GeoJSON file.
 
-## ![Analytics Panel](about-atlas-4.png)
+![Kontur Atlas - Area selecting tools tutorial](https://www.youtube.com/watch?v=aCXaAYEW0oM::800,470,true)
 
 ### Analytics Panel
 
@@ -51,7 +51,7 @@ Compares your area's data with global averages, alerting you to any significant 
 Reference Area: This allows you to set a known area as a reference point for comparisons and highlights differences.
 Bio: Here, you can record details like who you're working for, your analysis purpose, and key topics, helping to personalize AI conclusions.
 
-## ![Creating Custom Analysis](about-atlas-5.png)
+![Kontur Atlas - AI Insights tutorial](https://www.youtube.com/watch?v=Md5Mex-POBo::800,470,true)
 
 ### Creating Custom Analysis
 
@@ -71,4 +71,4 @@ Enhance your analysis by fine-tuning the range and what is bad and good of each 
 
 ---
 
-### _[Learn more on kontur.io](https://www.kontur.io/atlas)_
+### **_[Learn more on kontur.io](https://www.kontur.io/atlas)_**
