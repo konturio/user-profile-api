@@ -76,4 +76,6 @@ public class User {
     @Column(name = "default_feed")
     private String defaultFeed;
     private String theme;
+    private String linkedin;
+    private String phone;
 }

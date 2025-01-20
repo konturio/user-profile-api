@@ -264,3 +264,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/20121-add-admin-boundary-breadcrumbs-feature-in-gg-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-linkedin-and-phone-fields-to-users-table.sql

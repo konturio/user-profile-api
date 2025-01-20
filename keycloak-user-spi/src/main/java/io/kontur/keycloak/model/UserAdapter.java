@@ -35,6 +35,12 @@ import org.keycloak.storage.UserStorageUtil;
 
 @JBossLog
 public class UserAdapter implements UserModel {
+
+    public static final String LINKEDIN = "linkedin";
+    public static final String PHONE = "phone";
+    public static final String NEWSLETTER_CONSENT = "newsletterConsent";
+    public static final String CALL_CONSENT = "callConsent";
+
     private final User entity;
     private final KeycloakSession session;
     private final StorageId storageId;
@@ -200,6 +206,10 @@ public class UserAdapter implements UserModel {
             setLastName(value);
         } else if (EMAIL.equals(name)) {
             setEmail(value);
+        } else if (LINKEDIN.equals(name)) {
+            setLinkedin(value);
+        } else if (PHONE.equals(name)) {
+            setPhone(value);
         } else {
             UserStorageUtil
                 .userFederatedStorage(session)
@@ -217,6 +227,10 @@ public class UserAdapter implements UserModel {
             setLastName((values != null && values.size() > 0) ? values.get(0) : null);
         } else if (FIRST_NAME.equals(name)) {
             setFirstName((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (LINKEDIN.equals(name)) {
+            setLinkedin((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (PHONE.equals(name)) {
+            setPhone((values != null && values.size() > 0) ? values.get(0) : null);
         } else {
             UserStorageUtil
                 .userFederatedStorage(session)
@@ -257,6 +271,22 @@ public class UserAdapter implements UserModel {
     @Override
     public void setEmail(String email) {
         entity.setEmail(email);
+    }
+
+    public String getLinkedin() {
+        return entity.getLinkedin();
+    }
+
+    public void setLinkedin(String linkedin) {
+        entity.setLinkedin(linkedin);
+    }
+
+    public String getPhone() {
+        return entity.getPhone();
+    }
+
+    public void setPhone(String phone) {
+        entity.setPhone(phone);
     }
 
     @Override
@@ -340,6 +370,9 @@ public class UserAdapter implements UserModel {
         attributes.add(UserModel.EMAIL, email != null && email.size() >= 1 ? email.get(0) : null);
         attributes.add(UserModel.USERNAME, getUsername());
 
+        attributes.add(LINKEDIN, getLinkedin());
+        attributes.add(PHONE, getPhone());
+
         attributes.remove(EMAIL_VERIFIED_ATTRIBUTE);
         attributes.remove(ENABLED_ATTRIBUTE);
 
@@ -369,6 +402,12 @@ public class UserAdapter implements UserModel {
             if (USERNAME.equals(name)) {
                 return entity.getEmail();
             }
+            if (LINKEDIN.equals(name)) {
+                return entity.getLinkedin();
+            }
+            if (PHONE.equals(name)) {
+                return entity.getPhone();
+            }
         }
         return "";
     }
@@ -377,6 +416,12 @@ public class UserAdapter implements UserModel {
     public Stream<String> getAttributeStream(String name) {
         if (UserModel.USERNAME.equals(name)) {
             return Stream.of(getUsername());
+        }
+        if (LINKEDIN.equals(name)) {
+            return Stream.of(getLinkedin());
+        }
+        if (PHONE.equals(name)) {
+            return Stream.of(getPhone());
         }
         List<String> result = UserStorageUtil
             .userFederatedStorage(session)

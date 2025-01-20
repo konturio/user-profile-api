@@ -33,6 +33,8 @@ import org.keycloak.storage.user.UserLookupProvider;
 import org.keycloak.storage.user.UserQueryProvider;
 import org.keycloak.storage.user.UserRegistrationProvider;
 
+import static io.kontur.keycloak.model.UserAdapter.*;
+
 @Stateful(passivationCapable = false)
 @Local(DatabaseUserStorageProvider.class)
 @JBossLog
@@ -64,6 +66,13 @@ public class DatabaseUserStorageProvider
 
     @Override
     public UserModel addUser(RealmModel realm, String email) {
+
+        MultivaluedMap<String, String> formParameters = session.getContext().getHttpRequest().getDecodedFormParameters();
+        String phoneNumber = formParameters.getFirst("fullPhone");
+        String linkedin = formParameters.getFirst("linkedin");
+        String newsletterConsent = formParameters.getFirst("newsletterConsent");
+        String callConsent = formParameters.getFirst("callConsent");
+
         String groupName = "event-api-public";
         Optional<GroupModel> group = realm.getGroupsStream()
             .filter(it -> it.getName().equals(groupName)).findAny();
@@ -77,22 +86,18 @@ public class DatabaseUserStorageProvider
             .username(email)
             .email(email)
             .groups(groups)
+            .linkedin(linkedin)
+            .phone(phoneNumber)
             .build();
         userService.createUser(user);
         log.infof("Created user: %s", user);
 
-        MultivaluedMap<String, String> formParameters = session.getContext().getHttpRequest().getDecodedFormParameters();
-        String phoneNumber = formParameters.getFirst("fullPhone");
-        String linkedin = formParameters.getFirst("linkedin");
-        String newsletterConsent = formParameters.getFirst("newsletterConsent");
-        String callConsent = formParameters.getFirst("callConsent");
-
         UserAdapter userAdapter = UserAdapter.fromEntity(user, session, realm, component);
 
-        setUserAttribute(userAdapter, "phone", phoneNumber);
-        setUserAttribute(userAdapter, "linkedin", linkedin);
-        setUserAttribute(userAdapter, "newsletterConsent", newsletterConsent != null ? "true" : "false");
-        setUserAttribute(userAdapter, "callConsent", callConsent != null ? "true" : "false");
+        setUserAttribute(userAdapter, PHONE, phoneNumber);
+        setUserAttribute(userAdapter, LINKEDIN, linkedin);
+        setUserAttribute(userAdapter, NEWSLETTER_CONSENT, newsletterConsent != null ? "true" : "false");
+        setUserAttribute(userAdapter, CALL_CONSENT, callConsent != null ? "true" : "false");
 
         return userAdapter;
     }
