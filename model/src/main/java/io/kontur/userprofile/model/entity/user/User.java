@@ -81,6 +81,7 @@ public class User {
     private String phone;
     @Column(name = "call_consent_given")
     private boolean callConsentGiven;
+    @Builder.Default
     @Column(name = "created_at")
     private OffsetDateTime createdAt = OffsetDateTime.now();;
     @Column(name = "account_notes")
