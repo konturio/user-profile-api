@@ -82,7 +82,7 @@ public class User {
     @Column(name = "call_consent_given")
     private boolean callConsentGiven;
     @Column(name = "created_at")
-    private OffsetDateTime createdAt;
+    private OffsetDateTime createdAt = OffsetDateTime.now();;
     @Column(name = "account_notes")
     private OffsetDateTime accountNotes;
 
