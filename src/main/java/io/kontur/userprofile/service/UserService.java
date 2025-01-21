@@ -60,6 +60,8 @@ public class UserService {
         user.setTheme(userDto.getTheme());
         user.setLinkedin(userDto.getLinkedin());
         user.setPhone(userDto.getPhone());
+        user.setCallConsentGiven(userDto.isCallConsentGiven());
+        user.setAccountNotes(userDto.getAccountNotes());
 
         userDao.updateUser(user);
 

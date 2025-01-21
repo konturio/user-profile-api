@@ -73,10 +73,6 @@ public class DatabaseUserStorageProvider
         String newsletterConsent = formParameters.getFirst("newsletterConsent");
         String callConsent = formParameters.getFirst("callConsent");
 
-        for (var parameter : formParameters.entrySet()) {
-            log.infof("Form parameter: " + parameter.getKey() + " - " + parameter.getValue());
-        }
-
         String groupName = "event-api-public";
         Optional<GroupModel> group = realm.getGroupsStream()
             .filter(it -> it.getName().equals(groupName)).findAny();
@@ -92,6 +88,8 @@ public class DatabaseUserStorageProvider
             .groups(groups)
             .linkedin(linkedin)
             .phone(phoneNumber)
+            .subscribedToKonturUpdates(newsletterConsent != null)
+            .callConsentGiven(callConsent != null)
             .build();
         userService.createUser(user);
         log.infof("Created user: %s", user);
