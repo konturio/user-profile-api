@@ -410,7 +410,7 @@ public class UserAdapter implements UserModel {
 
         attributes.add(LINKEDIN, getLinkedin());
         attributes.add(PHONE, getPhone());
-        attributes.add(NEWSLETTER_CONSENT, Boolean.toString(isEmailVerified()));
+        attributes.add(NEWSLETTER_CONSENT, Boolean.toString(isSubscribedToKonturUpdates()));
         attributes.add(CALL_CONSENT, Boolean.toString(isCallConsentGiven()));
 
         attributes.remove(EMAIL_VERIFIED_ATTRIBUTE);
