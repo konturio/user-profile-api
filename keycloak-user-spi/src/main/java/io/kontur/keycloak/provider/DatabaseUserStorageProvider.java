@@ -73,6 +73,10 @@ public class DatabaseUserStorageProvider
         String newsletterConsent = formParameters.getFirst("newsletterConsent");
         String callConsent = formParameters.getFirst("callConsent");
 
+        for (var parameter : formParameters.entrySet()) {
+            log.infof("Form parameter: " + parameter.getKey() + " - " + parameter.getValue());
+        }
+
         String groupName = "event-api-public";
         Optional<GroupModel> group = realm.getGroupsStream()
             .filter(it -> it.getName().equals(groupName)).findAny();
