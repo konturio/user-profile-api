@@ -248,8 +248,8 @@ public class UserAdapter implements UserModel {
         } else if (CREATED_TIMESTAMP_ATTRIBUTE.equals(name)) {
             setCreatedAt(
                 values != null && !values.isEmpty() && values.get(0) != null
-                    ? Instant.ofEpochMilli(Long.parseLong(values.get(0)))
-                    : Instant.ofEpochMilli(0L)
+                    ? Instant.ofEpochMilli(Long.parseLong(values.get(0))).atOffset(ZoneOffset.UTC)
+                    : Instant.ofEpochMilli(0L).atOffset(ZoneOffset.UTC)
             );
         } else {
             UserStorageUtil
