@@ -85,6 +85,6 @@ public class User {
     @Column(name = "created_at")
     private OffsetDateTime createdAt = OffsetDateTime.now();;
     @Column(name = "account_notes")
-    private OffsetDateTime accountNotes;
+    private String accountNotes;
 
 }
