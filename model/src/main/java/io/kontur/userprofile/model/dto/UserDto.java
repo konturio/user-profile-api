@@ -26,7 +26,7 @@ public class UserDto {
     private String phone;
     private boolean callConsentGiven;
     private OffsetDateTime createdAt;
-    private OffsetDateTime accountNotes;
+    private String accountNotes;
 
     public static UserDto fromEntity(User user) {
         return user == null ? null :
