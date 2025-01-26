@@ -245,6 +245,12 @@ public class UserAdapter implements UserModel {
             setSubscribedToKonturUpdates((values != null && values.size() > 0) ? Boolean.valueOf(values.get(0)) : null);
         } else if (CALL_CONSENT.equals(name)) {
             setCallConsentGiven((values != null && values.size() > 0) ? Boolean.valueOf(values.get(0)) : null);
+        } else if (CREATED_TIMESTAMP_ATTRIBUTE.equals(name)) {
+            setCreatedAt(
+                values != null && !values.isEmpty() && values.get(0) != null
+                    ? Instant.ofEpochMilli(Long.parseLong(values.get(0)))
+                    : Instant.ofEpochMilli(0L)
+            );
         } else {
             UserStorageUtil
                 .userFederatedStorage(session)
