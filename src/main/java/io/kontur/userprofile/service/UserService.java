@@ -58,6 +58,10 @@ public class UserService {
         user.setOsmEditor(userDto.getOsmEditor());
         user.setDefaultFeed(userDto.getDefaultFeed());
         user.setTheme(userDto.getTheme());
+        user.setLinkedin(userDto.getLinkedin());
+        user.setPhone(userDto.getPhone());
+        user.setCallConsentGiven(userDto.isCallConsentGiven());
+        user.setAccountNotes(userDto.getAccountNotes());
 
         userDao.updateUser(user);
 
