@@ -66,11 +66,11 @@ set configuration = '{
           },
           {
             "name": "updatedAt",
-            "weight": 10
+            "weight": 0
           },
           {
             "name": "startedAt",
-            "weight": 0
+            "weight": 10
           },
           {
             "name": "affectedPopulation",
