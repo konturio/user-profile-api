@@ -38,7 +38,7 @@ set configuration = '{
   "filters": {
      "minAffectedPopulation": 10000,
      "minSeverity": "MODERATE",
-     "excludedEventTypes": [null],
+     "excludedEventTypes": null,
      "lastNDaysUpdatedAt": 30,
      "lastNDaysStartedAt": null
 }
@@ -83,7 +83,7 @@ set configuration = '{
   "filters": {
      "minAffectedPopulation": 10000,
      "minSeverity": "MODERATE",
-     "excludedEventTypes": [null],
+     "excludedEventTypes": null,
      "lastNDaysUpdatedAt": 30,
      "lastNDaysStartedAt": null
 }
