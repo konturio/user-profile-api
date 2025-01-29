@@ -267,3 +267,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/add-linkedin-and-phone-fields-to-users-table.sql
+  - include:
+      relativeToChangelogFile: true
+      file: 20434-create-new-features-in-ups-for-profile.sql
