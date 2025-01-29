@@ -10,7 +10,7 @@ on conflict do nothing;
 --create LinkedIn profile feature
 insert into feature ("name", featuretype, enabled, beta, available_for_user_apps, default_for_user_apps, description)
 values ('linkedin', 'UI_PANEL', true, false, true, false, 'LinkedIn field in user profile')
-on conflict do nothing
+on conflict do nothing;
 
 --create Organization feature
 insert into feature ("name", featuretype, enabled, beta, available_for_user_apps, default_for_user_apps, description)
