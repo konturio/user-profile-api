@@ -3,12 +3,10 @@
 --changeset user-profile-api:20712-set-config-in-ups-with-hidden-profile-fields-for-dn-oam-and-gg-apps.sql runOnChange:false
 
 --delete not needed features from apps
-delete from custom_app_feature where feature_id in (select id from feature where name in ('phone_number', 'linkedin', 'organization', 'position', 'gis_specialists'))
-on conflict do nothing;
+delete from custom_app_feature where feature_id in (select id from feature where name in ('phone_number', 'linkedin', 'organization', 'position', 'gis_specialists'));
 
 --delete not needed features
-delete from feature where name in ('phone_number', 'linkedin', 'organization', 'position', 'gis_specialists')
-on conflict do nothing;
+delete from feature where name in ('phone_number', 'linkedin', 'organization', 'position', 'gis_specialists');
 
 --set config for profile on Disaster Ninja
 update custom_app_feature
