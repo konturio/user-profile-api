@@ -6,13 +6,6 @@
 delete from feature where name in ('phone_number', 'linkedin', 'organization', 'position', 'gis_specialists')
 on conflict do nothing;
 
---delete not needed features on Terrain
-insert into custom_app_feature (app_id, feature_id, authenticated)
-select '3a433e95-0449-48a3-b4ff-9cffea805c74', f.id, true
-from feature f
-where f.name in ('phone_number', 'linkedin', 'organization', 'position', 'gis_specialists')
-on conflict do nothing;
-
 --delete not needed features from apps
 delete from custom_app_feature where f.name in ('phone_number', 'linkedin', 'organization', 'position', 'gis_specialists')
 on conflict do nothing;
