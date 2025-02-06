@@ -11,17 +11,12 @@ delete from feature where name in ('phone_number', 'linkedin', 'organization', '
 --set config for profile on Disaster Ninja
 update custom_app_feature
 set configuration = '{
-            "name": "app_profile",
-            "description": "App profile",
-            "type": "UI_PAGE",
-            "configuration": {
                 "profile_form": {
                     "organization_section": false,
                     "phone": false,
                     "linkedin": false
                 }
-            }
-        }'
+            }'
 where app_id = '58851b50-9574-4aec-a3a6-425fa18dcb54'
   and feature_id in (select f.id from feature f where f.name = 'app_login')
   and not authenticated;
@@ -29,17 +24,12 @@ where app_id = '58851b50-9574-4aec-a3a6-425fa18dcb54'
 --set config for profile on OpenAerialMap
 update custom_app_feature
 set configuration = '{
-            "name": "app_profile",
-            "description": "App profile",
-            "type": "UI_PAGE",
-            "configuration": {
                 "profile_form": {
                     "organization_section": false,
                     "phone": false,
                     "linkedin": false
                 }
-            }
-        }'
+            }'
 where app_id = '1dc6fe68-8802-4672-868d-7f17943bf1c8'
   and feature_id in (select f.id from feature f where f.name = 'app_login')
   and not authenticated;
@@ -47,17 +37,12 @@ where app_id = '1dc6fe68-8802-4672-868d-7f17943bf1c8'
 --set config for profile on Crisis Monitoring for GlobalGiving
 update custom_app_feature
 set configuration = '{
-            "name": "app_profile",
-            "description": "App profile",
-            "type": "UI_PAGE",
-            "configuration": {
                 "profile_form": {
                     "organization_section": false,
                     "phone": false,
                     "linkedin": false
                 }
-            }
-        }'
+            }'
 where app_id = '52b9efd2-0527-4236-9bb6-9677bea1d790'
   and feature_id in (select f.id from feature f where f.name = 'app_login')
   and not authenticated;
