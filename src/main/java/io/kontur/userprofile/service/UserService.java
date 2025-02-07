@@ -62,6 +62,10 @@ public class UserService {
         user.setPhone(userDto.getPhone());
         user.setCallConsentGiven(userDto.isCallConsentGiven());
         user.setAccountNotes(userDto.getAccountNotes());
+        user.setObjectives(userDto.getObjectives());
+        user.setCompanyName(userDto.getCompanyName());
+        user.setPosition(userDto.getPosition());
+        user.setAmountOfGis(userDto.getAmountOfGis());
 
         userDao.updateUser(user);
 

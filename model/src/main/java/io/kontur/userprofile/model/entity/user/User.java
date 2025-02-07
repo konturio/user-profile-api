@@ -86,5 +86,10 @@ public class User {
     private OffsetDateTime createdAt = OffsetDateTime.now();;
     @Column(name = "account_notes")
     private String accountNotes;
-
+    private String objectives;
+    @Column(name = "company_name")
+    private String companyName;
+    private String position;
+    @Column(name = "amount_of_gis")
+    private String amountOfGis;
 }

@@ -27,12 +27,17 @@ public class UserDto {
     private boolean callConsentGiven;
     private OffsetDateTime createdAt;
     private String accountNotes;
+    private String objectives;
+    private String companyName;
+    private String position;
+    private String amountOfGis;
 
     public static UserDto fromEntity(User user) {
         return user == null ? null :
                 new UserDto(user.getUsername(), user.getEmail(), user.getFullName(), user.getLanguage(),
                         user.isUseMetricUnits(), user.isSubscribedToKonturUpdates(), user.getBio(),
                         user.getOsmEditor(), user.getDefaultFeed(), user.getTheme(), user.getLinkedin(),
-                        user.getPhone(), user.isCallConsentGiven(), user.getCreatedAt(), user.getAccountNotes());
+                        user.getPhone(), user.isCallConsentGiven(), user.getCreatedAt(), user.getAccountNotes(),
+                        user.getObjectives(), user.getCompanyName(), user.getPosition(), user.getAmountOfGis());
     }
 }
