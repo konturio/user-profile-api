@@ -276,3 +276,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/add-organisation-info-to-users-table.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/20712-set-config-in-ups-with-hidden-profile-fields-for-dn-oam-and-gg-apps.sql
