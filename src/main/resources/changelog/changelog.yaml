@@ -279,3 +279,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/20712-set-config-in-ups-with-hidden-profile-fields-for-dn-oam-and-gg-apps.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/20756-provide-all-authorized-registered-users-with-access-to-all-atlas-features.sql
