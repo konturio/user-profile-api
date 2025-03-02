@@ -1,6 +1,10 @@
 package io.kontur.keycloak.service;
 
+import io.kontur.userprofile.model.entity.CustomRole;
+import io.kontur.userprofile.model.entity.UserCustomRole;
 import io.kontur.userprofile.model.entity.user.User;
+
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.Objects;
 import java.util.Set;
@@ -15,6 +19,8 @@ import org.keycloak.models.KeycloakSession;
 public class UserServiceImpl extends JpaService<User> implements UserService {
     private static final String EMAIL_FIELD = "email";
     private static final String USERNAME_FIELD = "username";
+    private static final String DEFAULT_TRIAL_ROLE = "kontur_atlas_trial";
+    private static final int DEFAULT_TRIAL_DAYS = 14;
 
     public UserServiceImpl(KeycloakSession session) {
         Set<JpaConnectionProvider> ss = session.getAllProviders(JpaConnectionProvider.class);
@@ -84,6 +90,7 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
     @Override
     public void createUser(User user) {
         entityManager.persist(user); //duplicates check is done by keycloak
+        assignTrialRole(user);
     }
 
     public boolean removeUser(String username) {
@@ -100,6 +107,34 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
                 e.getMessage(), e);
         }
         return false;
+    }
+
+    private void assignTrialRole(User user) {
+        long roleCount = (long) entityManager.createQuery(
+                        "SELECT COUNT(ur) FROM UserCustomRole ur WHERE ur.user.id = :userId")
+                .setParameter("userId", user.getId())
+                .getSingleResult();
+
+        if (roleCount == 0) {
+            Optional<CustomRole> trialRoleOpt = entityManager.createQuery(
+                            "SELECT r FROM CustomRole r WHERE r.name = :roleName", CustomRole.class)
+                    .setParameter("roleName", DEFAULT_TRIAL_ROLE)
+                    .getResultStream()
+                    .findFirst();
+
+            trialRoleOpt.ifPresentOrElse(
+                    (trialRole) -> {
+                        UserCustomRole userRole = new UserCustomRole();
+                        userRole.setUser(user);
+                        userRole.setRole(trialRole);
+                        userRole.setStartedAt(OffsetDateTime.now());
+                        userRole.setEndedAt(OffsetDateTime.now().plusDays(DEFAULT_TRIAL_DAYS));
+                        entityManager.persist(userRole);
+                        log.debugf("Assigned trial role '%s' to user %d", DEFAULT_TRIAL_ROLE, user.getId());
+                    },
+                    () -> log.errorf("Failed to assign trial role '%s' to user %d because it was not found", DEFAULT_TRIAL_ROLE, user.getId())
+            );
+        }
     }
 
     private Stream<User> queryUsersByGroupName(String groupName) {
