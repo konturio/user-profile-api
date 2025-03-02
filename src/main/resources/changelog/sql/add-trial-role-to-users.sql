@@ -2,20 +2,23 @@
 
 --changeset user-profile-api:add-trial-role-to-users.sql runOnChange:true
 
-insert into custom_role (name)
-values ('kontur_atlas_trial')
-on conflict do nothing;
+-- Ensure the role exists before assigning it
+INSERT INTO custom_role (name)
+VALUES ('kontur_atlas_trial')
+ON CONFLICT DO NOTHING;
 
-
-with users_with_no_roles as (
-    select u.id
-    from "users" u
-    where not exists(select * from user_custom_role ur where ur.user_id = u.id)
+-- Assign the role to users who don't have any roles
+WITH users_with_no_roles AS (
+    SELECT u.id AS user_id
+    FROM users u
+    WHERE NOT EXISTS (
+        SELECT 1 FROM user_custom_role ur WHERE ur.user_id = u.id
+    )
 )
-insert into user_custom_role (user_id, role_id, started_at, ended_at)
-select
-    id,
-    (select id from custom_role where name = 'kontur_atlas_trial'),
-    now(),
-    now() + INTERVAL '14 days'
-from users_with_no_roles;
+INSERT INTO user_custom_role (user_id, role_id, started_at, ended_at)
+SELECT
+    uwnr.user_id,
+    (SELECT id FROM custom_role WHERE name = 'kontur_atlas_trial' LIMIT 1), -- Ensures single result
+    NOW(),
+    NOW() + INTERVAL '14 days'
+FROM users_with_no_roles uwnr;
