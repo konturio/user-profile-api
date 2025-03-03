@@ -49,7 +49,7 @@ Compares your area's data with global averages, alerting you to any significant 
 #### Personalized AI Insights
 
 Reference Area: This allows you to set a known area as a reference point for comparisons and highlights differences.
-Bio: Here, you can record details like who you're working for, your analysis purpose, and key topics, helping to personalize AI conclusions.
+Analysis objectives: Here, you can record details like who you're working for, your analysis purpose, and key topics, helping to personalize AI conclusions.
 
 ![Kontur Atlas - AI Insights tutorial](https://www.youtube.com/watch?v=Md5Mex-POBo::800,470,true)
 
