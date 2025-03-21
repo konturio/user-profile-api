@@ -282,3 +282,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/20756-provide-all-authorized-registered-users-with-access-to-all-atlas-features.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21185-withdraw-access-to-atlas-features-from-authorized-registered-users.sql
