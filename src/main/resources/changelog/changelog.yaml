@@ -285,3 +285,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/21185-withdraw-access-to-atlas-features-from-authorized-registered-users.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-trial-role-to-users.sql
