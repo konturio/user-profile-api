@@ -1,7 +1,5 @@
 package io.kontur.keycloak.service;
 
-import io.kontur.userprofile.model.entity.CustomRole;
-import io.kontur.userprofile.model.entity.UserCustomRole;
 import io.kontur.userprofile.model.entity.user.User;
 
 import java.time.OffsetDateTime;
