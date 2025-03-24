@@ -288,3 +288,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/add-trial-role-to-users.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/assign-features-to-atlas-trial-role.sql
