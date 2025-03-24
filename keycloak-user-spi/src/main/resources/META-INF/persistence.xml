@@ -8,6 +8,8 @@
         <class>io.kontur.userprofile.model.entity.user.Group</class>
         <class>io.kontur.userprofile.model.entity.user.Role</class>
         <class>io.kontur.userprofile.model.entity.user.Subscription</class>
+        <class>io.kontur.userprofile.model.entity.CustomRole</class>
+        <class>io.kontur.userprofile.model.entity.UserCustomRole</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
             <!-- Sets the name of the datasource to be the same as the datasource name in quarkus.properties-->
