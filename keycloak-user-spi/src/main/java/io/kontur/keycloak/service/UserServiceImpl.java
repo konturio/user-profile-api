@@ -1,7 +1,5 @@
 package io.kontur.keycloak.service;
 
-import io.kontur.userprofile.model.entity.CustomRole;
-import io.kontur.userprofile.model.entity.UserCustomRole;
 import io.kontur.userprofile.model.entity.user.User;
 
 import java.time.OffsetDateTime;
@@ -110,30 +108,20 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
     }
 
     private void assignTrialRole(User user) {
-        long roleCount = (long) entityManager.createQuery(
-                        "SELECT COUNT(ur) FROM UserCustomRole ur WHERE ur.user.id = :userId")
+        int updatedRows = entityManager.createNativeQuery(
+                        "INSERT INTO user_custom_role (user_id, role_id, started_at, ended_at) " +
+                                "SELECT :userId, cr.id, :startedAt, :endedAt FROM custom_role cr " +
+                                "WHERE cr.name = :roleName AND NOT EXISTS (SELECT 1 FROM user_custom_role ucr WHERE ucr.user_id = :userId)")
                 .setParameter("userId", user.getId())
-                .getSingleResult();
+                .setParameter("roleName", DEFAULT_TRIAL_ROLE)
+                .setParameter("startedAt", OffsetDateTime.now())
+                .setParameter("endedAt", OffsetDateTime.now().plusDays(DEFAULT_TRIAL_DAYS))
+                .executeUpdate();
 
-        if (roleCount == 0) {
-            Optional<CustomRole> trialRoleOpt = entityManager.createQuery(
-                            "SELECT r FROM CustomRole r WHERE r.name = :roleName", CustomRole.class)
-                    .setParameter("roleName", DEFAULT_TRIAL_ROLE)
-                    .getResultStream()
-                    .findFirst();
-
-            trialRoleOpt.ifPresentOrElse(
-                    (trialRole) -> {
-                        UserCustomRole userRole = new UserCustomRole();
-                        userRole.setUser(user);
-                        userRole.setRole(trialRole);
-                        userRole.setStartedAt(OffsetDateTime.now());
-                        userRole.setEndedAt(OffsetDateTime.now().plusDays(DEFAULT_TRIAL_DAYS));
-                        entityManager.persist(userRole);
-                        log.debugf("Assigned trial role '%s' to user %d", DEFAULT_TRIAL_ROLE, user.getId());
-                    },
-                    () -> log.errorf("Failed to assign trial role '%s' to user %d because it was not found", DEFAULT_TRIAL_ROLE, user.getId())
-            );
+        if (updatedRows > 0) {
+            log.debugf("Assigned trial role '%s' to user %d", DEFAULT_TRIAL_ROLE, user.getId());
+        } else {
+            log.errorf("Failed to assign trial role '%s' to user %d (already assigned or role not found)", DEFAULT_TRIAL_ROLE, user.getId());
         }
     }
 
