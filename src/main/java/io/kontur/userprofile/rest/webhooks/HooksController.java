@@ -22,6 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kontur.userprofile.model.dto.paypal.PayPalVerificationDto;
 import io.kontur.userprofile.service.PayPalAuthorizationService;
 import io.kontur.userprofile.service.UserService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +47,9 @@ public class HooksController {
     private final PayPalAuthorizationService paypalAuthService;
 
     private final RestTemplate paypalApiRestTemplate;
+
+    // Metrics
+    private final MeterRegistry registry;
 
     @Value("${payments.paypal.host}")
     private String paypalHost;
@@ -76,9 +81,17 @@ public class HooksController {
             final String planId = resource.get("plan_id").asText();
             final String status = resource.get("status").asText();
 
+            Counter c;
+
             // now we know the hook is valid, let's process it
             switch (eventType) {
                 case "BILLING.SUBSCRIPTION.CREATED":
+                    c = Counter
+                            .builder("paypal.hooks.created")
+                            .description("The number of new subscription confirmations")
+                            .tag("subscription", subscriptionId)
+                            .register(registry);
+                    c.increment();
                     log.infof("PayPal webhook: subscription '%s' for plan '%s' was created", subscriptionId, planId);
                     // check the status, warn if not active/payed for
                     // but the subscription itself should ba active in our DB regardless
@@ -89,6 +102,13 @@ public class HooksController {
                     break;
 
                 case "BILLING.SUBSCRIPTION.ACTIVATED":
+                    c = Counter
+                            .builder("paypal.hooks.activated")
+                            .description("The number of payed subscriptions")
+                            .tag("subscription", subscriptionId)
+                            .register(registry);
+                    c.increment();
+                    // intentional fall-through
                 case "BILLING.SUBSCRIPTION.REACTIVATED":
                     userService.reactivateSubscription(subscriptionId);
                     log.infof("PayPal webhook: subscription '%s' for plan '%s' was activated", subscriptionId, planId);

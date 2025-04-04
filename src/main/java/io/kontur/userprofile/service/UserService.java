@@ -10,6 +10,9 @@ import io.kontur.userprofile.model.entity.BillingPlan;
 import io.kontur.userprofile.model.entity.UserBillingSubscription;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,6 +31,9 @@ public class UserService {
     private final UserCustomRoleDao userCustomRoleDao;
     private final AppService appService;
     private final AuthService authService;
+
+    // Metrics
+    private final MeterRegistry registry;
 
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
@@ -73,28 +79,56 @@ public class UserService {
     }
 
     public Optional<ActiveSubscriptionDto> getActiveSubscription(UUID appId) {
-        App app = appService.getAppOrThrow(appId);
-        User user = authService.getCurrentUserOrElseThrow();
+        final App app = appService.getAppOrThrow(appId);
+        final User user = authService.getCurrentUserOrElseThrow();
 
         return userCustomRoleDao.getActiveSubscription(user, app).map(ActiveSubscriptionDto::new);
     }
 
     public ActiveSubscriptionDto setActiveSubscription(UUID appId, String billingPlanId, String subscriptionId) {
-        App app = appService.getAppOrThrow(appId);
-        User user = authService.getCurrentUserOrElseThrow();
-        BillingPlan billingPlan = getBillingPlanByIdOrElseThrow(billingPlanId);
+        final App app = appService.getAppOrThrow(appId);
+        final User user = authService.getCurrentUserOrElseThrow();
+        final BillingPlan billingPlan = getBillingPlanByIdOrElseThrow(billingPlanId);
 
-        UserBillingSubscription subscription = userCustomRoleDao.setActiveSubscription(user, app, billingPlan, subscriptionId);
+        final Counter c = Counter
+                .builder("billing.subscription.activated")
+                .description("The number of new subscriptions activated")
+                .tag("subscription", subscriptionId)
+                .tag("plan", billingPlan.getRole().getName())
+                .tag("app", app.getName())
+                .register(registry);
+        c.increment();
+
+        final UserBillingSubscription subscription = userCustomRoleDao.setActiveSubscription(user, app, billingPlan, subscriptionId);
         return new ActiveSubscriptionDto(subscription);
     }
 
     // also needed for subscription cancellation via a webhook
     public void expireActiveSubscription(String id) {
-        userCustomRoleDao.expireActiveSubscription(id);
+        final var subscription = userCustomRoleDao.expireActiveSubscription(id);
+        final Counter c = Counter
+                .builder("billing.subscription.deactivated")
+                .description("The number of subscriptions deactivated")
+                .tag("subscription", id)
+                .tag("plan", subscription.getBillingPlan().getRole().getName())
+                .tag("app", subscription.getApp().getName())
+                .register(registry);
+        c.increment();
     }
 
     public void reactivateSubscription(String id) {
-        userCustomRoleDao.reactivateSubscription(id);
+        userCustomRoleDao.reactivateSubscription(id).ifPresent(subscription -> {
+            // we might never get here due to an exception or subscription already being active
+            // and that's intended behaviour
+            final Counter c = Counter
+                    .builder("billing.subscription.reactivated")
+                    .description("The number of old subscriptions reactivated")
+                    .tag("subscription", id)
+                    .tag("plan", subscription.getBillingPlan().getRole().getName())
+                    .tag("app", subscription.getApp().getName())
+                    .register(registry);
+            c.increment();
+        });
     }
 
     public BillingPlan getBillingPlanByIdOrElseThrow(String id) {

@@ -80,7 +80,7 @@ public class UserCustomRoleDao {
     }
 
     // also needed for subscription cancellation via a webhook
-    public void expireActiveSubscription(String id) {
+    public UserBillingSubscription expireActiveSubscription(String id) {
         UserBillingSubscription subscription = entityManager.find(UserBillingSubscription.class, id);
 
         subscription.setActive(false);
@@ -88,9 +88,11 @@ public class UserCustomRoleDao {
 
         entityManager.merge(subscription);
         entityManager.flush();
+
+        return subscription;
     }
 
-    public void reactivateSubscription(String id) {
+    public Optional<UserBillingSubscription> reactivateSubscription(String id) {
         // if already exists an active one do nothing
         // otherwise create a new one
 
@@ -102,7 +104,7 @@ public class UserCustomRoleDao {
         }
 
         // The subscription with the given id is the active one, nothing to do
-        if (subscription.getActive()) return;
+        if (subscription.getActive()) return Optional.empty();
 
         // the user has another subscription tht's active for the same app
         // so expire it
@@ -117,6 +119,8 @@ public class UserCustomRoleDao {
 
         entityManager.merge(subscription);
         entityManager.flush();
+
+        return Optional.of(subscription);
     }
 
     private UserBillingSubscription createActiveSubscription(User user, App app, BillingPlan billingPlan, String subscriptionId) {
