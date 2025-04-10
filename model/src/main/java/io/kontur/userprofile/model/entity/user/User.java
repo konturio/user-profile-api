@@ -84,6 +84,9 @@ public class User {
     @Builder.Default
     @Column(name = "created_at")
     private OffsetDateTime createdAt = OffsetDateTime.now();;
+    @Builder.Default
+    @Column(name = "updated_at")
+    private OffsetDateTime updatedAt = OffsetDateTime.now();
     @Column(name = "account_notes")
     private String accountNotes;
     private String objectives;
@@ -92,4 +95,6 @@ public class User {
     private String position;
     @Column(name = "amount_of_gis")
     private String amountOfGis;
+    @Column(name = "intercom_id")
+    private String intercomId;
 }

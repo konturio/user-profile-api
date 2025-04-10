@@ -4,6 +4,7 @@ import io.kontur.userprofile.model.entity.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import java.time.OffsetDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,17 @@ public class UserDao {
     public List<User> getAllUsers() {
         try {
             return entityManager.createQuery("from User", User.class).getResultList();
+        } catch (NoResultException e) {
+            return List.of();
+        }
+    }
+
+    public List<User> getAllUsersUpdatedBefore(OffsetDateTime date) {
+        try {
+            return entityManager
+                    .createQuery("from User u where u.updatedAt < :date", User.class)
+                    .setParameter("date", date)
+                    .getResultList();
         } catch (NoResultException e) {
             return List.of();
         }

@@ -61,3 +61,8 @@ payments:
     client-secret: 1JE4291016473214C # this is fake, get the actual one from the PayPal dashboard
     connection-timeout: 10
     read-timeout: 30
+
+intercom:
+  enabled: false
+  host: https://api.intercom.io
+  token: example-token
