@@ -84,9 +84,6 @@ public class User {
     @Builder.Default
     @Column(name = "created_at")
     private OffsetDateTime createdAt = OffsetDateTime.now();;
-    @Builder.Default
-    @Column(name = "updated_at")
-    private OffsetDateTime updatedAt = OffsetDateTime.now();
     @Column(name = "account_notes")
     private String accountNotes;
     private String objectives;

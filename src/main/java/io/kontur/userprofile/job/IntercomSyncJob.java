@@ -6,8 +6,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
-
 @Service
 @ConditionalOnProperty(value = "intercom.enabled")
 public class IntercomSyncJob {
@@ -21,7 +19,6 @@ public class IntercomSyncJob {
 
     @Scheduled(cron = "0 0 2 * * *") // Runs daily at 2 AM
     public void syncAllUsersToIntercom() {
-        userDao.getAllUsersUpdatedBefore(OffsetDateTime.now().minusHours(24))
-                .forEach(intercomService::syncUser);
+        userDao.getAllUsers().forEach(intercomService::syncUser);
     }
 }

@@ -9,8 +9,6 @@ import lombok.*;
 import java.util.List;
 
 @Data
-@ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -24,7 +22,7 @@ public class IntercomContactDto {
     private Boolean unsubscribedFromEmails;
     private IntercomContactCustomAttributesDto customAttributes;
 
-    public static IntercomContactDto fromUser(User user, List<UserCustomRole> roles) {
+    public static IntercomContactDto fromUserAndRoles(User user, List<UserCustomRole> roles) {
         return IntercomContactDto.builder()
                 .role("lead")
                 .email(user.getEmail())
@@ -32,7 +30,7 @@ public class IntercomContactDto {
                 .name(user.getFullName())
                 .signedUpAt(user.getCreatedAt().toEpochSecond())
                 .unsubscribedFromEmails(!user.isSubscribedToKonturUpdates())
-                .customAttributes(IntercomContactCustomAttributesDto.fromUser(user, roles))
+                .customAttributes(IntercomContactCustomAttributesDto.fromUserAndRoles(user, roles))
                 .build();
     }
 }

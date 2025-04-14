@@ -10,8 +10,6 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @Data
-@ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -29,12 +27,13 @@ public class IntercomContactCustomAttributesDto {
     private String position;
     private String amountOfGis;
     private Boolean konturAtlasTrial;
-    private Long konturAtlasTrialStartedAt;
     private Long konturAtlasTrialEndedAt;
     private Boolean konturAtlasEdu;
+    private Long konturAtlasEduEndedAt;
     private Boolean konturAtlasPro;
+    private Long konturAtlasProEndedAt;
 
-    public static IntercomContactCustomAttributesDto fromUser(User user, List<UserCustomRole> roles) {
+    public static IntercomContactCustomAttributesDto fromUserAndRoles(User user, List<UserCustomRole> roles) {
         return IntercomContactCustomAttributesDto.builder()
                 .source("user-profile-service")
                 .linkedin(user.getLinkedin())
@@ -42,21 +41,30 @@ public class IntercomContactCustomAttributesDto {
                 .companyName(user.getCompanyName())
                 .position(user.getPosition())
                 .amountOfGis(user.getAmountOfGis())
-                .konturAtlasTrial(roles.stream().anyMatch(r -> r.getRole().getName().equals(KONTUR_ATLAS_TRIAL_ROLE_NAME)))
-                .konturAtlasTrialStartedAt(roles.stream()
-                        .filter(r -> r.getRole().getName().equals(KONTUR_ATLAS_TRIAL_ROLE_NAME))
-                        .map(UserCustomRole::getStartedAt)
-                        .min(OffsetDateTime::compareTo)
-                        .map(OffsetDateTime::toEpochSecond)
-                        .orElse(null))
-                .konturAtlasTrialEndedAt(roles.stream()
-                        .filter(r -> r.getRole().getName().equals(KONTUR_ATLAS_TRIAL_ROLE_NAME))
-                        .map(UserCustomRole::getEndedAt)
-                        .max(OffsetDateTime::compareTo)
-                        .map(OffsetDateTime::toEpochSecond)
-                        .orElse(null))
-                .konturAtlasEdu(roles.stream().anyMatch(r -> r.getRole().getName().equals(KONTUR_ATLAS_EDU_ROLE_NAME)))
-                .konturAtlasPro(roles.stream().anyMatch(r -> r.getRole().getName().equals(KONTUR_ATLAS_PRO_ROLE_NAME)))
+                .konturAtlasTrial(isRoleActive(roles, KONTUR_ATLAS_TRIAL_ROLE_NAME))
+                .konturAtlasTrialEndedAt(getRoleEndedAt(roles, KONTUR_ATLAS_TRIAL_ROLE_NAME))
+                .konturAtlasEdu(isRoleActive(roles, KONTUR_ATLAS_EDU_ROLE_NAME))
+                .konturAtlasEduEndedAt(getRoleEndedAt(roles, KONTUR_ATLAS_EDU_ROLE_NAME))
+                .konturAtlasPro(isRoleActive(roles, KONTUR_ATLAS_PRO_ROLE_NAME))
+                .konturAtlasProEndedAt(getRoleEndedAt(roles, KONTUR_ATLAS_PRO_ROLE_NAME))
                 .build();
+    }
+
+    private static boolean isRoleActive(List<UserCustomRole> roles, String roleName) {
+        return roles.stream().anyMatch(r -> roleName.equals(r.getRole().getName()));
+    }
+
+    private static Long getRoleEndedAt(List<UserCustomRole> roles, String roleName) {
+        List<UserCustomRole> filteredRoles = roles.stream().filter(r -> roleName.equals(r.getRole().getName())).toList();
+
+        if (filteredRoles.stream().anyMatch(r -> r.getEndedAt() == null)) {
+            return null;
+        }
+
+        return filteredRoles.stream()
+                .map(UserCustomRole::getEndedAt)
+                .map(OffsetDateTime::toEpochSecond)
+                .max(Long::compareTo)
+                .orElse(null);
     }
 }

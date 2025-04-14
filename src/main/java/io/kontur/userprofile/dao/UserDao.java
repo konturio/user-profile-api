@@ -41,17 +41,6 @@ public class UserDao {
         }
     }
 
-    public List<User> getAllUsersUpdatedBefore(OffsetDateTime date) {
-        try {
-            return entityManager
-                    .createQuery("from User u where u.updatedAt < :date", User.class)
-                    .setParameter("date", date)
-                    .getResultList();
-        } catch (NoResultException e) {
-            return List.of();
-        }
-    }
-
     public void createUser(User user) {
         entityManager.persist(user);
     }

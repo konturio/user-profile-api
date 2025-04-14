@@ -3,14 +3,15 @@ package io.kontur.userprofile.service;
 import io.kontur.userprofile.client.IntercomClient;
 import io.kontur.userprofile.dao.UserCustomRoleDao;
 import io.kontur.userprofile.dao.UserDao;
-import io.kontur.userprofile.model.dto.intercom.IntercomContactDto;
-import io.kontur.userprofile.model.dto.intercom.IntercomContactResponseDto;
+import io.kontur.userprofile.model.dto.intercom.*;
 import io.kontur.userprofile.model.entity.UserCustomRole;
 import io.kontur.userprofile.model.entity.user.User;
 import org.jboss.logging.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IntercomService {
@@ -29,10 +30,14 @@ public class IntercomService {
 
     public void syncUser(User user) {
         try {
-            List<UserCustomRole> roles = userCustomRoleDao.getActiveUserRoles(user);
-            IntercomContactDto intercomContactDto = IntercomContactDto.fromUser(user, roles);
+            Optional<String> intercomId = resolveIntercomId(user);
 
-            IntercomContactResponseDto responseDto = intercomClient.syncContact(intercomContactDto, user.getIntercomId());
+            List<UserCustomRole> roles = userCustomRoleDao.getActiveUserRoles(user);
+            IntercomContactDto contactDto = IntercomContactDto.fromUserAndRoles(user, roles);
+
+            IntercomContactResponseDto responseDto = intercomId.isPresent()
+                    ? intercomClient.updateContact(contactDto, intercomId.get())
+                    : intercomClient.createContact(contactDto);
 
             user.setIntercomId(responseDto.getId());
             userDao.updateUser(user);
@@ -41,6 +46,23 @@ public class IntercomService {
         } catch (Exception e) {
             log.errorf("Failed to sync user with intercom: %s", user.getId(), e);
         }
+    }
 
+    private Optional<String> resolveIntercomId(User user) {
+        if (user.getIntercomId() != null && !user.getIntercomId().isBlank()) {
+            return Optional.of(user.getIntercomId());
+        }
+
+        IntercomContactSearchDto<String> contactSearchDto = new IntercomContactSearchDto<>(
+                new IntercomContactSearchQueryDto<>("email", "=", user.getEmail()));
+        List<IntercomContactResponseDto> contacts = intercomClient.searchContacts(contactSearchDto).getData();
+
+        if (contacts == null || contacts.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return contacts.stream()
+                .max(Comparator.comparingLong(IntercomContactResponseDto::getSignedUpAt))
+                .map(IntercomContactResponseDto::getId);
     }
 }
