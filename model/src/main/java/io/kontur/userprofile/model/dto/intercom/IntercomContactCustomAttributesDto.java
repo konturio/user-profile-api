@@ -1,5 +1,6 @@
 package io.kontur.userprofile.model.dto.intercom;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.kontur.userprofile.model.entity.UserCustomRole;
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class IntercomContactCustomAttributesDto {
 
     private final static String KONTUR_ATLAS_TRIAL_ROLE_NAME = "kontur_atlas_trial";
