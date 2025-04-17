@@ -288,3 +288,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/update-users-table-for-intercom-integration.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21414-create-risk-assessment-app.sql
