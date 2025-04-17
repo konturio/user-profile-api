@@ -24,7 +24,7 @@ on conflict do nothing;
 insert into custom_app_feature (app_id, feature_id, authenticated)
 select '2d5af407-9f47-4f03-9d9b-2320ce9d307b', f.id, false
 from feature f
-where f.name in ('side_bar', 'app_login', 'subscription', 'use_3rdparty_analytics',
+where f.name in ('side_bar', 'app_login', 'use_3rdparty_analytics',
                  'tooltip', 'toasts', 'intercom')
 on conflict do nothing;
 
