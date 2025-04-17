@@ -3,8 +3,10 @@
 --changeset user-profile-service:21414-create-risk-assessment-app.sql runOnChange:false
 
 --create Risk Assessment app
-insert into app (id, name, description, owner_user_id, is_public, extent, favicon_pack)
-values ('2d5af407-9f47-4f03-9d9b-2320ce9d307b', 'Risk Assessment', 'Application for risk assessment, mostly for insurance companies', null, true, '{-135,0,63,62}', '{
+insert into app (id, name, description, owner_user_id, is_public, sidebar_icon_url, favicon_url, extent, domains, favicon_pack)
+values ('2d5af407-9f47-4f03-9d9b-2320ce9d307b', 'Risk Assessment', 'Application for risk assessment, mostly for insurance companies', null, true, 
+  '/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.svg', '/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.ico', 
+  '{-135,0,63,62}', array['dev-risks-kontur-io.k8s-01.konturlabs.com', 'test-risks-kontur-io.k8s-01.konturlabs.com', 'prod-risks-kontur-io.k8s-01.konturlabs.com', 'risks.kontur.io'], '{
   "favicon.svg": "/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.svg",
   "favicon.ico": "/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.ico",
   "apple-touch-icon.png": "/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/apple-touch-icon.png",
@@ -40,24 +42,38 @@ set configuration = '{"statistics": [{
   "x": "population"
 }, {
   "formula": "sumX",
-  "x": "populated_area_km2"
+  "x": "building_count"
 }, {
-  "formula": "percentageXWhereNoY",
-  "x": "populated_area_km2",
-  "y": "count"
+  "formula": "sumX",
+  "x": "man_distance_to_fire_brigade"
 }, {
-  "formula": "sumXWhereNoY",
-  "x": "populated_area_km2",
-  "y": "count"
+  "formula": "sumX",
+  "x": "man_distance_to_hospital"
 }, {
-  "formula": "percentageXWhereNoY",
-  "x": "populated_area_km2",
-  "y": "building_count"
+  "formula": "sumX",
+  "x": "hazardous_days_count"
 }, {
-  "formula": "percentageXWhereNoY",
-  "x": "populated_area_km2",
-  "y": "highway_length"
-}]}'
+  "formula": "sumX",
+  "x": "drought_days_count"
+}, {
+  "formula": "sumX",
+  "x": "earthquake_days_count"
+}, {
+  "formula": "sumX",
+  "x": "cyclone_days_count"
+}, {
+  "formula": "sumX",
+  "x": "flood_days_countt"
+}, {
+  "formula": "sumX",
+  "x": "volcano_days_count"
+}, {
+  "formula": "sumX",
+  "x": "wildfire_days_count"
+}, {
+  "formula": "sumX",
+  "x": "permanent_water"
+}]}'  
 where app_id = '2d5af407-9f47-4f03-9d9b-2320ce9d307b'
   and feature_id in (select f.id from feature f where f.name = 'analytics_panel')
   and authenticated
