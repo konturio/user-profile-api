@@ -15,7 +15,12 @@ values ('2d5af407-9f47-4f03-9d9b-2320ce9d307b', 'Risk Assessment', 'Application 
 }'::json)
 on conflict do nothing;
 
--- Add guest features
+--create new app role
+insert into custom_role (name)
+values ('risk_assessment_admin')
+on conflict do nothing;
+
+--add guest features
 insert into custom_app_feature (app_id, feature_id, authenticated)
 select '2d5af407-9f47-4f03-9d9b-2320ce9d307b', f.id, false
 from feature f
@@ -23,7 +28,7 @@ where f.name in ('side_bar', 'app_login', 'subscription', 'about_page', 'use_3rd
                  'tooltip', 'toasts', 'intercom')
 on conflict do nothing;
 
--- Add role based features
+--add role based features
 insert into custom_app_feature (app_id, feature_id, authenticated, role_id)
 select '2d5af407-9f47-4f03-9d9b-2320ce9d307b', f.id, true, r.id
 from feature f, custom_role r
