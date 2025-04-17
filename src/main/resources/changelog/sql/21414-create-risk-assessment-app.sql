@@ -68,7 +68,7 @@ set configuration = '{"statistics": [{
   "x": "cyclone_days_count"
 }, {
   "formula": "sumX",
-  "x": "flood_days_countt"
+  "x": "flood_days_count"
 }, {
   "formula": "sumX",
   "x": "volcano_days_count"
