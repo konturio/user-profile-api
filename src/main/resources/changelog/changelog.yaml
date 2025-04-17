@@ -285,3 +285,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/assign-features-to-atlas-trial-role.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/update-users-table-for-intercom-integration.sql

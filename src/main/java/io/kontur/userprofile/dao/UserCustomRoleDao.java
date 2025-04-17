@@ -3,6 +3,7 @@ package io.kontur.userprofile.dao;
 import io.kontur.userprofile.model.entity.App;
 import io.kontur.userprofile.model.entity.BillingPlan;
 import io.kontur.userprofile.model.entity.UserBillingSubscription;
+import io.kontur.userprofile.model.entity.UserCustomRole;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import jakarta.persistence.EntityExistsException;
@@ -47,6 +48,17 @@ public class UserCustomRoleDao {
         generalRoleIds.addAll(subscriptionRoleIds);
 
         return generalRoleIds.stream().distinct().toList();
+    }
+
+    public List<UserCustomRole> getActiveUserRoles(User user) {
+        return entityManager.createQuery(
+                        "from UserCustomRole " +
+                                "where user.id = :userId " +
+                                "and startedAt < current_timestamp " +
+                                "and (endedAt is null or current_timestamp < endedAt)",
+                        UserCustomRole.class)
+                .setParameter("userId", user.getId())
+                .getResultList();
     }
 
     public Optional<UserBillingSubscription> getActiveSubscription(User user, App app) {

@@ -92,4 +92,6 @@ public class User {
     private String position;
     @Column(name = "amount_of_gis")
     private String amountOfGis;
+    @Column(name = "intercom_id")
+    private String intercomId;
 }
