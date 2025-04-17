@@ -49,31 +49,25 @@ set configuration = '{"statistics": [{
   "formula": "sumX",
   "x": "building_count"
 }, {
-  "formula": "sumX",
-  "x": "man_distance_to_fire_brigade"
-}, {
-  "formula": "sumX",
-  "x": "man_distance_to_hospital"
-}, {
-  "formula": "sumX",
+  "formula": "avgX",
   "x": "hazardous_days_count"
 }, {
-  "formula": "sumX",
+  "formula": "avgX",
   "x": "drought_days_count"
 }, {
-  "formula": "sumX",
+  "formula": "avgX",
   "x": "earthquake_days_count"
 }, {
-  "formula": "sumX",
+  "formula": "avgX",
   "x": "cyclone_days_count"
 }, {
-  "formula": "sumX",
+  "formula": "avgX",
   "x": "flood_days_count"
 }, {
-  "formula": "sumX",
+  "formula": "avgX",
   "x": "volcano_days_count"
 }, {
-  "formula": "sumX",
+  "formula": "avgX",
   "x": "wildfire_days_count"
 }, {
   "formula": "sumX",
