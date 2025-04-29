@@ -26,7 +26,7 @@ public class IntercomContactDto {
 
     public static IntercomContactDto fromUserAndRoles(User user, List<UserCustomRole> roles) {
         return IntercomContactDto.builder()
-                .role("lead")
+                .role("user")
                 .email(user.getEmail())
                 .phone(user.getPhone())
                 .name(user.getFullName())

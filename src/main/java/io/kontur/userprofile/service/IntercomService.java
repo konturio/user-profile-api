@@ -62,7 +62,10 @@ public class IntercomService {
         }
 
         return contacts.stream()
-                .max(Comparator.comparingLong(IntercomContactResponseDto::getSignedUpAt))
+                .max(Comparator.comparing(
+                        IntercomContactResponseDto::getSignedUpAt,
+                        Comparator.nullsLast(Comparator.naturalOrder())
+                ))
                 .map(IntercomContactResponseDto::getId);
     }
 }
