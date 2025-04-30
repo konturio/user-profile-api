@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset user-profile-service:21486-create-custome-routes-feature-in-ups.sql runOnChange:false
+--changeset user-profile-service:21486-create-custom-routes-feature-in-ups.sql runOnChange:false
 
 --create custom routes feature
 insert into feature ("name", featuretype, enabled, beta, available_for_user_apps, default_for_user_apps, description)
