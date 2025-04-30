@@ -62,3 +62,7 @@ set configuration = '{
 where app_id = '1dc6fe68-8802-4672-868d-7f17943bf1c8'
   and feature_id in (select f.id from feature f where f.name = 'about_page')
   and not authenticated;
+
+--delete app_login feature from OAM app
+delete from custom_app_feature where app_id = '1dc6fe68-8802-4672-868d-7f17943bf1c8'
+  and feature_id in (select f.id from feature f where f.name = 'app_login');
