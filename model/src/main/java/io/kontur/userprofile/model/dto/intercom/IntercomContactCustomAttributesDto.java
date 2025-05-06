@@ -3,7 +3,7 @@ package io.kontur.userprofile.model.dto.intercom;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import io.kontur.userprofile.model.entity.UserCustomRole;
+import io.kontur.userprofile.model.entity.DatedRole;
 import io.kontur.userprofile.model.entity.user.User;
 import lombok.*;
 
@@ -35,7 +35,7 @@ public class IntercomContactCustomAttributesDto {
     private Boolean konturAtlasPro;
     private Long konturAtlasProEndedAt;
 
-    public static IntercomContactCustomAttributesDto fromUserAndRoles(User user, List<UserCustomRole> roles) {
+    public static IntercomContactCustomAttributesDto fromUserAndRoles(User user, List<DatedRole> roles) {
         return IntercomContactCustomAttributesDto.builder()
                 .source("user-profile-service")
                 .linkedin(user.getLinkedin())
@@ -52,19 +52,19 @@ public class IntercomContactCustomAttributesDto {
                 .build();
     }
 
-    private static boolean isRoleActive(List<UserCustomRole> roles, String roleName) {
-        return roles.stream().anyMatch(r -> roleName.equals(r.getRole().getName()));
+    private static boolean isRoleActive(List<DatedRole> roles, String roleName) {
+        return roles.stream().anyMatch(r -> roleName.equals(r.getRoleName()));
     }
 
-    private static Long getRoleEndedAt(List<UserCustomRole> roles, String roleName) {
-        List<UserCustomRole> filteredRoles = roles.stream().filter(r -> roleName.equals(r.getRole().getName())).toList();
+    private static Long getRoleEndedAt(List<DatedRole> roles, String roleName) {
+        List<DatedRole> filteredRoles = roles.stream().filter(r -> roleName.equals(r.getRoleName())).toList();
 
-        if (filteredRoles.stream().anyMatch(r -> r.getEndedAt() == null)) {
+        if (filteredRoles.stream().anyMatch(r -> r.getExpiredAt() == null)) {
             return null;
         }
 
         return filteredRoles.stream()
-                .map(UserCustomRole::getEndedAt)
+                .map(DatedRole::getExpiredAt)
                 .map(OffsetDateTime::toEpochSecond)
                 .max(Long::compareTo)
                 .orElse(null);

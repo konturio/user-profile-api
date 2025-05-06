@@ -3,7 +3,7 @@ package io.kontur.userprofile.model.dto.intercom;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import io.kontur.userprofile.model.entity.UserCustomRole;
+import io.kontur.userprofile.model.entity.DatedRole;
 import io.kontur.userprofile.model.entity.user.User;
 import lombok.*;
 
@@ -24,7 +24,7 @@ public class IntercomContactDto {
     private Boolean unsubscribedFromEmails;
     private IntercomContactCustomAttributesDto customAttributes;
 
-    public static IntercomContactDto fromUserAndRoles(User user, List<UserCustomRole> roles) {
+    public static IntercomContactDto fromUserAndRoles(User user, List<DatedRole> roles) {
         return IntercomContactDto.builder()
                 .role("user")
                 .email(user.getEmail())
