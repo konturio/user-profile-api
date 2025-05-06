@@ -1,9 +1,6 @@
 package io.kontur.userprofile.dao;
 
-import io.kontur.userprofile.model.entity.App;
-import io.kontur.userprofile.model.entity.BillingPlan;
-import io.kontur.userprofile.model.entity.UserBillingSubscription;
-import io.kontur.userprofile.model.entity.UserCustomRole;
+import io.kontur.userprofile.model.entity.*;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import jakarta.persistence.EntityExistsException;
@@ -50,15 +47,28 @@ public class UserCustomRoleDao {
         return generalRoleIds.stream().distinct().toList();
     }
 
-    public List<UserCustomRole> getActiveUserRoles(User user) {
-        return entityManager.createQuery(
-                        "from UserCustomRole " +
+    public List<DatedRole> getActiveUserRoles(User user) {
+        List<DatedRole> datedRoles =  entityManager.createQuery(
+                        "select role.id as roleId, role.name as roleName, endedAt as expiredAt from UserCustomRole " +
                                 "where user.id = :userId " +
                                 "and startedAt < current_timestamp " +
                                 "and (endedAt is null or current_timestamp < endedAt)",
-                        UserCustomRole.class)
+                        DatedRole.class)
                 .setParameter("userId", user.getId())
                 .getResultList();
+
+        List<DatedRole> subscriptionRoles = entityManager.createQuery(
+                "select billingPlan.role.id as roleId, billingPlan.role.name as roleName, expiredAt as expiredAt "
+                                + "from UserBillingSubscription "
+                                + "where user.id = :userId "
+                                + "and active",
+                        DatedRole.class)
+                .setParameter("userId", user.getId())
+                .getResultList();
+
+        datedRoles.addAll(subscriptionRoles);
+
+        return datedRoles.stream().distinct().toList();
     }
 
     public Optional<UserBillingSubscription> getActiveSubscription(User user, App app) {

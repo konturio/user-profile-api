@@ -4,7 +4,7 @@ import io.kontur.userprofile.client.IntercomClient;
 import io.kontur.userprofile.dao.UserCustomRoleDao;
 import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.model.dto.intercom.*;
-import io.kontur.userprofile.model.entity.UserCustomRole;
+import io.kontur.userprofile.model.entity.DatedRole;
 import io.kontur.userprofile.model.entity.user.User;
 import org.jboss.logging.Logger;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class IntercomService {
         try {
             Optional<String> intercomId = resolveIntercomId(user);
 
-            List<UserCustomRole> roles = userCustomRoleDao.getActiveUserRoles(user);
+            List<DatedRole> roles = userCustomRoleDao.getActiveUserRoles(user);
             IntercomContactDto contactDto = IntercomContactDto.fromUserAndRoles(user, roles);
 
             IntercomContactResponseDto responseDto = intercomId.isPresent()
