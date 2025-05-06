@@ -23,8 +23,7 @@ public class IntercomSyncJob {
     }
 
     @Transactional
-    // @Scheduled(cron = "0 0 2 * * *") // Runs daily at 2 AM
-    @Scheduled(initialDelay = 3000, fixedDelay = 999999999)
+    @Scheduled(cron = "0 0 2 * * *") // Runs daily at 2 AM
     public void syncAllUsersToIntercom() {
         log.info("Started Intercom users sync job");
         userDao.selectUsersForUpdate().forEach(intercomService::syncUser);
