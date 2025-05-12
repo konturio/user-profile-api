@@ -4,7 +4,7 @@
 
 ## OVERVIEW
 
-This document, hereinafter referred to as “TERMS OF SERVICE” sets forth the rules regarding Kontur Inc. and Mapy Konturowe Sp. z o.o. Websites, Applications and Services hereinafter referred to as Kontur Cloud Services that includes in particular but not exclusively https://www.kontur.io, https://atlas.kontur.io, https://maps.kontur.io, https://disaster.ninja, https://new.openaerialmap.org/ available under the domains accordingly or any other Websites, Applications or Services that are owned and/or operated by Kontur Inc. and/or Mapy Konturowe Sp z o.o.
+This document, hereinafter referred to as “TERMS OF SERVICE” sets forth the rules regarding Kontur Inc. and Mapy Konturowe Sp. z o.o. Websites, Applications and Services hereinafter referred to as Kontur Cloud Services that includes in particular but not exclusively [www.kontur.io](https://www.kontur.io), [atlas.kontur.io](https://atlas.kontur.io), [maps.kontur.io](https://maps.kontur.io), [disaster.ninja](https://disaster.ninja), [new.openaerialmap.org](https://new.openaerialmap.org/) available under the domains accordingly or any other Websites, Applications or Services that are owned and/or operated by Kontur Inc. and/or Mapy Konturowe Sp z o.o.
 Throughout the Kontur Cloud Services, the terms “we”, “us” and “our” refer to Mapy Konturowe Sp z o.o. and/or Kontur Inc. Mapy Konturowe Sp z o.o. and/or Kontur Inc. offer the Kontur Cloud Services, including all information, tools and Services available from these sites to you, the user, conditioned upon your acceptance of all terms, conditions, policies, and notices stated here.
 
 By visiting Kontur Cloud Services or purchasing Services and/or Products from us, you engage in our “Service” and agree to be bound by the following terms and conditions (“Terms of Service”, “Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the Kontur Cloud Services, including without limitation users who are browsers, vendors, customers, merchants, and/or contributors of content.
@@ -150,7 +150,7 @@ In the event that any provision of these Terms of Service is determined to be un
 
 The obligations and liabilities of the parties incurred prior to the termination date shall survive the termination of this agreement for all purposes.
 
-These Terms of Service are effective unless and until terminated by either you or us. You may terminate these Terms of Service at any time by notifying us that you no longer wish to use Kontur Cloud Services, or when you cease using our sites. For this purpose, hello@kontur.io shall be used. 
+These Terms of Service are effective unless and until terminated by either you or us. You may terminate these Terms of Service at any time by notifying us that you no longer wish to use Kontur Cloud Services, or when you cease using our sites. For this purpose, [hello@kontur.io](mailto:hello@kontur.io) shall be used. 
 
 If in our sole judgment you fail, or we suspect that you have failed, to comply with any term or provision of these Terms of Service, we also may terminate this agreement at any time without notice, and you will remain liable for all amounts due up to and including the date of termination; and/or accordingly may deny you access to Kontur Cloud Services (or any part thereof).
 
@@ -174,7 +174,7 @@ The terms of service have been negotiated in Polish and English. In the event of
 
 ## SECTIONS 20 – COMPLAINT PROCEDURE AND EXTRAJUDICIAL METHODS OF DEALING WITH COMPLAINTS
 
-As a user of our Services you are able to file a complaint regarding the operation of the Service. To do so you can write us an email at (hello@kontur.io), providing at least following information:
+As a user of our Services you are able to file a complaint regarding the operation of the Service. To do so you can write us an email at [hello@kontur.i](mailto:hello@kontur.io), providing at least following information:
 - your name and surname,
 - your email address,
 - detailed description of an issue.
@@ -190,18 +190,18 @@ We reserve the right, at our sole discretion, to update, change or replace any p
 
 ## SECTION 22 – CONTACT INFORMATION
 
-Questions about the Terms of Service should be sent to us at hello@kontur.io.
+Questions about the Terms of Service should be sent to us at [hello@kontur.i](mailto:hello@kontur.io).
 
 Our contact information is posted below:
 MAPY KONTUROWE spółka z ograniczoną odpowiedzialnością with its seat in Warsaw, Poland.
 Address: Inflancka 4B, building C, 00-189 Warsaw, Poland.
 The company is registered in a National Court Register held by the District Court for the capital city of Warsaw, XII Commercial Division of the National Court Register, with a number 0000909528. The share capital of the company is PLN 5.000,00.
 Tax ID (NIP) of the company is 7011042997.
-E-mail: hello@kontur.io.
+E-mail: [hello@kontur.i](mailto:hello@kontur.io).
 
 ## PRZEGLĄD
 
-Niniejszy dokument, zwany dalej "WARUNKAMI ŚWIADCZENIA USŁUG", określa zasady dotyczące stron internetowych, aplikacji i usług Kontur Inc. i Mapy Konturowe Sp. z o.o., zwanych dalej Usługami Kontur Claud, które obejmują w szczególności, ale nie wyłącznie, https://www.kontur.io, https://atlas.kontur.io, https://maps.kontur.io, https://disaster.ninja, https://new.openaerialmap.org dostępne w odpowiednich domenach lub wszelkie inne strony internetowe, aplikacje lub usługi, które są własnością i/lub są obsługiwane przez Kontur Inc. i/lub Mapy Konturowe Sp. z o.o.
+Niniejszy dokument, zwany dalej "WARUNKAMI ŚWIADCZENIA USŁUG", określa zasady dotyczące stron internetowych, aplikacji i usług Kontur Inc. i Mapy Konturowe Sp. z o.o., zwanych dalej Usługami Kontur Claud, które obejmują w szczególności, ale nie wyłącznie, [kontur.io](https://www.kontur.io), [atlas.kontur.io](https://atlas.kontur.io), [maps.kontur.io](https://maps.kontur.io), [disaster.ninja](https://disaster.ninja), [new.openaerialmap.org](https://new.openaerialmap.org) dostępne w odpowiednich domenach lub wszelkie inne strony internetowe, aplikacje lub usługi, które są własnością i/lub są obsługiwane przez Kontur Inc. i/lub Mapy Konturowe Sp. z o.o.
 W Usługach Kontur Cloud terminy "my", "nas" i "nasz" odnoszą się do Mapy Konturowe Sp. z o.o. i/lub Kontur Inc. Mapy Konturowe Sp. z o.o. i/lub Kontur Inc. oferują usługi Kontur Claud, w tym wszystkie informacje, narzędzia i usługi dostępne w tych witrynach dla użytkownika, pod warunkiem zaakceptowania przez użytkownika wszystkich warunków, zasad i uwag określonych tutaj.
 
 Odwiedzając nasze Strone internetowe i/lub kupując od nas Usługi i/lub Produkty, użytkownik angażuje się w naszą "Usługę" i wyraża zgodę na przestrzeganie poniższych warunków ("Warunki świadczenia usług", "Warunki"), w tym dodatkowych warunków i polityk, o których mowa w niniejszym dokumencie i/lub dostępnych za pośrednictwem hiperłącza. Niniejsze Warunki świadczenia usług mają zastosowanie do wszystkich użytkowników Usług Kontur Claud, w tym między innymi użytkowników, którzy są przeglądarkami, sprzedawcami, klientami, handlowcami i/lub autorami treści.
@@ -334,7 +334,7 @@ W przypadku, gdy którekolwiek z postanowień niniejszych Warunków świadczenia
 ## SEKCJA 17 – ROZWIĄZANIE UMOWY
 
 Zobowiązania i obowiązki stron powstałe przed datą rozwiązania umowy pozostają w mocy po rozwiązaniu niniejszej umowy dla wszystkich celów.
-Niniejsze Warunki świadczenia usług obowiązują do momentu ich wypowiedzenia przez użytkownika lub przez nas. Użytkownik może wypowiedzieć niniejsze Warunki świadczenia usług w dowolnym momencie, powiadamiając nas, że nie chce już korzystać z usług Kontur Cloud lub zaprzestając korzystania z naszych witryn. W tym celu należy użyć strony hello@kontur.io. 
+Niniejsze Warunki świadczenia usług obowiązują do momentu ich wypowiedzenia przez użytkownika lub przez nas. Użytkownik może wypowiedzieć niniejsze Warunki świadczenia usług w dowolnym momencie, powiadamiając nas, że nie chce już korzystać z usług Kontur Cloud lub zaprzestając korzystania z naszych witryn. W tym celu należy użyć strony [hello@kontur.i](mailto:hello@kontur.io). 
 
 Jeśli w naszej wyłącznej ocenie użytkownik nie przestrzega lub podejrzewamy, że nie przestrzega któregokolwiek z warunków lub postanowień niniejszych Warunków świadczenia usług, możemy również rozwiązać niniejszą umowę w dowolnym momencie bez wypowiedzenia, a użytkownik pozostanie odpowiedzialny za wszystkie kwoty należne do dnia rozwiązania umowy włącznie; i/lub w związku z tym możemy odmówić użytkownikowi dostępu do Usług Kontur Cloud (lub jakiejkolwiek ich części).
 
@@ -356,7 +356,7 @@ Warunki świadczenia usług zostały wynegocjowane sporządzone języku polskim 
 
 ## SEKCJA 20 – PROCEDURA REKLAMACYJNA I POZASĄDOWE SPOSOBY ROZPATRYWANIA REKLAMACJI
 
-Użytkownik naszych Usług ma możliwość złożyć reklamację dotyczącą działania Usługi. W tym celu użytkownik może napisać do nas wiadomość e-mail na adres (hello@kontur.io), podając co najmniej następujące informacje:
+Użytkownik naszych Usług ma możliwość złożyć reklamację dotyczącą działania Usługi. W tym celu użytkownik może napisać do nas wiadomość e-mail na adres [hello@kontur.i](mailto:hello@kontur.io), podając co najmniej następujące informacje:
 imię i nazwisko,
 adres e-mail,
 szczegółowy opis problemu.
@@ -371,11 +371,11 @@ Zastrzegamy sobie prawo, według własnego uznania, do aktualizacji, zmiany lub 
 
 ## SEKCJA 22 – DANE KONTAKTOWE
 
-Pytania dotyczące Warunków świadczenia usług należy kierować do nas na adres hello@kontur.io.
+Pytania dotyczące Warunków świadczenia usług należy kierować do nas na adres [hello@kontur.i](mailto:hello@kontur.io).
 
 Nasze dane kontaktowe znajdują się poniżej:
 MAPY KONTUROWE spółka z ograniczoną odpowiedzialnością z siedzibą w Warszawie, Polska
 Adres: ul. Inflancka 4B, Budynek C, 00-189, Warszawa, Polska
 Spółka jest zarejestrowana w Krajowym Rejestrze Sądowym prowadzonym przez Sąd Rejonowy dla m.st. Warszawy w Warszawie, XII Wydział Gospodarczy Krajowego Rejestru Sądowego pod numerem 0000909528. Kapitał zakładowy spółki wynosi 5.000,00 zł.
 NIP spółki to 7011042997.
-E-mail: hello@kontur.io.
+E-mail: [hello@kontur.i](mailto:hello@kontur.io).
