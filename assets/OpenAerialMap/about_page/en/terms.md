@@ -174,7 +174,7 @@ The terms of service have been negotiated in Polish and English. In the event of
 
 ## SECTIONS 20 – COMPLAINT PROCEDURE AND EXTRAJUDICIAL METHODS OF DEALING WITH COMPLAINTS
 
-As a user of our Services you are able to file a complaint regarding the operation of the Service. To do so you can write us an email at [hello@kontur.i](mailto:hello@kontur.io), providing at least following information:
+As a user of our Services you are able to file a complaint regarding the operation of the Service. To do so you can write us an email at [hello@kontur.io](mailto:hello@kontur.io), providing at least following information:
 - your name and surname,
 - your email address,
 - detailed description of an issue.
@@ -190,14 +190,14 @@ We reserve the right, at our sole discretion, to update, change or replace any p
 
 ## SECTION 22 – CONTACT INFORMATION
 
-Questions about the Terms of Service should be sent to us at [hello@kontur.i](mailto:hello@kontur.io).
+Questions about the Terms of Service should be sent to us at [hello@kontur.io](mailto:hello@kontur.io).
 
 Our contact information is posted below:
 MAPY KONTUROWE spółka z ograniczoną odpowiedzialnością with its seat in Warsaw, Poland.
 Address: Inflancka 4B, building C, 00-189 Warsaw, Poland.
 The company is registered in a National Court Register held by the District Court for the capital city of Warsaw, XII Commercial Division of the National Court Register, with a number 0000909528. The share capital of the company is PLN 5.000,00.
 Tax ID (NIP) of the company is 7011042997.
-E-mail: [hello@kontur.i](mailto:hello@kontur.io).
+E-mail: [hello@kontur.io](mailto:hello@kontur.io).
 
 ## PRZEGLĄD
 
@@ -334,7 +334,7 @@ W przypadku, gdy którekolwiek z postanowień niniejszych Warunków świadczenia
 ## SEKCJA 17 – ROZWIĄZANIE UMOWY
 
 Zobowiązania i obowiązki stron powstałe przed datą rozwiązania umowy pozostają w mocy po rozwiązaniu niniejszej umowy dla wszystkich celów.
-Niniejsze Warunki świadczenia usług obowiązują do momentu ich wypowiedzenia przez użytkownika lub przez nas. Użytkownik może wypowiedzieć niniejsze Warunki świadczenia usług w dowolnym momencie, powiadamiając nas, że nie chce już korzystać z usług Kontur Cloud lub zaprzestając korzystania z naszych witryn. W tym celu należy użyć strony [hello@kontur.i](mailto:hello@kontur.io). 
+Niniejsze Warunki świadczenia usług obowiązują do momentu ich wypowiedzenia przez użytkownika lub przez nas. Użytkownik może wypowiedzieć niniejsze Warunki świadczenia usług w dowolnym momencie, powiadamiając nas, że nie chce już korzystać z usług Kontur Cloud lub zaprzestając korzystania z naszych witryn. W tym celu należy użyć strony [hello@kontur.io](mailto:hello@kontur.io). 
 
 Jeśli w naszej wyłącznej ocenie użytkownik nie przestrzega lub podejrzewamy, że nie przestrzega któregokolwiek z warunków lub postanowień niniejszych Warunków świadczenia usług, możemy również rozwiązać niniejszą umowę w dowolnym momencie bez wypowiedzenia, a użytkownik pozostanie odpowiedzialny za wszystkie kwoty należne do dnia rozwiązania umowy włącznie; i/lub w związku z tym możemy odmówić użytkownikowi dostępu do Usług Kontur Cloud (lub jakiejkolwiek ich części).
 
@@ -356,7 +356,7 @@ Warunki świadczenia usług zostały wynegocjowane sporządzone języku polskim 
 
 ## SEKCJA 20 – PROCEDURA REKLAMACYJNA I POZASĄDOWE SPOSOBY ROZPATRYWANIA REKLAMACJI
 
-Użytkownik naszych Usług ma możliwość złożyć reklamację dotyczącą działania Usługi. W tym celu użytkownik może napisać do nas wiadomość e-mail na adres [hello@kontur.i](mailto:hello@kontur.io), podając co najmniej następujące informacje:
+Użytkownik naszych Usług ma możliwość złożyć reklamację dotyczącą działania Usługi. W tym celu użytkownik może napisać do nas wiadomość e-mail na adres [hello@kontur.io](mailto:hello@kontur.io), podając co najmniej następujące informacje:
 imię i nazwisko,
 adres e-mail,
 szczegółowy opis problemu.
@@ -371,11 +371,11 @@ Zastrzegamy sobie prawo, według własnego uznania, do aktualizacji, zmiany lub 
 
 ## SEKCJA 22 – DANE KONTAKTOWE
 
-Pytania dotyczące Warunków świadczenia usług należy kierować do nas na adres [hello@kontur.i](mailto:hello@kontur.io).
+Pytania dotyczące Warunków świadczenia usług należy kierować do nas na adres [hello@kontur.io](mailto:hello@kontur.io).
 
 Nasze dane kontaktowe znajdują się poniżej:
 MAPY KONTUROWE spółka z ograniczoną odpowiedzialnością z siedzibą w Warszawie, Polska
 Adres: ul. Inflancka 4B, Budynek C, 00-189, Warszawa, Polska
 Spółka jest zarejestrowana w Krajowym Rejestrze Sądowym prowadzonym przez Sąd Rejonowy dla m.st. Warszawy w Warszawie, XII Wydział Gospodarczy Krajowego Rejestru Sądowego pod numerem 0000909528. Kapitał zakładowy spółki wynosi 5.000,00 zł.
 NIP spółki to 7011042997.
-E-mail: [hello@kontur.i](mailto:hello@kontur.io).
+E-mail: [hello@kontur.io](mailto:hello@kontur.io).
