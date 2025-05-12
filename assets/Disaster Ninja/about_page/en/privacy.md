@@ -85,7 +85,7 @@
 8. Blocking the Cookie files storage ability or entering other changes in the Cookie files settings on the Client's DTE may harm or worsen and sometimes even prevent use of the website’s services, including placing an order.
 9. The Client who does not want the Cookie files to be used for all the above-mentioned purposes may erase them manually at any time. To get to know the proper and complete instructions the Client is advised to enter the browser’s producer’s website, which the Client currently uses. More information regarding the Cookie files can be found in the Help menu of every internet browser. For example, Cookie files operating browsers include Microsoft Edge, Internet Explorer, Mozilla Firefox, Google Chrome, Opera.
 10. The Controller may enable storing and collecting information using the above-mentioned technology to outside entities, such as advertisement providers, or analytics providers directly on his website. The Cookie files stored that way are subject to those entities' established privacy policies.
-11. Some outside entities operating within the website enable Users to revoke their consent to store and collect data regarding advertising purposes based on the Client’s activity. More information regarding this topic, as well as the choosing rights, can be obtained from the [youronlinechoices.com](www.youronlinechoices.com) website.
+11. Some outside entities operating within the website enable Users to revoke their consent to store and collect data regarding advertising purposes based on the Client’s activity. More information regarding this topic, as well as the choosing rights, can be obtained from [youronlinechoices.com](www.youronlinechoices.com).
 
 ## The Controller’s and User’s rights and obligations
 
