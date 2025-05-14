@@ -4,7 +4,7 @@
 
 --create Risk Assessment app
 insert into app (id, name, description, owner_user_id, is_public, sidebar_icon_url, favicon_url, extent, domains, favicon_pack)
-values ('2d5af407-9f47-4f03-9d9b-2320ce9d307b', 'Hazard Map', 'Application for risk assessment, mostly for insurance companies', null, true, 
+values ('2d5af407-9f47-4f03-9d9b-2320ce9d307b', 'Hazard Compass', 'Application for risk assessment, mostly for insurance companies', null, true, 
   '/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.svg', '/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.ico', 
   '{-135,0,63,62}', array['dev-hazardmap-kontur-io.k8s-01.konturlabs.com', 'test-hazardmap-kontur-io.k8s-01.konturlabs.com', 'prod-hazardmap-kontur-io.k8s-01.konturlabs.com', 'hazardmap.kontur.io'], '{
   "favicon.svg": "/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.svg",
@@ -17,7 +17,7 @@ on conflict do nothing;
 
 --create new app role
 insert into custom_role (name)
-values ('hazardmap_admin')
+values ('hazard_compass_admin')
 on conflict do nothing;
 
 --add guest features
@@ -37,7 +37,7 @@ where f.name in ('toolbar', 'locate_me', 'map_ruler', 'osm_edit_link', 'mcda', '
                 'events_list', 'map_layers_panel', 'legend_panel', 
                 'episodes_timeline', 'feed_selector', 'events_list__bbox_filter', 'current_event',
                 'focused_geometry_layer', 'layers_in_area')
-  and r.name = 'hazardmap_admin'
+  and r.name = 'hazard_compass_admin'
   on conflict do nothing;
 
 --configurate analytics panel 
@@ -108,7 +108,7 @@ where app_id = '2d5af407-9f47-4f03-9d9b-2320ce9d307b'
 insert into user_custom_role (user_id, role_id, started_at)
 select u.id, r.id, now()
 from users u, custom_role r
-where r.name in ('hazardmap_admin')
+where r.name in ('hazard_compass_admin')
     and u.email in ('pkrukovich@kontur.io', 'ahil@kontur.io', 'avalasiuk@kontur.io', 'darafei@kontur.io',
                     'nlaptsik@kontur.io', 'atarakanov@kontur.io', 'a.artyukevich@kontur.io', 'vbondar@kontur.io',
                     'arben@kontur.io', 'tgrigoryan@kontur.io', 'aklopau@kontur.io', 'atsiatserkina@kontur.io',
