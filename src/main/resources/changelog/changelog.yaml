@@ -291,3 +291,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/21486-create-custom-routes-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21553-turn-on-layers-feature-panel-on-oam-in-app-config.sql
