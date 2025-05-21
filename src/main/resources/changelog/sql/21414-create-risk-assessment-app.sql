@@ -55,25 +55,25 @@ set configuration = '{"statistics": [{
   "formula": "avgX",
   "x": "ghs_avg_building_height"
 }, {
-  "formula": "avgX",
+  "formula": "maxX",
   "x": "hazardous_days_count"
 }, {
-  "formula": "avgX",
+  "formula": "maxX",
   "x": "cyclone_days_count"
 }, {
-  "formula": "avgX",
+  "formula": "maxX",
   "x": "drought_days_count"
 }, {
-  "formula": "avgX",
+  "formula": "maxX",
   "x": "earthquake_days_count"
 }, {
-  "formula": "avgX",
+  "formula": "maxX",
   "x": "flood_days_count"
 }, {
-  "formula": "avgX",
+  "formula": "maxX",
   "x": "volcano_days_count"
 }, {
-  "formula": "avgX",
+  "formula": "maxX",
   "x": "wildfire_days_count"
 }, {
   "formula": "sumX",
