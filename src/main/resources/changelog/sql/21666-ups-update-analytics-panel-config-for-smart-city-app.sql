@@ -19,6 +19,9 @@ set configuration = '{"statistics": [{
   "formula": "avgX",
   "x": "ghs_avg_building_height"
 }, {
+  "formula": "maxX",
+  "x": "ghs_max_building_height"
+}, {
   "formula": "sumX",
   "x": "osm_airports_count"
 }, {
