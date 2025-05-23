@@ -32,22 +32,7 @@ set configuration = '{"statistics": [{
   "x": "osm_banks_count"
 }, {
   "formula": "sumX",
-  "x": "landmarks_and_outdoors_fsq_count"
-}, {
-  "formula": "sumX",
-  "x": "arts_and_entertainment_fsq_count"
-}, {
-  "formula": "sumX",
   "x": "business_and_professional_services_fsq_count"
-}, {
-  "formula": "sumX",
-  "x": "coffee_shops_fsq_count"
-}, {
-  "formula": "sumX",
-  "x": "dining_and_drinking_fsq_count"
-}, {
-  "formula": "sumX",
-  "x": "osm_hotels_count"
 }, {
   "formula": "sumX",
   "x": "osm_universities_count"
@@ -60,6 +45,21 @@ set configuration = '{"statistics": [{
 }, {
   "formula": "sumX",
   "x": "osm_kindergartens_count"
+}, {
+  "formula": "sumX",
+  "x": "osm_hotels_count"
+}, {
+  "formula": "sumX",
+  "x": "landmarks_and_outdoors_fsq_count"
+}, {
+  "formula": "sumX",
+  "x": "arts_and_entertainment_fsq_count"
+}, {
+  "formula": "sumX",
+  "x": "coffee_shops_fsq_count"
+}, {
+  "formula": "sumX",
+  "x": "dining_and_drinking_fsq_count"
 }]}'  
 where app_id = '634f23f5-f898-4098-a8bd-09eb7c1e1ae5'
   and feature_id in (select f.id from feature f where f.name = 'analytics_panel')
