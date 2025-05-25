@@ -8,9 +8,10 @@
               href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.7.0/build/css/intlTelInput.min.css"/>
 
         <form id="kc-register-form" class="${properties.kcFormClass!}" action="${url.registrationAction}" method="post">
+            <p class="required-note">Fields marked with <span class="required-marker">*</span> are required.</p>
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="firstName" class="${properties.kcLabelClass!}">${msg("fullName")}</label>
+                    <label for="firstName" class="${properties.kcLabelClass!}">${msg("fullName")}<span class="required-marker">*</span></label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="firstName" class="${properties.kcInputClass!}" name="firstName"
@@ -30,7 +31,7 @@
 
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="email" class="${properties.kcLabelClass!}">${msg("email")}</label>
+                    <label for="email" class="${properties.kcLabelClass!}">${msg("email")}<span class="required-marker">*</span></label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="email" class="${properties.kcInputClass!}" name="email"
@@ -70,7 +71,7 @@
 
             <div class="form-group">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="phone" class="${properties.kcLabelClass!}">${msg("phoneNumber")}</label>
+                    <label for="phone" class="${properties.kcLabelClass!}">${msg("phoneNumber")}<span class="required-marker">*</span></label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="phone" class="${properties.kcInputClass!}" name="phone"
@@ -94,7 +95,7 @@
             <#if passwordRequired??>
                 <div class="${properties.kcFormGroupClass!}">
                     <div class="${properties.kcLabelWrapperClass!}">
-                        <label for="password" class="${properties.kcLabelClass!}">${msg("password")}</label>
+                        <label for="password" class="${properties.kcLabelClass!}">${msg("password")}<span class="required-marker">*</span></label>
                     </div>
                     <div class="${properties.kcInputWrapperClass!}">
                         <div class="${properties.kcInputGroup!}">
@@ -123,7 +124,7 @@
                 <div class="${properties.kcFormGroupClass!}">
                     <div class="${properties.kcLabelWrapperClass!}">
                         <label for="password-confirm"
-                               class="${properties.kcLabelClass!}">${msg("passwordConfirm")}</label>
+                               class="${properties.kcLabelClass!}">${msg("passwordConfirm")}<span class="required-marker">*</span></label>
                     </div>
                     <div class="${properties.kcInputWrapperClass!}">
                         <div class="${properties.kcInputGroup!}">
