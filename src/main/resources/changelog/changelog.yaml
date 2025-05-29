@@ -294,3 +294,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/21553-turn-on-layers-feature-panel-on-oam-in-app-config.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21774-ups-add-app_login-feature-to-oam-app.sql
