@@ -42,9 +42,10 @@ jobs:
           NEXUS_DEPLOYER_PASS: ${{ secrets.NEXUS_DEPLOYER_PASS }}
           NEXUS_READER: ${{ secrets.NEXUS_READER }}
           NEXUS_READER_PASS: ${{ secrets.NEXUS_READER_PASS }}
-          IMAGE_TAG: ${{ github.ref_name }}.${{ steps.get-cloned.outputs.SHA }}.${{ github.run_attempt }}
+          IMAGE_TAG: ${{ format('{0}.{1}.{2}', github.ref_name, steps.get-cloned.outputs.SHA, github.run_attempt) }}
         run: |-
           set -x
+          export IMAGE_TAG=$(echo "$IMAGE_TAG" | tr '/' '-')
           for t in check build jib; do
               sh gradlew --console plain "$t" \
                 || { \
