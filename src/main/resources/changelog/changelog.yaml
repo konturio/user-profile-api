@@ -297,3 +297,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/21774-ups-add-app_login-feature-to-oam-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21560-replace-placeholder-stac-browser-link-with-devseed-s-one.sql
