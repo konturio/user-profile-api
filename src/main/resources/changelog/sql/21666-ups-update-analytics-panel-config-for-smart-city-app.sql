@@ -23,28 +23,28 @@ set configuration = '{"statistics": [{
   "x": "ghs_max_building_height"
 }, {
   "formula": "sumX",
-  "x": "osm_airports_count"
+  "x": "highway_length"
+}, {
+  "formula": "sumX",
+  "x": "osm_public_transport_stops_count"
+}, {
+  "formula": "sumX",
+  "x": "osm_car_parkings_capacity"
 }, {
   "formula": "sumX",
   "x": "osm_railway_stations_count"
 }, {
   "formula": "sumX",
-  "x": "osm_banks_count"
+  "x": "osm_airports_count"
 }, {
   "formula": "sumX",
-  "x": "business_and_professional_services_fsq_count"
+  "x": "osm_pharmacy_count"
 }, {
   "formula": "sumX",
-  "x": "osm_universities_count"
+  "x": "osm_defibrillators_count"
 }, {
   "formula": "sumX",
-  "x": "osm_colleges_count"
-}, {
-  "formula": "sumX",
-  "x": "osm_schools_count"
-}, {
-  "formula": "sumX",
-  "x": "osm_kindergartens_count"
+  "x": "sports_and_recreation_fsq_count"
 }, {
   "formula": "sumX",
   "x": "osm_hotels_count"
@@ -54,12 +54,6 @@ set configuration = '{"statistics": [{
 }, {
   "formula": "sumX",
   "x": "arts_and_entertainment_fsq_count"
-}, {
-  "formula": "sumX",
-  "x": "coffee_shops_fsq_count"
-}, {
-  "formula": "sumX",
-  "x": "dining_and_drinking_fsq_count"
 }]}'  
 where app_id = '634f23f5-f898-4098-a8bd-09eb7c1e1ae5'
   and feature_id in (select f.id from feature f where f.name = 'analytics_panel')
