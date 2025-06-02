@@ -300,3 +300,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/21560-replace-placeholder-stac-browser-link-with-devseed-s-one.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21666-ups-update-analytics-panel-config-for-smart-city-app.sql
