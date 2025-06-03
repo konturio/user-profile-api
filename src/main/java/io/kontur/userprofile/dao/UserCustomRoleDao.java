@@ -1,8 +1,6 @@
 package io.kontur.userprofile.dao;
 
-import io.kontur.userprofile.model.entity.App;
-import io.kontur.userprofile.model.entity.BillingPlan;
-import io.kontur.userprofile.model.entity.UserBillingSubscription;
+import io.kontur.userprofile.model.entity.*;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import jakarta.persistence.EntityExistsException;
@@ -49,6 +47,30 @@ public class UserCustomRoleDao {
         return generalRoleIds.stream().distinct().toList();
     }
 
+    public List<DatedRole> getActiveUserRoles(User user) {
+        List<DatedRole> datedRoles =  entityManager.createQuery(
+                        "select role.id as roleId, role.name as roleName, endedAt as expiredAt from UserCustomRole " +
+                                "where user.id = :userId " +
+                                "and startedAt < current_timestamp " +
+                                "and (endedAt is null or current_timestamp < endedAt)",
+                        DatedRole.class)
+                .setParameter("userId", user.getId())
+                .getResultList();
+
+        List<DatedRole> subscriptionRoles = entityManager.createQuery(
+                "select billingPlan.role.id as roleId, billingPlan.role.name as roleName, expiredAt as expiredAt "
+                                + "from UserBillingSubscription "
+                                + "where user.id = :userId "
+                                + "and active",
+                        DatedRole.class)
+                .setParameter("userId", user.getId())
+                .getResultList();
+
+        datedRoles.addAll(subscriptionRoles);
+
+        return datedRoles.stream().distinct().toList();
+    }
+
     public Optional<UserBillingSubscription> getActiveSubscription(User user, App app) {
         List<UserBillingSubscription> results = entityManager.createQuery("from UserBillingSubscription "
                                 + "where user.username = ?1 "
@@ -80,7 +102,7 @@ public class UserCustomRoleDao {
     }
 
     // also needed for subscription cancellation via a webhook
-    public void expireActiveSubscription(String id) {
+    public UserBillingSubscription expireActiveSubscription(String id) {
         UserBillingSubscription subscription = entityManager.find(UserBillingSubscription.class, id);
 
         subscription.setActive(false);
@@ -88,9 +110,11 @@ public class UserCustomRoleDao {
 
         entityManager.merge(subscription);
         entityManager.flush();
+
+        return subscription;
     }
 
-    public void reactivateSubscription(String id) {
+    public Optional<UserBillingSubscription> reactivateSubscription(String id) {
         // if already exists an active one do nothing
         // otherwise create a new one
 
@@ -102,7 +126,7 @@ public class UserCustomRoleDao {
         }
 
         // The subscription with the given id is the active one, nothing to do
-        if (subscription.getActive()) return;
+        if (subscription.getActive()) return Optional.empty();
 
         // the user has another subscription tht's active for the same app
         // so expire it
@@ -117,6 +141,8 @@ public class UserCustomRoleDao {
 
         entityManager.merge(subscription);
         entityManager.flush();
+
+        return Optional.of(subscription);
     }
 
     private UserBillingSubscription createActiveSubscription(User user, App app, BillingPlan billingPlan, String subscriptionId) {

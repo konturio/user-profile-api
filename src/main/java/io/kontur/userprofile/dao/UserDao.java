@@ -2,6 +2,7 @@ package io.kontur.userprofile.dao;
 
 import io.kontur.userprofile.model.entity.user.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
@@ -35,6 +36,16 @@ public class UserDao {
     public List<User> getAllUsers() {
         try {
             return entityManager.createQuery("from User", User.class).getResultList();
+        } catch (NoResultException e) {
+            return List.of();
+        }
+    }
+
+    public List<User> selectUsersForUpdate() {
+        try {
+            return entityManager.createQuery("from User", User.class)
+                    .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+                    .getResultList();
         } catch (NoResultException e) {
             return List.of();
         }

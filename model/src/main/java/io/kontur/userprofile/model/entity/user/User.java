@@ -1,5 +1,6 @@
 package io.kontur.userprofile.model.entity.user;
 
+import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import jakarta.persistence.AttributeOverride;
@@ -76,4 +77,21 @@ public class User {
     @Column(name = "default_feed")
     private String defaultFeed;
     private String theme;
+    private String linkedin;
+    private String phone;
+    @Column(name = "call_consent_given")
+    private boolean callConsentGiven;
+    @Builder.Default
+    @Column(name = "created_at")
+    private OffsetDateTime createdAt = OffsetDateTime.now();;
+    @Column(name = "account_notes")
+    private String accountNotes;
+    private String objectives;
+    @Column(name = "company_name")
+    private String companyName;
+    private String position;
+    @Column(name = "amount_of_gis")
+    private String amountOfGis;
+    @Column(name = "intercom_id")
+    private String intercomId;
 }

@@ -10,6 +10,10 @@ import static org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage.L
 import io.kontur.userprofile.model.entity.user.Group;
 import io.kontur.userprofile.model.entity.user.Role;
 import io.kontur.userprofile.model.entity.user.User;
+
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +39,12 @@ import org.keycloak.storage.UserStorageUtil;
 
 @JBossLog
 public class UserAdapter implements UserModel {
+
+    public static final String LINKEDIN = "linkedin";
+    public static final String PHONE = "phone";
+    public static final String NEWSLETTER_CONSENT = "newsletterConsent";
+    public static final String CALL_CONSENT = "callConsent";
+
     private final User entity;
     private final KeycloakSession session;
     private final StorageId storageId;
@@ -200,6 +210,16 @@ public class UserAdapter implements UserModel {
             setLastName(value);
         } else if (EMAIL.equals(name)) {
             setEmail(value);
+        } else if (LINKEDIN.equals(name)) {
+            setLinkedin(value);
+        } else if (PHONE.equals(name)) {
+            setPhone(value);
+        } else if (NEWSLETTER_CONSENT.equals(name)) {
+            setSubscribedToKonturUpdates(Boolean.valueOf(value));
+        } else if (CALL_CONSENT.equals(name)) {
+            setCallConsentGiven(Boolean.valueOf(value));
+        } else if (CREATED_TIMESTAMP_ATTRIBUTE.equals(name)) {
+            setCreatedAt(Instant.ofEpochMilli(value == null ? 0L : Long.valueOf(value)).atOffset(ZoneOffset.UTC));
         } else {
             UserStorageUtil
                 .userFederatedStorage(session)
@@ -217,6 +237,20 @@ public class UserAdapter implements UserModel {
             setLastName((values != null && values.size() > 0) ? values.get(0) : null);
         } else if (FIRST_NAME.equals(name)) {
             setFirstName((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (LINKEDIN.equals(name)) {
+            setLinkedin((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (PHONE.equals(name)) {
+            setPhone((values != null && values.size() > 0) ? values.get(0) : null);
+        } else if (NEWSLETTER_CONSENT.equals(name)) {
+            setSubscribedToKonturUpdates((values != null && values.size() > 0) ? Boolean.valueOf(values.get(0)) : null);
+        } else if (CALL_CONSENT.equals(name)) {
+            setCallConsentGiven((values != null && values.size() > 0) ? Boolean.valueOf(values.get(0)) : null);
+        } else if (CREATED_TIMESTAMP_ATTRIBUTE.equals(name)) {
+            setCreatedAt(
+                values != null && !values.isEmpty() && values.get(0) != null
+                    ? Instant.ofEpochMilli(Long.parseLong(values.get(0))).atOffset(ZoneOffset.UTC)
+                    : Instant.ofEpochMilli(0L).atOffset(ZoneOffset.UTC)
+            );
         } else {
             UserStorageUtil
                 .userFederatedStorage(session)
@@ -257,6 +291,46 @@ public class UserAdapter implements UserModel {
     @Override
     public void setEmail(String email) {
         entity.setEmail(email);
+    }
+
+    public String getLinkedin() {
+        return entity.getLinkedin();
+    }
+
+    public void setLinkedin(String linkedin) {
+        entity.setLinkedin(linkedin);
+    }
+
+    public String getPhone() {
+        return entity.getPhone();
+    }
+
+    public void setPhone(String phone) {
+        entity.setPhone(phone);
+    }
+
+    public boolean isSubscribedToKonturUpdates() {
+        return entity.isSubscribedToKonturUpdates();
+    }
+
+    public void setSubscribedToKonturUpdates(boolean subscribedToKonturUpdates) {
+        entity.setSubscribedToKonturUpdates(subscribedToKonturUpdates);
+    }
+
+    public boolean isCallConsentGiven() {
+        return entity.isCallConsentGiven();
+    }
+
+    public void setCallConsentGiven(boolean callConsentGiven) {
+        entity.setCallConsentGiven(callConsentGiven);
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return entity.getCreatedAt();
+    }
+
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        entity.setCreatedAt(createdAt);
     }
 
     @Override
@@ -340,6 +414,11 @@ public class UserAdapter implements UserModel {
         attributes.add(UserModel.EMAIL, email != null && email.size() >= 1 ? email.get(0) : null);
         attributes.add(UserModel.USERNAME, getUsername());
 
+        attributes.add(LINKEDIN, getLinkedin());
+        attributes.add(PHONE, getPhone());
+        attributes.add(NEWSLETTER_CONSENT, Boolean.toString(isSubscribedToKonturUpdates()));
+        attributes.add(CALL_CONSENT, Boolean.toString(isCallConsentGiven()));
+
         attributes.remove(EMAIL_VERIFIED_ATTRIBUTE);
         attributes.remove(ENABLED_ATTRIBUTE);
 
@@ -356,8 +435,7 @@ public class UserAdapter implements UserModel {
     @Override
     public String getFirstAttribute(String name) {
         if (CREATED_TIMESTAMP_ATTRIBUTE.equals(name)) {
-            // todo: import attr from users table
-            return "0";
+            return getCreatedAt() == null ? "0" : Long.toString(getCreatedAt().toInstant().toEpochMilli());
         }
         String str = UserStorageUtil
             .userFederatedStorage(session)
@@ -369,6 +447,18 @@ public class UserAdapter implements UserModel {
             if (USERNAME.equals(name)) {
                 return entity.getEmail();
             }
+            if (LINKEDIN.equals(name)) {
+                return getLinkedin();
+            }
+            if (PHONE.equals(name)) {
+                return getPhone();
+            }
+            if (NEWSLETTER_CONSENT.equals(name)) {
+                return Boolean.toString(isSubscribedToKonturUpdates());
+            }
+            if (CALL_CONSENT.equals(name)) {
+                return Boolean.toString(isCallConsentGiven());
+            }
         }
         return "";
     }
@@ -377,6 +467,18 @@ public class UserAdapter implements UserModel {
     public Stream<String> getAttributeStream(String name) {
         if (UserModel.USERNAME.equals(name)) {
             return Stream.of(getUsername());
+        }
+        if (LINKEDIN.equals(name)) {
+            return Stream.of(getLinkedin());
+        }
+        if (PHONE.equals(name)) {
+            return Stream.of(getPhone());
+        }
+        if (NEWSLETTER_CONSENT.equals(name)) {
+            return Stream.of(Boolean.toString(isSubscribedToKonturUpdates()));
+        }
+        if (CALL_CONSENT.equals(name)) {
+            return Stream.of(Boolean.toString(isCallConsentGiven()));
         }
         List<String> result = UserStorageUtil
             .userFederatedStorage(session)

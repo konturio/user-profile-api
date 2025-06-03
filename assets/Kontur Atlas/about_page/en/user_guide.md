@@ -107,7 +107,7 @@ Possible values:
 **What is it for:**
 
 Population distribution shows many areas with low population and a sharp rise in cities.   
-![Distribution without transformation](user_guide_population_distribution_without_transformation.jpg)
+![Population distribution without transformation](user_guide_population_distribution_without_transformation.jpg)
 Low-contrast visualizations like this one lose a lot of information and nuance. To recover this information and make the map more contrastive, GIS specialists employ mathematical transformations that make the distribution more linear-like. Here’s an example where we transform the distribution with Log(x):  
 ![Transformed population distribution](user_guide_transformed_population_distribution.jpg)
 This map presents much more information, making mountains, small towns, and city outskirts distinguishable. Each layer has its own transformation function determined by the nature of the distribution. Previously, users had to do this manually for each layer. Now, Atlas automatically chooses the best transformation, making it easier to get a great analysis.
@@ -133,15 +133,14 @@ User can upload custom geometry from a computer using the Upload GeoJson tool.
 
 ### Draw or edit geometry 
 
-Create geometry  
-Also user can create geometry using “Draw or edit geometry”.   
+Also, user can create geometry using “Draw or edit geometry”.   
 User can: 
 
-* create on map   
+* Draw   
   * Polygon  
   * Line   
   * Point   
-* Edit selected area   
+* Edit geometry   
 
 ![Draw geometry tool](user_guide_draw_geometry.jpg)
 
@@ -169,4 +168,4 @@ Then select another area, and you'll get the AI report highlighting the differen
 
 ### Personalizing the report
 
-AI insights report is customizable. Provide a short bio: preferences for analytics, occupation, and interest in geospatial analysis, and LLM will personalize the response based on this info. Selected language is also taken into account while generating the report.
+AI insights report is customizable. Provide your analysis objectives: preferences for analytics, occupation, and interest in geospatial analysis, and LLM will personalize the response based on this info. Selected language is also taken into account while generating the report.

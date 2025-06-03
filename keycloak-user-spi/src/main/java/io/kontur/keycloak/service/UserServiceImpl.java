@@ -1,6 +1,8 @@
 package io.kontur.keycloak.service;
 
 import io.kontur.userprofile.model.entity.user.User;
+
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.Objects;
 import java.util.Set;
@@ -15,6 +17,8 @@ import org.keycloak.models.KeycloakSession;
 public class UserServiceImpl extends JpaService<User> implements UserService {
     private static final String EMAIL_FIELD = "email";
     private static final String USERNAME_FIELD = "username";
+    private static final String DEFAULT_TRIAL_ROLE = "kontur_atlas_trial";
+    private static final int DEFAULT_TRIAL_DAYS = 14;
 
     public UserServiceImpl(KeycloakSession session) {
         Set<JpaConnectionProvider> ss = session.getAllProviders(JpaConnectionProvider.class);
@@ -84,6 +88,7 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
     @Override
     public void createUser(User user) {
         entityManager.persist(user); //duplicates check is done by keycloak
+        assignTrialRole(user);
     }
 
     public boolean removeUser(String username) {
@@ -100,6 +105,24 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
                 e.getMessage(), e);
         }
         return false;
+    }
+
+    private void assignTrialRole(User user) {
+        int updatedRows = entityManager.createNativeQuery(
+                        "INSERT INTO user_custom_role (user_id, role_id, started_at, ended_at) " +
+                                "SELECT :userId, cr.id, :startedAt, :endedAt FROM custom_role cr " +
+                                "WHERE cr.name = :roleName AND NOT EXISTS (SELECT 1 FROM user_custom_role ucr WHERE ucr.user_id = :userId)")
+                .setParameter("userId", user.getId())
+                .setParameter("roleName", DEFAULT_TRIAL_ROLE)
+                .setParameter("startedAt", OffsetDateTime.now())
+                .setParameter("endedAt", OffsetDateTime.now().plusDays(DEFAULT_TRIAL_DAYS))
+                .executeUpdate();
+
+        if (updatedRows > 0) {
+            log.debugf("Assigned trial role '%s' to user %d", DEFAULT_TRIAL_ROLE, user.getId());
+        } else {
+            log.errorf("Failed to assign trial role '%s' to user %d (already assigned or role not found)", DEFAULT_TRIAL_ROLE, user.getId());
+        }
     }
 
     private Stream<User> queryUsersByGroupName(String groupName) {

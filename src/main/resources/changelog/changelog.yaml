@@ -266,4 +266,43 @@ databaseChangeLog:
       file: sql/20121-add-admin-boundary-breadcrumbs-feature-in-gg-app.sql
   - include:
       relativeToChangelogFile: true
+      file: sql/add-linkedin-and-phone-fields-to-users-table.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/20434-create-new-features-in-ups-for-profile.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-objectives-column-to-users-table.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-organisation-info-to-users-table.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/20712-set-config-in-ups-with-hidden-profile-fields-for-dn-oam-and-gg-apps.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-trial-role-to-users.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/assign-features-to-atlas-trial-role.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/update-users-table-for-intercom-integration.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21486-create-custom-routes-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21553-turn-on-layers-feature-panel-on-oam-in-app-config.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21774-ups-add-app_login-feature-to-oam-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21560-replace-placeholder-stac-browser-link-with-devseed-s-one.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21666-ups-update-analytics-panel-config-for-smart-city-app.sql
+  - include:
+      relativeToChangelogFile: true
       file: sql/20466-set-events_list-feature-mcda-config-for-gg-and-dn-in-ups.sql

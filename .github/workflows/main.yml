@@ -42,9 +42,10 @@ jobs:
           NEXUS_DEPLOYER_PASS: ${{ secrets.NEXUS_DEPLOYER_PASS }}
           NEXUS_READER: ${{ secrets.NEXUS_READER }}
           NEXUS_READER_PASS: ${{ secrets.NEXUS_READER_PASS }}
-          IMAGE_TAG: ${{ github.ref_name }}.${{ steps.get-cloned.outputs.SHA }}.${{ github.run_attempt }}
+          IMAGE_TAG: ${{ format('{0}.{1}.{2}', github.ref_name, steps.get-cloned.outputs.SHA, github.run_attempt) }}
         run: |-
           set -x
+          export IMAGE_TAG=$(echo "$IMAGE_TAG" | tr '/' '-')
           for t in check build jib; do
               sh gradlew --console plain "$t" \
                 || { \
@@ -59,7 +60,7 @@ jobs:
           echo "<h3>Docker image tag</h3> $IMAGE_TAG <br><br>" >> $GITHUB_STEP_SUMMARY
 
       - name: Uploading build and test artifacts
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: 'user-profile-api-${{needs.helper.outputs.CI_COMMIT_REF_SLUG}}'
