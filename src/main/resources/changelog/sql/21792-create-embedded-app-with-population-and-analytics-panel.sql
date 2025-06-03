@@ -11,7 +11,7 @@ values ('b8e7eb02-ca92-4bad-affa-0c5afdb5d8b8', 'Population embedded with analyt
 insert into custom_app_feature (app_id, feature_id, authenticated)
 select 'b8e7eb02-ca92-4bad-affa-0c5afdb5d8b8', f.id, false
 from feature f
-where f.name in ('map', 'toolbar', 'analytics_panel', 'boundary_selector', 'focused_geometry_layer')
+where f.name in ('map', 'toolbar', 'analytics_panel', 'boundary_selector', 'layers_in_area', 'focused_geometry_layer')
   on conflict do nothing;
 
 --configurate analytics panel 
