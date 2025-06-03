@@ -303,3 +303,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/21666-ups-update-analytics-panel-config-for-smart-city-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21792-create-embedded-app-with-population-and-analytics-panel.sql
