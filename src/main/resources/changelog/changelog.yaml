@@ -290,4 +290,22 @@ databaseChangeLog:
       file: sql/update-users-table-for-intercom-integration.sql
   - include:
       relativeToChangelogFile: true
+      file: sql/21486-create-custom-routes-feature-in-ups.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21553-turn-on-layers-feature-panel-on-oam-in-app-config.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21774-ups-add-app_login-feature-to-oam-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21560-replace-placeholder-stac-browser-link-with-devseed-s-one.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21666-ups-update-analytics-panel-config-for-smart-city-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21792-create-embedded-app-with-population-and-analytics-panel.sql
+  - include:
+      relativeToChangelogFile: true
       file: sql/21414-create-risk-assessment-app.sql
