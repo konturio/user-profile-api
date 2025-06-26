@@ -6,7 +6,7 @@
 insert into app (id, name, description, owner_user_id, is_public, sidebar_icon_url, favicon_url, extent, domains, favicon_pack)
 values ('2d5af407-9f47-4f03-9d9b-2320ce9d307b', 'Hazard Compass', 'Application for risk assessment, mostly for insurance companies', null, true, 
   '/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.svg', '/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.ico', 
-  '{-135,0,63,62}', array['dev-hazard-kontur-io.k8s-01.konturlabs.com', 'test-hazard-kontur-io.k8s-01.konturlabs.com', 'prod-hazard-kontur-io.k8s-01.konturlabs.com', 'hazard.kontur.io'], '{
+  '{-135,0,63,62}', array['dev-risks-kontur-io.k8s-01.konturlabs.com', 'test-risks-kontur-io.k8s-01.konturlabs.com', 'prod-risks-kontur-io.k8s-01.konturlabs.com', 'risks.kontur.io'], '{
   "favicon.svg": "/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.svg",
   "favicon.ico": "/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/favicon.ico",
   "apple-touch-icon.png": "/active/api/apps/2d5af407-9f47-4f03-9d9b-2320ce9d307b/assets/apple-touch-icon.png",
