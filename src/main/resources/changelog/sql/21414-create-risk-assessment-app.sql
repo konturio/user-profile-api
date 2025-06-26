@@ -103,16 +103,3 @@ set configuration = '{"statistics": [{
 where app_id = '2d5af407-9f47-4f03-9d9b-2320ce9d307b'
   and feature_id in (select f.id from feature f where f.name = 'analytics_panel')
   and authenticated;
-
--- Assign admin roles for Risk Assessment app
-insert into user_custom_role (user_id, role_id, started_at)
-select u.id, r.id, now()
-from users u, custom_role r
-where r.name in ('hazard_compass_admin')
-    and u.email in ('pkrukovich@kontur.io', 'ahil@kontur.io', 'avalasiuk@kontur.io', 'darafei@kontur.io',
-                    'nlaptsik@kontur.io', 'atarakanov@kontur.io', 'a.artyukevich@kontur.io', 'vbondar@kontur.io',
-                    'arben@kontur.io', 'tgrigoryan@kontur.io', 'aklopau@kontur.io', 'atsiatserkina@kontur.io',
-                    'ekarpach@kontur.io', 'kbakhanko@kontur.io', 'abaranau@kontur.io', 'curtis@kontur.io',
-                    'milvari@kontur.io', 'vkozel@kontur.io', 'amurashka@kontur.io', 'hoa@kontur.io',
-                    'nprovenzano@kontur.io', 'tad@kontur.io', 'nharshunova@kontur.io',
-                    'achichigin@kontur.io', 'thomas@kontur.io', 'abasalai@kontur.io', 'gorelick@kontur.io');
