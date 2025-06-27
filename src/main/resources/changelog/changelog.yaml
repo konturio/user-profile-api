@@ -308,4 +308,7 @@ databaseChangeLog:
       file: sql/21792-create-embedded-app-with-population-and-analytics-panel.sql
   - include:
       relativeToChangelogFile: true
+      file: sql/21996-ups-change-map-extent-for-oasis-app.sql
+  - include:
+      relativeToChangelogFile: true
       file: sql/21414-create-risk-assessment-app.sql
