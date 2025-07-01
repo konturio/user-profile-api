@@ -35,9 +35,6 @@ public class PayPalAPIService {
             return false;
         }
 
-        return switch (status) {
-            case "ACTIVE", "APPROVED" -> true;
-            default -> false;
-        };
+        return ("ACTIVE".equals(status) || "APPROVED".equals(status));
     }
 }
