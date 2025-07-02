@@ -309,3 +309,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/21996-ups-change-map-extent-for-oasis-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21414-create-risk-assessment-app.sql
