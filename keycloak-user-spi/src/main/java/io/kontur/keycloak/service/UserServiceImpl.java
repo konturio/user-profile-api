@@ -18,6 +18,7 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
     private static final String EMAIL_FIELD = "email";
     private static final String USERNAME_FIELD = "username";
     private static final String DEFAULT_TRIAL_ROLE = "kontur_atlas_trial";
+    private static final String RISK_COMPASS_TRIAL_ROLE = "risk_compass_trial";
     private static final int DEFAULT_TRIAL_DAYS = 14;
 
     public UserServiceImpl(KeycloakSession session) {
@@ -88,7 +89,8 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
     @Override
     public void createUser(User user) {
         entityManager.persist(user); //duplicates check is done by keycloak
-        assignTrialRole(user);
+        assignTrialRole(user, DEFAULT_TRIAL_ROLE);
+        assignTrialRole(user, RISK_COMPASS_TRIAL_ROLE);
     }
 
     public boolean removeUser(String username) {
@@ -107,21 +109,21 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
         return false;
     }
 
-    private void assignTrialRole(User user) {
+    private void assignTrialRole(User user, String roleName) {
         int updatedRows = entityManager.createNativeQuery(
                         "INSERT INTO user_custom_role (user_id, role_id, started_at, ended_at) " +
                                 "SELECT :userId, cr.id, :startedAt, :endedAt FROM custom_role cr " +
-                                "WHERE cr.name = :roleName AND NOT EXISTS (SELECT 1 FROM user_custom_role ucr WHERE ucr.user_id = :userId)")
+                                "WHERE cr.name = :roleName AND NOT EXISTS (SELECT 1 FROM user_custom_role ucr WHERE ucr.user_id = :userId AND ucr.role_id = cr.id)")
                 .setParameter("userId", user.getId())
-                .setParameter("roleName", DEFAULT_TRIAL_ROLE)
+                .setParameter("roleName", roleName)
                 .setParameter("startedAt", OffsetDateTime.now())
                 .setParameter("endedAt", OffsetDateTime.now().plusDays(DEFAULT_TRIAL_DAYS))
                 .executeUpdate();
 
         if (updatedRows > 0) {
-            log.debugf("Assigned trial role '%s' to user %d", DEFAULT_TRIAL_ROLE, user.getId());
+            log.debugf("Assigned trial role '%s' to user %d", roleName, user.getId());
         } else {
-            log.errorf("Failed to assign trial role '%s' to user %d (already assigned or role not found)", DEFAULT_TRIAL_ROLE, user.getId());
+            log.errorf("Failed to assign trial role '%s' to user %d (already assigned or role not found)", roleName, user.getId());
         }
     }
 

@@ -312,3 +312,9 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/21414-create-risk-assessment-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-risk-compass-trial-role-to-users.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/assign-features-to-risk-compass-trial-role.sql
