@@ -89,8 +89,8 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
     @Override
     public void createUser(User user) {
         entityManager.persist(user); //duplicates check is done by keycloak
-        assignTrialRole(user, DEFAULT_TRIAL_ROLE);
-        assignTrialRole(user, RISK_COMPASS_TRIAL_ROLE);
+        assignTrialRole(user, DEFAULT_TRIAL_ROLE, DEFAULT_TRIAL_DAYS);
+        assignTrialRole(user, RISK_COMPASS_TRIAL_ROLE, DEFAULT_TRIAL_DAYS);
     }
 
     public boolean removeUser(String username) {
@@ -109,7 +109,7 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
         return false;
     }
 
-    private void assignTrialRole(User user, String roleName) {
+    private void assignTrialRole(User user, String roleName, int days) {
         int updatedRows = entityManager.createNativeQuery(
                         "INSERT INTO user_custom_role (user_id, role_id, started_at, ended_at) " +
                                 "SELECT :userId, cr.id, :startedAt, :endedAt FROM custom_role cr " +
@@ -117,7 +117,7 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
                 .setParameter("userId", user.getId())
                 .setParameter("roleName", roleName)
                 .setParameter("startedAt", OffsetDateTime.now())
-                .setParameter("endedAt", OffsetDateTime.now().plusDays(DEFAULT_TRIAL_DAYS))
+                .setParameter("endedAt", OffsetDateTime.now().plusDays(days))
                 .executeUpdate();
 
         if (updatedRows > 0) {
