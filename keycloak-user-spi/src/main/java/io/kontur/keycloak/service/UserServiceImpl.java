@@ -99,7 +99,26 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
     }
 
     private void assignTrialRoles(User user, List<String> roleNames, int days) {
-        roleNames.forEach(roleName -> assignTrialRole(user, roleName, days));
+        if (roleNames == null || roleNames.isEmpty()) {
+            return;
+        }
+
+        int updatedRows = entityManager.createNativeQuery(
+                "INSERT INTO user_custom_role (user_id, role_id, started_at, ended_at) " +
+                "SELECT :userId, cr.id, :startedAt, :endedAt FROM custom_role cr " +
+                "WHERE cr.name IN (:roleNames) AND NOT EXISTS (" +
+                "SELECT 1 FROM user_custom_role ucr WHERE ucr.user_id = :userId AND ucr.role_id = cr.id)")
+            .setParameter("userId", user.getId())
+            .setParameter("roleNames", roleNames)
+            .setParameter("startedAt", OffsetDateTime.now())
+            .setParameter("endedAt", OffsetDateTime.now().plusDays(days))
+            .executeUpdate();
+
+        if (updatedRows > 0) {
+            log.debugf("Assigned trial roles %s to user %d", roleNames, user.getId());
+        } else {
+            log.errorf("Failed to assign trial roles %s to user %d (already assigned or roles not found)", roleNames, user.getId());
+        }
     }
 
     public boolean removeUser(String username) {
