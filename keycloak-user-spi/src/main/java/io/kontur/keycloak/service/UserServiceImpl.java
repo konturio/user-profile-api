@@ -6,6 +6,7 @@ import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.Objects;
 import java.util.Set;
+import java.util.List;
 import java.util.stream.Stream;
 import javax.ejb.Singleton;
 import lombok.extern.jbosslog.JBossLog;
@@ -88,10 +89,17 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
 
     @Override
     public void createUser(User user) {
-        entityManager.persist(user); //duplicates check is done by keycloak
+        entityManager.persist(user); // duplicates check is done by keycloak
         entityManager.flush(); // ensure ID is generated before assigning roles
-        assignTrialRole(user, DEFAULT_TRIAL_ROLE, DEFAULT_TRIAL_DAYS);
-        assignTrialRole(user, RISK_COMPASS_TRIAL_ROLE, DEFAULT_TRIAL_DAYS);
+        assignTrialRoles(
+            user,
+            List.of(DEFAULT_TRIAL_ROLE, RISK_COMPASS_TRIAL_ROLE),
+            DEFAULT_TRIAL_DAYS
+        );
+    }
+
+    private void assignTrialRoles(User user, List<String> roleNames, int days) {
+        roleNames.forEach(roleName -> assignTrialRole(user, roleName, days));
     }
 
     public boolean removeUser(String username) {
