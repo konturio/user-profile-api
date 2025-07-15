@@ -6,6 +6,7 @@ import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.Objects;
 import java.util.Set;
+import java.util.List;
 import java.util.stream.Stream;
 import javax.ejb.Singleton;
 import lombok.extern.jbosslog.JBossLog;
@@ -88,9 +89,36 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
 
     @Override
     public void createUser(User user) {
-        entityManager.persist(user); //duplicates check is done by keycloak
-        assignTrialRole(user, DEFAULT_TRIAL_ROLE);
-        assignTrialRole(user, RISK_COMPASS_TRIAL_ROLE);
+        entityManager.persist(user); // duplicates check is done by keycloak
+        entityManager.flush(); // ensure ID is generated before assigning roles
+        assignTrialRoles(
+            user,
+            List.of(DEFAULT_TRIAL_ROLE, RISK_COMPASS_TRIAL_ROLE),
+            DEFAULT_TRIAL_DAYS
+        );
+    }
+
+    private void assignTrialRoles(User user, List<String> roleNames, int days) {
+        if (roleNames == null || roleNames.isEmpty()) {
+            return;
+        }
+
+        int updatedRows = entityManager.createNativeQuery(
+                "INSERT INTO user_custom_role (user_id, role_id, started_at, ended_at) " +
+                "SELECT :userId, cr.id, :startedAt, :endedAt FROM custom_role cr " +
+                "WHERE cr.name IN (:roleNames) AND NOT EXISTS (" +
+                "SELECT 1 FROM user_custom_role ucr WHERE ucr.user_id = :userId AND ucr.role_id = cr.id)")
+            .setParameter("userId", user.getId())
+            .setParameter("roleNames", roleNames)
+            .setParameter("startedAt", OffsetDateTime.now())
+            .setParameter("endedAt", OffsetDateTime.now().plusDays(days))
+            .executeUpdate();
+
+        if (updatedRows > 0) {
+            log.debugf("Assigned trial roles %s to user %d", roleNames, user.getId());
+        } else {
+            log.errorf("Failed to assign trial roles %s to user %d (already assigned or roles not found)", roleNames, user.getId());
+        }
     }
 
     public boolean removeUser(String username) {
@@ -107,24 +135,6 @@ public class UserServiceImpl extends JpaService<User> implements UserService {
                 e.getMessage(), e);
         }
         return false;
-    }
-
-    private void assignTrialRole(User user, String roleName) {
-        int updatedRows = entityManager.createNativeQuery(
-                        "INSERT INTO user_custom_role (user_id, role_id, started_at, ended_at) " +
-                                "SELECT :userId, cr.id, :startedAt, :endedAt FROM custom_role cr " +
-                                "WHERE cr.name = :roleName AND NOT EXISTS (SELECT 1 FROM user_custom_role ucr WHERE ucr.user_id = :userId AND ucr.role_id = cr.id)")
-                .setParameter("userId", user.getId())
-                .setParameter("roleName", roleName)
-                .setParameter("startedAt", OffsetDateTime.now())
-                .setParameter("endedAt", OffsetDateTime.now().plusDays(DEFAULT_TRIAL_DAYS))
-                .executeUpdate();
-
-        if (updatedRows > 0) {
-            log.debugf("Assigned trial role '%s' to user %d", roleName, user.getId());
-        } else {
-            log.errorf("Failed to assign trial role '%s' to user %d (already assigned or role not found)", roleName, user.getId());
-        }
     }
 
     private Stream<User> queryUsersByGroupName(String groupName) {
