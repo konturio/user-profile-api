@@ -1,0 +1,171 @@
+# User Guide
+
+[Multi-Criteria Decision Analysis](#hdr-1-1)
+
+[Area selection](#hdr-1-2)
+
+[AI insights](#hdr-1-3)
+
+## Multi-Criteria Decision Analysis
+
+![Kontur Atlas - First launch MCDA tutorial](https://www.youtube.com/watch?v=g7WMD10DMPs::800,470,true)
+
+### Analysis creation
+
+MCDA allows users to combine multiple layers on the map.  
+Before combining layers, the following steps are applied to each layer:
+
+* Determine global minimum and maximum values.  
+* Select the best dataset transformations for optimal layer visualization.  
+* Normalize values, with the minimum set to 0 and the maximum to 1\.
+
+The results are visualized on the map, where hexagons with the lowest values (0) are shown in red, and those with the highest values (1) are shown in green.
+
+![Analysis visualization](user_guide_analysis_visualization.jpg)
+
+### Analysis customization options 
+
+Users can adjust each layer’s options, such as:
+
+* Setting a custom value range.  
+* Setting range outliers behavior.  
+* Updating the values considered the worst and best for the analysis.
+
+#### Value range
+
+**Purpose:**
+
+This is useful when the area of interest has values that deviate significantly from the global averages, or when you need to focus on a specific value range.  
+For example, if you want to find areas far from electric vehicle stations, but the global maximum distance is around 7,000 km, it makes sense to set the maximum to a more realistic 70 km for this case.  
+![Proximity to electric vehicle stations default value range](user_guide_proximity_to_electric_vehicle_stations_default_value_range.jpg)![Proximity to electric vehicle stations custom value range](user_guide_proximity_to_electric_vehicle_stations_custom_value_range.jpg)
+
+#### Outliers
+
+Changes hexes score behavior with layer values out of considerable range.  
+Possible values: 
+
+- Clamp  
+- Don’t modify  
+- Hide
+
+**Purpose:**
+
+For example, consider the distance to power lines in Haiti from OSM data, with the upper limit set at 3000 meters, and the sentiment set that 0 is good and the longer distance is worse.
+
+**Outliers: Clamp**  
+![Proximity to powerlines with clamped outliers](user_guide_proximity_to_powerlines_clamped_outliers.jpg)
+
+**Meaning:** Values that exceed the limits contribute equally to the analysis, no matter how far they are from those limits.  
+**Use Case:** Useful for identifying people living more than 3,000 meters from power lines, without needing to account for the exact distance.
+
+**Outliers: Don’t modify**
+
+![Proximity to powerlines with not modified outliers](user_guide_proximity_to_powerlines_not_modified_outliers.jpg)
+
+**Meaning:** Contribution to the analysis increases with the distance from the acceptable limit.  
+**Use Case:** Useful when analyzing locations for building a solar station, where distances beyond the limits are still considered but involve additional costs.
+
+**Outliers: Hide**  
+![Proximity to powerlines with hidden outliers](user_guide_proximity_to_powerlines_hidden_outliers.jpg)
+
+**Meaning:** Hexagons with values beyond the limits are excluded from the analysis.  
+**Use Case:** Useful if non-electrified areas are not considered, for example, when opening a store.
+
+#### Sentiments
+
+Sentiments determine how the layer’s values impact the analysis:
+
+* Bad → Good: Higher values are considered positive.  
+* Good → Bad: Higher values are considered negative.
+
+Purpose:  
+This is useful when combining both negative and positive criteria, such as population density and the number of markets, to identify areas lacking food shops.
+
+For example, you can set:
+
+Food shops to Area (n/km²) bad (0) → good (21), n/km²  
+Population (ppl/km²) (ppl/km²) good (0) → bad (4242), ppl/km²
+
+In this case, red hexagons will highlight areas with high population density and low food shop availability.
+
+#### Weight
+
+By default, all layers contribute equally to the analysis using a weighted average. You can increase the weight of a specific layer (e.g., 2x, 3x) to give it more importance in the analysis.  
+Also you can set 0 to prevent layer values influence to analysis final score. If you adjust layer range and set outliers hide for excluding some areas from your analysis, but you don’t need to consider these layer values in the analysis.   
+
+#### Transform
+
+Apply mathematical transformations to the values before normalization. These transformations help create a more linear distribution, providing clearer and more detailed insights for analysis.  
+Possible values: 
+
+- No transformation  
+- Square root: sign(x)⋅√|x|  
+- Cube root: ∛x  
+- log₁₀(x \- xmin \+ 1\)  
+- log₁₀(x \- xmin \+ ε)
+
+**What is it for:**
+
+Population distribution shows many areas with low population and a sharp rise in cities.   
+![Population distribution without transformation](user_guide_population_distribution_without_transformation.jpg)
+Low-contrast visualizations like this one lose a lot of information and nuance. To recover this information and make the map more contrastive, GIS specialists employ mathematical transformations that make the distribution more linear-like. Here’s an example where we transform the distribution with Log(x):  
+![Transformed population distribution](user_guide_transformed_population_distribution.jpg)
+This map presents much more information, making mountains, small towns, and city outskirts distinguishable. Each layer has its own transformation function determined by the nature of the distribution. Previously, users had to do this manually for each layer. Now, Atlas automatically chooses the best transformation, making it easier to get a great analysis.
+
+#### Normalize
+
+All layers (criteria) can be rescaled to have a range in \[0, 1\], also known as rescale or min-max normalization. In case you want to get original values, set "no" value here.
+
+## Area selection
+
+![Kontur Atlas - Area selecting tools tutorial](https://www.youtube.com/watch?v=aCXaAYEW0oM::800,470,true)
+
+User can select area of interest on map using following tools on toolbar: 
+
+### Select admin boundaries 
+
+In “select admin boundaries” mode user can select administrative boundaries from dropdown after clicking to map hexagon.
+![Select admin boundary tool](user_guide_select_admin_boundary.jpg)
+
+### Upload GeoJSON
+
+User can upload custom geometry from a computer using the Upload GeoJson tool. 
+
+### Draw or edit geometry 
+
+Also, user can create geometry using “Draw or edit geometry”.   
+User can: 
+
+* Draw   
+  * Polygon  
+  * Line   
+  * Point   
+* Edit geometry   
+
+![Draw geometry tool](user_guide_draw_geometry.jpg)
+
+## AI insights
+
+![Kontur Atlas - AI Insights tutorial](https://www.youtube.com/watch?v=Md5Mex-POBo&t::800,470,true)
+
+### Selected area analysis
+
+This widget gives user statistical highlights on selected area in text format. 
+
+This widget provides users with statistical highlights of a selected area in text format.
+
+* Gathers data on the selected area.  
+* Extracts values that significantly differ between the selected area’s averages and global averages.  
+* Provides conclusions generated by a Large Language Model (currently ChatGPT) based on this data, presented in several paragraphs.
+
+![Comparison analysis](user_guide_comparison_analysis.jpg)
+
+### Comparing analytics with reference area
+
+By default, AI insights are generated by comparing area statistics to the world global values. The widget is capable of comparing different selected areas as well. To compare the area of interest to the area you're familiar with, select the latter and click "Save as reference area". 
+
+Then select another area, and you'll get the AI report highlighting the differences or similarities with your reference area. Reference area can be removed in Profile.
+
+### Personalizing the report
+
+AI insights report is customizable. Provide your analysis objectives: preferences for analytics, occupation, and interest in geospatial analysis, and LLM will personalize the response based on this info. Selected language is also taken into account while generating the report.
