@@ -4,6 +4,7 @@ import io.kontur.userprofile.dao.UserDao;
 import io.kontur.userprofile.service.IntercomService;
 import org.jboss.logging.Logger;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
