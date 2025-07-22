@@ -318,3 +318,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/assign-features-to-risk-compass-trial-role.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/22241-create-embedded-app-for-layer-showcase.sql
