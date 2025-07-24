@@ -150,8 +150,6 @@ User can:
 
 ### Selected area analysis
 
-This widget gives user statistical highlights on selected area in text format. 
-
 This widget provides users with statistical highlights of a selected area in text format.
 
 * Gathers data on the selected area.  

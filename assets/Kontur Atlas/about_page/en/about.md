@@ -10,7 +10,7 @@ Atlas is your GPS for big decisions. It's a tool that helps you use maps and dat
 
 ### Browse & Choose Data
 
-We've got tons of info like who lives where and how people get around. Find the data that'll answer your questions.
+We've got tons of info like who lives where and what infrastructure supports them — hospitals, fire stations, and more. Find the data that'll answer your questions.
 
 ### Make Maps
 
