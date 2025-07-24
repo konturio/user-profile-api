@@ -15,7 +15,7 @@ Smart City 是您用于城市创新的数字工具包。它利用实时数据和
 
 **Kontur Smart City，是您打造更智能、更可持续城市未来的机会！**
 
-查看实际案例，了解 Kontur Smart City解决方案如何助力城市管理：  
+查看实际案例，了解 Kontur Smart City 解决方案如何助力城市管理：  
 - 优化巴统市垃圾桶位置 – [垃圾管理](https://www.kontur.io/blog/waste-management/)  
 - 火警调度解决方案 – [Dispatcher 112](https://www.kontur.io/solutions/dispatcher-112/)
 
