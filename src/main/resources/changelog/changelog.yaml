@@ -321,6 +321,3 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/22241-create-embedded-app-for-layer-showcase.sql
-  - include:
-      relativeToChangelogFile: true
-      file: sql/22365-ups-no-analytics-config-for-risk_compass_trial-role.sql
