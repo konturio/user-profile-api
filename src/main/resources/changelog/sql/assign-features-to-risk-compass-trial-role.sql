@@ -8,7 +8,8 @@ select '2d5af407-9f47-4f03-9d9b-2320ce9d307b',
        true,
        (select cr.id from custom_role cr where cr.name = 'risk_compass_trial')
 from custom_app_feature caf
-where caf.role_id = (select cr.id from custom_role cr where cr.name = 'risk_compass_admin');
+where caf.role_id = (select cr.id from custom_role cr where cr.name = 'risk_compass_admin')
+on conflict do nothing;
 
 --configurate analytics panel for trial role
 update custom_app_feature
