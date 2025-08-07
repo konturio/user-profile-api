@@ -18,6 +18,6 @@ values ('user', 'Users are the primary subjects of access rights');
 -- A "platform admin" system user record that grants the "owner" access upon layer loading
 
 insert into users
-    (id, username, email, first_name, last_name, language, use_metric_units, subscribed_to_kontur_updates)
+    (username, email, full_name, language, use_metric_units, subscribed_to_kontur_updates)
 values
-    (nextval('user_sequence'), 'platform', 'platform@maumaps.com', 'Platform', 'Admin', null, true, false);
+    ('platform', 'platform@maumaps.com', 'Platform Admin', null, true, false);
