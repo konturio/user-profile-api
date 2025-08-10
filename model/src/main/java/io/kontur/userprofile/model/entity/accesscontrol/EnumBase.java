@@ -1,6 +1,8 @@
 package io.kontur.userprofile.model.entity.accesscontrol;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,5 +24,6 @@ public abstract class EnumBase {
     @NotNull
     private String name;
 
+    @Basic(fetch = FetchType.LAZY)
     private String description;
 }
