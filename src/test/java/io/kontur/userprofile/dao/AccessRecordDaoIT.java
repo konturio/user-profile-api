@@ -36,7 +36,7 @@ public class AccessRecordDaoIT extends AbstractIT {
         final List<AccessRecord> records = accessRecordDao.getAllAccessRecords();
         assertTrue(
             records.stream().anyMatch(
-                r -> r.getUser().equals(user) && r.getResourceId() == layerId && r.getRight().getName().equals("owner")
+                r -> r.getSubjectId() == user.getId() && r.getResourceId() == layerId && r.getRight().getName().equals("owner")
             ));
     }
 }
