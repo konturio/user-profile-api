@@ -12,6 +12,7 @@ import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.rest.exception.WebApplicationException;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.kontur.userprofile.service.IntercomService;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,8 @@ public class UserService {
     private final AppService appService;
     private final AuthService authService;
 
+    private final IntercomService intercomService;
+
     // Metrics
     private final MeterRegistry registry;
 
@@ -51,6 +54,8 @@ public class UserService {
             throw new WebApplicationException("Use other email!", HttpStatus.BAD_REQUEST);
         }
         userDao.createUser(user);
+
+        intercomService.syncUser(user);
 
         return user;
     }
@@ -74,6 +79,8 @@ public class UserService {
         user.setAmountOfGis(userDto.getAmountOfGis());
 
         userDao.updateUser(user);
+
+        intercomService.syncUser(user);
 
         return user;
     }
@@ -100,6 +107,7 @@ public class UserService {
         c.increment();
 
         final UserBillingSubscription subscription = userCustomRoleDao.setActiveSubscription(user, app, billingPlan, subscriptionId);
+        intercomService.syncUser(user);
         return new ActiveSubscriptionDto(subscription);
     }
 
@@ -114,6 +122,7 @@ public class UserService {
                 .tag("app", subscription.getApp().getName())
                 .register(registry);
         c.increment();
+        intercomService.syncUser(subscription.getUser());
     }
 
     public void reactivateSubscription(String id) {
@@ -128,6 +137,7 @@ public class UserService {
                     .tag("app", subscription.getApp().getName())
                     .register(registry);
             c.increment();
+            intercomService.syncUser(subscription.getUser());
         });
     }
 
