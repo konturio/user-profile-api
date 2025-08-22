@@ -321,3 +321,9 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: sql/22241-create-embedded-app-for-layer-showcase.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19777-create-access-management-tables.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19777-initialize-access-management-tables.sql

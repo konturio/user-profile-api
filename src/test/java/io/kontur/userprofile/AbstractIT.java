@@ -5,11 +5,13 @@ import static org.mockito.Mockito.when;
 import io.kontur.userprofile.auth.AuthService;
 import io.kontur.userprofile.model.entity.user.User;
 import io.kontur.userprofile.service.UserService;
+
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.lang.NonNull;
 
 @SpringBootTest
 public class AbstractIT {
@@ -35,5 +37,9 @@ public class AbstractIT {
                 .build();
         user = userService.createUser(user);
         return user;
+    }
+
+    protected static boolean usersApproximatelySame(@NonNull final User u1, @NonNull final User u2) {
+        return u1.getUsername().equals(u2.getUsername()) && u1.getEmail().equals(u2.getEmail());
     }
 }
