@@ -123,10 +123,12 @@ public class UserController {
             @RequestParam(name = "billingSubscriptionId", required = true) String billingSubscriptionId
     ) {
         // Check that billingSubscriptionId is an actual subscription ID from PayPal
-        // and not an arbitrary fake string of characters
+        // and verify that it matches current user and billing plan
         // FIXME: don't forget to fix when connecting another payments gateway
-        if (!payPalAPIService.subscriptionIdIsValid(billingSubscriptionId))
+        var username = authService.getCurrentUsername().orElse(null);
+        if (!payPalAPIService.subscriptionIdIsValid(billingSubscriptionId, billingPlanId, username)) {
             return ResponseEntity.badRequest().build();
+        }
 
         return ResponseEntity.ok(userService.setActiveSubscription(appId, billingPlanId, billingSubscriptionId));
     }

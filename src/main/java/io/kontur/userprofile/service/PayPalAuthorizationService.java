@@ -23,18 +23,24 @@ public class PayPalAuthorizationService {
 
     public String getAccessToken() {
         if (tokenResponse == null || tokenExpiration.isBefore(Instant.now())) {
+            PayPalTokenResponseDto freshToken = null;
             try {
-                synchronized (this) {
-                    if (tokenResponse == null || tokenExpiration.isBefore(Instant.now())) {
-                        var token = payPalClient.getToken();
-                        saveToken(token);
-                    }
-                }
+                // fetch new token outside synchronized block to avoid blocking
+                freshToken = payPalClient.getToken();
             } catch (RestClientException e) {
                 logger.warn(e.getMessage(), e);
             }
+
+            if (freshToken != null) {
+                synchronized (this) {
+                    // double-check inside synchronized block
+                    if (tokenResponse == null || tokenExpiration.isBefore(Instant.now())) {
+                        saveToken(freshToken);
+                    }
+                }
+            }
         }
-        return tokenResponse.getAccessToken(); // FIXME: might be a stale token in a case of exception
+        return tokenResponse != null ? tokenResponse.getAccessToken() : ""; // FIXME: might be a stale token in a case of exception
     }
 
     private void saveToken(PayPalTokenResponseDto token) {

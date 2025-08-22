@@ -305,4 +305,28 @@ databaseChangeLog:
       file: sql/21666-ups-update-analytics-panel-config-for-smart-city-app.sql
   - include:
       relativeToChangelogFile: true
+      file: sql/21792-create-embedded-app-with-population-and-analytics-panel.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21996-ups-change-map-extent-for-oasis-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/21414-create-risk-assessment-app.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/add-risk-compass-trial-role-to-users.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/assign-features-to-risk-compass-trial-role.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/22241-create-embedded-app-for-layer-showcase.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19777-create-access-management-tables.sql
+  - include:
+      relativeToChangelogFile: true
+      file: sql/19777-initialize-access-management-tables.sql
+   - include:
+      relativeToChangelogFile: true
       file: sql/20466-set-events_list-feature-mcda-config-for-gg-and-dn-in-ups.sql
