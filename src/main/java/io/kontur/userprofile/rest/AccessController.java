@@ -33,7 +33,7 @@ public class AccessController {
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/new_layer/{layerId}")
-    public ResponseEntity<Void> newLayer(@PathVariable @Parameter(name = "layerId") long layerId) {
+    public ResponseEntity<Void> newLayer(@PathVariable("layerId") @Parameter(name = "layerId") long layerId) {
         User currentUser = authService.getCurrentUser().orElseThrow(() ->
                 new WebApplicationException("No profile found for current user", NOT_FOUND));
         accessService.newLayerBy(currentUser, layerId);
