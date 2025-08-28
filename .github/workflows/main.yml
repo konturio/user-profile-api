@@ -11,7 +11,6 @@ env:
   DOCKER_REGISTRY: ghcr.io
   DOCKER_NAMESPACE: ${{ github.repository_owner }}
   DOCKER_USERNAME:  ${{ github.actor }}
-  DOCKER_IMAGE_REF: ${{ replace(github.ref_name, '/', '_') }}
   DOCKER_IMAGE_KEYCLOAK: keycloak-with-ups-spi
   DOCKER_IMAGE_API:      user-profile-api
 jobs:
@@ -44,6 +43,11 @@ jobs:
         run: |-
           echo "::set-output name=SHA::$(git log -1 --format='%h')"
 
+      - name: Extracting git ref
+        id: get-gitref
+        run: |-
+          echo "DOCKER_IMAGE_REF=$(echo "${{ github.ref_name }}" | tr '/' '-')" >> "$GITHUB_OUTPUT"
+
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         with:
@@ -56,7 +60,7 @@ jobs:
           DOCKER_READER_PASS: ${{ secrets.GITHUB_TOKEN }}
           DOCKER_WRITER_USER: ${{ env.DOCKER_USERNAME  }}
           DOCKER_WRITER_PASS: ${{ secrets.GITHUB_TOKEN }}
-          DOCKER_IMAGE_TAG: ${{ format('{0}.{1}.{2}', env.DOCKER_IMAGE_REF , steps.get-cloned.outputs.SHA, github.run_attempt) }}
+          DOCKER_IMAGE_TAG: ${{ format('{0}.{1}.{2}', steps.get-gitref.outputs.DOCKER_IMAGE_REF , steps.get-cloned.outputs.SHA, github.run_attempt) }}
         run: |-
           set -x
           for t in check build jib; do
@@ -100,7 +104,7 @@ jobs:
         with:
           images: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_NAMESPACE }}/${{ env.DOCKER_IMAGE_KEYCLOAK }}
           tags: |
-            type=raw,value=${{ env.DOCKER_IMAGE_REF }}.{{sha}}.${{ github.run_attempt }}
+            type=raw,value=${{ steps.get-gitref.outputs.DOCKER_IMAGE_REF }}.{{sha}}.${{ github.run_attempt }}
 
       - name: Build and push Docker image - Keycloak User SPI Plugin
         uses: docker/build-push-action@v3.0.0
