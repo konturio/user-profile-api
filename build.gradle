@@ -13,24 +13,18 @@ group = 'io.kontur.userprofile'
 version = '0.15.0'
 sourceCompatibility = '17' // Keycloak image uses 17, so update JDK in Keycloak before changing this
 targetCompatibility = '17'
-String imageTag = System.getenv("IMAGE_TAG") ?: 'latest'
+String dockerRegistry   = System.getenv("DOCKER_REGISTRY")    ?: "ghcr.io"
+String dockerNamespace  = System.getenv("DOCKER_NAMESPACE")   ?: "konturio" 
+String dockerImage      = System.getenv("DOCKER_IMAGE")       ?: "${project.name}"
+String dockerImageTag   = System.getenv("DOCKER_IMAGE_TAG")   ?: 'latest'
+String dockerReaderUser = System.getenv("DOCKER_READER_USER") ?: "".trim()
+String dockerReaderPass = System.getenv("DOCKER_READER_PASS") ?: "".trim()
+String dockerWriterUser = System.getenv("DOCKER_WRITER_USER") ?: "".trim()
+String dockerWriterPass = System.getenv("DOCKER_WRITER_PASS") ?: "".trim()
+
 
 repositories {
     mavenCentral()
-    maven {
-        url 'https://nexus.kontur.io:8084'
-        credentials {
-            username = System.getenv()['NEXUS_READER'] ?: "".trim()
-            password = System.getenv()['NEXUS_READER_PASS'] ?: "".trim()
-        }
-    }
-    maven {
-        url 'https://nexus.kontur.io:8085'
-        credentials {
-            username = System.getenv()['NEXUS_DEPLOYER'] ?: "".trim()
-            password = System.getenv()['NEXUS_DEPLOYER_PASS'] ?: "".trim()
-        }
-    }
 }
 
 sentry {
@@ -130,18 +124,25 @@ jacocoTestReport {
 
 jib {
     from {
-        image = 'nexus.kontur.io:8084/library/openjdk:17-alpine'
-        auth {
-            username = System.getenv()['NEXUS_READER'] ?: "".trim()
-            password = System.getenv()['NEXUS_READER_PASS'] ?: "".trim()
+        image = dockerRegistry+"/library/openjdk:17-alpine"
+
+
+        if (dockerReaderUser && dockerReaderPass ) {
+          auth {
+              username = dockerReaderUser
+              password = dockerReaderPass
+          }
         }
     }
     to {
-        image = "nexus.kontur.io:8085/konturdev/${project.name}:${imageTag}"
+        image = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${imageTag}"
         tags = ["${imageTag}"]
-        auth {
-            username = System.getenv()['NEXUS_DEPLOYER'] ?: "".trim()
-            password = System.getenv()['NEXUS_DEPLOYER_PASS'] ?: "".trim()
+
+        if (dockerWriterUser && dockerWriterPass ) {
+          auth {
+              username = dockerWriterUser
+              password = dockerWriterPass
+          }
         }
     }
     container {
