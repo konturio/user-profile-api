@@ -50,9 +50,8 @@ jobs:
           gradle-version: 7.3.2
 
       - name: Checking and building with Gradle
+        env:
           DOCKER_IMAGE:     ${{ env.DOCKER_IMAGE_API }}
-          DOCKER_REGISTRY:  ${{ env.DOCKER_REGISTRY  }}
-          DOCKER_NAMESPACE: ${{ env.DOCKER_NAMESPACE }}
           DOCKER_READER_USER: ${{ env.DOCKER_USERNAME  }}
           DOCKER_READER_PASS: ${{ secrets.GITHUB_TOKEN }}
           DOCKER_WRITER_USER: ${{ env.DOCKER_USERNAME  }}
