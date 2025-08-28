@@ -126,7 +126,6 @@ jib {
     from {
         image = "docker.io/library/openjdk:17-alpine"
 
-
         if (dockerReaderUser && dockerReaderPass ) {
           auth {
               username = dockerReaderUser

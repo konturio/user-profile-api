@@ -56,8 +56,9 @@ jobs:
       - name: Checking and building with Gradle
         env:
           DOCKER_IMAGE:     ${{ env.DOCKER_IMAGE_API }}
-          DOCKER_READER_USER: ${{ env.DOCKER_USERNAME  }}
-          DOCKER_READER_PASS: ${{ secrets.GITHUB_TOKEN }}
+          ### skip auth for dockerhub (not sustainable long-term)
+          #DOCKER_READER_USER: ${{ env.DOCKER_USERNAME  }}
+          #DOCKER_READER_PASS: ${{ secrets.GITHUB_TOKEN }}
           DOCKER_WRITER_USER: ${{ env.DOCKER_USERNAME  }}
           DOCKER_WRITER_PASS: ${{ secrets.GITHUB_TOKEN }}
           DOCKER_IMAGE_TAG: ${{ format('{0}.{1}.{2}', steps.get-gitref.outputs.DOCKER_IMAGE_REF , steps.get-cloned.outputs.SHA, github.run_attempt) }}
