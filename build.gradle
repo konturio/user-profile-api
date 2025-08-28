@@ -124,7 +124,7 @@ jacocoTestReport {
 
 jib {
     from {
-        image = dockerRegistry+"/library/openjdk:17-alpine"
+        image = "docker.io/library/openjdk:17-alpine"
 
 
         if (dockerReaderUser && dockerReaderPass ) {
