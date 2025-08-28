@@ -135,7 +135,7 @@ jib {
         }
     }
     to {
-        image = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${imageTag}"
+        image = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerImageTag}"
         tags = ["${imageTag}"]
 
         if (dockerWriterUser && dockerWriterPass ) {
