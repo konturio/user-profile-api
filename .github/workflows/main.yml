@@ -11,9 +11,9 @@ env:
   DOCKER_REGISTRY: ghcr.io
   DOCKER_NAMESPACE: ${{ github.repository_owner }}
   DOCKER_USERNAME:  ${{ github.actor }}
+  DOCKER_IMAGE_REF: ${{ replace(github.ref_name, '/', '_') }}
   DOCKER_IMAGE_KEYCLOAK: keycloak-with-ups-spi
   DOCKER_IMAGE_API:      user-profile-api
-
 jobs:
   helper:
     uses: ./.github/workflows/migration-helper01.yml
@@ -56,10 +56,9 @@ jobs:
           DOCKER_READER_PASS: ${{ secrets.GITHUB_TOKEN }}
           DOCKER_WRITER_USER: ${{ env.DOCKER_USERNAME  }}
           DOCKER_WRITER_PASS: ${{ secrets.GITHUB_TOKEN }}
-          DOCKER_IMAGE_TAG: ${{ format('{0}.{1}.{2}', github.ref_name, steps.get-cloned.outputs.SHA, github.run_attempt) }}
+          DOCKER_IMAGE_TAG: ${{ format('{0}.{1}.{2}', env.DOCKER_IMAGE_REF , steps.get-cloned.outputs.SHA, github.run_attempt) }}
         run: |-
           set -x
-          export IMAGE_TAG=$(echo "$IMAGE_TAG" | tr '/' '-')
           for t in check build jib; do
               sh gradlew --console plain "$t" \
                 || { \
@@ -71,7 +70,7 @@ jobs:
           set +x
           tar --show-transformed-names --transform="s@^build/libs/@@;s@^build/resources/main/external/@@;" -cvf - build/libs/*.jar build/resources/main/external/* | xz -1 > user-profile-api-${{needs.helper.outputs.CI_COMMIT_REF_SLUG}}.tar.xz
           awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, " instructions covered"; print 100*covered/instructions, "% covered" }' build/jacoco.csv
-          echo "<h3>Docker image tag</h3> $IMAGE_TAG <br><br>" >> $GITHUB_STEP_SUMMARY
+          echo "<h3>Docker image tag</h3> $DOCKER_IMAGE_TAG <br><br>" >> $GITHUB_STEP_SUMMARY
 
       - name: Uploading build and test artifacts
         uses: actions/upload-artifact@v4
@@ -101,7 +100,7 @@ jobs:
         with:
           images: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_NAMESPACE }}/${{ env.DOCKER_IMAGE_KEYCLOAK }}
           tags: |
-            type=raw,value=${{ github.ref_name }}.{{sha}}.${{ github.run_attempt }}
+            type=raw,value=${{ env.DOCKER_IMAGE_REF }}.{{sha}}.${{ github.run_attempt }}
 
       - name: Build and push Docker image - Keycloak User SPI Plugin
         uses: docker/build-push-action@v3.0.0
