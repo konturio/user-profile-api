@@ -17,6 +17,8 @@ public class UserServiceTest {
     private final User someUser = someUser();
     @Mock
     private UserDao userDao;
+    @Mock
+    private IntercomService intercomService;
     @InjectMocks
     private UserService userService;
 
